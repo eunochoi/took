@@ -1,4 +1,5 @@
 import type { DiaryHeaderData } from '@/common/types/diary';
+import { EMOTIONS } from '@/common/constants/emotions';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
@@ -10,8 +11,6 @@ interface Props {
   type: 'small' | 'large';
   diaryData: DiaryHeaderData;
 }
-
-const EMOTIONS = ['#화남', '#슬픔', '#보통', '#행복', '#기쁨'] as const;
 
 const DiaryHeader = ({ diaryData, type }: Props) => {
   const date = format(diaryData.date, 'yyyy년 M월 d일');
@@ -40,7 +39,7 @@ const DiaryHeader = ({ diaryData, type }: Props) => {
         <span className="date">{date}</span>
         <span className="week">{day}</span>
         <span className="emotion">
-          {diaryData.visible && EMOTIONS[diaryData.emotion]}
+          {diaryData.visible && EMOTIONS[diaryData.emotion]?.nameKr}
         </span>
       </DateInfo>
       <Edit onClick={handleToggleMenu}>
