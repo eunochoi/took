@@ -22,8 +22,8 @@ export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) 
     <Wrapper>
       <IconWrapper>
         <Image
-          src={EMOTIONS[1].src}
-          alt={EMOTIONS[1].nameKr}
+          src={EMOTIONS[6].src}
+          alt={EMOTIONS[6].nameKr}
           width={128}
           height={128}
           priority
