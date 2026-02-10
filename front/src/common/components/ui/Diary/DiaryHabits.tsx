@@ -1,13 +1,13 @@
 import type { DiaryHabit } from '@/common/types/diary';
+import { lightenColor } from "@/common/utils/lightenColor";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
-import { lightenColor } from "@/common/utils/lightenColor";
 
 interface Props {
   habits: DiaryHabit[];
 }
 
-// 완료한 습관 태그 목록
+// 완료 습관 태그
 const DiaryHabits = ({ habits }: Props) => {
   const router = useRouter();
   const completedCount = habits?.length ?? 0;

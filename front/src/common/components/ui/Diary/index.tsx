@@ -1,5 +1,5 @@
-import SmallDiary from "./SmallDiary";
 import LargeDiary from "./LargeDiary";
+import SmallDiary from "./SmallDiary";
 
 
 interface ImageProps {
@@ -20,7 +20,7 @@ interface Props {
   diaryData: {
     email: string;
     id: number;
-    date: Date;
+    date: string;  // yyyy-MM-dd
     text: string;
     emotion: number;
     Images: Array<ImageProps>;

@@ -1,14 +1,10 @@
-// 외부 패키지
 const express = require("express");
-const { endOfMonth, startOfMonth } = require("date-fns");
-
-// 프로젝트 내부
 const db = require("../models/index.js");
 const tokenCheck = require("../middleware/tokenCheck.js");
 const { getOrComputeStreak } = require('../function/computeStreaks.js');
 const decrypt = require('../function/decrypt.js');
 const encrypt = require('../function/encrypt.js');
-const { parseDate, parseMonth } = require('../function/parseDate.js');
+const { validateDateFormat, getMonthRange } = require('../function/dateHelper.js');
 const { sendError } = require('../utils/errorResponse.js');
 
 const Op = db.Sequelize.Op;
@@ -29,7 +25,6 @@ router.post("/", tokenCheck, async (req, res) => {
   let { date, text, images, emotion } = req.body;
   const email = req.currentUserEmail;
 
-  // [입력 검증]
   if (emotion === undefined || emotion === null || emotion < 0 || emotion > 9) {
     return sendError(res, 400, '감정 값이 올바르지 않습니다. (0-9)');
   }
@@ -40,17 +35,12 @@ router.post("/", tokenCheck, async (req, res) => {
     images = [];
   }
 
-  // [데이터 가공] 날짜 파싱·텍스트 암호화
-  let dateObj;
-  try {
-    dateObj = parseDate(date);
-  } catch (parseErr) {
-    return sendError(res, 400, parseErr.message || '날짜 형식이 올바르지 않습니다. (yyyy-MM-dd)');
+  if (!validateDateFormat(date)) {
+    return sendError(res, 400, '날짜 형식이 올바르지 않습니다. (yyyy-MM-dd)');
   }
   text = encrypt(text ?? '', process.env.DATA_SECRET_KEY);
 
   try {
-    // [비동기 처리] 트랜잭션 (일기 생성/복원 + 이미지)
     const result = await sequelize.transaction(async (t) => {
       const user = await User.findOne({
         where: { email },
@@ -59,7 +49,7 @@ router.post("/", tokenCheck, async (req, res) => {
       if (!user) throw new Error("유저가 존재하지 않습니다.");
 
       const existingDiary = await Diary.findOne({
-        where: { email, date: dateObj },
+        where: { email, date: date },
         transaction: t
       });
 
@@ -80,7 +70,7 @@ router.post("/", tokenCheck, async (req, res) => {
           UserId: user.id,
           email,
           emotion,
-          date: dateObj,
+          date: date,
           text,
         }, { transaction: t });
       }
@@ -94,10 +84,7 @@ router.post("/", tokenCheck, async (req, res) => {
 
       return { diary, created: !existingDiary };
     });
-
-    // [비동기 처리] 스트릭 캐시 갱신
     await getOrComputeStreak(email, { forceRecompute: true });
-
     return res.status(result.created ? 201 : 200).json(result.diary);
 
   } catch (e) {
@@ -118,7 +105,6 @@ router.patch("/", tokenCheck, async (req, res) => {
   let { text, images, emotion } = req.body;
   const email = req.currentUserEmail;
 
-  // [입력 검증]
   if (!diaryId) {
     return sendError(res, 400, 'diaryId는 query에 필수입니다.');
   }
@@ -132,11 +118,8 @@ router.patch("/", tokenCheck, async (req, res) => {
     images = [];
   }
 
-  // [데이터 가공] 텍스트 암호화
   text = encrypt(text, process.env.DATA_SECRET_KEY);
-
   try {
-    // [비동기 처리] 트랜잭션 (일기 수정 + 이미지 교체)
     const result = await sequelize.transaction(async (t) => {
       const currentUser = await User.findOne({
         where: { email },
@@ -218,10 +201,7 @@ router.delete("/", tokenCheck, async (req, res) => {
         transaction: t
       });
     });
-
-    // [비동기 처리] 스트릭 캐시 갱신
     await getOrComputeStreak(email, { forceRecompute: true });
-
     return res.status(200).json('일기 삭제 완료');
   } catch (e) {
     console.error(e);
@@ -241,7 +221,6 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
   const diaryId = req.params.diaryId;
 
   try {
-    // [비동기 처리] DB 조회 (이미지·습관 포함)
     const diary = await Diary.findOne({
       where: { email, id: diaryId, visible: true },
       include: [
@@ -254,8 +233,6 @@ router.get("/id/:diaryId", tokenCheck, async (req, res) => {
     if (!diary) {
       return sendError(res, 404, '다이어리를 찾을 수 없습니다.');
     }
-
-    // [데이터 가공] 텍스트 복호화 후 응답
     diary.text = decrypt(diary.text, process.env.DATA_SECRET_KEY);
     return res.status(200).json(diary);
   } catch (e) {
@@ -273,8 +250,6 @@ router.get("/list", tokenCheck, async (req, res) => {
   console.log('----- method : get, url :  /diary/list -----');
   const { sort, search, pageParam, limit, selectedYear, selectedMonth } = req.query;
   const email = req.currentUserEmail;
-
-  // [데이터 가공] 쿼리 파라미터 정규화 (정렬·페이지·기간·필터)
   const sortVal = sort === 'ASC' || sort === 'DESC' ? sort : 'DESC';
   const page = Math.max(0, Number(pageParam) || 0);
   const limitNum = Math.min(100, Math.max(1, Number(limit) || 10));
@@ -284,12 +259,14 @@ router.get("/list", tokenCheck, async (req, res) => {
     const nYear = Number(selectedYear);
     const nMonth = Number(selectedMonth);
 
-    let rangeStart = new Date(0, 0, 1);
-    let rangeEnd = new Date(3000, 11, 31);
+    let rangeStart = '0000-01-01';
+    let rangeEnd = '9999-12-31';
 
     if (nYear && nMonth && nMonth !== 0) {
-      rangeStart = new Date(nYear, nMonth - 1, 1);
-      rangeEnd = new Date(nYear, nMonth, 0, 23, 59, 59);
+      const monthStr = String(nMonth).padStart(2, '0');
+      rangeStart = `${nYear}-${monthStr}-01`;
+      const lastDay = new Date(nYear, nMonth, 0).getDate();  // 말일
+      rangeEnd = `${nYear}-${monthStr}-${String(lastDay).padStart(2, '0')}`;
     }
 
     const where = {
@@ -302,8 +279,6 @@ router.get("/list", tokenCheck, async (req, res) => {
     if (emotionFilter !== 10 && emotionFilter >= 0 && emotionFilter <= 9) {
       where.emotion = emotionFilter;
     }
-
-    // [비동기 처리] DB 조회 (페이징·필터)
     const diaries = await Diary.findAll({
       where,
       offset,
@@ -318,8 +293,6 @@ router.get("/list", tokenCheck, async (req, res) => {
         [Habit, 'priority', 'DESC']
       ],
     });
-
-    // [데이터 가공] 목록 텍스트 복호화
     diaries.forEach(diary => {
       diary.text = decrypt(diary.text, process.env.DATA_SECRET_KEY);
     });
@@ -344,10 +317,13 @@ router.get("/date", tokenCheck, async (req, res) => {
   if (!date) {
     return sendError(res, 400, 'date는 query에 필수입니다.');
   }
+  if (!validateDateFormat(date)) {
+    return sendError(res, 400, '날짜 형식이 올바르지 않습니다. (yyyy-MM-dd)');
+  }
+
   try {
-    const dateObj = parseDate(date);
     const diary = await Diary.findOne({
-      where: { email, date: dateObj },
+      where: { email, date: date },
       include: [
         { model: Image },
         { model: Habit }
@@ -362,14 +338,10 @@ router.get("/date", tokenCheck, async (req, res) => {
       return sendError(res, 404, '다이어리가 존재하지 않습니다.');
     }
 
-    // [데이터 가공] 텍스트 복호화 후 응답
     diary.text = decrypt(diary.text, process.env.DATA_SECRET_KEY);
     return res.status(200).json(diary);
   } catch (e) {
     console.error(e);
-    if (e.message && (e.message.includes('Invalid') || e.message.includes('format'))) {
-      return sendError(res, 400, e.message);
-    }
     return sendError(res, 500, '서버 에러가 발생했습니다.');
   }
 })
@@ -385,16 +357,11 @@ router.get("/month", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
 
   try {
-    // [데이터 가공] 월 시작/끝 날짜
-    const current = parseMonth(month);
-    const monthStart = startOfMonth(current);
-    const monthEnd = endOfMonth(current);
-
-    // [비동기 처리] DB 조회
+    const { startDate, endDate } = getMonthRange(month);
     const diaries = await Diary.findAll({
       where: {
         email,
-        date: { [Op.between]: [monthStart, monthEnd] }
+        date: { [Op.between]: [startDate, endDate] }
       },
       attributes: ['date', 'visible', 'emotion'],
       include: [{

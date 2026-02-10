@@ -13,7 +13,7 @@ interface Habit {
 export interface diaryData {
   email: string;
   id: number;
-  date: Date;
+  date: string;  // yyyy-MM-dd
   text: string;
   emotion: number;
   Images: Array<ImageProps>;

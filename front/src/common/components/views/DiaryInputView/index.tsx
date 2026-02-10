@@ -29,7 +29,7 @@ interface ServerImageProps {
 
 interface DiaryProps {
   id: string;
-  date: Date;
+  date: string;  // yyyy-MM-dd
   text: string;
   emotion: number;
   Images: ServerImageProps[];
@@ -85,11 +85,9 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
   });
 
   const dateFromParam = param.get('date');
-  const date: string = diaryData?.date
-    ? format(diaryData.date, 'yyyy-MM-dd')
-    : (dateFromParam || format(new Date(), 'yyyy-MM-dd'));
+  const date: string = diaryData?.date ?? (dateFromParam || format(new Date(), 'yyyy-MM-dd'));
 
-  const dateForDisplay = diaryData?.date ?? parseLocalDate(date);
+  const dateForDisplay = parseLocalDate(date);
   const headerTitle = format(dateForDisplay, 'yyyy.M.dd (eee)');
 
   const [text, setText] = useState<string>(diaryData?.text ?? "");
@@ -115,13 +113,13 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
     }
 
     try {
-      // File 객체와 기존 URL 분리
+      // File / URL 나눠서
       const fileImages = images.filter((img): img is File => img instanceof File);
       const stringImages = images.filter((img): img is string => typeof img === 'string');
 
       let uploadedImageUrls: string[] = [];
 
-      // File이 있으면 서버에 업로드
+      // 새 파일만 업로드
       if (fileImages.length > 0) {
         const imageFormData = new FormData();
         fileImages.forEach(file => {
@@ -132,7 +130,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
         uploadedImageUrls = uploadRes.data;
       }
 
-      // 기존 URL + 새로 업로드된 URL 합치기
+      // 기존 URL + 업로드된 URL 합침
       const finalImages = [...stringImages, ...uploadedImageUrls];
 
       if (isEdit && diaryId) {

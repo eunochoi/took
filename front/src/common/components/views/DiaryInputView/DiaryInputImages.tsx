@@ -19,10 +19,10 @@ interface Props {
 const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Props) => {
   const blobUrlCacheRef = useRef<Map<string, string>>(new Map());
 
-  // File 객체를 위한 고유 키 생성
+  // File 키 (이름+크기+수정시각)
   const getFileKey = (file: File) => `${file.name}-${file.size}-${file.lastModified}`;
 
-  // 컴포넌트 언마운트 시 모든 Blob URL 해제
+  // 언마운트 시 Blob URL 정리
   useEffect(() => {
     const cache = blobUrlCacheRef.current;
     return () => {
@@ -37,14 +37,14 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
     if (e.target.files) {
       const ArrayImages = Array.from(e.target.files);
 
-      // 개수 체크
+      // 최대 5장
       if (images.length + ArrayImages.length > 5) {
         enqueueSnackbar("이미지 파일은 최대 5개까지 삽입 가능합니다.", { variant: 'error' });
         e.target.value = '';
         return;
       }
 
-      // 용량 체크 (10MB)
+      // 10MB 초과 방지
       const isOverSize = ArrayImages.find((file) => file.size > 10 * 1024 * 1024);
       if (isOverSize) {
         enqueueSnackbar("선택된 이미지 중 10MB를 초과하는 이미지가 존재합니다.", { variant: 'error' });
@@ -52,21 +52,19 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
         return;
       }
 
-      // File 객체를 상태에 추가 (서버 업로드 안 함)
+      // 상태에만 넣고 업로드는 제출 시
       setImages([...images, ...ArrayImages]);
-
-      // input value 초기화 - 같은 파일 재선택 가능하게
-      e.target.value = '';
+      e.target.value = '';  // 같은 파일 재선택 가능
     }
   };
 
-  // 이미지 URL 가져오기 (string이면 그대로, File이면 Blob URL)
+  // string이면 그대로, File이면 Blob URL
   const getImageUrl = (img: string | File): string => {
     if (typeof img === 'string') {
       return img;
     }
-    // File 객체인 경우 캐시된 Blob URL 반환 (없으면 새로 생성)
     if (img instanceof File) {
+      // 캐시 있으면 쓰고 없으면 생성
       const key = getFileKey(img);
       let blobUrl = blobUrlCacheRef.current.get(key);
 
@@ -81,12 +79,10 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
     return '';
   };
 
-  // 이미지 제거 핸들러
   const handleRemoveImage = (index: number) => {
     const img = images[index];
-
-    // File 객체인 경우 Blob URL 해제
     if (img instanceof File) {
+      // Blob URL 해제
       const key = getFileKey(img);
       const blobUrl = blobUrlCacheRef.current.get(key);
       if (blobUrl) {
@@ -115,7 +111,6 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
             const imageUrl = getImageUrl(img);
             const key = typeof img === 'string' ? `image-${img}` : `image-${img.name}-${i}`;
 
-            // imageUrl이 없으면 렌더링하지 않음
             if (!imageUrl) return null;
 
             return (

@@ -12,7 +12,7 @@ interface Props {
   diaryData: DiaryData;
 }
 
-// 리스트에서 사용하는 큰 일기 카드
+// 리스트 큰 카드
 const LargeDiary = ({ diaryData }: Props) => {
   const router = useRouter();
   const { Images: images } = diaryData;

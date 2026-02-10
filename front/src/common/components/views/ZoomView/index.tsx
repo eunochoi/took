@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { format } from "date-fns";
+import { ko } from "date-fns/locale";
 import Image from "next/image";
 import styled from "styled-components";
 import Carousel from "../../ui/Carousel";
@@ -24,8 +25,10 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
     enabled: diaryId !== null
   });
 
-  const date: Date = diaryData?.date;
-  const headerTitle = format(date, 'yyyy.M.dd (eee)');
+  const date = diaryData?.date;  // yyyy-MM-dd
+  const formattedDate = date ? format(new Date(date), 'yyyy년 M월 d일') : '';
+  const formattedDay = date ? format(new Date(date), 'eeee', { locale: ko }) : '';
+  const headerTitle = date ? `${formattedDate} ${formattedDay}` : '';
   const images = diaryData?.Images;
 
   const [zoomState, setZoomState] = useState<'zoom' | ''>('');
@@ -79,7 +82,7 @@ const CarouselWrapper = styled.div`
 
 const InteractiveImage = styled(Image)`
   cursor: pointer;
-  /* Carousel의 SlideItem에서 img 태그에 object-fit이 적용됨 */
+  /* SlideItem에서 object-fit 쓰니까 zoom일 때만 덮음 */
   
   &.zoom {
     object-fit: cover !important;

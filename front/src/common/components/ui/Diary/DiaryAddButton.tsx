@@ -3,7 +3,7 @@ import { MdAdd } from 'react-icons/md';
 import styled from "styled-components";
 
 interface Props {
-  date: string; // 'yyyy-MM-dd'
+  date: string; // yyyy-MM-dd
 }
 
 const DiaryAddButton = ({ date }: Props) => {

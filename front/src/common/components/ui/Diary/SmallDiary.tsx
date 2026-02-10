@@ -1,7 +1,6 @@
 'use client';
 
 import type { DiaryData } from '@/common/types/diary';
-import { format } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styled from "styled-components";
@@ -14,10 +13,10 @@ interface Props {
   diaryData: DiaryData;
 }
 
-// 캘린더용 작은 일기 카드
+// 캘린더 작은 카드
 const SmallDiary = ({ diaryData }: Props) => {
   const router = useRouter();
-  const dateString = format(new Date(diaryData.date), 'yyyy-MM-dd');
+  const dateString = diaryData.date;  // yyyy-MM-dd
 
   const hasText = diaryData.visible;
   const images = diaryData.Images ?? [];
@@ -28,7 +27,7 @@ const SmallDiary = ({ diaryData }: Props) => {
     }
   };
 
-  // 일기 있음
+  // 있음
   if (hasText) {
     return (
       <Wrapper>
@@ -60,7 +59,7 @@ const SmallDiary = ({ diaryData }: Props) => {
     );
   }
 
-  // 일기 없음
+  // 없음
   return (
     <Wrapper>
       <EmptySlide>

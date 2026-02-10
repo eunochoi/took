@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 import Api from "@/api/Api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { MdContentCopy, MdOutlineDeleteForever, MdOutlineEdit } from 'react-icons/md';
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
 import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { MdContentCopy, MdOutlineDeleteForever, MdOutlineEdit } from 'react-icons/md';
 import { SnackBarAction } from "../../../utils/snackBar/SnackBarAction";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
   position: number | undefined;
   diaryData: {
-    date: Date;
+    date: string;  // yyyy-MM-dd
     visible: boolean;
     emotion: number;
     text: string;
@@ -77,7 +77,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
           closeSnackbar('diaryDelete');
         }} />
     );
-    enqueueSnackbar(`${format(diaryData.date, 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: false, action, autoHideDuration: 3000 });
+    enqueueSnackbar(`${format(new Date(diaryData.date), 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: false, action, autoHideDuration: 3000 });
     closeMenu();
   };
   const onClickCopy = () => {

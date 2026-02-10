@@ -1,8 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
   const Diary = sequelize.define('diary', {
     email: {
-      type: DataTypes.STRING(30),//최대 30자인 문자(STRING, TEXT, BOOLEAN, INTEGER, FLOAT, DATETIME)
-      allowNull: false, //빈값 허용 X, 입력 필수
+      type: DataTypes.STRING(30),
+      allowNull: false,
     },
     visible: {
       type: DataTypes.BOOLEAN,
@@ -17,8 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     date: {
-      type: DataTypes.DATE,
-      allowNull: false
+      type: DataTypes.STRING(10),
+      allowNull: false,
+      validate: {
+        is: /^\d{4}-\d{2}-\d{2}$/
+      }
     },
   }, {
     charset: 'utf8mb4',
@@ -26,9 +29,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Diary.associate = (db) => {
-
-    db.Diary.belongsTo(db.User); //Diary.addUser, Diary.setUser, Diary.getUser
-    db.Diary.hasMany(db.Image); //Diary.addImages
+    db.Diary.belongsTo(db.User);
+    db.Diary.hasMany(db.Image);
     db.Diary.belongsToMany(db.Habit, {
       through: 'DiaryHabit'
     });

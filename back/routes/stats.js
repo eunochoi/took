@@ -1,12 +1,9 @@
-// 외부 패키지
 const express = require("express");
-
-// 프로젝트 내부
 const db = require("../models/index.js");
 const tokenCheck = require("../middleware/tokenCheck.js");
 const { getOrComputeStreak } = require('../function/computeStreaks.js');
 const decrypt = require('../function/decrypt.js');
-const { getYearRange } = require('../function/parseDate.js');
+const { getYearRange } = require('../function/dateHelper.js');
 const { sendError } = require('../utils/errorResponse.js');
 
 const Op = db.Sequelize.Op;
@@ -30,14 +27,11 @@ router.get("/years", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
 
   try {
-    // [비동기 처리] DB 조회 (visible 일기 날짜만)
     const diaries = await Diary.findAll({
       where: { email, visible: true },
       attributes: ['date']
     });
-
-    // [데이터 가공] 연도 추출·중복 제거·내림차순
-    const years = [...new Set(diaries.map(d => new Date(d.date).getFullYear()))].sort((a, b) => b - a);
+    const years = [...new Set(diaries.map(d => parseInt(d.date.split('-')[0], 10)))].sort((a, b) => b - a);
     return res.status(200).json(years);
   } catch (e) {
     console.error(e);
@@ -55,27 +49,20 @@ router.get("/diary/:year", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
   const year = parseInt(req.params.year, 10);
 
-  // [입력 검증]
   if (!Number.isFinite(year) || year < 1900 || year > 2100) {
     return sendError(res, 400, 'year는 1900~2100 사이의 유효한 연도여야 합니다.');
   }
-
   try {
-    // [데이터 가공] 연도 범위
-    const { yearStart, yearEnd } = getYearRange(year);
-
-    // [비동기 처리] 해당 연도 일기 조회
+    const { startDate, endDate } = getYearRange(year);
     const diaries = await Diary.findAll({
       where: {
         email,
         visible: true,
-        date: { [Op.between]: [yearStart, yearEnd] }
+        date: { [Op.between]: [startDate, endDate] }
       },
       attributes: ['date', 'emotion', 'text'],
       order: [['date', 'ASC']]
     });
-
-    // [비동기 처리] 스트릭 조회(캐시 또는 계산)
     const streak = await getOrComputeStreak(email);
     if (!streak) {
       return sendError(res, 404, '유저를 찾을 수 없습니다.');
@@ -92,8 +79,6 @@ router.get("/diary/:year", tokenCheck, async (req, res) => {
         monthlyEmotionCounts: Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
       });
     }
-
-    // [데이터 가공] 감정·월별 집계 (루프에서 채움)
     const emotionCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     const monthlyCount = Array(12).fill(0);
     const monthlyEmotionCounts = Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
@@ -103,7 +88,7 @@ router.get("/diary/:year", tokenCheck, async (req, res) => {
       if (d.emotion >= 0 && d.emotion <= 9) {
         emotionCounts[d.emotion]++;
       }
-      const month = new Date(d.date).getMonth();
+      const month = parseInt(d.date.split('-')[1], 10) - 1;
       monthlyCount[month]++;
       if (d.emotion >= 0 && d.emotion <= 9) {
         monthlyEmotionCounts[month][d.emotion]++;
@@ -141,16 +126,11 @@ router.get("/habit/:year", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
   const year = parseInt(req.params.year, 10);
 
-  // [입력 검증]
   if (!Number.isFinite(year) || year < 1900 || year > 2100) {
     return sendError(res, 400, 'year는 1900~2100 사이의 유효한 연도여야 합니다.');
   }
-
   try {
-    // [데이터 가공] 연도 범위
-    const { yearStart, yearEnd } = getYearRange(year);
-
-    // [비동기 처리] 습관 개수·목록 + 해당 연도 일기(습관 연동)
+    const { startDate, endDate } = getYearRange(year);
     const totalHabits = await Habit.count({ where: { email } });
     const allHabits = await Habit.findAll({
       where: { email },
@@ -160,7 +140,7 @@ router.get("/habit/:year", tokenCheck, async (req, res) => {
     const diaries = await Diary.findAll({
       where: {
         email,
-        date: { [Op.between]: [yearStart, yearEnd] }
+        date: { [Op.between]: [startDate, endDate] }
       },
       attributes: ['id', 'visible', 'date'],
       include: [{
@@ -169,8 +149,6 @@ router.get("/habit/:year", tokenCheck, async (req, res) => {
         through: { attributes: [] }
       }]
     });
-
-    // [데이터 가공] 습관별 완료 횟수·집계 변수 초기화
     const habitCounts = {};
     allHabits.forEach(habit => {
       habitCounts[habit.id] = { id: habit.id, name: habit.name, priority: habit.priority, count: 0 };
@@ -180,18 +158,14 @@ router.get("/habit/:year", tokenCheck, async (req, res) => {
     let visibleDiariesWithHabits = 0;
     let totalHabitsInDiariesWithHabits = 0;
     const habitCompletionDates = new Set();
-
-    // [데이터 가공] 일기별 습관 체크 집계
     diaries.forEach(diary => {
       if (diary.Habits && diary.Habits.length > 0) {
         const habitCount = diary.Habits.length;
-
         if (diary.visible) {
           visibleDiariesWithHabits++;
           totalHabitsInDiariesWithHabits += habitCount;
         }
-        const diaryDate = new Date(diary.date).toISOString().split('T')[0];
-        habitCompletionDates.add(diaryDate);
+        habitCompletionDates.add(diary.date);
 
         diary.Habits.forEach(habit => {
           totalHabitCompletions++;
@@ -201,8 +175,6 @@ router.get("/habit/:year", tokenCheck, async (req, res) => {
         });
       }
     });
-
-    // [데이터 가공] 상위/하위 습관·평균 계산
     const sortedHabits = Object.values(habitCounts).sort((a, b) => b.count - a.count);
     const topHabits = sortedHabits.slice(0, 5);
     const bottomHabits = sortedHabits.length > 5

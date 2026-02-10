@@ -1,5 +1,5 @@
-import type { DiaryHeaderData } from '@/common/types/diary';
 import { EMOTIONS } from '@/common/constants/emotions';
+import type { DiaryHeaderData } from '@/common/types/diary';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
@@ -13,8 +13,8 @@ interface Props {
 }
 
 const DiaryHeader = ({ diaryData, type }: Props) => {
-  const date = format(diaryData.date, 'yyyy년 M월 d일');
-  const day = format(diaryData.date, 'eeee', { locale: ko });
+  const date = format(new Date(diaryData.date), 'yyyy년 M월 d일');
+  const day = format(new Date(diaryData.date), 'eeee', { locale: ko });
 
   const [isMenuOpen, setMenuOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -24,7 +24,7 @@ const DiaryHeader = ({ diaryData, type }: Props) => {
     setMenuOpen((prev) => !prev);
   };
 
-  // 일기 변경시 메뉴 닫기
+  // 일기 바뀌면 메뉴 닫기
   useEffect(() => {
     setMenuOpen(false);
   }, [diaryData]);

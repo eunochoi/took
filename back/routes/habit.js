@@ -1,11 +1,7 @@
-// 외부 패키지
 const express = require("express");
-const { endOfMonth, startOfMonth, subDays } = require("date-fns");
-
-// 프로젝트 내부
 const db = require("../models/index.js");
 const tokenCheck = require("../middleware/tokenCheck.js");
-const { getYearRange, parseDate, parseMonth, parseYear } = require('../function/parseDate.js');
+const { validateDateFormat, getUserTimezone, getTodayInTimezone, getDaysAgoInTimezone, getMonthRange, getYearRange } = require('../function/dateHelper.js');
 const { sendError } = require('../utils/errorResponse.js');
 
 const Op = db.Sequelize.Op;
@@ -26,11 +22,8 @@ router.get("/today", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
 
   try {
-    // [데이터 가공] 오늘 00:00:00 기준 날짜
-    const todayDate = new Date();
-    todayDate.setHours(0, 0, 0, 0);
-
-    // [비동기 처리] 병렬 조회 (습관 개수 + 오늘 일기)
+    const userTimezone = getUserTimezone(req);
+    const todayDate = getTodayInTimezone(userTimezone);
     const [habitCount, todayDiary] = await Promise.all([
       Habit.count({ where: { email } }),
       Diary.findOne({
@@ -59,12 +52,10 @@ router.get("/", tokenCheck, async (req, res) => {
   const { id } = req.query;
   const email = req.currentUserEmail;
 
-  // [입력 검증]
   if (id == null || id === '') {
     return sendError(res, 400, 'id는 query에 필수입니다.');
   }
   try {
-    // [비동기 처리] DB 조회
     const habit = await Habit.findOne({
       where: { id, email }
     });
@@ -91,7 +82,7 @@ router.get("/list", tokenCheck, async (req, res) => {
     let { customOrder } = req.query;
     const email = req.currentUserEmail;
 
-    // [입력 검증·데이터 가공] customOrder 숫자만 허용 (SQL injection 방지)
+    // customOrder 숫자만 (SQL injection 방지)
     if (typeof customOrder === 'string' && customOrder) {
       customOrder = customOrder.split(',').map(e => Number(e.trim())).filter(n => Number.isFinite(n));
     } else if (!Array.isArray(customOrder)) {
@@ -100,7 +91,7 @@ router.get("/list", tokenCheck, async (req, res) => {
       customOrder = customOrder.map(n => Number(n)).filter(n => Number.isFinite(n));
     }
 
-    // [데이터 가공] 정렬 옵션 구성
+    // 정렬 옵션
     const findOptions = {
       where: { email }
     };
@@ -125,7 +116,6 @@ router.get("/list", tokenCheck, async (req, res) => {
       ]
     }
 
-    // [비동기 처리] DB 조회
     const habits = await Habit.findAll(findOptions);
     return res.status(200).json(habits);
   } catch (e) {
@@ -135,7 +125,7 @@ router.get("/list", tokenCheck, async (req, res) => {
 });
 
 /**
- * 용도: 특정 습관의 최근 4일 체크 여부. date 기준 당일~3일 전.
+ * 용도: 특정 습관의 최근 4일 체크 여부. date 기준 당일~3일 전. BETWEEN 사용.
  * 요청: query id(habitId), date(string 'yyyy-MM-dd'), tokenCheck
  * 반환: 200 boolean[] (4일치 순서대로 체크 여부)
  */
@@ -145,15 +135,17 @@ router.get("/recent", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
 
   try {
-    // [데이터 가공] 기준일·최근 4일 배열
-    const d = parseDate(date);
-    const recentDates = [d, subDays(d, 1), subDays(d, 2), subDays(d, 3)];
+    if (!validateDateFormat(date)) {
+      return sendError(res, 400, '날짜 형식이 올바르지 않습니다. (yyyy-MM-dd)');
+    }
 
-    // [비동기 처리] 4일치 일기·습관 연동 한 번에 조회
-    const diaries = await Diary.findAll({
+    const userTimezone = getUserTimezone(req);
+    const startDateStr = getDaysAgoInTimezone(3, userTimezone);
+
+    const recentDiaries = await Diary.findAll({
       where: {
         email,
-        date: { [Op.in]: recentDates }
+        date: { [Op.between]: [startDateStr, date] }
       },
       attributes: ['date'],
       include: [{
@@ -161,15 +153,20 @@ router.get("/recent", tokenCheck, async (req, res) => {
         where: { id },
         attributes: [],
         required: true
-      }]
+      }],
+      order: [['date', 'DESC']]
     });
 
-    // [데이터 가공] 날짜별 체크 여부 배열로 변환
-    const foundDates = new Set(diaries.map(d => d.date.toISOString().split('T')[0]));
-    const result = recentDates.map(date => {
-      const dateStr = date.toISOString().split('T')[0];
-      return foundDates.has(dateStr);
-    });
+    const foundDates = new Set(recentDiaries.map(d => d.date));
+
+    const recentDates = [
+      date,
+      getDaysAgoInTimezone(1, userTimezone),
+      getDaysAgoInTimezone(2, userTimezone),
+      getDaysAgoInTimezone(3, userTimezone)
+    ];
+
+    const result = recentDates.map(dateStr => foundDates.has(dateStr));
 
     return res.status(200).json(result);
   } catch (e) {
@@ -190,16 +187,11 @@ router.get("/month/single", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
 
   try {
-    // [데이터 가공] 월 범위
-    const current = parseMonth(month);
-    const monthStart = startOfMonth(current);
-    const monthEnd = endOfMonth(current);
-
-    // [비동기 처리] DB 조회
+    const { startDate, endDate } = getMonthRange(month);
     const diaries = await Diary.findAll({
       where: {
         email,
-        date: { [Op.between]: [monthStart, monthEnd] }
+        date: { [Op.between]: [startDate, endDate] }
       },
       attributes: ['date'],
       include: [{
@@ -209,7 +201,6 @@ router.get("/month/single", tokenCheck, async (req, res) => {
         required: true
       }]
     });
-
     return res.status(200).json(diaries);
   } catch (e) {
     console.error(e);
@@ -228,15 +219,11 @@ router.get("/year/single", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
 
   try {
-    // [데이터 가공] 연도 범위
-    const year = parseYear(yearParam);
-    const { yearStart, yearEnd } = getYearRange(year);
-
-    // [비동기 처리] 1년치 데이터 조회
+    const { startDate, endDate } = getYearRange(yearParam);
     const diaries = await Diary.findAll({
       where: {
         email,
-        date: { [Op.between]: [yearStart, yearEnd] }
+        date: { [Op.between]: [startDate, endDate] }
       },
       attributes: ['date'],
       include: [{
@@ -246,11 +233,9 @@ router.get("/year/single", tokenCheck, async (req, res) => {
         required: true
       }]
     });
-
-    // [데이터 가공] 월별 완료 횟수 배열(12)
     const result = Array(12).fill(0);
     diaries.forEach(diary => {
-      const month = new Date(diary.date).getMonth();
+      const month = parseInt(diary.date.split('-')[1], 10) - 1;
       result[month]++;
     });
 
@@ -271,32 +256,24 @@ router.post("/", tokenCheck, async (req, res) => {
   const { habitName, priority } = req.body;
   const email = req.currentUserEmail;
 
-  // [입력 검증]
   if (habitName == null || typeof habitName !== 'string' || !habitName.trim()) {
     return sendError(res, 400, 'habitName은 필수이며 비어있을 수 없습니다.');
   }
   try {
-    // [비동기 처리] 유저 조회
     const user = await User.findOne({ where: { email } });
     if (!user) {
       return sendError(res, 404, '유저가 존재하지 않습니다.');
     }
-
-    // [비동기 처리] 중복 이름 확인
     const existingHabit = await Habit.findOne({
       where: { email, name: habitName }
     });
     if (existingHabit) {
       return sendError(res, 400, '같은 이름을 가진 습관이 이미 존재합니다.');
     }
-
-    // [비동기 처리] 최대 개수 확인
     const habitCount = await Habit.count({ where: { email } });
     if (habitCount >= 18) {
       return sendError(res, 400, '습관은 최대 18개까지 생성 가능합니다.');
     }
-
-    // [비동기 처리] DB 저장
     const habit = await Habit.create({
       UserId: user.id,
       email,
@@ -321,20 +298,16 @@ router.patch("/", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
   const { habitId, habitName, priority } = req.body;
 
-  // [입력 검증]
   if (habitId == null || habitName == null || typeof habitName !== 'string' || !habitName.trim()) {
     return sendError(res, 400, 'habitId와 habitName은 필수이며 habitName은 비어있을 수 없습니다.');
   }
   try {
-    // [비동기 처리] 습관 조회
     const habit = await Habit.findOne({
       where: { id: habitId, email }
     });
     if (!habit) {
       return sendError(res, 404, '습관이 존재하지 않습니다.');
     }
-
-    // [비동기 처리] 중복 이름 확인 (자기 제외)
     const duplicateName = await Habit.findOne({
       where: {
         email,
@@ -345,8 +318,6 @@ router.patch("/", tokenCheck, async (req, res) => {
     if (duplicateName) {
       return sendError(res, 400, '동일한 이름의 습관이 존재합니다.');
     }
-
-    // [비동기 처리] DB 수정
     await habit.update({ name: habitName, priority });
     return res.status(200).json(habit);
   } catch (e) {
@@ -365,12 +336,10 @@ router.delete("/", tokenCheck, async (req, res) => {
   const email = req.currentUserEmail;
   const { habitId } = req.query;
 
-  // [입력 검증]
   if (habitId == null || habitId === '') {
     return sendError(res, 400, 'habitId는 query에 필수입니다.');
   }
   try {
-    // [비동기 처리] 습관 조회 후 삭제
     const habit = await Habit.findOne({
       where: { id: habitId, email }
     });
@@ -399,16 +368,14 @@ router.post("/check", tokenCheck, async (req, res) => {
   const { habitId, date } = req.body;
   const email = req.currentUserEmail;
 
-  // [입력 검증]
   if (habitId == null || date == null) {
     return sendError(res, 400, 'habitId와 date는 body에 필수입니다.');
   }
+  if (!validateDateFormat(date)) {
+    return sendError(res, 400, '날짜 형식이 올바르지 않습니다. (yyyy-MM-dd)');
+  }
   try {
-    // [비동기 처리] 트랜잭션 (일기 없으면 생성 후 습관 연결)
     const result = await sequelize.transaction(async (t) => {
-      // [데이터 가공] 날짜 파싱
-      const dateObj = parseDate(date);
-
       const user = await User.findOne({
         where: { email },
         transaction: t
@@ -422,13 +389,13 @@ router.post("/check", tokenCheck, async (req, res) => {
       if (!habit) throw new Error('습관이 존재하지 않습니다.');
 
       const [diary] = await Diary.findOrCreate({
-        where: { email, date: dateObj },
+        where: { email, date: date },
         defaults: {
           visible: false,
           UserId: user.id,
           email,
           emotion: 0,
-          date: dateObj,
+          date: date,
           text: '-',
         },
         transaction: t
@@ -456,34 +423,29 @@ router.delete("/check", tokenCheck, async (req, res) => {
   const { habitId, date } = req.body;
   const email = req.currentUserEmail;
 
-  // [입력 검증]
   if (habitId == null || date == null) {
     return sendError(res, 400, 'habitId와 date는 body에 필수입니다.');
   }
+  if (!validateDateFormat(date)) {
+    return sendError(res, 400, '날짜 형식이 올바르지 않습니다. (yyyy-MM-dd)');
+  }
   try {
-    // [비동기 처리] 트랜잭션 (Diary-Habit 연결만 제거)
     const result = await sequelize.transaction(async (t) => {
-      // [데이터 가공] 날짜 파싱
-      const dateObj = parseDate(date);
-
       const user = await User.findOne({
         where: { email },
         transaction: t
       });
       if (!user) throw new Error('유저 정보가 존재하지 않습니다.');
-
       const habit = await Habit.findOne({
         where: { email, id: habitId },
         transaction: t
       });
       if (!habit) throw new Error('습관이 존재하지 않습니다.');
-
       const diary = await Diary.findOne({
-        where: { email, date: dateObj },
+        where: { email, date: date },
         transaction: t
       });
       if (!diary) throw new Error('다이어리가 존재하지 않습니다.');
-
       await diary.removeHabit(habit, { transaction: t });
       return 'unchecked';
     });
