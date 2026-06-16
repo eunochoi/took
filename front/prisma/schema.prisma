@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int      @id @default(autoincrement())
+  email             String   @unique @db.VarChar(30)
+  provider          String   @db.VarChar(30)
+  currentStreakDays Int?
+  longestStreakDays Int?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  diaries Diary[]
+  habits  Habit[]
+
+  @@map("User")
+}
+
+model Diary {
+  id        Int      @id @default(autoincrement())
+  email     String   @db.VarChar(30)
+  visible   Boolean
+  emotion   Int
+  text      String
+  date      String   @db.VarChar(10)
+  userId    Int      @map("UserId")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Restrict)
+  images      Image[]
+  diaryHabits DiaryHabit[]
+
+  @@unique([userId, date])
+  @@index([userId, date])
+  @@map("Diary")
+}
+
+model Habit {
+  id        Int      @id @default(autoincrement())
+  email     String   @db.VarChar(30)
+  name      String   @db.VarChar(50)
+  priority  Int
+  userId    Int      @map("UserId")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Restrict)
+  diaryHabits DiaryHabit[]
+
+  @@unique([userId, name])
+  @@index([userId])
+  @@map("Habit")
+}
+
+model Image {
+  id        Int      @id @default(autoincrement())
+  src       String   @db.VarChar(500)
+  order     Int?
+  diaryId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  diary Diary @relation(fields: [diaryId], references: [id], onDelete: Restrict)
+
+  @@index([diaryId])
+  @@map("Image")
+}
+
+model DiaryHabit {
+  habitId Int @map("HabitId")
+  diaryId Int @map("diaryId")
+
+  diary Diary @relation(fields: [diaryId], references: [id], onDelete: Cascade)
+  habit Habit @relation(fields: [habitId], references: [id], onDelete: Cascade)
+
+  @@id([habitId, diaryId])
+  @@index([diaryId])
+  @@map("DiaryHabit")
+}
