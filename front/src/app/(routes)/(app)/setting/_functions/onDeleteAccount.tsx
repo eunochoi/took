@@ -1,4 +1,5 @@
-import Api from "@/api/Api";
+import { authAction } from "@/common/actions/authAction";
+import { deleteCurrentUser } from "@/common/actions/user";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import { signOut } from "next-auth/react";
 import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
@@ -8,7 +9,10 @@ export const onDeleteAccount = () => {
     <>
       <SnackBarAction
         yesAction={() => {
-          Api.delete('user').then(() => { signOut(); });
+          authAction(deleteCurrentUser).then(async () => {
+            await signOut({ redirect: false });
+            window.location.replace('/login');
+          });
           closeSnackbar('userDelete');
         }}
         noAction={() => {

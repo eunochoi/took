@@ -1,7 +1,6 @@
 'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,9 +8,9 @@ import { useEffect } from "react";
 import styled from "styled-components";
 
 
-import Api from "@/api/Api";
+import { logout as logoutService } from "@/common/auth/logout";
 import Logo from '@/common/components/ui/Logo';
-import { getCurrentUser } from "@/common/fetchers/user";
+import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
@@ -21,9 +20,7 @@ import naver from '/public/img/loginIcon/naver.png';
 const Page = () => {
   const router = useRouter();
 
-  const { data: user, isSuccess } = useQuery({
-    queryKey: ['user'],
-    queryFn: getCurrentUser,
+  const { data: user, isSuccess } = useCurrentUser({
     refetchOnWindowFocus: "always",
 
     staleTime: 0,
@@ -32,9 +29,7 @@ const Page = () => {
   })
 
   const logout = () => {
-    Api.get('user/logout').then(() => {
-      signOut();
-    });
+    logoutService();
   }
 
   useEffect(() => {

@@ -7,7 +7,9 @@ import styled from "styled-components";
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
+import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
+import { format } from "date-fns";
 
 import { FontSizeSelector } from "./_components/FontSizeSelector";
 import { FontTypeSelector } from "./_components/FontTypeSelector";
@@ -15,7 +17,6 @@ import { SettingItem } from "./_components/SettingItem";
 import { ThemeColorSelector } from "./_components/ThemeColorSelector";
 import { onDeleteAccount } from "./_functions/onDeleteAccount";
 import { onLogout } from "./_functions/onLogout";
-import { useCurrentUserData } from "./_hooks/useCurrentUserData";
 
 const SettingPage = () => {
   usePrefetchPage();
@@ -24,7 +25,10 @@ const SettingPage = () => {
   const dev = process.env.NODE_ENV === 'development';
   const protocol = dev ? 'http://' : 'https://';
   const introURL = `${protocol}${process.env.NEXT_PUBLIC_DOMAIN}/intro`;
-  const { email, provider, createAt } = useCurrentUserData();
+  const { data: user } = useCurrentUser();
+  const email = user?.email ?? '-';
+  const provider = user?.provider ?? '-';
+  const createAt = user?.createdAt ? format(user.createdAt, 'yyyy.MM.dd') : '-';
 
   return (
     <PageWrapper>

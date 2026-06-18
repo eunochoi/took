@@ -1,12 +1,8 @@
-import { getCurrentUser } from "@/common/fetchers/user";
-import { useQuery } from "@tanstack/react-query";
+import { useCurrentUser } from "./useCurrentUser";
 
 export const useCurrentUserEmail = () => {
-  const { data: user = { email: '' } } = useQuery({
-    queryKey: ['user'],
-    queryFn: getCurrentUser,
-  })
-  const currentUserEmail: string = user.email ?? '';
+  const { data: user } = useCurrentUser()
+  const currentUserEmail: string = user?.email ?? '';
 
   return { currentUserEmail };
 }
