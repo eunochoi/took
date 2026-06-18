@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-import { getCurrentUser } from "@/common/fetchers/user";
 import { RootProviders } from "@/common/utils/RootProviders";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { headers } from 'next/headers';
@@ -54,11 +53,6 @@ export default async function RootLayout({
 
   const queryClient = new QueryClient();
 
-  //for login status check
-  await queryClient.prefetchQuery({
-    queryKey: ['user'],
-    queryFn: getCurrentUser,
-  })
   const dehydratedState = dehydrate(queryClient)
 
   return (

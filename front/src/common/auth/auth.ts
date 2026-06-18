@@ -1,10 +1,11 @@
-import Api from "@/api/Api"
 import NextAuth from "next-auth"
 
 import Google from "next-auth/providers/google"
 import Kakao from "next-auth/providers/kakao"
 import Naver from "next-auth/providers/naver"
-import { cookies } from "next/headers"
+
+import { prisma } from "../../../lib/prisma"
+import { setAccessRefreshToken } from "./token"
 
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -15,47 +16,39 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     maxAge: 5 * 24 * 60 * 60, //s not ms
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       const provider = account?.provider;
       const email = user.email;
 
+      if (!email || !provider) {
+        return '/unauthorized';
+      }
+
       try {
-        const res = await Api.post(`/user/auth`,
-          {
-            email,
-            provider
-          }
-        );
-        if (res) {
-          const result = res.data.result;
-          const message = res.data.message;
-          if (result === true) {
-            const accessToken = res.data.accessToken;
-            const refreshToken = res.data.refreshToken;
-            const baseDomain = `.${process.env.NEXT_PUBLIC_DOMAIN}`;
-            const maxAge = 7 * 24 * 60 * 60;
-            cookies().set('accessToken', accessToken, {
-              sameSite: 'lax',
-              domain: baseDomain,
-              maxAge,
-              path: '/',
-              httpOnly: true
-            });
-            cookies().set('refreshToken', refreshToken, {
-              sameSite: 'lax',
-              domain: baseDomain,
-              maxAge,
-              path: '/api/auth/refresh',
-              httpOnly: true
-            });
-            return true;
-          }
-          else return `/unauthorized?message=${encodeURI(message)}`;
+        const foundUser = await prisma.user.findUnique({
+          where: { email },
+          select: { provider: true },
+        });
+
+        if (foundUser && foundUser.provider !== provider) {
+          return `/unauthorized?message=${encodeURI('이미 다른 SNS로 가입된 이메일입니다.')}`;
         }
+
+        if (!foundUser) {
+          await prisma.user.create({
+            data: {
+              email,
+              provider,
+            },
+          });
+        }
+
+        await setAccessRefreshToken({ email, provider });
+        return true;
       } catch (e) {
         console.log(e);
+        return `/unauthorized`;
       }
-      return `/unauthorized`;
     },
     // async jwt({ token, user, account, profile, isNewUser }) {
     //   return token;

@@ -1,8 +1,14 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export async function POST() {
+import { authTokenIssuer, clearAccessRefreshToken, parseAuthTokenPayload, refreshAccessToken } from "@/common/auth/token";
+import { getEnvValue } from "@/common/utils/getEnvValue";
+
+/**
+ * 리프레시 토큰을 검증하고 새로운 액세스 토큰을 발급한다.
+*/
+export const POST = async () => {
   const cookieStore = await cookies();
   const refreshToken = cookieStore.get("refreshToken")?.value;
 
@@ -11,40 +17,21 @@ export async function POST() {
   }
 
   try {
-    const decoded = jwt.verify(
-      refreshToken,
-      process.env.REFRESH_SECRET_KEY!
-    ) as { email: string; provider: string };
-
-    const { email, provider } = decoded;
+    const decoded = jwt.verify(refreshToken, getEnvValue('REFRESH_SECRET_KEY'), {
+      issuer: authTokenIssuer,
+    });
+    const { email, provider } = parseAuthTokenPayload(decoded);
 
     if (!email || !provider) {
       return NextResponse.json({ error: "유효하지 않은 토큰입니다." }, { status: 401 });
     }
 
-    const accessToken = jwt.sign(
-      { email, provider },
-      process.env.ACCESS_SECRET_KEY!,
-      { expiresIn: '5m', issuer: 'everstamp' }
-    );
-    const isProduction = process.env.NODE_ENV === "production";
-    const domain = process.env.NEXT_PUBLIC_DOMAIN;
-    const maxAge = 7 * 24 * 60 * 60;
-
-    const response = NextResponse.json({ accessToken });
-    response.cookies.set("accessToken", accessToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? "strict" : "lax",
-      maxAge,
-      path: "/",
-      ...(domain ? { domain: `.${domain}` } : {}),
-    });
-
-    return response;
+    const accessToken = await refreshAccessToken({ email, provider });
+    return NextResponse.json({ result: true, accessToken });
 
   } catch (e: any) {
     console.error("refresh error:", e);
+    await clearAccessRefreshToken();
 
     if (e.name === 'TokenExpiredError') {
       return NextResponse.json({ error: "리프레시 토큰이 만료되었습니다." }, { status: 401 });
