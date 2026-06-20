@@ -80,7 +80,7 @@ const ZoomViewContent = styled(Modal.Content)`
 const CarouselWrapper = styled.div`
   width: 100%;
   height: 100%;
-  padding: 0 12px;
+  /* padding: 0 12px; */
 `;
 
 const InteractiveImage = styled(Image)`
