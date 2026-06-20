@@ -4,7 +4,7 @@ import { useCurrentUser } from '@/common/hooks/useCurrentUser';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export function useProtectedRoute() {
+export function useAuthRoute() {
   const router = useRouter();
 
   const { data: user, isLoading, isError, error } = useCurrentUser({
