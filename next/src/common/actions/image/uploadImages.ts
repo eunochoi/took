@@ -1,6 +1,6 @@
 'use server';
 
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { Buffer } from 'node:buffer';
 import { randomUUID } from 'node:crypto';
 import sharp from 'sharp';
@@ -10,47 +10,11 @@ import {
   DIARY_IMAGE_MAX_COUNT,
   DIARY_IMAGE_MAX_SIZE_BYTES,
   DIARY_IMAGE_MAX_SIZE_MB,
-} from '../constants/image';
-import { getAuth, type AuthResult } from '../auth/getAuth';
-import { getEnvValue } from '../utils/getEnvValue';
-import type { ActionResult } from './types';
-
-const createAuthErrorResult = (error: Extract<AuthResult, { ok: false }>): ActionResult<never> => {
-  return {
-    ok: false,
-    code: error.code,
-    message: error.message,
-  };
-};
-
-const createErrorResult = (code: string, message: string): ActionResult<never> => {
-  return { ok: false, code, message };
-};
-
-const validateImageBuffer = (buffer: Buffer) => {
-  if (buffer.length < 12) return false;
-
-  const header = buffer.toString('hex', 0, 4);
-  const webpSignature = buffer.toString('ascii', 8, 12);
-
-  return (
-    header.startsWith('ffd8ff') ||
-    header.startsWith('89504e47') ||
-    (header.startsWith('52494646') && webpSignature === 'WEBP')
-  );
-};
-
-const createS3Client = () => {
-  return new S3Client({
-    region: getEnvValue('OCI_REGION'),
-    endpoint: getEnvValue('OCI_ENDPOINT'),
-    credentials: {
-      accessKeyId: getEnvValue('OCI_ACCESS_KEY'),
-      secretAccessKey: getEnvValue('OCI_SECRET_KEY'),
-    },
-    forcePathStyle: true,
-  });
-};
+} from '../../constants/image';
+import { getAuth } from '../../auth/getAuth';
+import { getEnvValue } from '../../utils/getEnvValue';
+import type { ActionResult } from '../types';
+import { createAuthErrorResult, createErrorResult, createS3Client, validateImageBuffer } from './utils';
 
 export const uploadImages = async (formData: FormData): Promise<ActionResult<string[]>> => {
   try {
