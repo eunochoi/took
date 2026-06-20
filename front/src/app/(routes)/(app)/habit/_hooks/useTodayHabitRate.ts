@@ -1,10 +1,11 @@
-import { getTodayHabitStat } from "@/common/fetchers/habit";
+import { authAction } from "@/common/actions/authAction";
+import { getTodayHabitStat } from "@/common/actions/habit";
 import { useQuery } from "@tanstack/react-query";
 
 export const useTodayHabitRate = () => {
   const { data: todayHabit } = useQuery({
     queryKey: ['habit', 'today', 'stat'],
-    queryFn: getTodayHabitStat,
+    queryFn: () => authAction(getTodayHabitStat),
   })
   const todayDoneHabitCount = todayHabit?.todayDoneHabits ?? 0;
   const createdHabitCount = todayHabit?.createdHabits ?? 0;

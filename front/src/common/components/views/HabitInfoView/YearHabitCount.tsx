@@ -1,4 +1,5 @@
-import { getHabitYearlyStatus } from "@/common/fetchers/habit";
+import { authAction } from "@/common/actions/authAction";
+import { getHabitYearlyStatus } from "@/common/actions/habit";
 import { useQuery } from "@tanstack/react-query";
 import { format, isLeapYear } from "date-fns";
 import { useSearchParams } from "next/navigation";
@@ -15,7 +16,7 @@ const YearHabitCount = ({ displayDate, habitName }: Props) => {
 
   const { data } = useQuery({
     queryKey: ['habit', 'id', habitId, 'year', format(displayDate, 'yyyy')],
-    queryFn: () => getHabitYearlyStatus({ id: habitId, year: format(displayDate, 'yyyy') }),
+    queryFn: () => authAction(() => getHabitYearlyStatus({ id: habitId, year: format(displayDate, 'yyyy') })),
   });
 
   const year = format(displayDate, 'yyyy');

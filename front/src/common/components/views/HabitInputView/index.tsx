@@ -1,6 +1,7 @@
 'use client';
 
-import { getHabitById } from "@/common/fetchers/habit";
+import { authAction } from "@/common/actions/authAction";
+import { getHabitById } from "@/common/actions/habit";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
@@ -47,7 +48,7 @@ const HabitInputView = ({ isEdit, habitId }: HabitInputProps) => {
 
   const { data: habitData, isError } = useQuery({
     queryKey: ['habits', 'id', habitId],
-    queryFn: () => getHabitById({ id: habitId }),
+    queryFn: () => authAction(() => getHabitById({ id: habitId })),
     enabled: isEdit === true && !!habitId
   });
 

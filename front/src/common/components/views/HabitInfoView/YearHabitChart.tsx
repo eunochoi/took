@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-import { getHabitYearlyStatus } from "@/common/fetchers/habit";
+import { authAction } from "@/common/actions/authAction";
+import { getHabitYearlyStatus } from "@/common/actions/habit";
 import { useQuery } from "@tanstack/react-query";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { addYears, format, subYears } from "date-fns";
@@ -18,7 +19,7 @@ const YearHabitChart = ({ setDisplayDate, displayDate }: Props) => {
 
   const { data } = useQuery({
     queryKey: ['habit', 'id', habitId, 'year', format(displayDate, 'yyyy')],
-    queryFn: () => getHabitYearlyStatus({ id: habitId, year: format(displayDate, 'yyyy') }),
+    queryFn: () => authAction(() => getHabitYearlyStatus({ id: habitId, year: format(displayDate, 'yyyy') })),
   });
   const year = format(displayDate, 'yyyy');
 
@@ -46,7 +47,7 @@ const YearHabitChart = ({ setDisplayDate, displayDate }: Props) => {
       <Title>습관 성취 그래프</Title>
       <Chart>
         {[...Array(12)].map((_, i: number) =>
-          <BarWrapper className="barWrapper" key={'month' + i + 1} $count={data && data[i] / 31 * 100}>
+          <BarWrapper className="barWrapper" key={'month' + i + 1} $count={data ? data[i] / 31 * 100 : 0}>
             <div className="barEmpty">{data && data[i] > 0 && data[i]}</div>
             <div className="bar"></div>
             <div className="month">{i + 1}</div>

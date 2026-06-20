@@ -1,4 +1,5 @@
-import { getHabitMonthlyStatus } from "@/common/fetchers/habit";
+import { authAction } from "@/common/actions/authAction";
+import { getHabitMonthlyStatus } from "@/common/actions/habit";
 import { useQuery } from "@tanstack/react-query";
 import { format, lastDayOfMonth } from "date-fns";
 import { notFound } from "next/navigation";
@@ -16,7 +17,7 @@ const MonthHabitCount = ({ displayDate, habitId, habitName }: Props) => {
   //only habit data by month, not include habit name or priority
   const { data, isError } = useQuery({
     queryKey: ['habit', 'id', habitId, 'month', format(displayDate, 'yyyy-MM')],
-    queryFn: () => getHabitMonthlyStatus({ id: habitId, month: format(displayDate, 'yyyy-MM') })
+    queryFn: () => authAction(() => getHabitMonthlyStatus({ id: habitId, month: format(displayDate, 'yyyy-MM') }))
   });
 
   useEffect(() => {

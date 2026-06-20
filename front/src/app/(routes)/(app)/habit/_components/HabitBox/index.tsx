@@ -3,7 +3,8 @@
 import styled from "styled-components";
 
 
-import { getHabitRecentStatus } from "@/common/fetchers/habit";
+import { authAction } from "@/common/actions/authAction";
+import { getHabitRecentStatus } from "@/common/actions/habit";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { useQuery } from "@tanstack/react-query";
 import { format, subDays } from "date-fns";
@@ -36,7 +37,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
 
   const { data: recentDateStatus } = useQuery({
     queryKey: ['habit', name, 'recent'],
-    queryFn: () => getHabitRecentStatus({ id, date: todayString }),
+    queryFn: () => authAction(() => getHabitRecentStatus({ id, date: todayString })),
   });
 
   const onDeleteHabit = () => {
@@ -73,7 +74,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
             <input
               id={`${date}-${name}`}
               type="checkbox"
-              checked={(recentDateStatus && recentDateStatus[i]) || ""}
+              checked={!!recentDateStatus?.[i]}
               onChange={(e) => {
                 habitToggle(e, format(date, 'yyyy-MM-dd'));
               }} />

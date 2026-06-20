@@ -5,7 +5,8 @@ import styled from "styled-components";
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
-import { getHabitList } from "@/common/fetchers/habit";
+import { authAction } from "@/common/actions/authAction";
+import { getHabitList } from "@/common/actions/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -22,7 +23,7 @@ interface Habit {
   priority: number;
 }
 
-const MAX_HABIT_COUNT = 20;
+const MAX_HABIT_COUNT = 18;
 
 type SORT = 'ASC' | 'DESC' | 'PRIORITY' | 'CUSTOM';
 const SORT_TEXT: Record<SORT, string> = {
@@ -41,7 +42,7 @@ const HabitView = () => {
 
   const { data: habits } = useQuery({
     queryKey: ['habits', 'list', toggleValue],
-    queryFn: () => getHabitList({ sort: toggleValue, customOrder }),
+    queryFn: () => authAction(() => getHabitList({ sort: toggleValue, customOrder })),
   });
 
   const onAddHabit = () => {
@@ -69,7 +70,7 @@ const HabitView = () => {
 
         <HabitBoxs>
           {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
-          {habits?.length < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><MdAdd /></EmptyBox>}
+          {(habits?.length ?? 0) < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><MdAdd /></EmptyBox>}
         </HabitBoxs>
       </ContentWrapper>
     </PageWrapper >

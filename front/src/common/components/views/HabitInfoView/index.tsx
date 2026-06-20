@@ -4,7 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { getHabitById, getHabitMonthlyStatus } from "@/common/fetchers/habit";
+import { authAction } from "@/common/actions/authAction";
+import { getHabitById, getHabitMonthlyStatus } from "@/common/actions/habit";
 
 import { format } from 'date-fns';
 import { notFound, useRouter } from "next/navigation";
@@ -33,12 +34,12 @@ const HabitInfoView = ({ habitId }: Props) => {
   //only get habit default infomation - name, priority
   const { data: habitDataById, isError } = useQuery({
     queryKey: ['habits', 'id', habitId],
-    queryFn: () => getHabitById({ id: habitId }),
+    queryFn: () => authAction(() => getHabitById({ id: habitId })),
     enabled: habitId !== null
   });
   const { data: singleHabitMonthlyData } = useQuery({
     queryKey: ['habit', 'id', habitId, 'month', format(calendarDate, 'yyyy-MM')],
-    queryFn: () => getHabitMonthlyStatus({ id: habitId, month: format(calendarDate, 'yyyy-MM') }),
+    queryFn: () => authAction(() => getHabitMonthlyStatus({ id: habitId, month: format(calendarDate, 'yyyy-MM') })),
     select: (data) => {
       const singleHabitMonthlyData: { [key: string]: boolean } = {};
       data?.forEach((e: any) => {
@@ -63,7 +64,7 @@ const HabitInfoView = ({ habitId }: Props) => {
       <HabitInfoContent>
         <MobilePortNameWrapper>
           <Name>{habitDataById?.name ?? '-'}</Name>
-          <PriorityStar rating={habitDataById?.priority + 1} />
+          <PriorityStar rating={(habitDataById?.priority ?? 0) + 1} />
         </MobilePortNameWrapper>
 
         <CarouselWrapper>
