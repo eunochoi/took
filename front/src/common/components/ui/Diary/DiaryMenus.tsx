@@ -2,38 +2,65 @@ import styled from "styled-components";
 
 import { authAction } from "@/common/actions/authAction";
 import { deleteDiary } from "@/common/actions/diary";
+import type { DiaryMenuData } from "@/common/types/diary";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
-import { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { MdContentCopy, MdOutlineDeleteForever, MdOutlineEdit } from 'react-icons/md';
 import { SnackBarAction } from "../../../utils/snackBar/SnackBarAction";
 
 interface Props {
   isMenuOpen: boolean;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
-  position: number | undefined;
-  diaryData: {
-    date: string;  // yyyy-MM-dd
-    visible: boolean;
-    emotion: number;
-    text: string;
-    id: number;
-  }
+  anchorRef: RefObject<HTMLElement>;
+  diaryData: DiaryMenuData;
 }
 
-interface Err {
-  response: {
-    data: string;
-  }
-}
+type MenuPosition = {
+  top: number;
+  right: number;
+};
 
-const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => {
+const MENU_GAP = 6;
+
+const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
   const timer = useRef<number | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
+
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+  }, [setMenuOpen]);
+
+  const updateMenuPosition = useCallback(() => {
+    const anchor = anchorRef.current;
+    const menu = menuRef.current;
+
+    if (!anchor || !menu) return;
+
+    const anchorRect = anchor.getBoundingClientRect();
+    const menuRect = menu.getBoundingClientRect();
+    const top = Math.max(MENU_GAP, anchorRect.top + window.scrollY - menuRect.height - MENU_GAP);
+    const right = Math.max(MENU_GAP, window.innerWidth - anchorRect.right);
+
+    setMenuPosition({ top, right });
+  }, [anchorRef]);
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      setMenuPosition(null);
+      return;
+    }
+
+    updateMenuPosition();
+  }, [isMenuOpen, updateMenuPosition]);
+
   useEffect(() => {
     if (isMenuOpen) {
       timer.current = window.setTimeout(closeMenu, 5000);
@@ -44,8 +71,36 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
         clearTimeout(timer.current);
         timer.current = null;
       }
-    }
-  }, [isMenuOpen])
+    };
+  }, [isMenuOpen, closeMenu]);
+
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+
+      if (menuRef.current?.contains(target) || anchorRef.current?.contains(target)) {
+        return;
+      }
+
+      closeMenu();
+    };
+
+    const handleViewportChange = () => {
+      closeMenu();
+    };
+
+    window.addEventListener('pointerdown', handlePointerDown);
+    window.addEventListener('scroll', handleViewportChange, true);
+    window.addEventListener('resize', handleViewportChange);
+
+    return () => {
+      window.removeEventListener('pointerdown', handlePointerDown);
+      window.removeEventListener('scroll', handleViewportChange, true);
+      window.removeEventListener('resize', handleViewportChange);
+    };
+  }, [isMenuOpen, anchorRef, closeMenu]);
 
 
   const deleteDiaryMutation = useMutation({
@@ -59,14 +114,11 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
       closeSnackbar('diaryDelete');
       enqueueSnackbar('일기 삭제 완료', { variant: 'success' });
     },
-    onError: (e: Err) => {
-      enqueueSnackbar(e?.response?.data, { variant: 'error' });
+    onError: (error: Error) => {
+      enqueueSnackbar(error.message || '일기 삭제 실패', { variant: 'error' });
       console.log('delete diary error');
     },
   });
-  const closeMenu = () => {
-    setMenuOpen(false);
-  }
   const onClickDeleteButton = () => {
     const action = (snackbarId: SnackbarKey) => (
       <SnackBarAction
@@ -86,14 +138,15 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
       enqueueSnackbar('텍스트가 클립보드에 복사되었습니다.', { variant: 'success' });
     });
     closeMenu();
-  }
+  };
   const onClickEdit = () => {
-    router.push(`/inter/input/editDiary?id=${diaryData.id}`, { scroll: false })
+    router.push(`/inter/input/editDiary?id=${diaryData.id}`, { scroll: false });
     closeMenu();
   };
 
+  if (!isMenuOpen) return null;
 
-  return <Wrapper className={isMenuOpen ? '' : 'hidden'} $position={position}>
+  return createPortal(<Wrapper ref={menuRef} $position={menuPosition}>
     <button onClick={onClickCopy}>
       <MdContentCopy className='icon' />텍스트 복사
     </button>
@@ -103,18 +156,15 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
     <button onClick={onClickDeleteButton}>
       <MdOutlineDeleteForever className='icon' />삭제
     </button>
-  </Wrapper>;
-}
+  </Wrapper>, document.body);
+};
 
 export default DiaryMenus;
 
-const Wrapper = styled.div<{ $position: number | undefined }>`
+const Wrapper = styled.div<{ $position: MenuPosition | null }>`
   transition: 200ms ease-in-out opacity;
-  opacity: 1;
-  &.hidden{
-    pointer-events: none;
-    opacity: 0;
-  }
+  opacity: ${({ $position }) => $position ? 1 : 0};
+  pointer-events: ${({ $position }) => $position ? 'auto' : 'none'};
 
   height: auto;
   width: auto;
@@ -123,8 +173,9 @@ const Wrapper = styled.div<{ $position: number | undefined }>`
   display: flex;
   align-items: center;
   position: absolute;
-  top: ${props => props.$position ? `${props.$position}px` : '50px'};
-  right: 12px;
+  z-index: 1000;
+  top: ${({ $position }) => $position ? `${$position.top}px` : '0'};
+  right: ${({ $position }) => $position ? `${$position.right}px` : '0'};
   gap: 20px;
 
   background-color: color-mix(in srgb, var(--theme-bg, #f5f5fa) 90%, white);

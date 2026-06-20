@@ -24,7 +24,6 @@ const DiaryHabits = ({ habits }: Props) => {
       {habits?.map((habit) => (
         <Habit
           key={habit.id}
-          className={habit.priority ? `priority${habit.priority}` : ''}
           onClick={() => handleHabitClick(habit.id)}
         >
           <span>{habit.name}</span>

@@ -1,41 +1,18 @@
-import LargeDiary from "./LargeDiary";
-import SmallDiary from "./SmallDiary";
-
-
-interface ImageProps {
-  id: string;
-  src: string;
-}
-
-interface Habit {
-  UserId: number;
-  id: number;
-  email: string;
-  name: string;
-  priority: number;
-}
+import type { DiaryData } from "@/common/types/diary";
+import DiaryInCalendar from "./DiaryInCalendar";
+import DiaryInList from "./DiaryInList";
 
 interface Props {
   type: 'small' | 'large';
-  diaryData: {
-    email: string;
-    id: number;
-    date: string;  // yyyy-MM-dd
-    text: string;
-    emotion: number;
-    Images: Array<ImageProps>;
-    Habits: Array<Habit>;
-    visible: boolean;
-  };
+  diaryData: DiaryData;
 }
 
 const Diary = ({ diaryData, type }: Props) => {
   if (type === 'small') {
-    return (<SmallDiary diaryData={diaryData} />);
+    return (<DiaryInCalendar diaryData={diaryData} />);
   }
-  else if (type == 'large') {
-    return (<LargeDiary diaryData={diaryData} />);
-  }
-}
+
+  return (<DiaryInList diaryData={diaryData} />);
+};
 
 export default Diary;

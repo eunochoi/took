@@ -3,12 +3,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useCallback, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 //function
 import { authAction } from "@/common/actions/authAction";
 import { getDiaryByDate, getMonthlyDiaryData } from "@/common/actions/diary";
-import { createEmptyDiary } from "@/common/types/diary";
 
 //styledComponent
 
@@ -20,6 +19,7 @@ import Diary from "@/common/components/ui/Diary";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useRouter } from "next/navigation";
+import EmptyCalendarDiary from "./_components/EmptyCalendarDiary";
 import { RenderDateContent } from "./_utils/CalendarInfoDateContent";
 
 
@@ -78,13 +78,17 @@ const CalendarView = ({ date }: CalendarViewProps) => {
           onClickMonthTitle={onClickMonthTitle}
           onClickDate={onClickDate}
         />
-        <DiaryWrapper>
-          <Diary type="small" diaryData={diaryData ?? createEmptyDiary(date)} />
+        <DiaryWrapper key={date}>
+          {diaryData?.visible ? (
+            <Diary type="small" diaryData={diaryData} />
+          ) : (
+            <EmptyCalendarDiary date={date} habits={diaryData?.Habits} />
+          )}
         </DiaryWrapper>
       </ContentWrapper>
     </PageWrapper>
   );
-}
+};
 
 export default CalendarView;
 
@@ -96,8 +100,20 @@ const CalendarPageCalendar = styled(Calendar)`
   @media (max-width: 479px) {
     min-height: 480px;
   }
-`
+`;
+
+const diaryCardEnter = keyframes`
+  from {
+    opacity: 0.7;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 const DiaryWrapper = styled.div`
   flex-shrink: 0;
-`
+  animation: ${diaryCardEnter} 300ms ease-in;
+`;

@@ -2,30 +2,27 @@
 
 import type { DiaryData } from '@/common/types/diary';
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import styled from "styled-components";
 import Carousel from "../Carousel";
+import DiaryCardShell from "./DiaryCardShell";
+import DiaryDateHeader from "./DiaryDateHeader";
 import DiaryHabits from "./DiaryHabits";
-import DiaryHeader from "./DiaryHeader";
+import useDiaryNavigation from "./hooks/useDiaryNavigation";
 
 interface Props {
   diaryData: DiaryData;
 }
 
 // 리스트 큰 카드
-const LargeDiary = ({ diaryData }: Props) => {
-  const router = useRouter();
+const DiaryInList = ({ diaryData }: Props) => {
   const { Images: images } = diaryData;
   const hasImages = images.length >= 1;
-
-  const handleContentClick = () => {
-    router.push(`/inter/zoom?id=${diaryData.id}`, { scroll: false });
-  };
+  const { navigateToZoom } = useDiaryNavigation(diaryData.id);
 
   return (
     <Wrapper>
-      <DiaryHeader diaryData={diaryData} type="large" />
-      <Content onClick={handleContentClick}>
+      <DiaryDateHeader diaryData={diaryData} />
+      <Content onClick={navigateToZoom}>
         {hasImages && (
           <CarouselContainer>
             <Carousel>
@@ -50,7 +47,7 @@ const LargeDiary = ({ diaryData }: Props) => {
   );
 };
 
-export default LargeDiary;
+export default DiaryInList;
 
 const Content = styled.div`
   width: 100%;
@@ -62,7 +59,8 @@ const Content = styled.div`
 
   gap: 16px;
   margin: 16px 0;
-`
+`;
+
 const Text = styled.div`
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -88,7 +86,8 @@ const Text = styled.div`
       -webkit-line-clamp: 3;
     }
   }
-`
+`;
+
 const CarouselContainer = styled.div`
   width: 100%;
   height: 300px;
@@ -96,37 +95,12 @@ const CarouselContainer = styled.div`
   @media (min-width: 1024px) {
     height: 400px;
   }
-`
+`;
 
 const CarouselImage = styled(Image)`
   width: 100%;
   height: 100%;
   object-fit: cover;
-`
+`;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: start;
-  flex-shrink: 0;
-
-  width: 100%;
-  height: auto;
-  min-height: 250px;
-  overflow: hidden;
-
-  box-sizing: border-box;
-
-  border-radius: 20px;
-  background-color: rgba(255,255,255,0.9);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-
-  @media (max-width: 479px) {
-    min-height: 200px;
-  }
-  @media (min-width:1024px) {
-    min-height: 300px;
-  }
-`
+const Wrapper = styled(DiaryCardShell).attrs<{ $type?: 'large' }>({ $type: 'large' })``;

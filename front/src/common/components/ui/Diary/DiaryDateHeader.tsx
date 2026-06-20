@@ -1,5 +1,5 @@
 import { EMOTIONS } from '@/common/constants/emotions';
-import type { DiaryHeaderData } from '@/common/types/diary';
+import type { DiaryData } from '@/common/types/diary';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
@@ -8,17 +8,15 @@ import styled from 'styled-components';
 import DiaryMenus from './DiaryMenus';
 
 interface Props {
-  type: 'small' | 'large';
-  diaryData: DiaryHeaderData;
+  diaryData: DiaryData;
 }
 
-const DiaryHeader = ({ diaryData, type }: Props) => {
-  const date = format(new Date(diaryData.date), 'yyyy년 M월 d일');
+const DiaryDateHeader = ({ diaryData }: Props) => {
+  const formattedDate = format(new Date(diaryData.date), 'yyyy년 M월 d일');
   const day = format(new Date(diaryData.date), 'eeee', { locale: ko });
 
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const [wrapperHeight, setWrapperHeight] = useState<number | undefined>();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleToggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -29,33 +27,29 @@ const DiaryHeader = ({ diaryData, type }: Props) => {
     setMenuOpen(false);
   }, [diaryData]);
 
-  useEffect(() => {
-    setWrapperHeight(wrapperRef.current?.offsetHeight);
-  }, []);
-
   return (
-    <Wrapper ref={wrapperRef}>
-      <DateInfo className={type}>
-        <span className="date">{date}</span>
+    <Wrapper>
+      <DateInfo>
+        <span className="date">{formattedDate}</span>
         <span className="week">{day}</span>
         <span className="emotion">
-          {diaryData.visible && EMOTIONS[diaryData.emotion]?.nameKr}
+          {EMOTIONS[diaryData.emotion]?.nameKr}
         </span>
       </DateInfo>
-      <Edit onClick={handleToggleMenu}>
-        {diaryData.visible && <MdMoreVert />}
+      <Edit ref={menuButtonRef} onClick={handleToggleMenu}>
+        <MdMoreVert />
       </Edit>
       <DiaryMenus
         isMenuOpen={isMenuOpen}
         setMenuOpen={setMenuOpen}
-        position={wrapperHeight}
+        anchorRef={menuButtonRef}
         diaryData={diaryData}
       />
     </Wrapper>
   );
 };
 
-export default DiaryHeader;
+export default DiaryDateHeader;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -67,7 +61,8 @@ const Wrapper = styled.div`
   align-items: center;
 
   position: relative;
-`
+`;
+
 const DateInfo = styled.div`
   display: flex;
   align-items: center;
@@ -85,8 +80,9 @@ const DateInfo = styled.div`
   .emotion {
     color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
   }
-`
-const Edit = styled.div`
+`;
+
+const Edit = styled.button`
   cursor: pointer;
 
   display: flex;
@@ -94,4 +90,4 @@ const Edit = styled.div`
   gap: 8px;
   font-size: 20px;
   color: #a5a5a5;
-`
+`;
