@@ -2,7 +2,7 @@
 
 import nextPWA from 'next-pwa';
 
-const dev = process.env.NODE_ENV === 'development'
+const dev = process.env.NODE_ENV === 'development';
 
 const withPWA = nextPWA({
   dest: 'public',
@@ -29,6 +29,11 @@ const withPWA = nextPWA({
 
 const nextConfig = {
   swcMinify: true,
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '55mb',
+    },
+  },
   images: {
     domains: [
       'axajzftmwrmj.compat.objectstorage.ap-chuncheon-1.oraclecloud.com',

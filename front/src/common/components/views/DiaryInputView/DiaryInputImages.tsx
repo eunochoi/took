@@ -5,6 +5,12 @@ import styled from "styled-components";
 import { RefObject, useEffect, useRef } from "react";
 import { MdOutlineImage, MdRemove } from 'react-icons/md';
 
+import {
+  DIARY_IMAGE_ALLOWED_MIME_TYPES,
+  DIARY_IMAGE_MAX_COUNT,
+  DIARY_IMAGE_MAX_SIZE_BYTES,
+  DIARY_IMAGE_MAX_SIZE_MB,
+} from "@/common/constants/image";
 import { lightenColor } from "@/common/utils/lightenColor";
 
 
@@ -37,17 +43,22 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
     if (e.target.files) {
       const ArrayImages = Array.from(e.target.files);
 
-      // 최대 5장
-      if (images.length + ArrayImages.length > 5) {
-        enqueueSnackbar("이미지 파일은 최대 5개까지 삽입 가능합니다.", { variant: 'error' });
+      if (images.length + ArrayImages.length > DIARY_IMAGE_MAX_COUNT) {
+        enqueueSnackbar(`이미지 파일은 최대 ${DIARY_IMAGE_MAX_COUNT}개까지 삽입 가능합니다.`, { variant: 'error' });
         e.target.value = '';
         return;
       }
 
-      // 10MB 초과 방지
-      const isOverSize = ArrayImages.find((file) => file.size > 10 * 1024 * 1024);
+      const invalidTypeFile = ArrayImages.find((file) => !DIARY_IMAGE_ALLOWED_MIME_TYPES.includes(file.type as typeof DIARY_IMAGE_ALLOWED_MIME_TYPES[number]));
+      if (invalidTypeFile) {
+        enqueueSnackbar("이미지 파일만 업로드 가능합니다.", { variant: 'error' });
+        e.target.value = '';
+        return;
+      }
+
+      const isOverSize = ArrayImages.find((file) => file.size > DIARY_IMAGE_MAX_SIZE_BYTES);
       if (isOverSize) {
-        enqueueSnackbar("선택된 이미지 중 10MB를 초과하는 이미지가 존재합니다.", { variant: 'error' });
+        enqueueSnackbar(`선택된 이미지 중 ${DIARY_IMAGE_MAX_SIZE_MB}MB를 초과하는 이미지가 존재합니다.`, { variant: 'error' });
         e.target.value = '';
         return;
       }
@@ -100,7 +111,7 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
     <Wrapper>
       <SquareBox>
         <UploadButton disabled={isLoading} onClick={() => imageUploadRef.current?.click()}>
-          <input ref={imageUploadRef} type="file" accept="image/*" name="image" multiple hidden onChange={onChangeImages} />
+          <input ref={imageUploadRef} type="file" accept={DIARY_IMAGE_ALLOWED_MIME_TYPES.join(',')} name="image" multiple hidden onChange={onChangeImages} />
           <MdOutlineImage className="icon" />
           <span>이미지</span>
         </UploadButton>

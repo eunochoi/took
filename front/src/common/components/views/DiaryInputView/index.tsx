@@ -1,8 +1,8 @@
 "use client";
 
-import Api from "@/api/Api";
 import { authAction } from "@/common/actions/authAction";
 import { getDiaryById, type DiaryData } from "@/common/actions/diary";
+import { uploadImages } from "@/common/actions/image";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { notFound, useSearchParams } from "next/navigation";
@@ -127,8 +127,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
           imageFormData.append("image", file);
         });
 
-        const uploadRes = await Api.post('/image', imageFormData);
-        uploadedImageUrls = uploadRes.data;
+        uploadedImageUrls = await authAction(() => uploadImages(imageFormData));
       }
 
       // 기존 URL + 업로드된 URL 합침
