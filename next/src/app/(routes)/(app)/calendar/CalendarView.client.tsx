@@ -6,7 +6,7 @@ import { useCallback, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
 //function
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { getDiaryByDate, getMonthlyDiaryData } from "@/common/actions/diary";
 
 //styledComponent

@@ -1,17 +1,16 @@
-import { cookies } from 'next/headers'
 import jwt from 'jsonwebtoken'
+import { cookies } from 'next/headers'
 
-import { AUTH_ERROR_CODE } from '@/common/actions/types'
 import { getEnvValue } from '@/common/utils/getEnvValue'
 
 import { authTokenIssuer, parseAuthTokenPayload } from './token'
-
-export type AuthErrorCode = typeof AUTH_ERROR_CODE[keyof typeof AUTH_ERROR_CODE]
+import { AUTH_ERROR_CODE, type AuthErrorCode } from './types'
 
 export type AuthResult =
   | { ok: true; email: string; provider: string }
   | { ok: false; code: AuthErrorCode; message: string }
 
+//auth check by coocike in server
 export const getAuth = async (): Promise<AuthResult> => {
   const cookieStore = await cookies()
   const accessToken = cookieStore.get('accessToken')?.value

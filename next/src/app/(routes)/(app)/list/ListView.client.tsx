@@ -11,7 +11,7 @@ import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import TopButtons from "@/common/components/ui/TopButtons";
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { getDiaryList } from "@/common/actions/diary";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { useModalParam } from "@/common/hooks/useModalParam";

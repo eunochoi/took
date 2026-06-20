@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { deleteDiary } from "@/common/actions/diary";
 import type { DiaryMenuData } from "@/common/types/diary";
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";

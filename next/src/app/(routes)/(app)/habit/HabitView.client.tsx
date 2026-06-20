@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { getHabitList } from "@/common/actions/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useQuery } from "@tanstack/react-query";

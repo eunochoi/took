@@ -1,6 +1,6 @@
 "use client";
 
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { getDiaryById, type DiaryData } from "@/common/actions/diary";
 import { uploadImages } from "@/common/actions/image";
 import { useQuery } from "@tanstack/react-query";

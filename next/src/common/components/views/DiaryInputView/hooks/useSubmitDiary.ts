@@ -1,4 +1,4 @@
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { createDiary, updateDiary, type DiaryData } from "@/common/actions/diary";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";

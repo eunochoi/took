@@ -1,6 +1,6 @@
 'use client';
 
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { getHabitById } from "@/common/actions/habit";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";

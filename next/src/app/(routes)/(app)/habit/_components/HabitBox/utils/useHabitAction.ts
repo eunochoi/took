@@ -1,4 +1,4 @@
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { checkHabit as checkHabitAction, deleteHabit as deleteHabitAction, uncheckHabit as uncheckHabitAction } from "@/common/actions/habit";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { enqueueSnackbar } from "notistack";

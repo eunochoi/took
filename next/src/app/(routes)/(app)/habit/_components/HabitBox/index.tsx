@@ -3,7 +3,7 @@
 import styled from "styled-components";
 
 
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { getHabitRecentStatus } from "@/common/actions/habit";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { useQuery } from "@tanstack/react-query";

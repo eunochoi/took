@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";

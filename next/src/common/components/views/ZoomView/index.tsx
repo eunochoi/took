@@ -1,5 +1,5 @@
 'use client';
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { getDiaryById } from "@/common/actions/diary";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";

@@ -1,4 +1,4 @@
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { deleteCurrentUser } from "@/common/actions/user";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import { signOut } from "next-auth/react";

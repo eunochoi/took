@@ -2,7 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { authAction } from '@/common/actions/authAction';
+import { authAction } from '@/common/auth/authAction';
 import { getCurrentUser, type CurrentUser } from '@/common/actions/user';
 
 type CurrentUserQueryOptions = {

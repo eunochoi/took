@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { authAction } from "@/common/actions/authAction";
+import { authAction } from "@/common/auth/authAction";
 import { getHabitYearlyStatus } from "@/common/actions/habit";
 import { useQuery } from "@tanstack/react-query";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
