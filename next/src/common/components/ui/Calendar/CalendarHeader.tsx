@@ -18,7 +18,7 @@ const CalendarHeader = ({
 }: CalendarHeaderProps) => {
 
   const {
-    displayDate,
+    visibleMonth,
     prevMonth,
     nextMonth,
     goToday,
@@ -30,7 +30,7 @@ const CalendarHeader = ({
         <CalTitle className={`${headerSize} ${headerTitlePosition}`} >
           <button onClick={prevMonth}><MdKeyboardArrowLeft /></button>
           <button onClick={goToday}>
-            {format(displayDate, 'yyyy년 M월', { locale: ko })}
+            {format(visibleMonth, 'yyyy년 M월', { locale: ko })}
           </button>
           <button onClick={nextMonth}><MdKeyboardArrowRight /></button>
         </CalTitle>
@@ -40,7 +40,7 @@ const CalendarHeader = ({
           <CalTitleText
             className={headerSize}
             onClick={goToday}>
-            {format(displayDate, 'yyyy년 M월', { locale: ko })}
+            {format(visibleMonth, 'yyyy년 M월', { locale: ko })}
           </CalTitleText>
           <ArrowButtonWrapper>
             <button className={headerSize} onClick={prevMonth}><MdKeyboardArrowLeft /></button>

@@ -6,8 +6,9 @@ import makeCalendarDates from "./utils/makeCalendarDates";
 
 interface CalendarContextValue<T> {
   monthlyData: T;
-  displayDate: Date;
-  calendarDates: Date[][]; //displayDate가 변경되면서 생성된 보여질 날짜 목록
+  visibleMonth: Date;
+  selectedDate?: Date;
+  calendarDates: Date[][]; //visibleMonth가 변경되면서 생성된 보여질 날짜 목록
   nextMonth: () => void;
   prevMonth: () => void;
   goToday: () => void;
@@ -19,7 +20,6 @@ interface CalendarContextValue<T> {
   }) => JSX.Element
 
   isTouchGestureEnabled: boolean;
-  isDateSelectionEnabled: boolean;
   handleTouchStart: (e: React.TouchEvent<HTMLDivElement>) => void;
   handleTouchEnd: (e: React.TouchEvent<HTMLDivElement>) => void;
 }
@@ -34,13 +34,13 @@ interface CalendarProviderProps<T> {
   onClickDate?: (date: Date) => void
 
   monthlyData: T;
-  displayDate: Date;
-  setDisplayDate: Dispatch<SetStateAction<Date>>;
+  visibleMonth: Date;
+  setVisibleMonth: Dispatch<SetStateAction<Date>>;
+  selectedDate?: Date;
   RenderDateContent?: ({ cellDate }: {
     cellDate: Date;
   }) => JSX.Element
   isTouchGestureEnabled?: boolean;
-  isDateSelectionEnabled?: boolean;
 }
 export const CalendarProvider = <T,>({
   children,
@@ -48,32 +48,33 @@ export const CalendarProvider = <T,>({
   onClickDate,
 
   monthlyData,
-  displayDate,
-  setDisplayDate,
+  visibleMonth,
+  setVisibleMonth,
+  selectedDate,
 
   RenderDateContent,
-  isTouchGestureEnabled = false,
-  isDateSelectionEnabled = false
+  isTouchGestureEnabled = false
 
 }: CalendarProviderProps<T>) => {
-  const calendarDates = useMemo(() => makeCalendarDates(displayDate).calendarDates, [displayDate]);
+  const calendarDates = useMemo(() => makeCalendarDates(visibleMonth).calendarDates, [visibleMonth]);
 
   const nextMonth = useCallback(() => {
-    setDisplayDate(c => addMonths(c, 1));
-  }, []);
+    setVisibleMonth(c => addMonths(c, 1));
+  }, [setVisibleMonth]);
   const prevMonth = useCallback(() => {
-    setDisplayDate(c => subMonths(c, 1));
-  }, []);
+    setVisibleMonth(c => subMonths(c, 1));
+  }, [setVisibleMonth]);
   const goToday = useCallback(() => {   //현재 날짜에 해당하는 달로 이동 + onClickMonthTitle() 실행
     onClickMonthTitle?.();
-    setDisplayDate(new Date());
-  }, [])
+    setVisibleMonth(new Date());
+  }, [onClickMonthTitle, setVisibleMonth]);
 
   const { handleTouchStart, handleTouchEnd } = useSwipe({ isTouchGestureEnabled, prevMonth, nextMonth });
 
   const value = {
     monthlyData,
-    displayDate,
+    visibleMonth,
+    selectedDate,
     calendarDates,
     RenderDateContent,
 
@@ -86,8 +87,7 @@ export const CalendarProvider = <T,>({
 
     handleTouchStart,
     handleTouchEnd,
-    isTouchGestureEnabled,
-    isDateSelectionEnabled
+    isTouchGestureEnabled
   };
 
   return (<CalendarContext.Provider value={value}>

@@ -1,8 +1,8 @@
 'use client';
 
 import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
-import { useCallback, useState } from "react";
+import { format, startOfMonth } from "date-fns";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
 //function
@@ -18,6 +18,7 @@ import Calendar from "@/common/components/ui/Calendar";
 import Diary from "@/common/components/ui/Diary";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
+import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { useRouter } from "next/navigation";
 import EmptyCalendarDiary from "./_components/EmptyCalendarDiary";
 import { RenderDateContent } from "./_utils/CalendarInfoDateContent";
@@ -34,7 +35,12 @@ const CalendarView = ({ date }: CalendarViewProps) => {
   usePrefetchPage();
   const router = useRouter();
 
-  const [displayDate, setDisplayDate] = useState(new Date());
+  const selectedDate = useMemo(() => parseLocalDate(date), [date]);
+  const [visibleMonth, setVisibleMonth] = useState(() => startOfMonth(selectedDate));
+
+  useEffect(() => {
+    setVisibleMonth(startOfMonth(selectedDate));
+  }, [selectedDate]);
 
   //get date diary data
   const { data: diaryData } = useQuery({
@@ -43,8 +49,8 @@ const CalendarView = ({ date }: CalendarViewProps) => {
   });
 
   const { data: monthCalendarData } = useQuery({
-    queryKey: ['diary', 'month', format(displayDate, 'yyyy-MM')],
-    queryFn: () => authAction(() => getMonthlyDiaryData({ month: format(displayDate, 'yyyy-MM') })),
+    queryKey: ['diary', 'month', format(visibleMonth, 'yyyy-MM')],
+    queryFn: () => authAction(() => getMonthlyDiaryData({ month: format(visibleMonth, 'yyyy-MM') })),
     select: (data) => { //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
       const monthCalendarData: MonthCalendarDataType = {};
       data.forEach((e: any) => {
@@ -56,9 +62,9 @@ const CalendarView = ({ date }: CalendarViewProps) => {
 
   const onClickMonthTitle = () => {
     router.push(`/calendar?date=${getTodayString()}`);
-  }
-  const onClickDate = useCallback((date: Date) => {
-    router.push(`calendar?date=${format(date, 'yyyy-MM-dd')}`);
+  };
+  const onClickDate = useCallback((selectedDate: Date) => {
+    router.push(`/calendar?date=${format(selectedDate, 'yyyy-MM-dd')}`);
   }, [router]);
 
   return (
@@ -66,12 +72,12 @@ const CalendarView = ({ date }: CalendarViewProps) => {
       <ContentWrapper $gap={12} $mobileGap={20} $tabletGap={24} $flex="1 1 0" $paddingTop={24}>
         <CalendarPageCalendar
           isTouchGestureEnabled={true}
-          isDateSelectionEnabled={true}
           headerTitlePosition="start"
           headerSize="large"
 
-          displayDate={displayDate}
-          setDisplayDate={setDisplayDate}
+          visibleMonth={visibleMonth}
+          setVisibleMonth={setVisibleMonth}
+          selectedDate={selectedDate}
           monthlyData={monthCalendarData}
           RenderDateContent={RenderDateContent}
 

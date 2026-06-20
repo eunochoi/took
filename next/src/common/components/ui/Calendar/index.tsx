@@ -13,8 +13,9 @@ interface CalendarProps<T> {
   headerSize?: 'small' | 'middle' | 'large';
   headerTitlePosition?: 'center' | 'start';
 
-  displayDate: Date;
-  setDisplayDate: Dispatch<SetStateAction<Date>>;
+  visibleMonth: Date;
+  setVisibleMonth: Dispatch<SetStateAction<Date>>;
+  selectedDate?: Date;
   monthlyData?: T;
   onClickMonthTitle?: () => void;
   onClickDate?: (date: Date) => void;
@@ -23,7 +24,6 @@ interface CalendarProps<T> {
   }) => JSX.Element
 
   isTouchGestureEnabled?: boolean;
-  isDateSelectionEnabled?: boolean;
 }
 
 const Calendar = <T,>({
@@ -32,29 +32,29 @@ const Calendar = <T,>({
   headerTitlePosition = 'start',
 
   monthlyData,
-  displayDate,
-  setDisplayDate,
+  visibleMonth,
+  setVisibleMonth,
+  selectedDate,
 
   onClickMonthTitle,
   onClickDate,
 
   RenderDateContent,
-  isTouchGestureEnabled,
-  isDateSelectionEnabled
+  isTouchGestureEnabled
 }: CalendarProps<T>) => {
 
   return (
     <CalendarProvider
       monthlyData={monthlyData}
-      displayDate={displayDate}
-      setDisplayDate={setDisplayDate}
+      visibleMonth={visibleMonth}
+      setVisibleMonth={setVisibleMonth}
+      selectedDate={selectedDate}
 
       onClickMonthTitle={onClickMonthTitle}
       onClickDate={onClickDate}
 
       RenderDateContent={RenderDateContent}
       isTouchGestureEnabled={isTouchGestureEnabled}
-      isDateSelectionEnabled={isDateSelectionEnabled}
     >
       <Wrapper className={className}>
         <CalendarHeader

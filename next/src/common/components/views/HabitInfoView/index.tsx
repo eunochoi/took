@@ -77,12 +77,11 @@ const HabitInfoView = ({ habitId }: Props) => {
               <CalendarWrapper>
                 <Calendar
                   isTouchGestureEnabled={false}
-                  isDateSelectionEnabled={false}
                   headerTitlePosition="center"
                   headerSize="small"
 
-                  displayDate={calendarDate}
-                  setDisplayDate={setCalendarDate}
+                  visibleMonth={calendarDate}
+                  setVisibleMonth={setCalendarDate}
                   monthlyData={singleHabitMonthlyData}
                   RenderDateContent={RenderDateContent}
 
