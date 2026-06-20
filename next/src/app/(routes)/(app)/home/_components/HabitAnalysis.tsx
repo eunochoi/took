@@ -19,12 +19,11 @@ import {
 
 interface Props {
   stats?: HabitStats;
-  isLoading: boolean;
 }
 
 type HabitTab = 'top' | 'bottom';
 
-const HabitAnalysis = ({ stats, isLoading }: Props) => {
+const HabitAnalysis = ({ stats }: Props) => {
   const [habitTab, setHabitTab] = useState<HabitTab>('top');
 
   const habits = habitTab === 'top' ? stats?.topHabits : stats?.bottomHabits;
@@ -59,7 +58,7 @@ const HabitAnalysis = ({ stats, isLoading }: Props) => {
 
       <HabitList>
         {habits && habits.length > 0 ? (
-          habits.slice(0, 3).map((habit, index) => (
+          habits.slice(0, 3).map((habit) => (
             <HabitCard key={habit.id}>
               <StarRating rating={habit.priority + 1} className="star-rating" />
               <HabitName>{habit.name}</HabitName>

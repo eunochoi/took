@@ -5,12 +5,6 @@ import styled from "styled-components";
 import { CalendarCell } from "./CalendarCell";
 import { useCalendar } from "./CalendarContext";
 
-interface Props {
-  FormattedValue: ({ displayDate, dateData }: { displayDate: Date, dateData: Date }) => JSX.Element;
-  isTouchGestureEnabled?: boolean;
-  isDateSelectionEnabled?: boolean;
-}
-
 const CalendarBody = () => {
   const { calendarDates, handleTouchStart, handleTouchEnd } = useCalendar();
 

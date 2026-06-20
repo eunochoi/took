@@ -4,14 +4,8 @@ import HabitView from "./HabitView.client";
 
 export const dynamic = 'force-dynamic';
 
-interface Props {
-  searchParams: {
-    date: string
-  };
-}
-
 //page for data prefetch
-const HabitPage = async ({ searchParams }: Props) => {
+const HabitPage = async () => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({

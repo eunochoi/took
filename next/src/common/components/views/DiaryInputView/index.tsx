@@ -23,21 +23,6 @@ interface DiaryInputProps {
   diaryId?: string | null;
 }
 
-interface ServerImageProps {
-  id: string;
-  src: string;
-}
-
-interface DiaryProps {
-  id: string;
-  date: string;  // yyyy-MM-dd
-  text: string;
-  emotion: number;
-  Images: ServerImageProps[];
-  diaryId?: string | null;
-  visible?: boolean;
-}
-
 function parseLocalDate(dateString: string): Date {
   const [year, month, day] = dateString.split('-').map(Number);
   return new Date(year, month - 1, day);
@@ -92,13 +77,13 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
   const headerTitle = format(dateForDisplay, 'yyyy.M.dd (eee)');
 
   const [text, setText] = useState<string>(diaryData?.text ?? "");
-  const [images, setImages] = useState<Array<string | File>>(diaryData?.Images?.map((e: ServerImageProps) => e.src) ?? []);
+  const [images, setImages] = useState<Array<string | File>>(diaryData?.Images?.map((e) => e.src) ?? []);
   const [emotion, setEmotion] = useState<number>(diaryData?.emotion ?? 10);
 
   useEffect(() => {
     if (diaryData) {
       setText(diaryData.text ?? "");
-      setImages(diaryData.Images?.map((e: ServerImageProps) => e.src) ?? []);
+      setImages(diaryData.Images?.map((e) => e.src) ?? []);
       setEmotion(diaryData.emotion ?? 10);
     }
   }, [diaryData]);

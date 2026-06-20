@@ -31,13 +31,13 @@ const HomeView = () => {
     staleTime: 5 * 60 * 1000,
   });
 
-  const { data: diaryStats, isLoading: isDiaryLoading } = useQuery({
+  const { data: diaryStats } = useQuery({
     queryKey: ['stats', 'diary', selectedYear],
     queryFn: () => authAction(() => getDiaryStats({ year: selectedYear })),
     staleTime: 60 * 1000,
   });
 
-  const { data: habitStats, isLoading: isHabitLoading } = useQuery({
+  const { data: habitStats } = useQuery({
     queryKey: ['stats', 'habit', selectedYear],
     queryFn: () => authAction(() => getHabitStats({ year: selectedYear })),
     staleTime: 60 * 1000,
@@ -50,8 +50,6 @@ const HomeView = () => {
     const yearSet = new Set([...availableYears, currentYear]);
     return Array.from(yearSet).sort((a, b) => b - a);
   }, [availableYears, currentYear]);
-
-  const isLoading = isDiaryLoading || isHabitLoading;
 
   return (
     <PageWrapper>
@@ -69,18 +67,15 @@ const HomeView = () => {
         <DiaryAnalysis
           stats={diaryStats}
           year={selectedYear}
-          isLoading={isLoading}
         />
 
         <EmotionStats
           emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
           monthlyEmotionCounts={diaryStats?.monthlyEmotionCounts ?? Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
-          isLoading={isLoading}
         />
 
         <HabitAnalysis
           stats={habitStats}
-          isLoading={isLoading}
         />
       </ContentWrapper>
 

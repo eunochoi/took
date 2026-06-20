@@ -21,10 +21,9 @@ import {
 interface Props {
   stats?: DiaryStats;
   year: number;
-  isLoading: boolean;
 }
 
-const DiaryAnalysis = ({ stats, year, isLoading }: Props) => {
+const DiaryAnalysis = ({ stats, year }: Props) => {
   const formatTextLength = (length: number) => {
     if (length < 1000) return { value: length, unit: '자' };
     if (length < 10000) return { value: (length / 1000).toFixed(1), unit: '천자' };

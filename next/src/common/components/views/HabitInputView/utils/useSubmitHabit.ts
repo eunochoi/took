@@ -10,10 +10,6 @@ interface HabitProps {
   priority: number;
 }
 
-interface Err {
-  message: string;
-}
-
 const useSubmitHabit = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -25,7 +21,7 @@ const useSubmitHabit = () => {
     setTimeout(() => enqueueSnackbar(message, { variant: 'success' }), 300);
   };
 
-  const handleError = (e: Err, message: string) => {
+  const handleError = (message: string) => {
     enqueueSnackbar(message, { variant: 'error' });
   };
 
@@ -34,8 +30,8 @@ const useSubmitHabit = () => {
     onSuccess: () => {
       handleSuccess('습관 항목 생성 완료');
     },
-    onError: (e: Err) => {
-      handleError(e, '습관 항목 생성 실패');
+    onError: () => {
+      handleError('습관 항목 생성 실패');
     },
   });
   const editHabit = useMutation({
@@ -43,8 +39,8 @@ const useSubmitHabit = () => {
     onSuccess: () => {
       handleSuccess('습관 항목 수정 완료');
     },
-    onError: (e: Err) => {
-      handleError(e, '습관 항목 수정 실패');
+    onError: () => {
+      handleError('습관 항목 수정 실패');
     },
   });
 

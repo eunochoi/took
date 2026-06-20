@@ -3,11 +3,11 @@ import { format } from "date-fns";
 import styled from "styled-components";
 
 
-interface RenderDateContentProps<T> {
+interface RenderDateContentProps {
   cellDate: Date;
 }
 
-export const RenderDateContent = <T,>({ cellDate }: RenderDateContentProps<T>) => {
+export const RenderDateContent = ({ cellDate }: RenderDateContentProps) => {
   const { monthlyData } = useCalendar<{ [key: string]: any }>();
 
   const key = format(cellDate, 'yyMMdd');

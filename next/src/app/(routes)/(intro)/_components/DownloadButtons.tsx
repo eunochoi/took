@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { closeSnackbar, enqueueSnackbar, SnackbarKey } from 'notistack';
+import { closeSnackbar, enqueueSnackbar } from 'notistack';
 import { MdAndroid, MdInstallMobile } from 'react-icons/md';
 import styled from 'styled-components';
 
@@ -23,7 +23,7 @@ const DownloadButtons = ({ variant }: Props) => {
   };
 
   const startInWeb = () => {
-    const action = (snackbarId: SnackbarKey) => (
+    const action = () => (
       <SnackBarAction
         yesAction={() => {
           closeSnackbar('startInWeb');

@@ -14,7 +14,7 @@ import { ChangeEvent } from "react";
 import { StarRating } from "@/common/components/ui/StarRating";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import { useRouter } from "next/navigation";
-import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import { closeSnackbar, enqueueSnackbar } from "notistack";
 import { MdOutlineDeleteForever, MdOutlineEdit, MdOutlineInsertChart } from 'react-icons/md';
 import useHabitAction from "./utils/useHabitAction";
 
@@ -41,7 +41,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
   });
 
   const onDeleteHabit = () => {
-    const action = (snackbarId: SnackbarKey) => (
+    const action = () => (
       <SnackBarAction
         yesAction={() => {
           deleteHabit.mutate({ habitId: id });

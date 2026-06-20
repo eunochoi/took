@@ -38,7 +38,7 @@ const ListView = () => {
   const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useFilter();
   const { toggleValue, sortOrderChange } = useListToggle({ ref: wrapperRef });
 
-  const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
+  const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage } = useInfiniteQuery({
     queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', toggleValue, 'year', selectedYear, 'month', selectedMonth],
     queryFn: ({ pageParam }) => authAction(() => {
       return getDiaryList({

@@ -11,7 +11,6 @@ import { getEmotionMessage } from "../_messages/emotionMessages";
 interface Props {
   emotionCounts: number[];
   monthlyEmotionCounts: number[][];
-  isLoading: boolean;
 }
 
 const EMOTION_NAMES_KR = ['행복', '기쁨', '사랑', '평온', '놀람', '불안', '슬픔', '화남', '혼란', '?'];
@@ -25,7 +24,7 @@ const QUARTER_MONTHS = [
   [9, 10, 11],
 ];
 
-const EmotionStats = ({ emotionCounts, monthlyEmotionCounts, isLoading }: Props) => {
+const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
   const [selectedQuarter, setSelectedQuarter] = useState<number>(0);
 
   const displayEmotionCounts = useMemo(() => {
@@ -224,17 +223,6 @@ const EmotionCount = styled.span`
   
   @media (min-width: 480px) {
     font-size: 16px;
-  }
-`;
-
-const DominantEmotionImage = styled(Image)`
-  width: 40px;
-  height: 40px;
-  flex-shrink: 0;
-  
-  @media (min-width: 480px) {
-    width: 44px;
-    height: 44px;
   }
 `;
 

@@ -1,9 +1,9 @@
 import { logout } from "@/common/auth/logout";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
-import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import { closeSnackbar, enqueueSnackbar } from "notistack";
 
 export const onLogout = () => {
-  const logoutAction = (snackbarId: SnackbarKey) => (
+  const logoutAction = () => (
     <>
       <SnackBarAction
         yesAction={() => {

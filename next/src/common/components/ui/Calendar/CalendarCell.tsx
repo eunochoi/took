@@ -1,5 +1,4 @@
 import { endOfMonth, format, isAfter, isBefore, isSameDay, isSameMonth, startOfMonth } from "date-fns";
-import { useRouter } from "next/navigation";
 import { memo } from "react";
 import styled, { keyframes } from "styled-components";
 import { useCalendar } from "./CalendarContext";
@@ -9,8 +8,6 @@ import { useGetSelectedDate } from "./hooks/useGetSelectedDate";
 // props로 받은 dateFormating 함수를 이용해 어떤 결과를 보여줄지를 결정한다. 
 // memo를 사용해서 자신의 prop(date)이 바뀌지 않으면 리렌더링되지 않도록 최적화
 export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
-  const router = useRouter();
-
   const { displayDate, prevMonth, nextMonth, RenderDateContent, onClickDate } = useCalendar();
   const { selectedDate } = useGetSelectedDate();
   const today = new Date();

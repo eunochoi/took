@@ -8,7 +8,7 @@ import { authAction } from "@/common/actions/authAction";
 import { getHabitById, getHabitMonthlyStatus } from "@/common/actions/habit";
 
 import { format } from 'date-fns';
-import { notFound, useRouter } from "next/navigation";
+import { notFound } from "next/navigation";
 import Calendar from "../../ui/Calendar";
 import Carousel from "../../ui/Carousel";
 import { Modal } from "../../ui/Modal";
@@ -25,8 +25,6 @@ interface Props {
 }
 
 const HabitInfoView = ({ habitId }: Props) => {
-  const router = useRouter();
-
   const [calendarDate, setCalendarDate] = useState<Date>(new Date());
   const [chartDate, setChartDate] = useState<Date>(new Date());
 

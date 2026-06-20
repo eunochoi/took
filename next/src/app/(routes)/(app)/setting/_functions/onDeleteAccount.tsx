@@ -2,10 +2,10 @@ import { authAction } from "@/common/actions/authAction";
 import { deleteCurrentUser } from "@/common/actions/user";
 import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import { signOut } from "next-auth/react";
-import { SnackbarKey, closeSnackbar, enqueueSnackbar } from "notistack";
+import { closeSnackbar, enqueueSnackbar } from "notistack";
 
 export const onDeleteAccount = () => {
-  const userDeleteAction = (snackbarId: SnackbarKey) => (
+  const userDeleteAction = () => (
     <>
       <SnackBarAction
         yesAction={() => {

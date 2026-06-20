@@ -36,7 +36,7 @@ const SORT_TEXT: Record<SORT, string> = {
 const HabitView = () => {
   usePrefetchPage();
   const router = useRouter();
-  const { todayDoneHabitCount, createdHabitCount, todayDoneHabitRate } = useTodayHabitRate();
+  const { todayDoneHabitCount, todayDoneHabitRate } = useTodayHabitRate();
   const { toggleValue, onToggle } = useHabitToggle();
   const { customOrder } = useCustomHabitOrder();
 

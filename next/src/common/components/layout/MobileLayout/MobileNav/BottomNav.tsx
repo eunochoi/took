@@ -75,7 +75,7 @@ const NavMenu = styled(Link) <{ $active: boolean }>`
   border-radius: 22px;
   
   font-size: 22px;
-  color: ${({ $active, theme }) => $active ? '#fff' : '#999'};
+  color: ${({ $active }) => $active ? '#fff' : '#999'};
   background-color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : 'transparent'};
   
   cursor: pointer;
@@ -92,7 +92,7 @@ const SettingButton = styled(Link) <{ $active: boolean }>`
   border-radius: 26px;
   
   font-size: 24px;
-  color: ${({ $active, theme }) => $active ? '#fff' : '#999'};
+  color: ${({ $active }) => $active ? '#fff' : '#999'};
   background-color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : 'rgba(255,255,255,0.8)'};
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);

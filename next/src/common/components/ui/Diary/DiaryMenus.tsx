@@ -7,7 +7,7 @@ import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
-import { closeSnackbar, enqueueSnackbar, SnackbarKey } from "notistack";
+import { closeSnackbar, enqueueSnackbar } from "notistack";
 import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { MdContentCopy, MdOutlineDeleteForever, MdOutlineEdit } from 'react-icons/md';
@@ -121,7 +121,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
     },
   });
   const onClickDeleteButton = () => {
-    const action = (snackbarId: SnackbarKey) => (
+    const action = () => (
       <SnackBarAction
         yesAction={() => {
           deleteDiaryMutation.mutate({ id: diaryData.id });
