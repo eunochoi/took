@@ -6,7 +6,8 @@ import { useCallback, useState } from "react";
 import styled from "styled-components";
 
 //function
-import { getDiaryByDate, getMonthlyDiaryData } from "@/common/fetchers/diary";
+import { authAction } from "@/common/actions/authAction";
+import { getDiaryByDate, getMonthlyDiaryData } from "@/common/actions/diary";
 import { createEmptyDiary } from "@/common/types/diary";
 
 //styledComponent
@@ -38,12 +39,12 @@ const CalendarView = ({ date }: CalendarViewProps) => {
   //get date diary data
   const { data: diaryData } = useQuery({
     queryKey: ['diary', 'date', date],
-    queryFn: () => getDiaryByDate({ date }),
+    queryFn: () => authAction(() => getDiaryByDate({ date })),
   });
 
   const { data: monthCalendarData } = useQuery({
     queryKey: ['diary', 'month', format(displayDate, 'yyyy-MM')],
-    queryFn: () => getMonthlyDiaryData({ month: format(displayDate, 'yyyy-MM') }),
+    queryFn: () => authAction(() => getMonthlyDiaryData({ month: format(displayDate, 'yyyy-MM') })),
     select: (data) => { //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
       const monthCalendarData: MonthCalendarDataType = {};
       data.forEach((e: any) => {

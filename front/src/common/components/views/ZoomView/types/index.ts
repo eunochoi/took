@@ -1,4 +1,4 @@
 export interface ZoomViewImage {
-  id: number;
+  id: string;
   src: string;
 }

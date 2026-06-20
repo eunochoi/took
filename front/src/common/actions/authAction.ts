@@ -21,7 +21,7 @@ const requestAccessTokenRefresh = async () => {
   return response.ok
 }
 
-// 인증 필요한 action 실행, 토큰 만료 시 한 번 재시도
+// 클라이언트단에서 로그인 여부 확인후 엑세스 토큰 리프레시 관리
 export const authAction = async <T,>(
   action: () => Promise<ActionResult<T>>,
 ): Promise<T> => {

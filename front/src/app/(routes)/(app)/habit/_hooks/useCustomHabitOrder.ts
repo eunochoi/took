@@ -1,10 +1,11 @@
-import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
+import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { useLocalStorage } from "@/common/hooks/useLocalStorage";
 import { LocalUserStorage } from "@/common/types";
 import { useCallback } from "react";
 
 export const useCustomHabitOrder = () => {
-  const { currentUserEmail } = useCurrentUserEmail();
+  const { data: user } = useCurrentUser();
+  const currentUserEmail = user?.email ?? '';
   const { storedValue, setValue } = useLocalStorage<LocalUserStorage>(currentUserEmail, {});
   const customOrder = storedValue?.habitCustomOrder ?? [];  //기본값 처리
 

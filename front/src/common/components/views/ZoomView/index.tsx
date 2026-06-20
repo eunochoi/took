@@ -1,5 +1,6 @@
 'use client';
-import { getDiaryById } from "@/common/fetchers/diary";
+import { authAction } from "@/common/actions/authAction";
+import { getDiaryById } from "@/common/actions/diary";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -21,7 +22,7 @@ interface ZoomViewProps {
 const ZoomView = ({ diaryId }: ZoomViewProps) => {
   const { data: diaryData, isError } = useQuery({
     queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiaryById({ id: diaryId }),
+    queryFn: () => authAction(() => getDiaryById({ id: diaryId })),
     enabled: diaryId !== null
   });
 
@@ -41,6 +42,8 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
   useEffect(() => {
     if (isError) notFound();
   }, [isError])
+
+  if (!diaryData) return null;
 
   return <Modal>
     <Modal.Header headerTitleText={headerTitle} />

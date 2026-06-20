@@ -11,8 +11,9 @@ import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import TopButtons from "@/common/components/ui/TopButtons";
-import { getDiaryList } from "@/common/fetchers/diary";
-import { useCurrentUserEmail } from "@/common/hooks/useCurrentUserEmail";
+import { authAction } from "@/common/actions/authAction";
+import { getDiaryList } from "@/common/actions/diary";
+import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
@@ -28,7 +29,8 @@ const ListView = () => {
 
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  const { currentUserEmail } = useCurrentUserEmail();
+  const { data: user } = useCurrentUser();
+  const currentUserEmail = user?.email ?? '';
   const { ref: inViewRef, inView } = useInView({ threshold: 0, delay: 0 });
 
   const { isOpen: isEmotionFilterOpen, open: openEmotionFilter, close: closeEmotionFilter } = useModalParam('emotion-filter');
@@ -38,13 +40,15 @@ const ListView = () => {
 
   const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage, isSuccess } = useInfiniteQuery({
     queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', toggleValue, 'year', selectedYear, 'month', selectedMonth],
-    queryFn: ({ pageParam }) => getDiaryList({
-      sort: toggleValue,
-      search: emotionToggle,
-      pageParam,
-      limit: DIDARY_FETCH_LIMIT,
-      selectedYear: selectedYear,
-      selectedMonth: selectedMonth
+    queryFn: ({ pageParam }) => authAction(() => {
+      return getDiaryList({
+        sort: toggleValue,
+        search: emotionToggle,
+        pageParam,
+        limit: DIDARY_FETCH_LIMIT,
+        selectedYear: selectedYear,
+        selectedMonth: selectedMonth
+      });
     }),
     initialPageParam: 0,
     select: (data) => data.pages.flat() as diaryData[],

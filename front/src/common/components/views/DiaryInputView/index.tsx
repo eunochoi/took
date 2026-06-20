@@ -1,7 +1,8 @@
 "use client";
 
 import Api from "@/api/Api";
-import { getDiaryById } from "@/common/fetchers/diary";
+import { authAction } from "@/common/actions/authAction";
+import { getDiaryById, type DiaryData } from "@/common/actions/diary";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { notFound, useSearchParams } from "next/navigation";
@@ -33,7 +34,7 @@ interface DiaryProps {
   text: string;
   emotion: number;
   Images: ServerImageProps[];
-  diaryId: string | null;
+  diaryId?: string | null;
   visible?: boolean;
 }
 
@@ -78,9 +79,9 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
     };
   }, [checkScroll]);
 
-  const { data: diaryData, isError } = useQuery<DiaryProps>({
+  const { data: diaryData, isError } = useQuery<DiaryData | null>({
     queryKey: ['diary', 'id', diaryId],
-    queryFn: () => getDiaryById({ id: diaryId }),
+    queryFn: () => authAction(() => getDiaryById({ id: diaryId })),
     enabled: diaryId !== null && isEdit === true
   });
 

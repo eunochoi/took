@@ -1,7 +1,7 @@
 // src/providers/SettingsProvider.tsx
 'use client';
 
-import { useCurrentUserEmail } from '@/common/hooks/useCurrentUserEmail';
+import { useCurrentUser } from '@/common/hooks/useCurrentUser';
 import { useLocalStorage } from '@/common/hooks/useLocalStorage';
 import { LocalUserStorage } from '@/common/types';
 import { ReactNode, useCallback, useEffect, useMemo } from 'react';
@@ -9,7 +9,8 @@ import { ThemeProvider } from 'styled-components';
 import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontType, SettingsContext, THEME_BG_COLORS, THEME_COLORS } from './SettingsContext';
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
-  const { currentUserEmail } = useCurrentUserEmail();
+  const { data: user } = useCurrentUser();
+  const currentUserEmail = user?.email ?? '';
 
   const { storedValue: settings, setValue: setSettings } = useLocalStorage<LocalUserStorage>(currentUserEmail, {});
   const fontSize = settings?.fontSize ?? FONT_SIZE_LIST[1];

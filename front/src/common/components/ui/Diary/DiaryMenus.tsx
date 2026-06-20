@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-import Api from "@/api/Api";
+import { authAction } from "@/common/actions/authAction";
+import { deleteDiary } from "@/common/actions/diary";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -49,7 +50,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, position, diaryData }: Props) => 
 
   const deleteDiaryMutation = useMutation({
     mutationFn: async ({ id }: { id: number }) => {
-      await Api.delete(`diary?id=${id}`)
+      await authAction(() => deleteDiary({ id }));
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['diary'] });
