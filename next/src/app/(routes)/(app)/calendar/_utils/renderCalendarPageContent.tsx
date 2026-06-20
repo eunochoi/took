@@ -2,21 +2,24 @@ import { format } from "date-fns";
 import Image from "next/image";
 import styled from "styled-components";
 
-import { useCalendar } from "@/common/components/ui/Calendar/CalendarContext";
+import { CalendarDateContentProps } from "@/common/components/ui/Calendar/types";
 import { EMOTIONS } from "@/common/constants/emotions";
 import { lightenColor } from "@/common/utils/lightenColor";
 
-export const RenderDateContent = ({ cellDate }: { cellDate: Date }) => {
-  const { monthlyData } = useCalendar<{ [key: string]: any }>();
+interface DiaryDateData {
+  habitsCount: number;
+  isVisible: boolean;
+  emotionType: number;
+}
 
-  const key = format(cellDate, 'yyMMdd');
+export const renderCalendarPageContent = ({ date, dateData }: CalendarDateContentProps<DiaryDateData>) => {
   const {
     habitsCount = 0,
     isVisible: hasDiary = false,
     emotionType = -1,
-  } = monthlyData?.[key] || {};
+  } = dateData || {};
   const hasHabit = habitsCount > 0;
-  const date = format(cellDate, 'd');
+  const formattedDate = format(date, 'd');
   const emotion = EMOTIONS[emotionType];
 
   const renderContent = () => {
@@ -33,7 +36,7 @@ export const RenderDateContent = ({ cellDate }: { cellDate: Date }) => {
         <CenterBadge>{habitsCount}</CenterBadge>
       );
     }
-    return (<span className="date">{date}</span>);
+    return (<span className="date">{formattedDate}</span>);
   };
 
   return renderContent();

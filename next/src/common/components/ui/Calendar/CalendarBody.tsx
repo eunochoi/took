@@ -3,10 +3,33 @@
 import styled from "styled-components";
 
 import { CalendarCell } from "./CalendarCell";
-import { useCalendar } from "./CalendarContext";
+import { DateContentRenderer, DateDataMap } from "./types";
 
-const CalendarBody = () => {
-  const { calendarDates, handleTouchStart, handleTouchEnd } = useCalendar();
+interface CalendarBodyProps<T> {
+  calendarDates: Date[][];
+  dateDataMap?: DateDataMap<T>;
+  visibleMonth: Date;
+  selectedDate?: Date;
+  renderDateContent?: DateContentRenderer<T>;
+  onClickDate?: (date: Date) => void;
+  prevMonth: () => void;
+  nextMonth: () => void;
+  handleTouchStart: (e: React.TouchEvent<HTMLDivElement>) => void;
+  handleTouchEnd: (e: React.TouchEvent<HTMLDivElement>) => void;
+}
+
+const CalendarBody = <T,>({
+  calendarDates,
+  dateDataMap,
+  visibleMonth,
+  selectedDate,
+  renderDateContent,
+  onClickDate,
+  prevMonth,
+  nextMonth,
+  handleTouchStart,
+  handleTouchEnd,
+}: CalendarBodyProps<T>) => {
 
   return (
     <CalBody
@@ -16,7 +39,17 @@ const CalendarBody = () => {
       {calendarDates.map((weekRow, i) =>
         <CalRow key={'weeks' + i} className="cal_week_row">
           {weekRow.map(date => (
-            <CalendarCell key={date.toString()} cellDate={date} />
+            <CalendarCell
+              key={date.toString()}
+              date={date}
+              dateDataMap={dateDataMap}
+              visibleMonth={visibleMonth}
+              selectedDate={selectedDate}
+              renderDateContent={renderDateContent}
+              onClickDate={onClickDate}
+              prevMonth={prevMonth}
+              nextMonth={nextMonth}
+            />
           ))}
         </CalRow>)
       }

@@ -16,7 +16,7 @@ import { StarRating } from "../../ui/StarRating";
 import MonthHabitCount from "./MonthHabitCount";
 import YearHabitChart from "./YearHabitChart";
 import YearHabitCount from "./YearHabitCount";
-import { RenderDateContent } from "./_utils/HabitInfoDateContent";
+import { renderHabitInfoPageContent } from "./_utils/renderHabitInfoPageContent";
 
 
 
@@ -35,15 +35,15 @@ const HabitInfoView = ({ habitId }: Props) => {
     queryFn: () => authAction(() => getHabitById({ id: habitId })),
     enabled: habitId !== null
   });
-  const { data: singleHabitMonthlyData } = useQuery({
+  const { data: habitDateDataMap } = useQuery({
     queryKey: ['habit', 'id', habitId, 'month', format(calendarDate, 'yyyy-MM')],
     queryFn: () => authAction(() => getHabitMonthlyStatus({ id: habitId, month: format(calendarDate, 'yyyy-MM') })),
     select: (data) => {
-      const singleHabitMonthlyData: { [key: string]: boolean } = {};
+      const habitDateDataMap: { [key: string]: boolean } = {};
       data?.forEach((e: any) => {
-        singleHabitMonthlyData[format(e.date, 'yyMMdd')] = e?.Habits && true;
+        habitDateDataMap[format(e.date, 'yyMMdd')] = e?.Habits && true;
       });
-      return singleHabitMonthlyData;
+      return habitDateDataMap;
     }
   });
 
@@ -82,8 +82,8 @@ const HabitInfoView = ({ habitId }: Props) => {
 
                   visibleMonth={calendarDate}
                   setVisibleMonth={setCalendarDate}
-                  monthlyData={singleHabitMonthlyData}
-                  RenderDateContent={RenderDateContent}
+                  dateDataMap={habitDateDataMap}
+                  renderDateContent={renderHabitInfoPageContent}
 
                   onClickMonthTitle={onClickMonthTitle}
                 />

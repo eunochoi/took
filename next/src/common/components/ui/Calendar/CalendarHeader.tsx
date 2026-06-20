@@ -3,11 +3,14 @@ import { ko } from "date-fns/locale";
 
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import styled from "styled-components";
-import { useCalendar } from "./CalendarContext";
 
 interface CalendarHeaderProps {
   headerSize: 'small' | 'middle' | 'large';
   headerTitlePosition: 'center' | 'start';
+  visibleMonth: Date;
+  prevMonth: () => void;
+  nextMonth: () => void;
+  goToday: () => void;
 }
 
 const WEEK_TITLE_ENG = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
@@ -15,14 +18,11 @@ const WEEK_TITLE_ENG = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 const CalendarHeader = ({
   headerSize,
   headerTitlePosition,
+  visibleMonth,
+  prevMonth,
+  nextMonth,
+  goToday,
 }: CalendarHeaderProps) => {
-
-  const {
-    visibleMonth,
-    prevMonth,
-    nextMonth,
-    goToday,
-  } = useCalendar();
 
   return (
     <>

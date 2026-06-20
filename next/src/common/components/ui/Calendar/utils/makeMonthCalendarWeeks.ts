@@ -1,11 +1,11 @@
 import { addDays, endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
 
-const makeCalendarDates = (visibleMonth: Date) => {
-
-  //visibleMonth를 기준으로 달력 날짜 정의
-  const startDateOfMonth = startOfMonth(visibleMonth); //1~31
-  const endDateOfMonth = endOfMonth(visibleMonth); //1~31
-  const startDateOfWeek = startOfWeek(startDateOfMonth, { weekStartsOn: 1 });//일요일 시작 기준이라 월요일 시작 기준으로 처리 필요
+// 달력 화면 한 장에 필요한 주 단위 날짜 배열을 만든다.
+// visibleMonth의 첫 주 월요일부터 마지막 주 일요일까지 포함한다.
+const makeMonthCalendarWeeks = (visibleMonth: Date): Date[][] => {
+  const startDateOfMonth = startOfMonth(visibleMonth);
+  const endDateOfMonth = endOfMonth(visibleMonth);
+  const startDateOfWeek = startOfWeek(startDateOfMonth, { weekStartsOn: 1 });
   const endDateOfWeek = endOfWeek(endDateOfMonth, { weekStartsOn: 1 });
 
 
@@ -23,7 +23,7 @@ const makeCalendarDates = (visibleMonth: Date) => {
   }
   calendarDates.pop();
 
-  return { calendarDates };
+  return calendarDates;
 }
 
-export default makeCalendarDates;
+export default makeMonthCalendarWeeks;

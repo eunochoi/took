@@ -1,24 +1,44 @@
 import { endOfMonth, format, isAfter, isBefore, isSameDay, isSameMonth, startOfMonth } from "date-fns";
 import { memo } from "react";
 import styled, { keyframes } from "styled-components";
-import { useCalendar } from "./CalendarContext";
+import { DateContentRenderer, DateDataMap } from "./types";
 
+interface CalendarCellProps<T> {
+  date: Date;
+  dateDataMap?: DateDataMap<T>;
+  visibleMonth: Date;
+  selectedDate?: Date;
+  renderDateContent?: DateContentRenderer<T>;
+  onClickDate?: (date: Date) => void;
+  prevMonth: () => void;
+  nextMonth: () => void;
+}
 
 // props로 받은 dateFormating 함수를 이용해 어떤 결과를 보여줄지를 결정한다. 
 // memo를 사용해서 자신의 prop(date)이 바뀌지 않으면 리렌더링되지 않도록 최적화
-export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
-  const { visibleMonth, selectedDate, prevMonth, nextMonth, RenderDateContent, onClickDate } = useCalendar();
+const CalendarCellComponent = <T,>({
+  date,
+  dateDataMap,
+  visibleMonth,
+  selectedDate,
+  renderDateContent,
+  onClickDate,
+  prevMonth,
+  nextMonth,
+}: CalendarCellProps<T>) => {
   const today = new Date();
+  const dateKey = format(date, 'yyMMdd');
+  const dateData = dateDataMap?.[dateKey];
 
-  const isToday = isSameDay(cellDate, today);
-  const isCurrentMonth = isSameMonth(cellDate, visibleMonth);
-  const isSelectedDate = selectedDate ? isSameDay(cellDate, selectedDate) : false;
-  const isPrevMonth = isBefore(cellDate, startOfMonth(visibleMonth));
-  const isNextMonth = isAfter(cellDate, endOfMonth(visibleMonth));
+  const isToday = isSameDay(date, today);
+  const isCurrentMonth = isSameMonth(date, visibleMonth);
+  const isSelectedDate = selectedDate ? isSameDay(date, selectedDate) : false;
+  const isPrevMonth = isBefore(date, startOfMonth(visibleMonth));
+  const isNextMonth = isAfter(date, endOfMonth(visibleMonth));
 
   const handleClick = () => {
     if (onClickDate) {
-      onClickDate(cellDate);
+      onClickDate(date);
     }
     if (isPrevMonth) {
       prevMonth();
@@ -41,15 +61,24 @@ export const CalendarCell = memo(({ cellDate }: { cellDate: Date }) => {
           ${(isCurrentMonth && isToday) ? 'today' : ''}
       `}
       />
-      {RenderDateContent ?
-        <RenderDateContent cellDate={cellDate} />
-        : format(cellDate, 'd')
+      {renderDateContent ?
+        renderDateContent({
+          date,
+          dateData,
+          isToday,
+          isSelected: isSelectedDate,
+          isCurrentMonth,
+        })
+        : format(date, 'd')
       }
     </CellWrapper >
   );
-});
+};
 
-CalendarCell.displayName = 'CalendarCell';
+const MemoizedCalendarCell = memo(CalendarCellComponent);
+MemoizedCalendarCell.displayName = 'CalendarCell';
+
+export const CalendarCell = MemoizedCalendarCell as typeof CalendarCellComponent;
 
 // selected 될 때 한 번만 통통 튀는 느낌
 const selectedPop = keyframes`

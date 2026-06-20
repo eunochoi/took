@@ -3,10 +3,13 @@
 import styled from "styled-components";
 
 //function
-import { Dispatch, SetStateAction } from "react";
+import { addMonths, subMonths } from "date-fns";
+import { Dispatch, SetStateAction, useCallback, useMemo } from "react";
 import CalendarBody from "./CalendarBody";
-import { CalendarProvider } from './CalendarContext';
 import CalendarHeader from "./CalendarHeader";
+import { useSwipe } from "./hooks/useSwipe";
+import { DateContentRenderer, DateDataMap } from "./types";
+import makeMonthCalendarWeeks from "./utils/makeMonthCalendarWeeks";
 
 interface CalendarProps<T> {
   className?: string;
@@ -16,12 +19,10 @@ interface CalendarProps<T> {
   visibleMonth: Date;
   setVisibleMonth: Dispatch<SetStateAction<Date>>;
   selectedDate?: Date;
-  monthlyData?: T;
+  dateDataMap?: DateDataMap<T>;
   onClickMonthTitle?: () => void;
   onClickDate?: (date: Date) => void;
-  RenderDateContent?: ({ cellDate }: {
-    cellDate: Date;
-  }) => JSX.Element
+  renderDateContent?: DateContentRenderer<T>;
 
   isTouchGestureEnabled?: boolean;
 }
@@ -30,40 +31,55 @@ const Calendar = <T,>({
   className,
   headerSize = 'large',
   headerTitlePosition = 'start',
-
-  monthlyData,
+  dateDataMap,
   visibleMonth,
   setVisibleMonth,
   selectedDate,
-
   onClickMonthTitle,
   onClickDate,
-
-  RenderDateContent,
-  isTouchGestureEnabled
+  renderDateContent,
+  isTouchGestureEnabled = false
 }: CalendarProps<T>) => {
+  const calendarDates = useMemo(() => makeMonthCalendarWeeks(visibleMonth), [visibleMonth]);
+
+  const nextMonth = useCallback(() => {
+    setVisibleMonth(currentMonth => addMonths(currentMonth, 1));
+  }, [setVisibleMonth]);
+
+  const prevMonth = useCallback(() => {
+    setVisibleMonth(currentMonth => subMonths(currentMonth, 1));
+  }, [setVisibleMonth]);
+
+  const goToday = useCallback(() => {
+    onClickMonthTitle?.();
+    setVisibleMonth(new Date());
+  }, [onClickMonthTitle, setVisibleMonth]);
+
+  const { handleTouchStart, handleTouchEnd } = useSwipe({ isTouchGestureEnabled, prevMonth, nextMonth });
 
   return (
-    <CalendarProvider
-      monthlyData={monthlyData}
-      visibleMonth={visibleMonth}
-      setVisibleMonth={setVisibleMonth}
-      selectedDate={selectedDate}
-
-      onClickMonthTitle={onClickMonthTitle}
-      onClickDate={onClickDate}
-
-      RenderDateContent={RenderDateContent}
-      isTouchGestureEnabled={isTouchGestureEnabled}
-    >
-      <Wrapper className={className}>
-        <CalendarHeader
-          headerSize={headerSize}
-          headerTitlePosition={headerTitlePosition}
-        />
-        <CalendarBody />
-      </Wrapper>
-    </CalendarProvider>
+    <Wrapper className={className}>
+      <CalendarHeader
+        headerSize={headerSize}
+        headerTitlePosition={headerTitlePosition}
+        visibleMonth={visibleMonth}
+        prevMonth={prevMonth}
+        nextMonth={nextMonth}
+        goToday={goToday}
+      />
+      <CalendarBody
+        calendarDates={calendarDates}
+        dateDataMap={dateDataMap}
+        visibleMonth={visibleMonth}
+        selectedDate={selectedDate}
+        renderDateContent={renderDateContent}
+        onClickDate={onClickDate}
+        prevMonth={prevMonth}
+        nextMonth={nextMonth}
+        handleTouchStart={handleTouchStart}
+        handleTouchEnd={handleTouchEnd}
+      />
+    </Wrapper>
   );
 }
 
