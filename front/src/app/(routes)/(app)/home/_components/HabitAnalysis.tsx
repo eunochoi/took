@@ -1,7 +1,7 @@
 'use client';
 
 import { StarRating } from "@/common/components/ui/StarRating";
-import { HabitStats } from "@/common/fetchers/stats";
+import { HabitStats } from "@/common/actions/stats";
 import { useState } from "react";
 import styled from "styled-components";
 import {
@@ -249,4 +249,3 @@ const DetailValue = styled.span`
     font-size: 18px;
   }
 `;
-

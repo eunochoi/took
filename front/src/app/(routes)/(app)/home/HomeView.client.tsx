@@ -7,7 +7,8 @@ import { useMemo, useState } from "react";
 import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
 import { PageWrapper } from "@/common/components/layout/PageWrapper";
 import TopButtons from "@/common/components/ui/TopButtons";
-import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/fetchers/stats";
+import { authAction } from "@/common/actions/authAction";
+import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
@@ -26,19 +27,19 @@ const HomeView = () => {
 
   const { data: availableYears } = useQuery({
     queryKey: ['stats', 'years'],
-    queryFn: getAvailableYears,
+    queryFn: () => authAction(getAvailableYears),
     staleTime: 5 * 60 * 1000,
   });
 
   const { data: diaryStats, isLoading: isDiaryLoading } = useQuery({
     queryKey: ['stats', 'diary', selectedYear],
-    queryFn: () => getDiaryStats({ year: selectedYear }),
+    queryFn: () => authAction(() => getDiaryStats({ year: selectedYear })),
     staleTime: 60 * 1000,
   });
 
   const { data: habitStats, isLoading: isHabitLoading } = useQuery({
     queryKey: ['stats', 'habit', selectedYear],
-    queryFn: () => getHabitStats({ year: selectedYear }),
+    queryFn: () => authAction(() => getHabitStats({ year: selectedYear })),
     staleTime: 60 * 1000,
   });
 

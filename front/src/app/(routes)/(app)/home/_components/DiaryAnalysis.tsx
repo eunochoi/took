@@ -1,6 +1,6 @@
 'use client';
 
-import { DiaryStats } from "@/common/fetchers/stats";
+import { DiaryStats } from "@/common/actions/stats";
 import styled from "styled-components";
 
 import { getStreakMessage } from "../_messages/streakMessages";
