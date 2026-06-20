@@ -5,6 +5,7 @@ import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
 import { MdMoreVert } from 'react-icons/md';
 import styled from 'styled-components';
+import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import DiaryMenus from './DiaryMenus';
 
 interface Props {
@@ -12,8 +13,9 @@ interface Props {
 }
 
 const DiaryDateHeader = ({ diaryData }: Props) => {
-  const formattedDate = format(new Date(diaryData.date), 'yyyy년 M월 d일');
-  const day = format(new Date(diaryData.date), 'eeee', { locale: ko });
+  const dateForDisplay = parseLocalDate(diaryData.date);
+  const formattedDate = format(dateForDisplay, 'yyyy년 M월 d일');
+  const day = format(dateForDisplay, 'eeee', { locale: ko });
 
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);

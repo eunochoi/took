@@ -4,6 +4,7 @@ import CryptoJS from 'crypto-js';
 
 import { prisma } from '../../../lib/prisma';
 import { getAuth, type AuthResult } from '../auth/getAuth';
+import { addDaysToDateString, getDateStringDayDiff, getTodayStringInUserTimezone } from '../utils/date/userTimezone';
 import { getEnvValue } from '../utils/getEnvValue';
 import type { ActionResult } from './types';
 
@@ -146,6 +147,8 @@ const getMonthRange = (monthString: string) => {
 };
 
 const dateToYMD = (date: Date | string) => {
+  if (typeof date === 'string') return date;
+
   const parsedDate = date instanceof Date ? date : new Date(date);
   const year = parsedDate.getFullYear();
   const month = String(parsedDate.getMonth() + 1).padStart(2, '0');
@@ -207,11 +210,8 @@ const recomputeStreak = async (email: string) => {
   });
 
   const allDates = Array.from(allDatesSet).sort();
-  const today = new Date();
-  const todayStr = dateToYMD(today);
-  const yesterday = new Date(today);
-  yesterday.setDate(yesterday.getDate() - 1);
-  const yesterdayStr = dateToYMD(yesterday);
+  const todayStr = await getTodayStringInUserTimezone();
+  const yesterdayStr = addDaysToDateString(todayStr, -1);
 
   let longestStreak = 0;
   let currentStreak = 0;
@@ -221,9 +221,7 @@ const recomputeStreak = async (email: string) => {
   if (datesExcludingToday.length > 0) {
     tempStreak = 1;
     for (let i = 1; i < datesExcludingToday.length; i += 1) {
-      const prevDate = new Date(`${datesExcludingToday[i - 1]}T00:00:00`);
-      const currentDate = new Date(`${datesExcludingToday[i]}T00:00:00`);
-      const diffDays = (currentDate.getTime() - prevDate.getTime()) / 86400000;
+      const diffDays = getDateStringDayDiff(datesExcludingToday[i - 1], datesExcludingToday[i]);
 
       if (diffDays === 1) {
         tempStreak += 1;
@@ -241,9 +239,7 @@ const recomputeStreak = async (email: string) => {
     currentStreak = 1;
 
     for (let i = yesterdayIndex - 1; i >= 0; i -= 1) {
-      const currentDate = new Date(`${allDates[i + 1]}T00:00:00`);
-      const prevDate = new Date(`${allDates[i]}T00:00:00`);
-      const diffDays = (currentDate.getTime() - prevDate.getTime()) / 86400000;
+      const diffDays = getDateStringDayDiff(allDates[i], allDates[i + 1]);
 
       if (diffDays === 1) {
         currentStreak += 1;

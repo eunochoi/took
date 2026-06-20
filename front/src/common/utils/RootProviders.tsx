@@ -10,6 +10,7 @@ import RQProvider from "./reactQueryProvider";
 import ServiceWorkerRegister from "./ServiceWorkerRegister";
 import { SettingsProvider } from "./settingsContext/SettingsProvider";
 import CustomSnackbarProvider from "./snackBar/CustomSnackbarProvider";
+import { TimezoneSync } from "./TimezoneSync";
 
 interface Props {
   children: ReactNode;
@@ -25,6 +26,7 @@ interface Props {
  * - HydrationBoundary: 서버 데이터 hydration
  * - SettingsProvider: 테마/폰트 설정
  * - TopLoader: 페이지 전환 시 상단 로딩바 (테마색 적용)
+ * - TimezoneSync: 브라우저 시간대로 동기화
  */
 export const RootProviders = ({ children, dehydratedState }: Props) => {
   useAutoCloseSnackbar();
@@ -36,6 +38,7 @@ export const RootProviders = ({ children, dehydratedState }: Props) => {
           <CustomSnackbarProvider>
             <HydrationBoundary state={dehydratedState}>
               <SettingsProvider>
+                <TimezoneSync />
                 <TopLoader />
                 <ServiceWorkerRegister />
                 {children}

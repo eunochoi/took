@@ -1,14 +1,14 @@
-import { getYear } from "date-fns";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
+import { getCurrentYearInUserTimezone } from "@/common/utils/date/userTimezone";
 import HomeView from "./HomeView.client";
 
 export const dynamic = 'force-dynamic';
 
 const HomePage = async () => {
   const queryClient = new QueryClient();
-  const currentYear = getYear(new Date());
+  const currentYear = await getCurrentYearInUserTimezone();
 
   await queryClient.prefetchQuery({
     queryKey: ['stats', 'years'],

@@ -2,8 +2,10 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 
 //function
 import { getDiaryByDate, getMonthlyDiaryData } from "@/common/actions/diary";
-import { getTodayString } from "@/common/functions/getTodayString";
+import { getTodayStringInUserTimezone } from "@/common/utils/date/userTimezone";
 import CalendarView from "./CalendarView.client";
+
+export const dynamic = 'force-dynamic';
 
 interface Props {
   searchParams: {
@@ -15,7 +17,7 @@ const CalendarPage = async ({ searchParams }: Props) => {
 
   const params = searchParams;
   // date는 'yyyy-MM-dd' string
-  const date = params?.date || getTodayString();
+  const date = params?.date || await getTodayStringInUserTimezone();
 
   //server prefetch
   const queryClient = new QueryClient();

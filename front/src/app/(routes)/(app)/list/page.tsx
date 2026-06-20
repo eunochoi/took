@@ -1,12 +1,15 @@
 import { getDiaryList } from "@/common/actions/diary";
 import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { getCurrentYearInUserTimezone } from "@/common/utils/date/userTimezone";
 import ListView from "./ListView.client";
+
+export const dynamic = 'force-dynamic';
 
 //page for data prefetch
 const ListPage = async () => {
   const queryClient = new QueryClient();
-  const selectedYear = new Date().getFullYear();
+  const selectedYear = await getCurrentYearInUserTimezone();
   const limit = 10;
 
   //prefetch list data - all emotion and all sort

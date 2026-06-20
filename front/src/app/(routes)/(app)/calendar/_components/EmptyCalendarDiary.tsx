@@ -4,6 +4,7 @@ import DiaryAddButton from '@/common/components/ui/Diary/DiaryAddButton';
 import DiaryCardShell from '@/common/components/ui/Diary/DiaryCardShell';
 import DiaryHabits from '@/common/components/ui/Diary/DiaryHabits';
 import type { DiaryHabit } from '@/common/types/diary';
+import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import styled from 'styled-components';
@@ -14,8 +15,9 @@ interface Props {
 }
 
 const EmptyCalendarDiary = ({ date, habits = [] }: Props) => {
-  const formattedDate = format(new Date(date), 'yyyy년 M월 d일');
-  const day = format(new Date(date), 'eeee', { locale: ko });
+  const dateForDisplay = parseLocalDate(date);
+  const formattedDate = format(dateForDisplay, 'yyyy년 M월 d일');
+  const day = format(dateForDisplay, 'eeee', { locale: ko });
 
   return (
     <Wrapper>

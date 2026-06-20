@@ -1,9 +1,8 @@
 'use server';
 
-import { cookies } from 'next/headers';
-
 import { prisma } from '../../../lib/prisma';
 import { getAuth, type AuthResult } from '../auth/getAuth';
+import { getDaysAgoStringInUserTimezone, getTodayStringInUserTimezone } from '../utils/date/userTimezone';
 import type { ActionResult } from './types';
 
 type IdParams = {
@@ -134,46 +133,6 @@ const getYearRange = (year: string | number | null | undefined) => {
   };
 };
 
-const getUserTimezone = async () => {
-  const cookieStore = await cookies();
-  const timezone = cookieStore.get('timezone')?.value || 'UTC';
-
-  try {
-    Intl.DateTimeFormat(undefined, { timeZone: timezone });
-    return timezone;
-  } catch {
-    return 'UTC';
-  }
-};
-
-const formatDateInTimezone = (date: Date, timezone: string) => {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: timezone,
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  }).formatToParts(date);
-
-  const year = parts.find((part) => part.type === 'year')?.value;
-  const month = parts.find((part) => part.type === 'month')?.value;
-  const day = parts.find((part) => part.type === 'day')?.value;
-
-  return `${year}-${month}-${day}`;
-};
-
-const getTodayInTimezone = async () => {
-  const timezone = await getUserTimezone();
-  return formatDateInTimezone(new Date(), timezone);
-};
-
-const getDaysAgoInTimezone = async (days: number) => {
-  const timezone = await getUserTimezone();
-  const date = new Date();
-  date.setDate(date.getDate() - days);
-
-  return formatDateInTimezone(date, timezone);
-};
-
 const parseHabitId = (id: string | number | null | undefined) => {
   const habitId = Number(id);
 
@@ -201,7 +160,7 @@ export const getTodayHabitStat = async (): Promise<ActionResult<TodayHabitStat>>
     const auth = await getAuth();
     if (!auth.ok) return createAuthErrorResult(auth);
 
-    const todayDate = await getTodayInTimezone();
+    const todayDate = await getTodayStringInUserTimezone();
     const [habitCount, todayDiary] = await Promise.all([
       prisma.habit.count({ where: { email: auth.email } }),
       prisma.diary.findFirst({
@@ -301,7 +260,7 @@ export const getHabitRecentStatus = async ({ id, date }: HabitDateParams): Promi
       return { ok: false, code: 'INVALID_DATE', message: '날짜 형식이 올바르지 않습니다. (yyyy-MM-dd)' };
     }
 
-    const startDateStr = await getDaysAgoInTimezone(3);
+    const startDateStr = await getDaysAgoStringInUserTimezone(3);
     const recentDiaries = await prisma.diary.findMany({
       where: {
         email: auth.email,
@@ -320,9 +279,9 @@ export const getHabitRecentStatus = async ({ id, date }: HabitDateParams): Promi
     const foundDates = new Set(recentDiaries.map((diary) => diary.date));
     const recentDates = [
       date,
-      await getDaysAgoInTimezone(1),
-      await getDaysAgoInTimezone(2),
-      await getDaysAgoInTimezone(3),
+      await getDaysAgoStringInUserTimezone(1),
+      await getDaysAgoStringInUserTimezone(2),
+      await getDaysAgoStringInUserTimezone(3),
     ];
 
     return { ok: true, data: recentDates.map((dateStr) => foundDates.has(dateStr)) };

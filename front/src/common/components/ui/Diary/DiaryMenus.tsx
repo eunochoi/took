@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { authAction } from "@/common/actions/authAction";
 import { deleteDiary } from "@/common/actions/diary";
 import type { DiaryMenuData } from "@/common/types/diary";
+import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -130,7 +131,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
           closeSnackbar('diaryDelete');
         }} />
     );
-    enqueueSnackbar(`${format(new Date(diaryData.date), 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: false, action, autoHideDuration: 3000 });
+    enqueueSnackbar(`${format(parseLocalDate(diaryData.date), 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: false, action, autoHideDuration: 3000 });
     closeMenu();
   };
   const onClickCopy = () => {

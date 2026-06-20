@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import Image from "next/image";
 import styled from "styled-components";
+import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import Carousel from "../../ui/Carousel";
 import { Modal } from "../../ui/Modal";
 
@@ -27,8 +28,9 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
   });
 
   const date = diaryData?.date;  // yyyy-MM-dd
-  const formattedDate = date ? format(new Date(date), 'yyyy년 M월 d일') : '';
-  const formattedDay = date ? format(new Date(date), 'eeee', { locale: ko }) : '';
+  const dateForDisplay = date ? parseLocalDate(date) : null;
+  const formattedDate = dateForDisplay ? format(dateForDisplay, 'yyyy년 M월 d일') : '';
+  const formattedDay = dateForDisplay ? format(dateForDisplay, 'eeee', { locale: ko }) : '';
   const headerTitle = date ? `${formattedDate} ${formattedDay}` : '';
   const images = diaryData?.Images;
 
