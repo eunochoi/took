@@ -4,8 +4,6 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import styled from "styled-components";
 
-import { EMOTIONS } from "@/common/constants/emotions";
-import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import {
   AppInfoCard,
   AppInfoContent,
@@ -15,6 +13,8 @@ import {
   AppSectionMeta,
   AppSectionTitle,
 } from "@/common/components/ui/AppSection";
+import { EMOTIONS } from "@/common/constants/emotions";
+import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { getEmotionMessage } from "../_messages/emotionMessages";
 
 interface Props {
@@ -183,13 +183,8 @@ const EmotionItem = styled.div`
 `;
 
 const EmotionImage = styled(Image)`
-  width: 56px;
-  height: 56px;
-  
-  @media (min-width: 480px) {
-    width: 64px;
-    height: 64px;
-  }
+  width: 48px;
+  height: 48px;
 `;
 
 const EmotionCount = styled.span`

@@ -11,7 +11,6 @@ import {
   DIARY_IMAGE_MAX_SIZE_BYTES,
   DIARY_IMAGE_MAX_SIZE_MB,
 } from "@/common/constants/image";
-import { lightenColor } from "@/common/utils/lightenColor";
 
 
 
@@ -113,7 +112,6 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
         <UploadButton disabled={isLoading} onClick={() => imageUploadRef.current?.click()}>
           <input ref={imageUploadRef} type="file" accept={DIARY_IMAGE_ALLOWED_MIME_TYPES.join(',')} name="image" multiple hidden onChange={onChangeImages} />
           <MdOutlineImage className="icon" />
-          <span>이미지</span>
         </UploadButton>
       </SquareBox>
       {images?.length > 0 &&
@@ -239,7 +237,7 @@ const UploadButton = styled.button`
   width: 100%;
   height: 100%;
   border-radius: 12px;
-  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 35) : '#C4CBE0'};
+  background-color: ${(props) => props.theme.themeColor ?? '#979FC7'};
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   transition: all 0.2s ease;
 
@@ -261,6 +259,6 @@ const UploadButton = styled.button`
 
   .icon{
     font-size: 32px;
-    color: rgb(var(--greyTitle));
+    color: white;
   }
 `

@@ -4,7 +4,7 @@ export const AppSection = styled.section<{ $gap?: number }>`
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: ${({ $gap }) => $gap ?? 24}px;
+  gap: ${({ $gap }) => $gap ?? 16}px;
   width: 100%;
 `;
 

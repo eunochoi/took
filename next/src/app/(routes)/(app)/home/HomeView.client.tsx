@@ -4,9 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useMemo, useState } from "react";
 
-import AppPage from "@/common/components/layout/AppPage";
-import { authAction } from "@/common/auth/authAction";
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
+import { authAction } from "@/common/auth/authAction";
+import AppPage from "@/common/components/layout/AppPage";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
@@ -59,7 +59,7 @@ const HomeView = () => {
           <span>{selectedYear}년</span>
         </button>
       }
-      contentProps={{ $gap: 28, $paddingTop: 8, $paddingBottom: 48 }}
+      contentProps={{ $gap: 56, $paddingTop: 8, $paddingBottom: 48 }}
       afterContent={
         <YearSelector
           isOpen={isYearSelectorOpen}
@@ -72,22 +72,22 @@ const HomeView = () => {
           }}
         />
       }>
-        <GreetingSection />
+      <GreetingSection />
 
-        <DiaryAnalysis
-          stats={diaryStats}
-          year={selectedYear}
-        />
+      <DiaryAnalysis
+        stats={diaryStats}
+        year={selectedYear}
+      />
 
-        <EmotionStats
-          emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-          monthlyEmotionCounts={diaryStats?.monthlyEmotionCounts ?? Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
-        />
+      <EmotionStats
+        emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+        monthlyEmotionCounts={diaryStats?.monthlyEmotionCounts ?? Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+      />
 
-        <HabitAnalysis
-          stats={habitStats}
-        />
-      </AppPage>
+      <HabitAnalysis
+        stats={habitStats}
+      />
+    </AppPage>
   );
 };
 

@@ -69,19 +69,10 @@ const Row = styled.div`
 const EmotionImage = styled(Image)`
   box-sizing: border-box;
   transition: opacity ease-in-out 200ms;
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
   object-fit: contain;
-
-  @media (max-width: 479px) {
-    width: 50px;
-    height: 50px;
-  }
-  @media (min-width: 1025px) {
-    width: 70px;
-    height: 70px;
-  }
 `;
 
 const EmotionName = styled.span`

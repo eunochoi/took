@@ -32,6 +32,7 @@ const SettingPage = () => {
   return (
     <AppPage
       contentVariant="normal"
+      contentProps={{ $gap: 56 }}
       topButtons={<>
         <a href="https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share"
           target="_blank"
@@ -44,70 +45,70 @@ const SettingPage = () => {
           <button className="normal">intro</button>
         </a>
       </>}>
-        <Section>
-          <Title>계정 정보</Title>
-          <Card>
-            <SubSection>
-              <SettingItem settingItemKey="이메일" settingItemValue={<span>{email}</span>}></SettingItem>
-              <SettingItem settingItemKey="계정 타입" settingItemValue={<span>{provider}</span>}></SettingItem>
-              <SettingItem settingItemKey="가입일" settingItemValue={<span>{createAt}</span>}></SettingItem>
-            </SubSection>
-          </Card>
-        </Section>
+      <Section>
+        <Title>계정 정보</Title>
+        <Card>
+          <SubSection>
+            <SettingItem settingItemKey="이메일" settingItemValue={<span>{email}</span>}></SettingItem>
+            <SettingItem settingItemKey="계정 타입" settingItemValue={<span>{provider}</span>}></SettingItem>
+            <SettingItem settingItemKey="가입일" settingItemValue={<span>{createAt}</span>}></SettingItem>
+          </SubSection>
+        </Card>
+      </Section>
 
-        <Section>
-          <Title>앱 설정</Title>
-          <Card>
-            <SubSection>
-              <SubTitle>테마 색상</SubTitle>
-              <ThemeColorSelector />
-            </SubSection>
-          </Card>
-          <Card>
-            <SubSection>
-              <SubTitle>폰트</SubTitle>
-              <SettingItem
-                settingItemKey="다이어리 글씨 크기"
-                settingItemValue={<FontSizeSelector />} />
-              <SettingItem
-                settingItemKey="폰트 타입"
-                settingItemValue={<FontTypeSelector />} />
-            </SubSection>
-          </Card>
-          <Card>
-            <SubSection>
-              <SubTitle>습관</SubTitle>
-              <SettingItem
-                settingItemKey="습관 순서 커스텀"
-                settingItemValue={
-                  <button onClick={() => {
-                    router.push('/inter/habitOrder', { scroll: false })
-                  }}>
-                    <MdLowPriority />
-                  </button>} />
-            </SubSection>
-          </Card>
-        </Section>
+      <Section>
+        <Title>앱 설정</Title>
+        <Card>
+          <SubSection>
+            <SubTitle>테마 색상</SubTitle>
+            <ThemeColorSelector />
+          </SubSection>
+        </Card>
+        <Card>
+          <SubSection>
+            <SubTitle>폰트</SubTitle>
+            <SettingItem
+              settingItemKey="다이어리 글씨 크기"
+              settingItemValue={<FontSizeSelector />} />
+            <SettingItem
+              settingItemKey="폰트 타입"
+              settingItemValue={<FontTypeSelector />} />
+          </SubSection>
+        </Card>
+        <Card>
+          <SubSection>
+            <SubTitle>습관</SubTitle>
+            <SettingItem
+              settingItemKey="습관 순서 커스텀"
+              settingItemValue={
+                <button onClick={() => {
+                  router.push('/inter/habitOrder', { scroll: false })
+                }}>
+                  <MdLowPriority />
+                </button>} />
+          </SubSection>
+        </Card>
+      </Section>
 
-        <Section>
-          <Title>계정 관리</Title>
-          <Card>
-            <SubSection>
-              <SettingItem
-                settingItemKey="로그아웃"
-                settingItemValue={
-                  <button onClick={onLogout}>
-                    <MdLogout />
-                  </button>} />
-              <SettingItem
-                settingItemKey="회원 탈퇴"
-                settingItemValue={
-                  <button onClick={onDeleteAccount}>
-                    <MdDeleteForever />
-                  </button>} />
-            </SubSection>
-          </Card>
-        </Section>
+      <Section>
+        <Title>계정 관리</Title>
+        <Card>
+          <SubSection>
+            <SettingItem
+              settingItemKey="로그아웃"
+              settingItemValue={
+                <button onClick={onLogout}>
+                  <MdLogout />
+                </button>} />
+            <SettingItem
+              settingItemKey="회원 탈퇴"
+              settingItemValue={
+                <button onClick={onDeleteAccount}>
+                  <MdDeleteForever />
+                </button>} />
+          </SubSection>
+        </Card>
+      </Section>
     </AppPage >
   );
 }
@@ -115,7 +116,6 @@ const SettingPage = () => {
 export default SettingPage;
 
 const Section = styled(AppSection)`
-  margin: 16px 0;
 `
 
 const Card = styled(AppCard)``
