@@ -4,7 +4,7 @@ import { authAction } from "@/common/auth/authAction";
 import { deleteDiary } from "@/common/actions/diary";
 import type { DiaryMenuData } from "@/common/types/diary";
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
@@ -103,29 +103,21 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
     };
   }, [isMenuOpen, anchorRef, closeMenu]);
 
-
-  const deleteDiaryMutation = useMutation({
-    mutationFn: async ({ id }: { id: number }) => {
-      await authAction(() => deleteDiary({ id }));
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['diary'] });
-      queryClient.invalidateQueries({ queryKey: ['stats'] });
-      console.log('success delete diary');
-      closeSnackbar('diaryDelete');
-      enqueueSnackbar('일기 삭제 완료', { variant: 'success' });
-    },
-    onError: (error: Error) => {
-      enqueueSnackbar(error.message || '일기 삭제 실패', { variant: 'error' });
-      console.log('delete diary error');
-    },
-  });
   const onClickDeleteButton = () => {
     const action = () => (
       <SnackBarAction
-        yesAction={() => {
-          deleteDiaryMutation.mutate({ id: diaryData.id });
+        yesAction={async () => {
           closeSnackbar('diaryDelete');
+          try {
+            await authAction(() => deleteDiary({ id: diaryData.id }));
+            queryClient.invalidateQueries({ queryKey: ['diary'] });
+            queryClient.invalidateQueries({ queryKey: ['stats'] });
+            console.log('success delete diary');
+            enqueueSnackbar('일기 삭제 완료', { variant: 'success' });
+          } catch (error) {
+            enqueueSnackbar(error instanceof Error ? error.message : '일기 삭제 실패', { variant: 'error' });
+            console.log('delete diary error');
+          }
         }}
         noAction={() => {
           closeSnackbar('diaryDelete');

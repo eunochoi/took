@@ -1,9 +1,9 @@
 'use client';
 
 import { authAction } from "@/common/auth/authAction";
-import { getHabitById } from "@/common/actions/habit";
-import { useQuery } from "@tanstack/react-query";
-import { notFound } from "next/navigation";
+import { createHabit, getHabitById, updateHabit } from "@/common/actions/habit";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { notFound, useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MdCheckBox, MdOutlineStar } from "react-icons/md";
@@ -13,7 +13,6 @@ import { SectionTitle, SectionTitleIcon } from "../../ui/SectionTitle";
 import { HabitInputCard } from "./HabitInputCard";
 import { HabitName } from "./HabitName";
 import { HabitRating } from "./HabitRating";
-import useSubmitHabit from "./utils/useSubmitHabit";
 
 interface HabitInputProps {
   isEdit: boolean;
@@ -21,6 +20,8 @@ interface HabitInputProps {
 }
 
 const HabitInputView = ({ isEdit, habitId }: HabitInputProps) => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const scrollContentRef = useRef<HTMLDivElement>(null);
   const [isScrollable, setIsScrollable] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -62,14 +63,28 @@ const HabitInputView = ({ isEdit, habitId }: HabitInputProps) => {
     }
   }, [habitData]);
 
-  const { addHabit, editHabit } = useSubmitHabit();
-  const onMutation = isEdit ? editHabit : addHabit;
   const submitText = isEdit ? '수정' : '추가';
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (habitName.length > 0 && habitName.length <= 10) {
-      if (isEdit && habitId) onMutation.mutate({ habitId, habitName, priority });
-      else onMutation.mutate({ habitName, priority });
+      const successMessage = isEdit ? '습관 항목 수정 완료' : '습관 항목 생성 완료';
+      const errorMessage = isEdit ? '습관 항목 수정 실패' : '습관 항목 생성 실패';
+
+      try {
+        if (isEdit && habitId) {
+          await authAction(() => updateHabit({ habitId, habitName, priority }));
+        }
+        else {
+          await authAction(() => createHabit({ habitName, priority }));
+        }
+
+        queryClient.invalidateQueries({ queryKey: ['habits'] });
+        queryClient.invalidateQueries({ queryKey: ['habit'] });
+        router.back();
+        setTimeout(() => enqueueSnackbar(successMessage, { variant: 'success' }), 300);
+      } catch (error) {
+        enqueueSnackbar(errorMessage, { variant: 'error' });
+      }
     }
     else enqueueSnackbar('1~10 글자의 이름을 입력해주세요.', { variant: 'info' });
   };

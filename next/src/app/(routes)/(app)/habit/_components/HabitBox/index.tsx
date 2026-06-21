@@ -3,10 +3,10 @@
 import styled from "styled-components";
 
 
+import { checkHabit as checkHabitAction, deleteHabit as deleteHabitAction, getHabitRecentStatus, uncheckHabit as uncheckHabitAction } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
-import { getHabitRecentStatus } from "@/common/actions/habit";
 import { getTodayString } from "@/common/functions/getTodayString";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format, subDays } from "date-fns";
 import { ko } from "date-fns/locale";
 import { ChangeEvent } from "react";
@@ -16,7 +16,6 @@ import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
 import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
 import { MdOutlineDeleteForever, MdOutlineEdit, MdOutlineInsertChart } from 'react-icons/md';
-import useHabitAction from "./utils/useHabitAction";
 
 
 interface Props {
@@ -28,7 +27,7 @@ interface Props {
 const HabitBox = ({ name, id, priority }: Props) => {
 
   const router = useRouter();
-  const { checkHabit, uncheckHabit, deleteHabit } = useHabitAction();
+  const queryClient = useQueryClient();
 
   const todayString = getTodayString(); // 'yyyy-MM-dd'
   const currentDate = new Date();
@@ -43,24 +42,43 @@ const HabitBox = ({ name, id, priority }: Props) => {
   const onDeleteHabit = () => {
     const action = () => (
       <SnackBarAction
-        yesAction={() => {
-          deleteHabit.mutate({ habitId: id });
+        yesAction={async () => {
           closeSnackbar('deleteHabit');
+          try {
+            await authAction(() => deleteHabitAction({ habitId: id }));
+            queryClient.invalidateQueries({ queryKey: ['habits'] });
+            queryClient.invalidateQueries({ queryKey: ['habit'] });
+            console.log('delete habit success');
+            enqueueSnackbar('습관 항목 삭제 완료', { variant: 'success' });
+          } catch (error) {
+            enqueueSnackbar(error instanceof Error ? error.message : '습관 항목 삭제 실패', { variant: 'error' });
+            console.log('delete habit error');
+          }
         }}
         noAction={() => {
           closeSnackbar('deleteHabit');
         }} />
     );
     enqueueSnackbar(`습관 항목(${name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: false, action, autoHideDuration: 3000 });
-  }
-  const habitToggle = (e: ChangeEvent<HTMLInputElement>, dateString: string) => {
-    if (e.currentTarget.checked === true) {
-      checkHabit.mutate({ habitId: id, date: dateString });
+  };
+  const ontoggleHabit = async (e: ChangeEvent<HTMLInputElement>, dateString: string) => {
+    try {
+      if (e.currentTarget.checked === true) {
+        await authAction(() => checkHabitAction({ habitId: id, date: dateString }));
+        console.log('chack habit success');
+      }
+      else {
+        await authAction(() => uncheckHabitAction({ habitId: id, date: dateString }));
+        console.log('unchack habit success');
+      }
+
+      queryClient.invalidateQueries({ queryKey: ['habits'] });
+      queryClient.invalidateQueries({ queryKey: ['habit'] });
+    } catch (error) {
+      enqueueSnackbar(error instanceof Error ? error.message : '습관 체크 변경 실패', { variant: 'error' });
+      console.log('uncheck habit error');
     }
-    else {
-      uncheckHabit.mutate({ habitId: id, date: dateString });
-    }
-  }
+  };
 
   return (<Wrapper>
     <StarRating rating={priority + 1} />
@@ -76,7 +94,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
               type="checkbox"
               checked={!!recentDateStatus?.[i]}
               onChange={(e) => {
-                habitToggle(e, format(date, 'yyyy-MM-dd'));
+                ontoggleHabit(e, format(date, 'yyyy-MM-dd'));
               }} />
             <div className="checkmark"><div></div></div>
           </label>

@@ -1,11 +1,11 @@
 "use client";
 
 import { authAction } from "@/common/auth/authAction";
-import { getDiaryById, type DiaryData } from "@/common/actions/diary";
+import { createDiary, getDiaryById, updateDiary, type DiaryData } from "@/common/actions/diary";
 import { uploadImages } from "@/common/actions/image";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
-import { notFound, useSearchParams } from "next/navigation";
+import { notFound, useRouter, useSearchParams } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MdOutlineEditNote, MdOutlineEmojiEmotions, MdOutlineImage } from "react-icons/md";
@@ -16,7 +16,6 @@ import { SectionTitle, SectionTitleIcon } from "../../ui/SectionTitle";
 import { DiaryInputCard } from "./DiaryInputCard";
 import DiaryInputImages from "./DiaryInputImages";
 import DiaryInputTextArea from "./DiaryInputTextarea";
-import useSubmitDiary from './hooks/useSubmitDiary';
 
 interface DiaryInputProps {
   isEdit: boolean;
@@ -29,9 +28,8 @@ function parseLocalDate(dateString: string): Date {
 }
 
 const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
-
-  const { addDiary, editDiary } = useSubmitDiary();
-  const submitAction = isEdit ? editDiary : addDiary;
+  const queryClient = useQueryClient();
+  const router = useRouter();
   const submitText = isEdit ? '수정' : '추가';
 
   const param = useSearchParams();
@@ -79,6 +77,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
   const [text, setText] = useState<string>(diaryData?.text ?? "");
   const [images, setImages] = useState<Array<string | File>>(diaryData?.Images?.map((e) => e.src) ?? []);
   const [emotion, setEmotion] = useState<number>(diaryData?.emotion ?? 10);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (diaryData) {
@@ -89,6 +88,8 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
   }, [diaryData]);
 
   const onSubmit = async () => {
+    if (isSubmitting) return;
+
     if (emotion < 0 || emotion > 9) {
       enqueueSnackbar('감정을 선택해주세요', { variant: 'info' });
       return;
@@ -99,6 +100,8 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
     }
 
     try {
+      setIsSubmitting(true);
+
       // File / URL 나눠서
       const fileImages = images.filter((img): img is File => img instanceof File);
       const stringImages = images.filter((img): img is string => typeof img === 'string');
@@ -118,20 +121,34 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
       // 기존 URL + 업로드된 URL 합침
       const finalImages = [...stringImages, ...uploadedImageUrls];
 
-      if (isEdit && diaryId) {
-        submitAction.mutate({ text, images: finalImages, diaryId, emotion });
-      } else {
-        submitAction.mutate({ date, text, images: finalImages, emotion });
-      }
+      const diaryData = isEdit && diaryId
+        ? await authAction(() => updateDiary({ text, images: finalImages, diaryId, emotion }))
+        : await authAction(() => createDiary({ date, text, images: finalImages, emotion }));
+
+      queryClient.setQueryData(['diary', 'date', diaryData.date], diaryData);
+      queryClient.setQueryData(['diary', 'id', String(diaryData.id)], diaryData);
+
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['diary', 'month'] }),
+        queryClient.invalidateQueries({ queryKey: ['diary', 'list'] }),
+        queryClient.invalidateQueries({ queryKey: ['stats'] }),
+      ]);
+
+      router.back();
+      setTimeout(() => {
+        enqueueSnackbar(isEdit ? '일기 수정 완료' : '일기 작성 완료', { variant: 'success' });
+      }, 300);
     } catch (error) {
-      console.error('이미지 업로드 실패:', error);
-      enqueueSnackbar('이미지 업로드 중 오류가 발생했습니다.', { variant: 'error' });
+      console.error('일기 저장 실패:', error);
+      enqueueSnackbar(isEdit ? '일기 수정 실패' : '일기 작성 실패', { variant: 'error' });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   useEffect(() => {
     if (isError) notFound();
-  }, [isError])
+  }, [isError]);
 
 
   return (
@@ -158,7 +175,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
           </Section>
           <Section>
             <SectionTitle><SectionTitleIcon><MdOutlineImage /></SectionTitleIcon>사진</SectionTitle>
-            <DiaryInputImages imageUploadRef={imageUploadRef} images={images} setImages={setImages} isLoading={submitAction.isPending} />
+            <DiaryInputImages imageUploadRef={imageUploadRef} images={images} setImages={setImages} isLoading={isSubmitting} />
           </Section>
         </ContentWithPadding>
         <BottomGradient className={isScrollable ? 'visible' : ''} />
