@@ -19,17 +19,11 @@ const Wrapper = styled.div`
   font-size: 16px;
   color: #525252;
 
-  width: 36px;
-  height: 36px;
-  border-radius: 32px;
+  width: 28px;
+  height: 28px;
+  border-radius: 28px;
   &.done{
     background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
     color: white;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    font-size: 14px;
-    width: 18px;
-    height: 18px;
-    border-radius: 18px;
   }
 `
