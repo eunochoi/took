@@ -4,9 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useMemo, useState } from "react";
 
-import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
-import { PageWrapper } from "@/common/components/layout/PageWrapper";
-import TopButtons from "@/common/components/ui/TopButtons";
+import AppPage from "@/common/components/layout/AppPage";
 import { authAction } from "@/common/auth/authAction";
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { useModalParam } from "@/common/hooks/useModalParam";
@@ -52,16 +50,28 @@ const HomeView = () => {
   }, [availableYears, currentYear]);
 
   return (
-    <PageWrapper>
-      <TopButtons>
+    <AppPage
+      contentVariant="normal"
+      topButtons={
         <button
           className='auto'
           onClick={openYearSelector}>
           <span>{selectedYear}년</span>
         </button>
-      </TopButtons>
-
-      <ContentWrapper $gap={28} $paddingTop={8} $paddingBottom={48}>
+      }
+      contentProps={{ $gap: 28, $paddingTop: 8, $paddingBottom: 48 }}
+      afterContent={
+        <YearSelector
+          isOpen={isYearSelectorOpen}
+          onClose={closeYearSelector}
+          years={years}
+          selectedYear={selectedYear}
+          onSelectYear={(year) => {
+            setSelectedYear(year);
+            closeYearSelector();
+          }}
+        />
+      }>
         <GreetingSection />
 
         <DiaryAnalysis
@@ -77,19 +87,7 @@ const HomeView = () => {
         <HabitAnalysis
           stats={habitStats}
         />
-      </ContentWrapper>
-
-      <YearSelector
-        isOpen={isYearSelectorOpen}
-        onClose={closeYearSelector}
-        years={years}
-        selectedYear={selectedYear}
-        onSelectYear={(year) => {
-          setSelectedYear(year);
-          closeYearSelector();
-        }}
-      />
-    </PageWrapper>
+      </AppPage>
   );
 };
 

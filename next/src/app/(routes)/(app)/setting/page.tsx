@@ -4,9 +4,8 @@ import { useRouter } from 'next/navigation';
 import { MdAndroid, MdDeleteForever, MdLogout, MdLowPriority } from 'react-icons/md';
 import styled from "styled-components";
 
-import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
-import { PageWrapper } from "@/common/components/layout/PageWrapper";
-import TopButtons from "@/common/components/ui/TopButtons";
+import AppPage from "@/common/components/layout/AppPage";
+import { AppCard, AppSection, AppSectionTitle } from "@/common/components/ui/AppSection";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { format } from "date-fns";
@@ -31,8 +30,9 @@ const SettingPage = () => {
   const createAt = user?.createdAt ? format(user.createdAt, 'yyyy.MM.dd') : '-';
 
   return (
-    <PageWrapper>
-      <TopButtons>
+    <AppPage
+      contentVariant="normal"
+      topButtons={<>
         <a href="https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share"
           target="_blank"
           rel="noopener noreferrer" >
@@ -43,9 +43,7 @@ const SettingPage = () => {
           rel="noopener noreferrer" >
           <button className="normal">intro</button>
         </a>
-      </TopButtons>
-
-      <ContentWrapper>
+      </>}>
         <Section>
           <Title>계정 정보</Title>
           <Card>
@@ -110,25 +108,17 @@ const SettingPage = () => {
             </SubSection>
           </Card>
         </Section>
-      </ContentWrapper>
-    </PageWrapper >
+    </AppPage >
   );
 }
 
 export default SettingPage;
 
-const Section = styled.section`
+const Section = styled(AppSection)`
   margin: 16px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
 `
 
-const Card = styled.div`
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-`
+const Card = styled(AppCard)``
 
 const SubSection = styled.section`
   padding: 16px 20px;
@@ -136,16 +126,7 @@ const SubSection = styled.section`
   flex-direction: column;
   gap: 12px;
 `
-const Title = styled.span`
-  color: rgb(var(--greyTitle));
-  text-transform: capitalize;
-  font-size: 32px;
-  font-family: 'BMJUA';
-  
-  @media (min-width:1025px) { //desktop
-    font-size: 36px;
-  }
-`
+const Title = styled(AppSectionTitle)``
 const SubTitle = styled.span`
   display : block;
   font-size: 22px;

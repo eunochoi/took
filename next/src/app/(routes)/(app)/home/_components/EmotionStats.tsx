@@ -6,12 +6,16 @@ import styled from "styled-components";
 
 import { EMOTIONS } from "@/common/constants/emotions";
 import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
-import { getEmotionMessage } from "../_messages/emotionMessages";
 import {
-  HomeInfoCard,
-  HomeInfoContent,
-  HomeInfoText,
-} from "./HomeSection";
+  AppInfoCard,
+  AppInfoContent,
+  AppInfoText,
+  AppSection,
+  AppSectionHeader,
+  AppSectionMeta,
+  AppSectionTitle,
+} from "@/common/components/ui/AppSection";
+import { getEmotionMessage } from "../_messages/emotionMessages";
 
 interface Props {
   emotionCounts: number[];
@@ -74,11 +78,11 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
   };
 
   return (
-    <Wrapper>
-      <TitleWrapper>
-        <SectionTitle>감정 정보</SectionTitle>
-        <TotalCount>{totalCount}개의 감정 기록</TotalCount>
-      </TitleWrapper>
+    <AppSection>
+      <AppSectionHeader>
+        <AppSectionTitle>감정 정보</AppSectionTitle>
+        <AppSectionMeta>{totalCount}개의 감정 기록</AppSectionMeta>
+      </AppSectionHeader>
 
       <TabWrapper>
         {QUARTER_OPTIONS.map((quarter, index) => (
@@ -120,54 +124,21 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
         </EmotionList>
       </EmotionCard>
 
-      <HomeInfoCard>
-        <HomeInfoContent>
+      <AppInfoCard>
+        <AppInfoContent>
           <span>{getMessage()}</span>
-        </HomeInfoContent>
+        </AppInfoContent>
         {totalCount > 0 && totalCount < 10 && (
-          <HomeInfoText>
+          <AppInfoText>
             * 기록이 적어서 정확한 분석이 어려울 수 있어요.
-          </HomeInfoText>
+          </AppInfoText>
         )}
-      </HomeInfoCard>
-    </Wrapper>
+      </AppInfoCard>
+    </AppSection>
   );
 };
 
 export default EmotionStats;
-
-const Wrapper = styled.section`
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-`;
-
-const SectionTitle = styled.h2`
-  color: rgb(var(--greyTitle));
-  text-transform: capitalize;
-  font-size: 32px;
-  font-family: 'BMJUA';
-  flex: 1;
-  
-  @media (min-width: 1025px) {
-    font-size: 36px;
-  }
-`;
-
-const TotalCount = styled.span`
-  font-size: 16px;
-  color: rgba(var(--greyTitle), 0.6);
-  white-space: nowrap;
-  flex-shrink: 0;
-`;
 
 const TabWrapper = styled.div`
   display: flex;

@@ -5,21 +5,21 @@ import styled from "styled-components";
 
 import { getStreakMessage } from "../_messages/streakMessages";
 import {
-  HomeCard,
-  HomeCardGrid,
-  HomeCardLabel,
-  HomeCardUnit,
-  HomeCardValue,
-  HomeCardValueWrapper,
-  HomeInfoCard,
-  HomeInfoContent,
-  HomeInfoText,
-  HomeSectionHeader,
-  HomeSectionTitle,
-  HomeSectionWrapper,
-  HomeSubsectionTitle,
-  HomeTotalCount,
-} from "./HomeSection";
+  AppCardGrid,
+  AppInfoCard,
+  AppInfoContent,
+  AppInfoText,
+  AppSection,
+  AppSectionHeader,
+  AppSectionMeta,
+  AppSectionTitle,
+  AppStatCard,
+  AppStatLabel,
+  AppStatUnit,
+  AppStatValue,
+  AppStatValueWrapper,
+  AppSubsectionTitle,
+} from "@/common/components/ui/AppSection";
 
 interface Props {
   stats?: DiaryStats;
@@ -45,49 +45,49 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
   const totalCount = stats?.totalCount ?? 0;
 
   return (
-    <HomeSectionWrapper>
-      <HomeSectionHeader>
-        <HomeSectionTitle>일기 정보</HomeSectionTitle>
-        <HomeTotalCount>{totalCount}개의 일기</HomeTotalCount>
-      </HomeSectionHeader>
+    <AppSection>
+      <AppSectionHeader>
+        <AppSectionTitle>일기 정보</AppSectionTitle>
+        <AppSectionMeta>{totalCount}개의 일기</AppSectionMeta>
+      </AppSectionHeader>
 
-      <HomeCardGrid>
-        <HomeCard>
-          <HomeCardLabel>{currentStreakLabel}</HomeCardLabel>
-          <HomeCardValueWrapper>
-            <HomeCardValue>{currentStreak}</HomeCardValue>
-            <HomeCardUnit>일</HomeCardUnit>
-          </HomeCardValueWrapper>
-        </HomeCard>
+      <AppCardGrid>
+        <AppStatCard>
+          <AppStatLabel>{currentStreakLabel}</AppStatLabel>
+          <AppStatValueWrapper>
+            <AppStatValue>{currentStreak}</AppStatValue>
+            <AppStatUnit>일</AppStatUnit>
+          </AppStatValueWrapper>
+        </AppStatCard>
 
-        <HomeCard>
-          <HomeCardLabel>최장 연속 기록</HomeCardLabel>
-          <HomeCardValueWrapper>
-            <HomeCardValue>{longestStreak}</HomeCardValue>
-            <HomeCardUnit>일</HomeCardUnit>
-          </HomeCardValueWrapper>
-        </HomeCard>
+        <AppStatCard>
+          <AppStatLabel>최장 연속 기록</AppStatLabel>
+          <AppStatValueWrapper>
+            <AppStatValue>{longestStreak}</AppStatValue>
+            <AppStatUnit>일</AppStatUnit>
+          </AppStatValueWrapper>
+        </AppStatCard>
 
-        <HomeCard>
-          <HomeCardLabel>총 텍스트량</HomeCardLabel>
-          <HomeCardValueWrapper>
-            <HomeCardValue>{textLengthFormatted.value}</HomeCardValue>
-            <HomeCardUnit>{textLengthFormatted.unit}</HomeCardUnit>
-          </HomeCardValueWrapper>
-        </HomeCard>
-      </HomeCardGrid>
+        <AppStatCard>
+          <AppStatLabel>총 텍스트량</AppStatLabel>
+          <AppStatValueWrapper>
+            <AppStatValue>{textLengthFormatted.value}</AppStatValue>
+            <AppStatUnit>{textLengthFormatted.unit}</AppStatUnit>
+          </AppStatValueWrapper>
+        </AppStatCard>
+      </AppCardGrid>
 
-      <HomeInfoCard>
-        <HomeInfoContent>
+      <AppInfoCard>
+        <AppInfoContent>
           <span>{getStreakMessage(currentStreak)}</span>
-        </HomeInfoContent>
-        <HomeInfoText>
+        </AppInfoContent>
+        <AppInfoText>
           {streakInfoText}
-        </HomeInfoText>
-      </HomeInfoCard>
+        </AppInfoText>
+      </AppInfoCard>
 
       <ChartSection>
-        <HomeSubsectionTitle>{year}년 월간 기록 그래프</HomeSubsectionTitle>
+        <AppSubsectionTitle>{year}년 월간 기록 그래프</AppSubsectionTitle>
         <ChartWrapper>
           {(stats?.monthlyCount ?? Array(12).fill(0)).map((count, index) => {
             const maxCount = Math.max(...(stats?.monthlyCount ?? [1]), 1);
@@ -103,7 +103,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
           })}
         </ChartWrapper>
       </ChartSection>
-    </HomeSectionWrapper>
+    </AppSection>
   );
 };
 

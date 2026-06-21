@@ -1,7 +1,7 @@
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import styled from "styled-components";
 
-import { SurfaceCard } from "./InfoSection";
+import { AppSurfaceCard } from "@/common/components/ui/AppSection";
 
 interface Props {
   data?: number[];
@@ -39,7 +39,7 @@ const MonthlyBarChart = ({ data, year, onCurrentYear, onNextYear, onPrevYear }: 
 
 export default MonthlyBarChart;
 
-const ChartCard = styled(SurfaceCard)`
+const ChartCard = styled(AppSurfaceCard)`
   display: flex;
   flex-direction: column;
   gap: 16px;
