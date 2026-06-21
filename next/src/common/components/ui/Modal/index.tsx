@@ -63,7 +63,7 @@ const ModalWrapper = styled.div`
   flex-direction: column;
   overflow: hidden;
   @media (min-width:1025px) {
-    width: 600px;
+    width: 500px;
     height: auto;
     height: 85dvh;
     max-height: 85%;
