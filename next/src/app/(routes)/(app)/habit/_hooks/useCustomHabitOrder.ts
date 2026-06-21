@@ -5,13 +5,13 @@ import { useCallback } from "react";
 
 export const useCustomHabitOrder = () => {
   const { data: user } = useCurrentUser();
-  const currentUserEmail = user?.email ?? '';
-  const { storedValue, setValue } = useLocalStorage<LocalUserStorage>(currentUserEmail, {});
-  const customOrder = storedValue?.habitCustomOrder ?? [];  //기본값 처리
+  const userStorageKey = user?.email;
+  const { value: userStorage, setStoredValue: setUserStorage } = useLocalStorage<LocalUserStorage>(userStorageKey, {});
+  const customOrder = userStorage?.habitCustomOrder ?? [];  //기본값 처리
 
   const setCustomOrder = useCallback((value: number[]) => {
-    setValue({ ...storedValue, habitCustomOrder: value });
-  }, [storedValue]);
+    setUserStorage((prev) => ({ ...prev, habitCustomOrder: value }));
+  }, [setUserStorage]);
 
   return {
     customOrder,

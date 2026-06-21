@@ -10,30 +10,30 @@ import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontType, SettingsContext, THEME_BG_COL
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
   const { data: user } = useCurrentUser();
-  const currentUserEmail = user?.email ?? '';
+  const userStorageKey = user?.email;
 
-  const { storedValue: settings, setValue: setSettings } = useLocalStorage<LocalUserStorage>(currentUserEmail, {});
-  const fontSize = settings?.fontSize ?? FONT_SIZE_LIST[1];
-  const fontType = settings?.fontType ?? FONT_TYPE_LIST[0];
-  const themeColor = settings?.themeColor ?? THEME_COLORS[0];
+  const { value: userSettings, setStoredValue: setUserSettings } = useLocalStorage<LocalUserStorage>(userStorageKey, {});
+  const fontSize = userSettings?.fontSize ?? FONT_SIZE_LIST[1];
+  const fontType = userSettings?.fontType ?? FONT_TYPE_LIST[0];
+  const themeColor = userSettings?.themeColor ?? THEME_COLORS[0];
 
   const setFontSize = useCallback((size: string) => {
     if (FONT_SIZE_LIST.includes(size)) {
-      setSettings((prev) => ({ ...prev, fontSize: size }));
+      setUserSettings((prev) => ({ ...prev, fontSize: size }));
     }
-  }, [setSettings]);
+  }, [setUserSettings]);
 
   const setFontType = useCallback((type: FontType) => {
     if (FONT_TYPE_LIST.includes(type)) {
-      setSettings((prev) => ({ ...prev, fontType: type }));
+      setUserSettings((prev) => ({ ...prev, fontType: type }));
     }
-  }, [setSettings]);
+  }, [setUserSettings]);
 
   const setThemeColor = useCallback((color: string) => {
     if (THEME_COLORS.includes(color)) {
-      setSettings((prev) => ({ ...prev, themeColor: color }));
+      setUserSettings((prev) => ({ ...prev, themeColor: color }));
     }
-  }, [setSettings]);
+  }, [setUserSettings]);
 
   useEffect(() => {
     const bgColor = THEME_BG_COLORS[themeColor] || '#f3f7fc';
@@ -58,15 +58,14 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   }, [themeColor]);
 
   useEffect(() => {
-    const currentFontType = settings?.fontType ?? FONT_TYPE_LIST[0];
     document.body.classList.remove('font-type2', 'font-type3');
 
-    if (currentFontType === 'type2') {
+    if (fontType === 'type2') {
       document.body.classList.add('font-type2');
-    } else if (currentFontType === 'type3') {
+    } else if (fontType === 'type3') {
       document.body.classList.add('font-type3');
     }
-  }, [settings?.fontType]);
+  }, [fontType]);
 
   const theme = useMemo(() => ({
     themeColor: themeColor,

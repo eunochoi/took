@@ -1,38 +1,58 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useLocalStorage<T>(
   key: string | null | undefined,
   initialValue: T
 ) {
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    if (!key || typeof window === 'undefined') {
-      return initialValue;
-    }
+  const initialValueRef = useRef(initialValue);
 
+  const readStorageValue = useCallback((storageKey: string): T => {
     try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
+      const item = window.localStorage.getItem(storageKey);
+      return item ? JSON.parse(item) : initialValueRef.current;
     } catch (error) {
       console.error(error);
-      return initialValue;
+      return initialValueRef.current;
     }
+  }, []);
+
+  const [value, setValue] = useState<T>(() => {
+    if (!key || typeof window === 'undefined') {
+      return initialValueRef.current;
+    }
+
+    return readStorageValue(key);
   });
 
+  const [isStorageReady, setIsStorageReady] = useState(() => Boolean(key));
+
   useEffect(() => {
-    try {
-      if (key && typeof window !== 'undefined') {
-        window.localStorage.setItem(key, JSON.stringify(storedValue));
-      }
-    } catch (error) {
-      console.error(error);
+    if (!key || typeof window === 'undefined') {
+      setValue(initialValueRef.current);
+      setIsStorageReady(false);
+      return;
     }
-  }, [key, storedValue]);
 
-  const setValue = (value: T | ((val: T) => T)) => {
-    const valueToStore =
-      value instanceof Function ? value(storedValue) : value;
-    setStoredValue(valueToStore);
-  };
+    setValue(readStorageValue(key));
+    setIsStorageReady(true);
+  }, [key, readStorageValue]);
 
-  return { storedValue, setValue };
+  const setStoredValue = useCallback((nextValue: T | ((prevValue: T) => T)) => {
+    setValue((prevValue) => {
+      const valueToStore =
+        nextValue instanceof Function ? nextValue(prevValue) : nextValue;
+
+      try {
+        if (key && typeof window !== 'undefined') {
+          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
+      return valueToStore;
+    });
+  }, [key]);
+
+  return { value, setStoredValue, isStorageReady };
 }
