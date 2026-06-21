@@ -1,13 +1,16 @@
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdToday } from 'react-icons/md';
 import styled from "styled-components";
-import { useCalendar } from "./CalendarContext";
 
 interface CalendarHeaderProps {
   headerSize: 'small' | 'middle' | 'large';
   headerTitlePosition: 'center' | 'start';
+  visibleMonth: Date;
+  prevMonth: () => void;
+  nextMonth: () => void;
+  goToday: () => void;
 }
 
 const WEEK_TITLE_ENG = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
@@ -15,35 +18,33 @@ const WEEK_TITLE_ENG = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 const CalendarHeader = ({
   headerSize,
   headerTitlePosition,
+  visibleMonth,
+  prevMonth,
+  nextMonth,
+  goToday,
 }: CalendarHeaderProps) => {
-
-  const {
-    displayDate,
-    prevMonth,
-    nextMonth,
-    goToday,
-  } = useCalendar();
 
   return (
     <>
       {headerTitlePosition === 'center' &&
         <CalTitle className={`${headerSize} ${headerTitlePosition}`} >
           <button onClick={prevMonth}><MdKeyboardArrowLeft /></button>
-          <button onClick={goToday}>
-            {format(displayDate, 'yyyy년 M월', { locale: ko })}
-          </button>
+          <CalTitleText as="button" className={headerSize} onClick={goToday}>
+            {format(visibleMonth, 'yyyy년 M월', { locale: ko })}
+          </CalTitleText>
           <button onClick={nextMonth}><MdKeyboardArrowRight /></button>
         </CalTitle>
       }
       {headerTitlePosition === 'start' &&
         <CalTitle className={`${headerSize} ${headerTitlePosition}`}>
           <CalTitleText
-            className={headerSize}
-            onClick={goToday}>
-            {format(displayDate, 'yyyy년 M월', { locale: ko })}
+            as="span"
+            className={headerSize}>
+            {format(visibleMonth, 'yyyy년 M월', { locale: ko })}
           </CalTitleText>
           <ArrowButtonWrapper>
             <button className={headerSize} onClick={prevMonth}><MdKeyboardArrowLeft /></button>
+            <button className={headerSize} onClick={goToday} aria-label="오늘로 이동"><MdToday /></button>
             <button className={headerSize} onClick={nextMonth}><MdKeyboardArrowRight /></button>
           </ArrowButtonWrapper>
         </CalTitle>}
@@ -78,7 +79,7 @@ const CalWeeks = styled.div`
     text-align: center;
   }
 `
-const CalTitleText = styled.button`
+const CalTitleText = styled.span`
   text-transform: capitalize;
   color: rgb(var(--greyTitle));
   font-family: 'BMJUA';

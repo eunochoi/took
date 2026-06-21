@@ -1,8 +1,8 @@
 'use client';
 
 import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
-import { useCallback, useState } from "react";
+import { format, startOfMonth } from "date-fns";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
 //function
@@ -18,23 +18,34 @@ import Calendar from "@/common/components/ui/Calendar";
 import Diary from "@/common/components/ui/Diary";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
+import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { useRouter } from "next/navigation";
 import EmptyCalendarDiary from "./_components/EmptyCalendarDiary";
-import { RenderDateContent } from "./_utils/CalendarInfoDateContent";
+import { renderCalendarPageContent } from "./_utils/renderCalendarPageContent";
 
 
 interface CalendarViewProps {
   date: string; // 'yyyy-MM-dd'
 }
-interface MonthCalendarDataType {
-  [key: string]: { habitsCount: number, isVisible: boolean, emotionType: number };
+interface DiaryDateData {
+  habitsCount: number;
+  isVisible: boolean;
+  emotionType: number;
+}
+interface DiaryDateDataMap {
+  [key: string]: DiaryDateData;
 }
 
 const CalendarView = ({ date }: CalendarViewProps) => {
   usePrefetchPage();
   const router = useRouter();
 
-  const [displayDate, setDisplayDate] = useState(new Date());
+  const selectedDate = useMemo(() => parseLocalDate(date), [date]);
+  const [visibleMonth, setVisibleMonth] = useState(() => startOfMonth(selectedDate));
+
+  useEffect(() => {
+    setVisibleMonth(startOfMonth(selectedDate));
+  }, [selectedDate]);
 
   //get date diary data
   const { data: diaryData } = useQuery({
@@ -42,42 +53,43 @@ const CalendarView = ({ date }: CalendarViewProps) => {
     queryFn: () => authAction(() => getDiaryByDate({ date })),
   });
 
-  const { data: monthCalendarData } = useQuery({
-    queryKey: ['diary', 'month', format(displayDate, 'yyyy-MM')],
-    queryFn: () => authAction(() => getMonthlyDiaryData({ month: format(displayDate, 'yyyy-MM') })),
+  const { data: diaryDateDataMap } = useQuery({
+    queryKey: ['diary', 'month', format(visibleMonth, 'yyyy-MM')],
+    queryFn: () => authAction(() => getMonthlyDiaryData({ month: format(visibleMonth, 'yyyy-MM') })),
     select: (data) => { //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
-      const monthCalendarData: MonthCalendarDataType = {};
+      const diaryDateDataMap: DiaryDateDataMap = {};
       data.forEach((e: any) => {
-        monthCalendarData[format(e.date, 'yyMMdd')] = { habitsCount: e?.Habits?.length, isVisible: e?.visible, emotionType: e?.emotion };
+        diaryDateDataMap[format(e.date, 'yyMMdd')] = { habitsCount: e?.Habits?.length, isVisible: e?.visible, emotionType: e?.emotion };
       });
-      return monthCalendarData;
+      return diaryDateDataMap;
     }
   });
 
-  const onClickMonthTitle = () => {
+  const onClickDate = useCallback((selectedDate: Date) => {
+    router.push(`/calendar?date=${format(selectedDate, 'yyyy-MM-dd')}`);
+  }, [router]);
+  const onGoToday = useCallback(() => {
     router.push(`/calendar?date=${getTodayString()}`);
-  }
-  const onClickDate = useCallback((date: Date) => {
-    router.push(`calendar?date=${format(date, 'yyyy-MM-dd')}`);
   }, [router]);
 
   return (
     <PageWrapper>
       <ContentWrapper $gap={12} $mobileGap={20} $tabletGap={24} $flex="1 1 0" $paddingTop={24}>
-        <CalendarPageCalendar
-          isTouchGestureEnabled={true}
-          isDateSelectionEnabled={true}
-          headerTitlePosition="start"
-          headerSize="large"
+        <CalendarSection>
+          <Calendar<DiaryDateData>
+            isTouchGestureEnabled={true}
+            variant="default"
 
-          displayDate={displayDate}
-          setDisplayDate={setDisplayDate}
-          monthlyData={monthCalendarData}
-          RenderDateContent={RenderDateContent}
+            visibleMonth={visibleMonth}
+            setVisibleMonth={setVisibleMonth}
+            selectedDate={selectedDate}
+            dateDataMap={diaryDateDataMap}
+            renderDateContent={renderCalendarPageContent}
 
-          onClickMonthTitle={onClickMonthTitle}
-          onClickDate={onClickDate}
-        />
+            onClickDate={onClickDate}
+            onGoToday={onGoToday}
+          />
+        </CalendarSection>
         <DiaryWrapper key={date}>
           {diaryData?.visible ? (
             <Diary type="small" diaryData={diaryData} />
@@ -92,7 +104,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
 
 export default CalendarView;
 
-const CalendarPageCalendar = styled(Calendar)`
+const CalendarSection = styled.div`
   flex: 1 1 0;
   min-height: 520px;
   overflow: visible;

@@ -1,20 +1,12 @@
-import { useCalendar } from "@/common/components/ui/Calendar/CalendarContext";
+import { CalendarDateContentProps } from "@/common/components/ui/Calendar/types";
 import { format } from "date-fns";
 import styled from "styled-components";
 
 
-interface RenderDateContentProps {
-  cellDate: Date;
-}
+export const renderHabitInfoPageContent = ({ date, dateData: isDone }: CalendarDateContentProps<boolean>) => {
+  const formattedDate = format(date, 'd');
 
-export const RenderDateContent = ({ cellDate }: RenderDateContentProps) => {
-  const { monthlyData } = useCalendar<{ [key: string]: any }>();
-
-  const key = format(cellDate, 'yyMMdd');
-  const formattedDate = format(cellDate, 'd');
-  const isDone = monthlyData?.[key];
-
-  return <Wrapper className={isDone && 'done'}>
+  return <Wrapper className={isDone ? 'done' : ''}>
     {formattedDate}
   </Wrapper>;
 };
@@ -27,9 +19,9 @@ const Wrapper = styled.div`
   font-size: 16px;
   color: #525252;
 
-  width: 26px;
-  height: 26px;
-  border-radius: 26px;
+  width: 36px;
+  height: 36px;
+  border-radius: 32px;
   &.done{
     background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
     color: white;
