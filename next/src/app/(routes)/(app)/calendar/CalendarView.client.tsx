@@ -12,8 +12,7 @@ import { getDiaryByDate, getMonthlyDiaryData } from "@/common/actions/diary";
 //styledComponent
 
 //component
-import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
-import { PageWrapper } from "@/common/components/layout/PageWrapper";
+import AppPage from "@/common/components/layout/AppPage";
 import Calendar from "@/common/components/ui/Calendar";
 import Diary from "@/common/components/ui/Diary";
 import { getTodayString } from "@/common/functions/getTodayString";
@@ -73,8 +72,9 @@ const CalendarView = ({ date }: CalendarViewProps) => {
   }, [router]);
 
   return (
-    <PageWrapper>
-      <ContentWrapper $gap={12} $mobileGap={20} $tabletGap={24} $flex="1 1 0" $paddingTop={24}>
+    <AppPage
+      contentVariant="fill"
+      contentProps={{ $gap: 12, $mobileGap: 20, $tabletGap: 24, $paddingTop: 24 }}>
         <CalendarSection>
           <Calendar<DiaryDateData>
             isTouchGestureEnabled={true}
@@ -97,8 +97,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
             <EmptyCalendarDiary date={date} habits={diaryData?.Habits} />
           )}
         </DiaryWrapper>
-      </ContentWrapper>
-    </PageWrapper>
+    </AppPage>
   );
 };
 

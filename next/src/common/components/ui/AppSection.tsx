@@ -1,20 +1,21 @@
 import styled from "styled-components";
 
-export const HomeSectionWrapper = styled.section`
+export const AppSection = styled.section<{ $gap?: number }>`
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: ${({ $gap }) => $gap ?? 16}px;
+  width: 100%;
 `;
 
-export const HomeSectionHeader = styled.div`
+export const AppSectionHeader = styled.div`
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
 `;
 
-export const HomeSectionTitle = styled.h2`
+export const AppSectionTitle = styled.h2`
   color: rgb(var(--greyTitle));
   text-transform: capitalize;
   font-size: 32px;
@@ -26,55 +27,64 @@ export const HomeSectionTitle = styled.h2`
   }
 `;
 
-export const HomeTotalCount = styled.span`
+export const AppSectionMeta = styled.span`
   font-size: 16px;
   color: rgba(var(--greyTitle), 0.6);
   white-space: nowrap;
   flex-shrink: 0;
 `;
 
-export const HomeCardGrid = styled.div`
+export const AppCardGrid = styled.div<{ $columns?: number }>`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(${({ $columns }) => $columns ?? 3}, minmax(0, 1fr));
   gap: 12px;
 `;
 
-export const HomeCard = styled.div`
+export const AppCard = styled.div`
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+`;
+
+export const AppStatCard = styled(AppCard)`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 12px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   gap: 4px;
+  min-width: 0;
   min-height: 100px;
+  padding: 20px 12px;
 
   @media (min-width: 480px) {
-    padding: 24px 16px;
     min-height: 110px;
+    padding: 24px 16px;
   }
 `;
 
-export const HomeCardLabel = styled.span`
+export const AppStatLabel = styled.span`
+  width: 100%;
   font-size: 14px;
   color: rgba(var(--greyTitle), 0.7);
   text-align: center;
+  line-height: 1.4;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 
   @media (min-width: 480px) {
     font-size: 16px;
   }
 `;
 
-export const HomeCardValueWrapper = styled.div`
+export const AppStatValueWrapper = styled.div`
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 2px;
   line-height: 1.2;
 `;
 
-export const HomeCardValue = styled.span`
+export const AppStatValue = styled.span`
   font-size: 28px;
   font-weight: 700;
   color: ${(props) => props.theme.themeColor ?? '#979FC7'};
@@ -84,22 +94,18 @@ export const HomeCardValue = styled.span`
   }
 `;
 
-export const HomeCardUnit = styled.span`
-  font-size: 16px;
+export const AppStatUnit = styled.span`
+  font-size: 15px;
   color: rgba(var(--greyTitle), 0.6);
-
-  @media (min-width: 480px) {
-    font-size: 15px;
-  }
 `;
 
-export const HomeSubsection = styled.div`
+export const AppSubsection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
 `;
 
-export const HomeSubsectionTitle = styled.h3`
+export const AppSubsectionTitle = styled.h3`
   font-size: 22px;
   font-weight: 500;
   text-transform: capitalize;
@@ -109,11 +115,8 @@ export const HomeSubsectionTitle = styled.h3`
   overflow-wrap: break-word;
 `;
 
-export const HomeInfoCard = styled.div`
+export const AppInfoCard = styled(AppCard)`
   padding: 20px 16px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -123,7 +126,7 @@ export const HomeInfoCard = styled.div`
   }
 `;
 
-export const HomeInfoContent = styled.div`
+export const AppInfoContent = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -138,15 +141,33 @@ export const HomeInfoContent = styled.div`
   }
 `;
 
-export const HomeInfoText = styled.p`
+export const AppInfoText = styled.p`
   font-size: 14px;
   color: rgba(var(--greyTitle), 0.5);
   line-height: 1.4;
   margin: 0;
   padding-top: 8px;
   text-align: left;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 
   @media (min-width: 480px) {
     font-size: 16px;
+  }
+`;
+
+export const AppSurfaceCard = styled(AppCard)`
+  width: 100%;
+  padding: 16px;
+`;
+
+export const AppNoteCard = styled(AppInfoText)`
+  padding: 20px 16px;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+  @media (min-width: 480px) {
+    padding: 24px 20px;
   }
 `;

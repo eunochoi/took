@@ -2,9 +2,7 @@
 
 import styled from "styled-components";
 
-import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
-import { PageWrapper } from "@/common/components/layout/PageWrapper";
-import TopButtons from "@/common/components/ui/TopButtons";
+import AppPage from "@/common/components/layout/AppPage";
 import { authAction } from "@/common/auth/authAction";
 import { getHabitList } from "@/common/actions/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -52,14 +50,13 @@ const HabitView = () => {
 
 
   return (
-    <PageWrapper>
-      <TopButtons>
+    <AppPage
+      contentVariant="normal"
+      topButtons={
         <button onClick={onToggle} className={toggleValue === 'CUSTOM' ? 'large' : 'normal'} >
           <span>{SORT_TEXT[toggleValue]}</span>
         </button>
-      </TopButtons>
-
-      <ContentWrapper>
+      }>
         <HabitPageTextWrapper>
           <HabitPageText className='title'>목표 습관 {todayDoneHabitRate}% 완료</HabitPageText>
           <HabitPageText className='sub'>오늘의 목표 습관 {todayDoneHabitCount}개를 실천하셨습니다 :)</HabitPageText>
@@ -69,8 +66,7 @@ const HabitView = () => {
           {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
           {(habits?.length ?? 0) < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><MdAdd /></EmptyBox>}
         </HabitBoxs>
-      </ContentWrapper>
-    </PageWrapper >
+    </AppPage >
   );
 }
 

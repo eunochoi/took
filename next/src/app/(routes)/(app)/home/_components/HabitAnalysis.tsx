@@ -5,14 +5,14 @@ import { HabitStats } from "@/common/actions/stats";
 import { useState } from "react";
 import styled from "styled-components";
 import {
-  HomeInfoCard,
-  HomeInfoContent,
-  HomeInfoText,
-  HomeSectionHeader,
-  HomeSectionTitle,
-  HomeSectionWrapper,
-  HomeTotalCount,
-} from "./HomeSection";
+  AppInfoCard,
+  AppInfoContent,
+  AppInfoText,
+  AppSection,
+  AppSectionHeader,
+  AppSectionMeta,
+  AppSectionTitle,
+} from "@/common/components/ui/AppSection";
 
 interface Props {
   stats?: HabitStats;
@@ -26,11 +26,11 @@ const HabitAnalysis = ({ stats }: Props) => {
   const habits = habitTab === 'top' ? stats?.topHabits : stats?.bottomHabits;
 
   return (
-    <HomeSectionWrapper>
-      <HomeSectionHeader>
-        <HomeSectionTitle>습관 정보</HomeSectionTitle>
-        <HomeTotalCount>{stats?.totalHabits ?? 0}개의 목표 습관</HomeTotalCount>
-      </HomeSectionHeader>
+    <AppSection>
+      <AppSectionHeader>
+        <AppSectionTitle>습관 정보</AppSectionTitle>
+        <AppSectionMeta>{stats?.totalHabits ?? 0}개의 목표 습관</AppSectionMeta>
+      </AppSectionHeader>
 
       <TabWrapper>
         <Tab
@@ -61,19 +61,19 @@ const HabitAnalysis = ({ stats }: Props) => {
         )}
       </HabitList>
 
-      <HomeInfoCard>
-        <HomeInfoContent>
+      <AppInfoCard>
+        <AppInfoContent>
           <span>
             {habitTab === 'top'
               ? '상위 Top 3는 선택한 해에 가장 많이 완료한 습관을 보여줘요.'
               : '하위 Top 3는 선택한 해에 완료 기록이 있는 습관 중 가장 적게 완료한 습관을 보여줘요.'}
           </span>
-        </HomeInfoContent>
-        <HomeInfoText>
+        </AppInfoContent>
+        <AppInfoText>
           * 0회 완료한 습관은 Top 3에 표시되지 않습니다.
-        </HomeInfoText>
-      </HomeInfoCard>
-    </HomeSectionWrapper>
+        </AppInfoText>
+      </AppInfoCard>
+    </AppSection>
   );
 };
 

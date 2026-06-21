@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-interface ContentWrapperProps {
+export interface ContentWrapperProps {
   $gap?: number; // 기본 gap 값 (px)
   $mobileGap?: number; // 모바일 gap 값 (px)
   $tabletGap?: number; // 태블릿 gap 값 (px)

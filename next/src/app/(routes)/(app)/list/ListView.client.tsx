@@ -7,10 +7,8 @@ import styled from "styled-components";
 
 import EmotionFilter from "@/app/(routes)/(app)/list/_components/EmotionFilter";
 import MonthFilter from "@/app/(routes)/(app)/list/_components/MonthFilter";
-import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
-import { PageWrapper } from "@/common/components/layout/PageWrapper";
+import AppPage from "@/common/components/layout/AppPage";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
-import TopButtons from "@/common/components/ui/TopButtons";
 import { authAction } from "@/common/auth/authAction";
 import { getDiaryList } from "@/common/actions/diary";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
@@ -60,8 +58,10 @@ const ListView = () => {
   }, [inView, hasNextPage, isFetching, currentUserEmail, fetchNextPage])
 
   return (
-    <PageWrapper ref={wrapperRef}>
-      <TopButtons>
+    <AppPage
+      contentVariant="list"
+      pageRef={wrapperRef}
+      topButtons={<>
         <button
           className='small'
           onClick={() => { openEmotionFilter(); }}
@@ -80,9 +80,8 @@ const ListView = () => {
         >
           <span>{toggleValue === 'DESC' ? 'New' : 'Old'}</span>
         </button>
-      </TopButtons>
-
-      <ContentWrapper>
+      </>}
+      afterContent={<ScrollToTopButton contentRef={wrapperRef} />}>
         <EmotionFilter
           contentRef={wrapperRef}
           isOpen={isEmotionFilterOpen}
@@ -98,9 +97,7 @@ const ListView = () => {
         />
         {flatDiaries && <Diaries diaries={flatDiaries} />}
         <Observer ref={inViewRef} />
-      </ContentWrapper>
-      <ScrollToTopButton contentRef={wrapperRef} />
-    </PageWrapper>
+    </AppPage>
   );
 }
 

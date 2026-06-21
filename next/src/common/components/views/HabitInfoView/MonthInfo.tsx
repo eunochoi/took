@@ -8,19 +8,19 @@ import styled from "styled-components";
 
 import Calendar from "../../ui/Calendar";
 import {
-  CardGrid,
-  InfoCard,
-  InfoSection,
-  SectionHeader,
-  SectionMeta,
-  SectionTitle,
-  StatCard,
-  StatLabel,
-  StatUnit,
-  StatValue,
-  StatValueWrapper,
-  SurfaceCard,
-} from "./InfoSection";
+  AppCardGrid,
+  AppNoteCard,
+  AppSection,
+  AppSectionHeader,
+  AppSectionMeta,
+  AppSectionTitle,
+  AppStatCard,
+  AppStatLabel,
+  AppStatUnit,
+  AppStatValue,
+  AppStatValueWrapper,
+  AppSurfaceCard,
+} from "@/common/components/ui/AppSection";
 import { renderHabitInfoPageContent } from "./_utils/renderHabitInfoPageContent";
 
 interface Props {
@@ -71,41 +71,41 @@ const MonthInfo = ({ displayDate, habitId, setDisplayDate }: Props) => {
   const missedCount = Math.max(missedTargetDays - missedDoneCount, 0);
 
   return (
-    <InfoSection>
-      <SectionHeader>
-        <SectionTitle>월간 실천</SectionTitle>
-        <SectionMeta>{format(displayDate, 'yyyy년 M월')}</SectionMeta>
-      </SectionHeader>
+    <AppSection>
+      <AppSectionHeader>
+        <AppSectionTitle>월간 실천</AppSectionTitle>
+        <AppSectionMeta>{format(displayDate, 'yyyy년 M월')}</AppSectionMeta>
+      </AppSectionHeader>
 
-      <CardGrid $columns={3}>
-        <StatCard>
-          <StatLabel>{format(displayDate, 'M월 완료')}</StatLabel>
-          <StatValueWrapper>
-            <StatValue>{doneCount}</StatValue>
-            <StatUnit>회</StatUnit>
-          </StatValueWrapper>
-        </StatCard>
+      <AppCardGrid $columns={3}>
+        <AppStatCard>
+          <AppStatLabel>{format(displayDate, 'M월 완료')}</AppStatLabel>
+          <AppStatValueWrapper>
+            <AppStatValue>{doneCount}</AppStatValue>
+            <AppStatUnit>회</AppStatUnit>
+          </AppStatValueWrapper>
+        </AppStatCard>
 
-        <StatCard>
-          <StatLabel>{format(displayDate, 'M월 완료율')}</StatLabel>
-          <StatValueWrapper>
-            <StatValue>{completionRate}</StatValue>
-            <StatUnit>%</StatUnit>
-          </StatValueWrapper>
-        </StatCard>
+        <AppStatCard>
+          <AppStatLabel>{format(displayDate, 'M월 완료율')}</AppStatLabel>
+          <AppStatValueWrapper>
+            <AppStatValue>{completionRate}</AppStatValue>
+            <AppStatUnit>%</AppStatUnit>
+          </AppStatValueWrapper>
+        </AppStatCard>
 
-        <StatCard>
-          <StatLabel>놓친 실천</StatLabel>
-          <StatValueWrapper>
-            <StatValue>{missedCount}</StatValue>
-            <StatUnit>회</StatUnit>
-          </StatValueWrapper>
-        </StatCard>
-      </CardGrid>
+        <AppStatCard>
+          <AppStatLabel>놓친 실천</AppStatLabel>
+          <AppStatValueWrapper>
+            <AppStatValue>{missedCount}</AppStatValue>
+            <AppStatUnit>회</AppStatUnit>
+          </AppStatValueWrapper>
+        </AppStatCard>
+      </AppCardGrid>
 
-      <InfoCard>
+      <AppNoteCard>
         오늘 포함 최근 4일 동안만 습관 체크가 가능하며, 그보다 지난 날짜 중 완료하지 못한 횟수를 놓친 실천으로 계산해요.
-      </InfoCard>
+      </AppNoteCard>
 
       <CalendarCard>
         <Calendar
@@ -117,13 +117,13 @@ const MonthInfo = ({ displayDate, habitId, setDisplayDate }: Props) => {
           renderDateContent={renderHabitInfoPageContent}
         />
       </CalendarCard>
-    </InfoSection>
+    </AppSection>
   );
 }
 
 export default MonthInfo;
 
-const CalendarCard = styled(SurfaceCard)`
+const CalendarCard = styled(AppSurfaceCard)`
   min-height: 430px;
 
   @media (min-width:480px) {

@@ -4,11 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useMemo, useState } from "react";
 
-import { ContentWrapper } from "@/common/components/layout/ContentWrapper";
-import { PageWrapper } from "@/common/components/layout/PageWrapper";
-import TopButtons from "@/common/components/ui/TopButtons";
-import { authAction } from "@/common/auth/authAction";
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
+import { authAction } from "@/common/auth/authAction";
+import AppPage from "@/common/components/layout/AppPage";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
@@ -52,44 +50,44 @@ const HomeView = () => {
   }, [availableYears, currentYear]);
 
   return (
-    <PageWrapper>
-      <TopButtons>
+    <AppPage
+      contentVariant="normal"
+      topButtons={
         <button
           className='auto'
           onClick={openYearSelector}>
           <span>{selectedYear}년</span>
         </button>
-      </TopButtons>
-
-      <ContentWrapper $gap={28} $paddingTop={8} $paddingBottom={48}>
-        <GreetingSection />
-
-        <DiaryAnalysis
-          stats={diaryStats}
-          year={selectedYear}
+      }
+      contentProps={{ $gap: 56, $paddingTop: 8, $paddingBottom: 48 }}
+      afterContent={
+        <YearSelector
+          isOpen={isYearSelectorOpen}
+          onClose={closeYearSelector}
+          years={years}
+          selectedYear={selectedYear}
+          onSelectYear={(year) => {
+            setSelectedYear(year);
+            closeYearSelector();
+          }}
         />
+      }>
+      <GreetingSection />
 
-        <EmotionStats
-          emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-          monthlyEmotionCounts={diaryStats?.monthlyEmotionCounts ?? Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
-        />
-
-        <HabitAnalysis
-          stats={habitStats}
-        />
-      </ContentWrapper>
-
-      <YearSelector
-        isOpen={isYearSelectorOpen}
-        onClose={closeYearSelector}
-        years={years}
-        selectedYear={selectedYear}
-        onSelectYear={(year) => {
-          setSelectedYear(year);
-          closeYearSelector();
-        }}
+      <DiaryAnalysis
+        stats={diaryStats}
+        year={selectedYear}
       />
-    </PageWrapper>
+
+      <EmotionStats
+        emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+        monthlyEmotionCounts={diaryStats?.monthlyEmotionCounts ?? Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+      />
+
+      <HabitAnalysis
+        stats={habitStats}
+      />
+    </AppPage>
   );
 };
 
