@@ -7,6 +7,11 @@ import styled from "styled-components";
 import { EMOTIONS } from "@/common/constants/emotions";
 import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { getEmotionMessage } from "../_messages/emotionMessages";
+import {
+  HomeInfoCard,
+  HomeInfoContent,
+  HomeInfoText,
+} from "./HomeSection";
 
 interface Props {
   emotionCounts: number[];
@@ -115,16 +120,16 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
         </EmotionList>
       </EmotionCard>
 
-      <EmotionMessageCard>
-        <EmotionMessageContent>
+      <HomeInfoCard>
+        <HomeInfoContent>
           <span>{getMessage()}</span>
-        </EmotionMessageContent>
+        </HomeInfoContent>
         {totalCount > 0 && totalCount < 10 && (
-          <LowDataWarning>
+          <HomeInfoText>
             * 기록이 적어서 정확한 분석이 어려울 수 있어요.
-          </LowDataWarning>
+          </HomeInfoText>
         )}
-      </EmotionMessageCard>
+      </HomeInfoCard>
     </Wrapper>
   );
 };
@@ -220,47 +225,6 @@ const EmotionCount = styled.span`
   font-size: 16px;
   font-weight: 600;
   color: rgb(var(--greyTitle));
-  
-  @media (min-width: 480px) {
-    font-size: 16px;
-  }
-`;
-
-const EmotionMessageCard = styled.div`
-  padding: 20px 16px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  
-  @media (min-width: 480px) {
-    padding: 24px 20px;
-  }
-`;
-
-const EmotionMessageContent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  
-  span {
-    font-size: 16px;
-    color: rgb(var(--greyTitle));
-    line-height: 1.5;
-    overflow-wrap: break-word;
-    text-align: justify;
-    flex: 1;
-  }
-`;
-
-const LowDataWarning = styled.p`
-  font-size: 14px;
-  color: rgba(var(--greyTitle), 0.5);
-  line-height: 1.4;
-  margin: 0;
-  padding-top: 8px;
   
   @media (min-width: 480px) {
     font-size: 16px;

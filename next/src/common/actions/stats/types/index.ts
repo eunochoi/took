@@ -13,6 +13,9 @@ export interface DiaryStats {
   emotionCounts: number[];
   currentStreak: StreakUnits;
   longestStreak: StreakUnits;
+  hasTodayDiary: boolean;
+  hasYesterdayDiary: boolean;
+  streakStatus: 'current' | 'pending' | 'none';
   monthlyCount: number[];
   totalTextLength: number;
   monthlyEmotionCounts: number[][];
@@ -28,11 +31,5 @@ export interface HabitCount {
 export interface HabitStats {
   topHabits: HabitCount[];
   bottomHabits: HabitCount[];
-  totalCompletions: number;
-  diariesWithHabits: number;
-  totalDiaries: number;
-  habitCompletionDays: number;
-  avgHabitsPerDiaryWithHabits: number;
-  avgHabitsPerCompletionDay: number;
   totalHabits: number;
 }

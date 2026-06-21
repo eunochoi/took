@@ -5,15 +5,12 @@ import { HabitStats } from "@/common/actions/stats";
 import { useState } from "react";
 import styled from "styled-components";
 import {
-  HomeCard,
-  HomeCardGrid,
-  HomeCardLabel,
-  HomeCardValue,
+  HomeInfoCard,
+  HomeInfoContent,
+  HomeInfoText,
   HomeSectionHeader,
   HomeSectionTitle,
   HomeSectionWrapper,
-  HomeSubsection,
-  HomeSubsectionTitle,
   HomeTotalCount,
 } from "./HomeSection";
 
@@ -27,14 +24,6 @@ const HabitAnalysis = ({ stats }: Props) => {
   const [habitTab, setHabitTab] = useState<HabitTab>('top');
 
   const habits = habitTab === 'top' ? stats?.topHabits : stats?.bottomHabits;
-
-  const formatAvg = (avg: number) => {
-    if (avg === 0) return '-';
-    const floor = Math.floor(avg);
-    const ceil = Math.ceil(avg);
-    if (floor === ceil) return `${floor}개`;
-    return `${floor}~${ceil}개`;
-  };
 
   return (
     <HomeSectionWrapper>
@@ -72,33 +61,18 @@ const HabitAnalysis = ({ stats }: Props) => {
         )}
       </HabitList>
 
-      <HomeSubsection>
-        <HomeSubsectionTitle>습관 완료 통계</HomeSubsectionTitle>
-        <HomeCardGrid>
-          <HomeCard>
-            <HomeCardLabel>총 습관 완료</HomeCardLabel>
-            <HomeCardValue>{stats?.totalCompletions ?? 0}회</HomeCardValue>
-          </HomeCard>
-          <HomeCard>
-            <HomeCardLabel>습관 완료한 일기</HomeCardLabel>
-            <HomeCardValue>{stats?.diariesWithHabits ?? 0}개</HomeCardValue>
-          </HomeCard>
-          <HomeCard>
-            <HomeCardLabel>습관 완료한 날</HomeCardLabel>
-            <HomeCardValue>{stats?.habitCompletionDays ?? 0}일</HomeCardValue>
-          </HomeCard>
-        </HomeCardGrid>
-        <DetailSection>
-          <DetailItem>
-            <DetailLabel>습관이 있는 일기 기준 평균</DetailLabel>
-            <DetailValue>{formatAvg(stats?.avgHabitsPerDiaryWithHabits ?? 0)}</DetailValue>
-          </DetailItem>
-          <DetailItem>
-            <DetailLabel>습관 완료한 날 기준 평균</DetailLabel>
-            <DetailValue>{formatAvg(stats?.avgHabitsPerCompletionDay ?? 0)}</DetailValue>
-          </DetailItem>
-        </DetailSection>
-      </HomeSubsection>
+      <HomeInfoCard>
+        <HomeInfoContent>
+          <span>
+            {habitTab === 'top'
+              ? '상위 Top 3는 선택한 해에 가장 많이 완료한 습관을 보여줘요.'
+              : '하위 Top 3는 선택한 해에 완료 기록이 있는 습관 중 가장 적게 완료한 습관을 보여줘요.'}
+          </span>
+        </HomeInfoContent>
+        <HomeInfoText>
+          * 0회 완료한 습관은 Top 3에 표시되지 않습니다.
+        </HomeInfoText>
+      </HomeInfoCard>
     </HomeSectionWrapper>
   );
 };
@@ -205,46 +179,5 @@ const EmptyMessage = styled.div`
   
   @media (min-width: 480px) {
     min-height: 90px;
-  }
-`;
-
-const DetailSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 16px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  
-  @media (min-width: 480px) {
-    padding: 20px;
-  }
-`;
-
-const DetailItem = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-`;
-
-const DetailLabel = styled.span`
-  font-size: 16px;
-  color: rgba(var(--greyTitle), 0.7);
-  
-  @media (min-width: 480px) {
-    font-size: 16px;
-  }
-`;
-
-const DetailValue = styled.span`
-  font-size: 16px;
-  font-weight: 600;
-  color: ${props => props.theme.themeColor ?? '#979FC7'};
-  white-space: nowrap;
-  
-  @media (min-width: 480px) {
-    font-size: 18px;
   }
 `;
