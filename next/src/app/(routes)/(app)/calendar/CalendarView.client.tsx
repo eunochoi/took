@@ -65,21 +65,20 @@ const CalendarView = ({ date }: CalendarViewProps) => {
     }
   });
 
-  const onClickMonthTitle = () => {
-    router.push(`/calendar?date=${getTodayString()}`);
-  };
   const onClickDate = useCallback((selectedDate: Date) => {
     router.push(`/calendar?date=${format(selectedDate, 'yyyy-MM-dd')}`);
+  }, [router]);
+  const onGoToday = useCallback(() => {
+    router.push(`/calendar?date=${getTodayString()}`);
   }, [router]);
 
   return (
     <PageWrapper>
       <ContentWrapper $gap={12} $mobileGap={20} $tabletGap={24} $flex="1 1 0" $paddingTop={24}>
-        <CalendarPageCalendar>
+        <CalendarSection>
           <Calendar<DiaryDateData>
             isTouchGestureEnabled={true}
-            headerTitlePosition="start"
-            headerSize="large"
+            variant="default"
 
             visibleMonth={visibleMonth}
             setVisibleMonth={setVisibleMonth}
@@ -87,10 +86,10 @@ const CalendarView = ({ date }: CalendarViewProps) => {
             dateDataMap={diaryDateDataMap}
             renderDateContent={renderCalendarPageContent}
 
-            onClickMonthTitle={onClickMonthTitle}
             onClickDate={onClickDate}
+            onGoToday={onGoToday}
           />
-        </CalendarPageCalendar>
+        </CalendarSection>
         <DiaryWrapper key={date}>
           {diaryData?.visible ? (
             <Diary type="small" diaryData={diaryData} />
@@ -105,7 +104,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
 
 export default CalendarView;
 
-const CalendarPageCalendar = styled.div`
+const CalendarSection = styled.div`
   flex: 1 1 0;
   min-height: 520px;
   overflow: visible;

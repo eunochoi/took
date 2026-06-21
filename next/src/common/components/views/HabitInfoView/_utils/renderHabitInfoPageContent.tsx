@@ -19,9 +19,9 @@ const Wrapper = styled.div`
   font-size: 16px;
   color: #525252;
 
-  width: 26px;
-  height: 26px;
-  border-radius: 26px;
+  width: 36px;
+  height: 36px;
+  border-radius: 32px;
   &.done{
     background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
     color: white;

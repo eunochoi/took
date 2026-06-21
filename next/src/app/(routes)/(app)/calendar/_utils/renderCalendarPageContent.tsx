@@ -22,24 +22,20 @@ export const renderCalendarPageContent = ({ date, dateData }: CalendarDateConten
   const formattedDate = format(date, 'd');
   const emotion = EMOTIONS[emotionType];
 
-  const renderContent = () => {
-    if (hasDiary && emotion) {
-      return (
-        <Wrapper>
-          <Image src={emotion.src} alt={emotion.nameKr} />
-          {habitsCount > 0 && <Badge>{habitsCount}</Badge>}
-        </Wrapper>
-      );
-    }
-    if (!hasDiary && hasHabit) {
-      return (
-        <CenterBadge>{habitsCount}</CenterBadge>
-      );
-    }
-    return (<span className="date">{formattedDate}</span>);
-  };
-
-  return renderContent();
+  if (hasDiary && emotion) {
+    return (
+      <Wrapper>
+        <Image src={emotion.src} alt={emotion.nameKr} />
+        {habitsCount > 0 && <Badge>{habitsCount}</Badge>}
+      </Wrapper>
+    );
+  }
+  if (!hasDiary && hasHabit) {
+    return (
+      <CenterBadge>{habitsCount}</CenterBadge>
+    );
+  }
+  return (<span className="date">{formattedDate}</span>);
 };
 
 

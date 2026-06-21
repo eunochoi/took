@@ -3,14 +3,14 @@
 import styled from "styled-components";
 
 import { CalendarCell } from "./CalendarCell";
-import { DateContentRenderer, DateDataMap } from "./types";
+import { CalendarDateContentRenderer, CalendarDateDataMap } from "./types";
 
 interface CalendarBodyProps<T> {
-  calendarDates: Date[][];
-  dateDataMap?: DateDataMap<T>;
+  calendarWeeks: Date[][];
+  dateDataMap?: CalendarDateDataMap<T>;
   visibleMonth: Date;
   selectedDate?: Date;
-  renderDateContent?: DateContentRenderer<T>;
+  renderDateContent?: CalendarDateContentRenderer<T>;
   onClickDate?: (date: Date) => void;
   prevMonth: () => void;
   nextMonth: () => void;
@@ -19,7 +19,7 @@ interface CalendarBodyProps<T> {
 }
 
 const CalendarBody = <T,>({
-  calendarDates,
+  calendarWeeks,
   dateDataMap,
   visibleMonth,
   selectedDate,
@@ -36,7 +36,7 @@ const CalendarBody = <T,>({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {calendarDates.map((weekRow, i) =>
+      {calendarWeeks.map((weekRow, i) =>
         <CalRow key={'weeks' + i} className="cal_week_row">
           {weekRow.map(date => (
             <CalendarCell

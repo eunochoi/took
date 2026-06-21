@@ -1,14 +1,14 @@
 import { endOfMonth, format, isAfter, isBefore, isSameDay, isSameMonth, startOfMonth } from "date-fns";
 import { memo } from "react";
 import styled, { keyframes } from "styled-components";
-import { DateContentRenderer, DateDataMap } from "./types";
+import { CalendarDateContentRenderer, CalendarDateDataMap } from "./types";
 
 interface CalendarCellProps<T> {
   date: Date;
-  dateDataMap?: DateDataMap<T>;
+  dateDataMap?: CalendarDateDataMap<T>;
   visibleMonth: Date;
   selectedDate?: Date;
-  renderDateContent?: DateContentRenderer<T>;
+  renderDateContent?: CalendarDateContentRenderer<T>;
   onClickDate?: (date: Date) => void;
   prevMonth: () => void;
   nextMonth: () => void;

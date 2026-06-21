@@ -10,20 +10,20 @@ const makeMonthCalendarWeeks = (visibleMonth: Date): Date[][] => {
 
 
   let day = startDateOfWeek;
-  const calendarDates: Array<Array<Date>> = [[]];
+  const calendarWeeks: Array<Array<Date>> = [[]];
 
 
   while (day <= endDateOfWeek) {
-    const weeksIndex = calendarDates.length - 1;
-    calendarDates[weeksIndex].push(day);
-    if (calendarDates[weeksIndex].length === 7) {
-      calendarDates.push([]);
+    const weeksIndex = calendarWeeks.length - 1;
+    calendarWeeks[weeksIndex].push(day);
+    if (calendarWeeks[weeksIndex].length === 7) {
+      calendarWeeks.push([]);
     }
     day = addDays(day, 1);
   }
-  calendarDates.pop();
+  calendarWeeks.pop();
 
-  return calendarDates;
+  return calendarWeeks;
 }
 
 export default makeMonthCalendarWeeks;

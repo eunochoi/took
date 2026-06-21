@@ -4,8 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { authAction } from "@/common/auth/authAction";
 import { getHabitById, getHabitMonthlyStatus } from "@/common/actions/habit";
+import { authAction } from "@/common/auth/authAction";
 
 import { format } from 'date-fns';
 import { notFound } from "next/navigation";
@@ -47,11 +47,6 @@ const HabitInfoView = ({ habitId }: Props) => {
     }
   });
 
-
-  const onClickMonthTitle = () => {
-    setCalendarDate(new Date);
-  }
-
   useEffect(() => {
     if (isError) notFound();
   }, [isError])
@@ -66,26 +61,21 @@ const HabitInfoView = ({ habitId }: Props) => {
         </MobilePortNameWrapper>
 
         <CarouselWrapper>
-          <Carousel gap={16}>
+          <Carousel>
             <CarouselPage>
               <MonthHabitCount
                 displayDate={calendarDate}
                 habitId={habitId}
                 habitName={habitDataById?.name ?? '-'}
               />
-
               <CalendarWrapper>
                 <Calendar
                   isTouchGestureEnabled={false}
-                  headerTitlePosition="center"
-                  headerSize="small"
-
+                  variant="compact"
                   visibleMonth={calendarDate}
                   setVisibleMonth={setCalendarDate}
                   dateDataMap={habitDateDataMap}
                   renderDateContent={renderHabitInfoPageContent}
-
-                  onClickMonthTitle={onClickMonthTitle}
                 />
               </CalendarWrapper>
             </CarouselPage>
@@ -108,7 +98,8 @@ const HabitInfoView = ({ habitId }: Props) => {
 export default HabitInfoView;
 
 const HabitInfoContent = styled(Modal.Content)`
-  padding: 0 0 12px 0;
+  /* padding: 0 0 12px 0; */
+  padding: 0;
 `
 const CalendarWrapper = styled.div`
   width: 100%;
@@ -152,10 +143,10 @@ const PriorityStar = styled(StarRating)`
 const CarouselWrapper = styled.div`
   width: 100%;
   height: 100%;
-  padding: 8px 12px;
+  padding: 8px 0;
 
   @media (max-width: 479px) { //mobile port
-    padding: 16px 12px;
+    padding: 16px 0;
   }
 `
 const CarouselPage = styled.div`
@@ -167,10 +158,9 @@ const CarouselPage = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  padding: 12px;
 
   @media (min-width:480px) and (max-width:1024px) {
     flex-direction: row;
-    gap: 16px;
   }
 `
