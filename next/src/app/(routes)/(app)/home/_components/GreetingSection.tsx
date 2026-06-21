@@ -21,7 +21,7 @@ const GreetingSection = () => {
           unoptimized={false}
         />
       </EmotionImageWrapper>
-      <Title>툭! 오늘도 하나씩 :)</Title>
+      <Title>TOOK! 오늘도 하나씩 :)</Title>
       <SubTitle>
         <SubTitleLine>완벽한 하루가 아니어도 좋습니다.</SubTitleLine>
         <SubTitleLine>발자국 하나만 남겨도 충분해요.</SubTitleLine>
@@ -46,7 +46,7 @@ const Wrapper = styled.section`
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 `;
 
 const EmotionImageWrapper = styled.div`
@@ -80,7 +80,7 @@ const Title = styled.h1`
 `;
 
 const SubTitle = styled.p`
-  font-size: 20px;
+  font-size: 18px;
   color: rgb(var(--greyTitle));
   line-height: 1.5;
   overflow-wrap: break-word;

@@ -108,3 +108,45 @@ export const HomeSubsectionTitle = styled.h3`
   word-break: break-word;
   overflow-wrap: break-word;
 `;
+
+export const HomeInfoCard = styled.div`
+  padding: 20px 16px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @media (min-width: 480px) {
+    padding: 24px 20px;
+  }
+`;
+
+export const HomeInfoContent = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  span {
+    font-size: 16px;
+    color: rgb(var(--greyTitle));
+    line-height: 1.5;
+    overflow-wrap: break-word;
+    text-align: justify;
+    flex: 1;
+  }
+`;
+
+export const HomeInfoText = styled.p`
+  font-size: 14px;
+  color: rgba(var(--greyTitle), 0.5);
+  line-height: 1.4;
+  margin: 0;
+  padding-top: 8px;
+  text-align: left;
+
+  @media (min-width: 480px) {
+    font-size: 16px;
+  }
+`;

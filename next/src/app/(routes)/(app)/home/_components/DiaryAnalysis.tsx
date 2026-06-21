@@ -11,6 +11,9 @@ import {
   HomeCardUnit,
   HomeCardValue,
   HomeCardValueWrapper,
+  HomeInfoCard,
+  HomeInfoContent,
+  HomeInfoText,
   HomeSectionHeader,
   HomeSectionTitle,
   HomeSectionWrapper,
@@ -32,6 +35,10 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
 
   const currentStreak = stats?.currentStreak?.days ?? 0;
   const longestStreak = stats?.longestStreak?.days ?? 0;
+  const currentStreakLabel = stats?.streakStatus === 'pending' ? '유지 중인 기록' : '현재 연속 기록';
+  const streakInfoText = stats?.streakStatus === 'pending'
+    ? '* 오늘 일기를 작성하면 유지 중인 기록이 현재 연속 기록으로 이어집니다.'
+    : '* 오늘 일기를 작성하면 오늘 기록까지 포함돼요.';
   const totalTextLength = stats?.totalTextLength ?? 0;
   const textLengthFormatted = formatTextLength(totalTextLength);
 
@@ -46,7 +53,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
 
       <HomeCardGrid>
         <HomeCard>
-          <HomeCardLabel>현재 연속 기록</HomeCardLabel>
+          <HomeCardLabel>{currentStreakLabel}</HomeCardLabel>
           <HomeCardValueWrapper>
             <HomeCardValue>{currentStreak}</HomeCardValue>
             <HomeCardUnit>일</HomeCardUnit>
@@ -70,14 +77,14 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         </HomeCard>
       </HomeCardGrid>
 
-      <StreakMessageCard>
-        <StreakMessageContent>
+      <HomeInfoCard>
+        <HomeInfoContent>
           <span>{getStreakMessage(currentStreak)}</span>
-        </StreakMessageContent>
-        <InfoText>
-          * 연속 기록은 어제 날짜 기준으로 측정됩니다.
-        </InfoText>
-      </StreakMessageCard>
+        </HomeInfoContent>
+        <HomeInfoText>
+          {streakInfoText}
+        </HomeInfoText>
+      </HomeInfoCard>
 
       <ChartSection>
         <HomeSubsectionTitle>{year}년 월간 기록 그래프</HomeSubsectionTitle>
@@ -148,46 +155,4 @@ const Bar = styled.div<{ $height: number; $hasValue: boolean }>`
 const BarLabel = styled.span`
   font-size: 14px;
   color: rgba(var(--greyTitle), 0.6);
-`;
-
-const StreakMessageCard = styled.div`
-  padding: 20px 16px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  
-  @media (min-width: 480px) {
-    padding: 24px 20px;
-  }
-`;
-
-const StreakMessageContent = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  
-  span {
-    font-size: 16px;
-    color: rgb(var(--greyTitle));
-    line-height: 1.5;
-    overflow-wrap: break-word;
-    text-align: justify;
-    flex: 1;
-  }
-`;
-
-const InfoText = styled.p`
-  font-size: 14px;
-  color: rgba(var(--greyTitle), 0.5);
-  line-height: 1.4;
-  margin: 0;
-  padding-top: 8px;
-  text-align: left;
-  
-  @media (min-width: 480px) {
-    font-size: 16px;
-  }
 `;
