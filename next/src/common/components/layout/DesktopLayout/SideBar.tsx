@@ -79,7 +79,7 @@ const Menus = styled.div`
   width: 70%;
 `
 const Menu = styled(Link)`
-  transition: all ease-in-out 0.3s;
+  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 
   width: 100%;
   display: flex;

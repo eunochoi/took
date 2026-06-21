@@ -79,7 +79,7 @@ const NavMenu = styled(Link) <{ $active: boolean }>`
   background-color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : 'transparent'};
   
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 `;
 
 const SettingButton = styled(Link) <{ $active: boolean }>`
@@ -100,5 +100,5 @@ const SettingButton = styled(Link) <{ $active: boolean }>`
   
   pointer-events: auto;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 `;

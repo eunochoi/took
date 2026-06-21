@@ -73,15 +73,19 @@ const Wrapper = styled.div`
 
   overflow-y: scroll;
 
-  animation: pageIn 0.4s ease-out;
+  animation: pageIn 180ms ease-out;
 
   @keyframes pageIn {
     from {
-      opacity: 0;
+      opacity: 0.98;
     }
     to {
       opacity: 1;
     }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 `;
 
