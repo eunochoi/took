@@ -1,15 +1,15 @@
 'use client';
-import { authAction } from "@/common/auth/authAction";
 import { getDiaryById } from "@/common/actions/diary";
+import { authAction } from "@/common/auth/authAction";
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import Image from "next/image";
 import styled from "styled-components";
-import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import Carousel from "../../ui/Carousel";
 import { Modal } from "../../ui/Modal";
 
@@ -76,7 +76,8 @@ export default ZoomView;
 
 
 const ZoomViewContent = styled(Modal.Content)`
-  padding: 0 0 12px 0;
+  /* padding: 0 0 12px 0; */
+  padding: 0;
 `;
 
 const CarouselWrapper = styled.div`
