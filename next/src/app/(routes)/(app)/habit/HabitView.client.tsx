@@ -54,9 +54,6 @@ const HabitView = () => {
   return (
     <PageWrapper>
       <TopButtons>
-        <button onClick={onAddHabit} className="small">
-          <MdAdd />
-        </button>
         <button onClick={onToggle} className={toggleValue === 'CUSTOM' ? 'large' : 'normal'} >
           <span>{SORT_TEXT[toggleValue]}</span>
         </button>
