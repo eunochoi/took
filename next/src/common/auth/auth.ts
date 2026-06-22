@@ -46,18 +46,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         await setAccessRefreshToken({ email, provider });
         return true;
       } catch (e) {
-        console.log(e);
+        console.error(e);
         return `/unauthorized`;
       }
     },
     // async jwt({ token, user, account, profile, isNewUser }) {
     //   return token;
     // }
-    // async redirect({ url, baseUrl }) {
-    //   console.log(url)
-    //   console.log(baseUrl)
-    //   return baseUrl
-    // },
     // async session({ session, user, token }) {
     //   return session
     // },
