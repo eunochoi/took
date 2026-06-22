@@ -1,173 +1,235 @@
-import styled from "styled-components";
+import {
+  HTMLAttributes,
+  forwardRef
+} from "react";
 
-export const AppSection = styled.section<{ $gap?: number }>`
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: ${({ $gap }) => $gap ?? 16}px;
-  width: 100%;
-`;
+const cx = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
 
-export const AppSectionHeader = styled.div`
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-`;
+type DivProps = HTMLAttributes<HTMLDivElement>;
+type ParagraphProps = HTMLAttributes<HTMLParagraphElement>;
 
-export const AppSectionTitle = styled.h2`
-  color: rgb(var(--greyTitle));
-  text-transform: capitalize;
-  font-size: 32px;
-  font-family: 'BMJUA';
-  flex: 1;
+interface AppSectionProps extends HTMLAttributes<HTMLElement> {
+  $gap?: number;
+}
 
-  @media (min-width: 1025px) {
-    font-size: 36px;
-  }
-`;
+interface AppCardGridProps extends DivProps {
+  $columns?: number;
+}
 
-export const AppSectionMeta = styled.span`
-  font-size: 16px;
-  color: rgba(var(--greyTitle), 0.6);
-  white-space: nowrap;
-  flex-shrink: 0;
-`;
+export const AppSection = forwardRef<HTMLElement, AppSectionProps>(
+  ({ $gap, className, style, ...props }, ref) => (
+    <section
+      ref={ref}
+      className={cx("m-0 flex w-full flex-col", className)}
+      style={{ gap: $gap ?? 16, ...style }}
+      {...props}
+    />
+  ),
+);
+AppSection.displayName = "AppSection";
 
-export const AppCardGrid = styled.div<{ $columns?: number }>`
-  display: grid;
-  grid-template-columns: repeat(${({ $columns }) => $columns ?? 3}, minmax(0, 1fr));
-  gap: 12px;
-`;
+export const AppSectionHeader = forwardRef<HTMLDivElement, DivProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cx("flex items-center justify-between gap-3", className)}
+      {...props}
+    />
+  ),
+);
+AppSectionHeader.displayName = "AppSectionHeader";
 
-export const AppCard = styled.div`
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-`;
+export const AppSectionTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, ...props }, ref) => (
+    <h2
+      ref={ref}
+      className={cx("m-0 text-[1.35rem] font-bold text-grey-title", className)}
+      {...props}
+    />
+  ),
+);
+AppSectionTitle.displayName = "AppSectionTitle";
 
-export const AppStatCard = styled(AppCard)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  min-width: 0;
-  min-height: 100px;
-  padding: 20px 12px;
+export const AppSectionMeta = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
+  ({ className, ...props }, ref) => (
+    <span
+      ref={ref}
+      className={cx("text-sm font-bold text-theme", className)}
+      {...props}
+    />
+  ),
+);
+AppSectionMeta.displayName = "AppSectionMeta";
 
-  @media (min-width: 480px) {
-    min-height: 110px;
-    padding: 24px 16px;
-  }
-`;
+export const AppCardGrid = forwardRef<HTMLDivElement, AppCardGridProps>(
+  ({ $columns = 2, className, style, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cx("grid w-full gap-2 min-[480px]:gap-3", className)}
+      style={{
+        gridTemplateColumns: `repeat(${$columns}, minmax(0, 1fr))`,
+        ...style,
+      }}
+      {...props}
+    />
+  ),
+);
+AppCardGrid.displayName = "AppCardGrid";
 
-export const AppStatLabel = styled.span`
-  width: 100%;
-  font-size: 14px;
-  color: rgba(var(--greyTitle), 0.7);
-  text-align: center;
-  line-height: 1.4;
-  word-break: keep-all;
-  overflow-wrap: break-word;
+const appCardClass =
+  "rounded-2xl bg-white/90 shadow-card";
 
-  @media (min-width: 480px) {
-    font-size: 16px;
-  }
-`;
+export const AppCard = forwardRef<HTMLDivElement, DivProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cx(appCardClass, "p-4 min-[480px]:p-5", className)}
+      {...props}
+    />
+  ),
+);
+AppCard.displayName = "AppCard";
 
-export const AppStatValueWrapper = styled.div`
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 2px;
-  line-height: 1.2;
-`;
+export const AppStatCard = forwardRef<HTMLDivElement, DivProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cx(
+        appCardClass,
+        "flex min-h-[100px] flex-col justify-between gap-2 p-3 min-[480px]:min-h-[110px] min-[480px]:p-4",
+        className,
+      )}
+      {...props}
+    />
+  ),
+);
+AppStatCard.displayName = "AppStatCard";
 
-export const AppStatValue = styled.span`
-  font-size: 28px;
-  font-weight: 700;
-  color: ${(props) => props.theme.themeColor ?? '#979FC7'};
+export const AppStatLabel = forwardRef<HTMLParagraphElement, ParagraphProps>(
+  ({ className, ...props }, ref) => (
+    <p
+      ref={ref}
+      className={cx("m-0 text-[0.8rem] font-bold text-[#8a8da3]", className)}
+      {...props}
+    />
+  ),
+);
+AppStatLabel.displayName = "AppStatLabel";
 
-  @media (min-width: 480px) {
-    font-size: 32px;
-  }
-`;
+export const AppStatValueWrapper = forwardRef<HTMLDivElement, DivProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cx("flex items-baseline gap-1", className)}
+      {...props}
+    />
+  ),
+);
+AppStatValueWrapper.displayName = "AppStatValueWrapper";
 
-export const AppStatUnit = styled.span`
-  font-size: 15px;
-  color: rgba(var(--greyTitle), 0.6);
-`;
+export const AppStatValue = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
+  ({ className, ...props }, ref) => (
+    <span
+      ref={ref}
+      className={cx("text-2xl font-extrabold leading-none text-theme min-[480px]:text-[1.8rem]", className)}
+      {...props}
+    />
+  ),
+);
+AppStatValue.displayName = "AppStatValue";
 
-export const AppSubsection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
+export const AppStatUnit = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanElement>>(
+  ({ className, ...props }, ref) => (
+    <span
+      ref={ref}
+      className={cx("text-[0.8rem] font-bold text-[#8a8da3]", className)}
+      {...props}
+    />
+  ),
+);
+AppStatUnit.displayName = "AppStatUnit";
 
-export const AppSubsectionTitle = styled.h3`
-  font-size: 22px;
-  font-weight: 500;
-  text-transform: capitalize;
-  color: grey;
-  display: block;
-  word-break: break-word;
-  overflow-wrap: break-word;
-`;
+export const AppSubsection = forwardRef<HTMLDivElement, DivProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cx("flex flex-col gap-3", className)}
+      {...props}
+    />
+  ),
+);
+AppSubsection.displayName = "AppSubsection";
 
-export const AppInfoCard = styled(AppCard)`
-  padding: 20px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+export const AppSubsectionTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
+  ({ className, ...props }, ref) => (
+    <h3
+      ref={ref}
+      className={cx("m-0 text-base font-bold text-grey-title", className)}
+      {...props}
+    />
+  ),
+);
+AppSubsectionTitle.displayName = "AppSubsectionTitle";
 
-  @media (min-width: 480px) {
-    padding: 24px 20px;
-  }
-`;
+export const AppInfoCard = forwardRef<HTMLDivElement, DivProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cx(appCardClass, "flex flex-col gap-3 px-4 py-5 min-[480px]:px-5 min-[480px]:py-6", className)}
+      {...props}
+    />
+  ),
+);
+AppInfoCard.displayName = "AppInfoCard";
 
-export const AppInfoContent = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+export const AppInfoContent = forwardRef<HTMLDivElement, DivProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cx(
+        "flex w-full items-start justify-center gap-3 [&>span]:flex-1 [&>span]:break-words [&>span]:text-justify [&>span]:text-base [&>span]:leading-normal [&>span]:text-grey-title",
+        className,
+      )}
+      {...props}
+    />
+  ),
+);
+AppInfoContent.displayName = "AppInfoContent";
 
-  span {
-    font-size: 16px;
-    color: rgb(var(--greyTitle));
-    line-height: 1.5;
-    overflow-wrap: break-word;
-    text-align: justify;
-    flex: 1;
-  }
-`;
+export const AppInfoText = forwardRef<HTMLParagraphElement, ParagraphProps>(
+  ({ className, ...props }, ref) => (
+    <p
+      ref={ref}
+      className={cx("m-0 break-words text-justify text-base leading-normal text-grey-title", className)}
+      {...props}
+    />
+  ),
+);
+AppInfoText.displayName = "AppInfoText";
 
-export const AppInfoText = styled.p`
-  font-size: 14px;
-  color: rgba(var(--greyTitle), 0.5);
-  line-height: 1.4;
-  margin: 0;
-  padding-top: 8px;
-  text-align: left;
-  word-break: keep-all;
-  overflow-wrap: break-word;
+export const AppSurfaceCard = forwardRef<HTMLDivElement, DivProps>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cx(appCardClass, "w-full p-4 min-[480px]:p-5", className)}
+      {...props}
+    />
+  ),
+);
+AppSurfaceCard.displayName = "AppSurfaceCard";
 
-  @media (min-width: 480px) {
-    font-size: 16px;
-  }
-`;
-
-export const AppSurfaceCard = styled(AppCard)`
-  width: 100%;
-  padding: 16px;
-`;
-
-export const AppNoteCard = styled(AppInfoText)`
-  padding: 20px 16px;
-  border-radius: 16px;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-
-  @media (min-width: 480px) {
-    padding: 24px 20px;
-  }
-`;
+export const AppNoteCard = forwardRef<HTMLParagraphElement, ParagraphProps>(
+  ({ className, ...props }, ref) => (
+    <p
+      ref={ref}
+      className={cx(
+        appCardClass,
+        "m-0 break-words px-4 py-5 text-justify text-base leading-normal text-grey-title min-[480px]:px-5 min-[480px]:py-6",
+        className,
+      )}
+      {...props}
+    />
+  ),
+);
+AppNoteCard.displayName = "AppNoteCard";

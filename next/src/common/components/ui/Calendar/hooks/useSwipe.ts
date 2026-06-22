@@ -23,7 +23,6 @@ export const useSwipe = ({
     const touchEndX = e.changedTouches[0].clientX;
     const touchDiff = touchEndX - touchStartX.current;
     touchStartX.current = null;
-    // console.log('swipe diff : ', touchDiff);
     if (touchDiff > 100) prevMonth?.();
     else if (touchDiff < -100) nextMonth?.();
   }, [isTouchGestureEnabled, prevMonth, nextMonth])

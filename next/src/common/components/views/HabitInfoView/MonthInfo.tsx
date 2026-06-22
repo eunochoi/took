@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { differenceInCalendarDays, endOfMonth, format, isAfter, isBefore, isSameMonth, parseISO, startOfDay, startOfMonth, subDays } from "date-fns";
 import { notFound } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import styled from "styled-components";
 
 import Calendar from "../../ui/Calendar";
 import {
@@ -107,7 +106,7 @@ const MonthInfo = ({ displayDate, habitId, setDisplayDate }: Props) => {
         오늘 포함 최근 4일 동안만 습관 체크가 가능하며, 그보다 지난 날짜 중 완료하지 못한 횟수를 놓친 실천으로 계산해요.
       </AppNoteCard>
 
-      <CalendarCard>
+      <AppSurfaceCard className="min-h-[430px] min-[480px]:min-h-[500px]">
         <Calendar
           isTouchGestureEnabled={false}
           variant="compact"
@@ -116,17 +115,9 @@ const MonthInfo = ({ displayDate, habitId, setDisplayDate }: Props) => {
           dateDataMap={habitDateDataMap}
           renderDateContent={renderHabitInfoPageContent}
         />
-      </CalendarCard>
+      </AppSurfaceCard>
     </AppSection>
   );
 }
 
 export default MonthInfo;
-
-const CalendarCard = styled(AppSurfaceCard)`
-  min-height: 430px;
-
-  @media (min-width:480px) {
-    min-height: 500px;
-  }
-`;

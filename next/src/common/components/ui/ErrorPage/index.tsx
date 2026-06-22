@@ -1,7 +1,6 @@
 import { EMOTIONS } from '@/common/constants/emotions';
 import Image from 'next/image';
 import { ReactNode } from 'react';
-import styled from 'styled-components';
 
 interface Button {
   label: string;
@@ -15,12 +14,13 @@ interface ErrorPageProps {
   buttons?: Button[];
 }
 
-// 에러 페이지 공통 컴포넌트
-// 모든 에러 상황에서 동일한 UI 제공
+const cx = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
+
 export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) => {
   return (
-    <Wrapper>
-      <IconWrapper>
+    <div className="flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-4 bg-theme-bg text-[#585858]">
+      <div className="flex items-center justify-center text-8xl leading-none [&_img]:brightness-110 min-[1025px]:text-[128px]">
         <Image
           src={EMOTIONS[6].src}
           alt={EMOTIONS[6].nameKr}
@@ -28,114 +28,30 @@ export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) 
           height={128}
           priority
         />
-      </IconWrapper>
-      <Title>{title}</Title>
-      <Description>{typeof description === 'string' ? <p>{description}</p> : description}</Description>
+      </div>
+      <h2 className="mb-2 mt-4 text-center text-2xl min-[1025px]:text-[32px]">{title}</h2>
+      <div className="max-w-[80%] px-5 text-center text-base text-[#525252] [&_p]:m-0 [&_p]:leading-normal min-[1025px]:text-lg">
+        {typeof description === 'string' ? <p>{description}</p> : description}
+      </div>
       {buttons.length > 0 && (
-        <ButtonGroup>
+        <div className="mt-4 flex flex-wrap justify-center gap-3">
           {buttons.map((button, index) => (
-            <Button
+            <button
               key={index}
+              className={cx(
+                "cursor-pointer rounded-3xl px-6 py-2.5 text-base transition-opacity hover:opacity-80 min-[1025px]:text-lg",
+                (button.variant || 'primary') === 'primary'
+                  ? "bg-[#585858] text-white"
+                  : "border border-[#585858] bg-white text-[#585858]",
+              )}
               onClick={button.onClick}
-              $variant={button.variant || 'primary'}
+              type="button"
             >
               {button.label}
-            </Button>
+            </button>
           ))}
-        </ButtonGroup>
+        </div>
       )}
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  width: 100dvw;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  background-color: var(--theme-bg, #f5f5fa);
-  color: rgb(88, 88, 88);
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 96px;
-  line-height: 1;
-
-  img {
-    filter: brightness(1.1);
-  }
-
-  @media (min-width: 1025px) {
-    font-size: 128px;
-  }
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  margin: 16px 0 8px;
-  text-align: center;
-
-  @media (min-width: 1025px) {
-    font-size: 32px;
-  }
-`;
-
-const Description = styled.div`
-  font-size: 16px;
-  color: #525252;
-  text-align: center;
-  padding: 0 20px;
-  max-width: 80%;
-
-  p {
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  @media (min-width: 1025px) {
-    font-size: 18px;
-  }
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-
-const Button = styled.button<{ $variant: 'primary' | 'secondary' }>`
-  padding: 10px 24px;
-  font-size: 16px;
-  border-radius: 24px;
-  cursor: pointer;
-  transition: opacity 0.2s;
-
-  &:hover {
-    opacity: 0.8;
-  }
-
-  ${({ $variant }) =>
-    $variant === 'primary'
-      ? `
-    border: none;
-    background-color: rgb(88, 88, 88);
-    color: white;
-  `
-      : `
-    border: 1px solid rgb(88, 88, 88);
-    background-color: white;
-    color: rgb(88, 88, 88);
-  `}
-
-  @media (min-width: 1025px) {
-    font-size: 18px;
-  }
-`;

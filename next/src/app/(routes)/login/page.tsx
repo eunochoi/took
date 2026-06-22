@@ -1,12 +1,11 @@
 'use client';
 
+import { cn } from "@/common/utils/cn";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import styled from "styled-components";
-
 
 import { logout as logoutService } from "@/common/auth/logout";
 import Logo from '@/common/components/ui/Logo';
@@ -15,22 +14,19 @@ import google from '/public/img/loginIcon/google.png';
 import kakao from '/public/img/loginIcon/kakao.png';
 import naver from '/public/img/loginIcon/naver.png';
 
-
-// 로그인 페이지 컴포넌트
 const Page = () => {
   const router = useRouter();
 
   const { data: user, isSuccess } = useCurrentUser({
     refetchOnWindowFocus: "always",
-
     staleTime: 0,
     gcTime: 0,
     retry: 1,
-  })
+  });
 
   const logout = () => {
     logoutService();
-  }
+  };
 
   useEffect(() => {
     router.prefetch('/home');
@@ -38,7 +34,7 @@ const Page = () => {
     router.prefetch('/list');
     router.prefetch('/habit');
     router.prefetch('/setting');
-  }, [router])
+  }, [router]);
 
   const options = { callbackUrl: '/login' };
 
@@ -54,22 +50,36 @@ const Page = () => {
     naver,
   };
 
+  const providerButtonClass = (provider?: string) => cn(
+    "flex h-[42px] max-w-[90dvw] items-center justify-start overflow-x-scroll rounded-[42px] px-7 text-base lowercase shadow-[0_2px_8px_rgba(0,0,0,0.06)] min-[1025px]:h-12 [&>span]:ml-2 [&>span]:whitespace-nowrap",
+    provider === 'kakao' && "bg-[#fae100] text-[#39181D]",
+    provider === 'naver' && "bg-[#02c73c] text-white",
+    (!provider || provider === 'google') && "bg-white text-grey-title",
+  );
+
+  const loginButtonClass = (provider: string) => cn(
+    "flex h-12 w-12 items-center justify-center rounded-full p-0 shadow-[0_2px_8px_rgba(0,0,0,0.06)] transition-[transform,box-shadow] duration-200 hover:scale-105 hover:shadow-[0_2px_12px_rgba(0,0,0,0.1)] active:scale-95 min-[1025px]:h-14 min-[1025px]:w-14",
+    provider === 'google' && "bg-white",
+    provider === 'kakao' && "bg-[#fee500]",
+    provider === 'naver' && "bg-[#03c75a]",
+  );
+
   return (
-    <Wrapper>
-      <LeftSection>
+    <div className="flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-12 bg-[#f3f7fc] p-5 [@media(max-height:600px)]:flex-row [@media(max-height:600px)]:p-10 [@media(orientation:landscape)_and_(max-height:600px)]:flex-row [@media(orientation:landscape)_and_(max-height:600px)]:p-10 [@media(min-width:1025px)_and_(max-height:600px)]:p-[60px]">
+      <div className="flex animate-[login-fade-in_1000ms_ease-in-out] flex-col items-center gap-8 [@media(max-height:600px)]:shrink-0 [@media(max-height:600px)]:justify-center [@media(max-height:600px)]:gap-4 min-[1025px]:gap-10">
         <Logo size={48} />
-      </LeftSection>
-      <RightSection>
-        <TextSection>
-          <GreetingTitle>툭! 오늘도 하나씩 :)</GreetingTitle>
-          <GreetingSubTitle>
-            <SubTitleLine>완벽한 하루가 아니어도 좋습니다.</SubTitleLine>
-            <SubTitleLine>발자국 하나만 남겨도 충분해요.</SubTitleLine>
-          </GreetingSubTitle>
-        </TextSection>
+      </div>
+      <div className="flex animate-[login-fade-in_1000ms_ease-in-out] flex-col items-center gap-8 [@media(max-height:600px)]:shrink-0 [@media(max-height:600px)]:justify-center [@media(max-height:600px)]:gap-6 min-[1025px]:gap-10">
+        <div className="flex flex-col items-center gap-4 text-center [@media(max-height:600px)]:w-full [@media(max-height:600px)]:gap-3 min-[1025px]:gap-5">
+          <h1 className="m-0 text-center font-bmjua text-2xl capitalize leading-[1.3] text-grey-title min-[480px]:text-[26px] min-[1025px]:text-[32px]">툭! 오늘도 하나씩 :)</h1>
+          <p className="m-0 flex flex-col gap-0.5 break-words text-center text-base leading-[1.3] text-grey-title opacity-85 min-[480px]:gap-[3px] min-[1025px]:gap-1 min-[1025px]:text-lg">
+            <span className="block">완벽한 하루가 아니어도 좋습니다.</span>
+            <span className="block">발자국 하나만 남겨도 충분해요.</span>
+          </p>
+        </div>
         {isSuccess ? (
-          <LoggedInButtonWrapper>
-            <LoggedInButtonStart href="/home" className={user?.provider}>
+          <div className="flex flex-col items-center justify-center [@media(max-height:600px)]:w-full">
+            <Link href="/home" className={providerButtonClass(user?.provider)}>
               {user?.provider && (
                 <Image
                   src={providerIcons[user.provider]}
@@ -79,306 +89,26 @@ const Page = () => {
                 />
               )}
               <span>{user?.email}</span>
-            </LoggedInButtonStart>
-            <LoggedInButtonLogout onClick={logout}>다른 SNS 계정 선택</LoggedInButtonLogout>
-          </LoggedInButtonWrapper>
+            </Link>
+            <button className="text-base text-grey-title" onClick={logout} type="button">다른 SNS 계정 선택</button>
+          </div>
         ) : (
-          <Buttons>
+          <div className="flex flex-row items-center justify-center gap-4 [@media(max-height:600px)]:w-full min-[1025px]:gap-5">
             {loginProviders.map((provider) => (
-              <LoginButton
+              <button
                 key={provider.id}
-                className={provider.id}
+                className={loginButtonClass(provider.id)}
                 onClick={() => signIn(provider.id as 'google' | 'kakao' | 'naver', options, provider.signInOptions)}
+                type="button"
               >
-                <SnsImage src={provider.icon} alt={provider.id} width={24} height={24} />
-              </LoginButton>
+                <Image className="h-7 w-7 shrink-0 object-contain min-[1025px]:h-8 min-[1025px]:w-8" src={provider.icon} alt={provider.id} width={24} height={24} />
+              </button>
             ))}
-          </Buttons>
+          </div>
         )}
-      </RightSection>
-    </Wrapper>
+      </div>
+    </div>
   );
-}
+};
 
 export default Page;
-
-const Wrapper = styled.div`
-  @keyframes fadeIn {
-    0% { opacity:0; }
-    100% { opacity:1; }
-  }
-  >*{
-    animation: fadeIn 1000ms ease-in-out;
-  }
-
-  width: 100dvw;
-  height: 100dvh;
-
-  display:flex;
-  flex-direction:column;
-  justify-content: center;
-  align-items: center;
-
-  background-color: #f3f7fc;
-  padding: 20px;
-  gap: 48px;
-
-  /* 가로 모드 또는 높이가 짧을 때 가로 배치 */
-  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-    gap: 48px;
-    
-    @media (min-width: 1025px) {
-      padding: 60px;
-      gap: 48px;
-    }
-  }
-`
-
-const TextSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-
-  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
-  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-  }
-
-  @media (min-width: 1025px) {
-    gap: 20px;
-  }
-`
-
-const LeftSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-
-  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
-  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
-    gap: 16px;
-  }
-
-  @media (min-width: 1025px) {
-    gap: 40px;
-  }
-`
-
-const RightSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-
-  /* 가로 모드 또는 높이가 짧을 때 오른쪽 섹션 */
-  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-  }
-
-  @media (min-width: 1025px) {
-    gap: 40px;
-  }
-`
-
-
-
-const GreetingTitle = styled.h1`
-  color: rgb(var(--greyTitle));
-  text-transform: capitalize;
-  font-size: 24px;
-  font-family: 'BMJUA';
-  margin: 0;
-  text-align: center;
-  line-height: 1.3;
-  
-  @media (min-width: 480px) {
-    font-size: 26px;
-  }
-  
-  @media (min-width: 1025px) {
-    font-size: 32px;
-  }
-
-  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
-  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    text-align: center;
-  }
-`
-
-const GreetingSubTitle = styled.p`
-  font-size: 16px;
-  color: rgb(var(--greyTitle));
-  line-height: 1.3;
-  overflow-wrap: break-word;
-  text-align: center;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  opacity: 0.85;
-  
-  @media (min-width: 480px) {
-    font-size: 16px;
-    gap: 3px;
-  }
-  
-  @media (min-width: 1025px) {
-    font-size: 18px;
-    gap: 4px;
-  }
-
-  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
-  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    text-align: center;
-  }
-`
-
-const SubTitleLine = styled.span`
-  display: block;
-`
-const LoggedInButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
-  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    width: 100%;
-    align-items: center;
-  }
-`
-const LoggedInButtonStart = styled(Link)`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-
-  width : auto;
-  max-width: 90dvw;
-  overflow-x: scroll;
-
-  height: 42px;
-  border-radius: 42px;
-  border: none;
-  padding: 0 28px;
-  margin-bottom: 24px;
-
-  background-color:#fff;
-  color: rgb(var(--greyTitle));
-  text-transform: lowercase;
-  font-size: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  cursor: pointer;
-  text-decoration: none;
-
-  span{
-    margin-left : 8px;
-    white-space: nowrap;
-  }  
-  
-  &.google{
-    background-color:#fff;
-  }
-  &.kakao{
-    background-color:rgb(250, 225, 0);
-    color: #39181D;
-  }
-  &.naver{
-    background-color: rgb(2, 199, 60);
-    color: white;
-  }
-
-
-  @media (min-width:1025px) { //desktop
-    height: 48px;
-  }
-`
-const LoggedInButtonLogout = styled.button`
-  color: rgb(var(--greyTitle));
-  font-size: 16px;
-`
-const Buttons = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-  
-  @media (min-width: 1025px) {
-    gap: 20px;
-  }
-
-  /* 가로 모드 또는 높이가 짧을 때 가운데 정렬 */
-  @media (orientation: landscape) and (max-height: 600px), (max-height: 600px) {
-    width: 100%;
-    justify-content: center;
-  }
-`
-
-const LoginButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
-  padding: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-
-  @media (min-width: 1025px) {
-    width: 56px;
-    height: 56px;
-  }
-
-  &.google {
-    background-color: #ffffff;
-  }
-  
-  &.kakao {
-    background-color: #fee500;
-  }
-  
-  &.naver {
-    background-color: #03c75a;
-  }
-`
-
-const SnsImage = styled(Image)`
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  flex-shrink: 0;
-  
-  @media (min-width: 1025px) {
-    width: 32px;
-    height: 32px;
-  }
-`

@@ -4,7 +4,6 @@ import { authAction } from '@/common/auth/authAction';
 import { getHabitList } from '@/common/actions/habit';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 
 import { useCustomHabitOrder } from '@/app/(routes)/(app)/habit/_hooks/useCustomHabitOrder';
 import { Modal } from '@/common/components/ui/Modal';
@@ -57,13 +56,7 @@ export const HabitOrderView = () => {
         <HabitList tempHabits={tempHabits} setTempHabits={setTempHabits} />
       </Modal.Content>
       <Modal.Footer>
-        <InitButton onClick={onInitialize}>변경사항 취소</InitButton>
+        <button className="text-base capitalize text-theme" onClick={onInitialize} type="button">변경사항 취소</button>
       </Modal.Footer>
     </Modal>);
 }
-
-const InitButton = styled.button`
-  text-transform: capitalize;
-  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-  font-size: 16px;
-`

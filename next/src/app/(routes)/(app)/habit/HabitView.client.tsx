@@ -1,7 +1,5 @@
 'use client';
 
-import styled from "styled-components";
-
 import AppPage from "@/common/components/layout/AppPage";
 import { authAction } from "@/common/auth/authAction";
 import { getHabitList } from "@/common/actions/habit";
@@ -57,81 +55,25 @@ const HabitView = () => {
           <span>{SORT_TEXT[toggleValue]}</span>
         </button>
       }>
-        <HabitPageTextWrapper>
-          <HabitPageText className='title'>목표 습관 {todayDoneHabitRate}% 완료</HabitPageText>
-          <HabitPageText className='sub'>오늘의 목표 습관 {todayDoneHabitCount}개를 실천하셨습니다 :)</HabitPageText>
-        </HabitPageTextWrapper>
+        <div className="mb-7 mt-4 flex flex-col items-start justify-center gap-2">
+          <span className="w-full font-bmjua text-[32px] text-grey-title min-[1025px]:text-4xl">목표 습관 {todayDoneHabitRate}% 완료</span>
+          <span className="text-lg text-gray-500">오늘의 목표 습관 {todayDoneHabitCount}개를 실천하셨습니다 :)</span>
+        </div>
 
-        <HabitBoxs>
+        <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3 pb-2 min-[480px]:max-[1023px]:grid-cols-3 min-[1024px]:grid-cols-3">
           {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
-          {(habits?.length ?? 0) < MAX_HABIT_COUNT && <EmptyBox onClick={onAddHabit}><MdAdd /></EmptyBox>}
-        </HabitBoxs>
+          {(habits?.length ?? 0) < MAX_HABIT_COUNT && (
+            <button
+              className="flex aspect-[0.8] w-full shrink-0 items-center justify-center rounded-3xl bg-white/90 text-5xl text-theme shadow-[0_1px_8px_rgba(0,0,0,0.04)]"
+              onClick={onAddHabit}
+              type="button"
+            >
+              <MdAdd />
+            </button>
+          )}
+        </div>
     </AppPage >
   );
 }
 
 export default HabitView;
-
-const HabitPageTextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-
-  margin-top: 16px;
-  margin-bottom: 28px;
-  gap: 8px;
-`
-const HabitPageText = styled.span`
-  &.title{
-    color: rgb(var(--greyTitle));
-    width: 100%;
-
-    font-size: 32px;
-    font-family: 'BMJUA';
-    @media (min-width:1025px) { //desktop
-      font-size: 36px;
-    }
-  }
-  &.sub{
-    font-size: 18px;
-    color: grey;
-  }
-`
-
-
-const HabitBoxs = styled.div`
-  width: 100%;
-  height: auto;
-  flex-shrink: 0;
-
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: repeat(2, 1fr);
-
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (min-width:1024px) { //desktop
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  
-  gap: 12px;
-  padding-bottom: 8px;
-`
-const EmptyBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  flex-shrink: 0;
-  width: 100%;
-  aspect-ratio: 0.8;
-  
-  border-radius: 24px;
-  background-color: rgba(255,255,255,0.9);
-  box-shadow: 0 1px 8px rgba(0,0,0,0.04);
-  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-  font-size: 48px;
-`

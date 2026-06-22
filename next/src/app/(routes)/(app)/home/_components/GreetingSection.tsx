@@ -3,14 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MdCalendarMonth, MdCheckBox } from 'react-icons/md';
-import styled from "styled-components";
 
 import emotionsImage from '/public/img/emotion/emotions.png';
 
 const GreetingSection = () => {
   return (
-    <Wrapper>
-      <EmotionImageWrapper>
+    <section className="m-0 flex flex-col gap-5">
+      <div className="mx-auto mb-6 mt-12 w-3/4 [&>img]:h-auto [&>img]:w-full [&>img]:object-contain min-[480px]:hidden">
         <Image
           src={emotionsImage}
           alt="emotions"
@@ -20,124 +19,30 @@ const GreetingSection = () => {
           quality={100}
           unoptimized={false}
         />
-      </EmotionImageWrapper>
-      <Title>TOOK! 오늘도 하나씩 :)</Title>
-      <SubTitle>
-        <SubTitleLine>완벽한 하루가 아니어도 좋습니다.</SubTitleLine>
-        <SubTitleLine>발자국 하나만 남겨도 충분해요.</SubTitleLine>
-      </SubTitle>
-      <LinkWrapper>
-        <StyledLink href="/calendar">
-          <LinkIcon><MdCalendarMonth /></LinkIcon>
-          <LinkText>일기 작성하러 가기</LinkText>
-        </StyledLink>
-        <StyledLink href="/habit">
-          <LinkIcon><MdCheckBox /></LinkIcon>
-          <LinkText>습관 관리하러 가기</LinkText>
-        </StyledLink>
-      </LinkWrapper>
-    </Wrapper>
+      </div>
+      <h1 className="font-bmjua text-[32px] capitalize text-grey-title min-[1025px]:text-4xl">TOOK! 오늘도 하나씩 :)</h1>
+      <p className="m-0 flex flex-col gap-1 break-words text-justify text-lg leading-normal text-grey-title min-[480px]:text-[21px]">
+        <span className="block">완벽한 하루가 아니어도 좋습니다.</span>
+        <span className="block">발자국 하나만 남겨도 충분해요.</span>
+      </p>
+      <div className="flex flex-col gap-2.5 min-[480px]:flex-row min-[480px]:gap-3">
+        <Link
+          className="flex items-center gap-2 rounded-xl bg-white/90 px-4 py-3 shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:bg-white hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+          href="/calendar"
+        >
+          <span className="flex shrink-0 items-center justify-center text-xl text-theme"><MdCalendarMonth /></span>
+          <span className="text-base font-medium text-grey-title">일기 작성하러 가기</span>
+        </Link>
+        <Link
+          className="flex items-center gap-2 rounded-xl bg-white/90 px-4 py-3 shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:bg-white hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+          href="/habit"
+        >
+          <span className="flex shrink-0 items-center justify-center text-xl text-theme"><MdCheckBox /></span>
+          <span className="text-base font-medium text-grey-title">습관 관리하러 가기</span>
+        </Link>
+      </div>
+    </section>
   );
 };
 
 export default GreetingSection;
-
-const Wrapper = styled.section`
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const EmotionImageWrapper = styled.div`
-  width: 75%;
-  margin: 0 auto;
-  margin-top: 48px;
-  margin-bottom: 24px;
-  
-  @media (min-width: 480px) {
-    display: none;
-  }
-  
-  img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-  }
-`;
-
-const Title = styled.h1`
-  color: rgb(var(--greyTitle));
-  text-transform: capitalize;
-  font-size: 32px;
-  font-family: 'BMJUA';
-  
-  @media (min-width: 1025px) {
-    font-size: 36px;
-  }
-`;
-
-const SubTitle = styled.p`
-  font-size: 18px;
-  color: rgb(var(--greyTitle));
-  line-height: 1.5;
-  overflow-wrap: break-word;
-  text-align: justify;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  
-  @media (min-width: 480px) {
-    font-size: 21px;
-  }
-`;
-
-const SubTitleLine = styled.span`
-  display: block;
-`;
-
-const LinkWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  
-  @media (min-width: 480px) {
-    flex-direction: row;
-    gap: 12px;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
-  
-  &:hover {
-    background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transform: translateY(-1px);
-  }
-`;
-
-const LinkIcon = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  color: ${props => props.theme.themeColor ?? '#979FC7'};
-  flex-shrink: 0;
-`;
-
-const LinkText = styled.span`
-  font-size: 16px;
-  font-weight: 500;
-  color: rgb(var(--greyTitle));
-`;

@@ -1,6 +1,6 @@
 import { RefObject } from "react";
-import styled from "styled-components";
 import { lightenColor } from "@/common/utils/lightenColor";
+import { cn } from "@/common/utils/cn";
 
 interface IndicatorProps {
   slideWrapperRef: RefObject<HTMLDivElement>;
@@ -11,51 +11,37 @@ interface IndicatorProps {
 }
 
 const Indicator = ({ slideWrapperRef, page, indicatorLength, color, type }: IndicatorProps) => {
-  return <IndicatorWrapper>
-    {[...Array(indicatorLength)].map((_: any, i: number) =>
-      <Dot
-        key={`indicator${i}`}
-        $color={color}
-        className={page === i ? `current ${type}` : `${type}`}
-        onClick={() => {
-          slideWrapperRef.current?.scrollTo({
-            left: slideWrapperRef.current.clientWidth * i,
-            behavior: "smooth"
-          })
-        }}
-      />)}
-  </IndicatorWrapper>;
-}
+  return (
+    <div className="my-1 flex h-auto w-full justify-center">
+      {[...Array(indicatorLength)].map((_: any, i: number) => {
+        const current = page === i;
+        const backgroundColor = current
+          ? color ?? "var(--theme-color)"
+          : color
+            ? lightenColor(color, 15)
+            : "color-mix(in srgb, var(--theme-color) 85%, white)";
+
+        return (
+          <button
+            key={`indicator${i}`}
+            className={cn(
+              "m-[3px] h-2 rounded-lg transition-all duration-200 ease-in-out",
+              current ? "w-5" : "w-2",
+              type === "diary" && i === indicatorLength - 1 && "rounded-sm",
+            )}
+            onClick={() => {
+              slideWrapperRef.current?.scrollTo({
+                left: slideWrapperRef.current.clientWidth * i,
+                behavior: "smooth",
+              });
+            }}
+            style={{ backgroundColor }}
+            type="button"
+          />
+        );
+      })}
+    </div>
+  );
+};
 
 export default Indicator;
-
-const IndicatorWrapper = styled.div`
-  width: 100%;
-  justify-content: center;
-  display: flex;
-  margin: 4px 0;
-  height: auto;
-  @media (max-width: 479px) { //mobile port
-  }
-  @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
-  }
-`
-const Dot = styled.div<{ $color?: string }>`
-  background-color: ${(props) => props.$color ? lightenColor(props.$color, 15) : props.theme.themeColor ? lightenColor(props.theme.themeColor, 15) : '#B0B8D4'};
-
-  margin: 3px;
-  width: 8px;
-  height: 8px;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-
-  &.diary{
-   &:last-child{
-    border-radius: 2px;
-   }
-  }
-  &.current {
-    background-color: ${(props) => props.$color ?? props.theme.themeColor ?? '#8CADE2'};
-    width: 20px;
-  }
-`

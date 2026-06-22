@@ -1,58 +1,34 @@
-'use client'
+'use client';
 
 import Logo from '@/common/components/ui/Logo';
 import Link from "next/link";
-import styled from "styled-components";
 import { useNavItems } from "./useNavItems";
+
+const cx = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
 
 const SideNav = () => {
   const { items, current } = useNavItems();
 
   return (
-    <Nav>
-      <LogoWrapper>
+    <nav className="fixed left-0 flex h-[100dvh] w-[25dvw] flex-col items-center justify-center gap-2 bg-white/80 shadow-[2px_0_20px_rgba(0,0,0,0.04)] backdrop-blur-2xl">
+      <div className="mb-4">
         <Logo size={24} />
-      </LogoWrapper>
+      </div>
       {items.map(({ key, icon: Icon, label, href }) => (
-        <Menu key={key} href={href} $active={current === key}>
+        <Link
+          key={key}
+          href={href}
+          className={cx(
+            "flex w-4/5 cursor-pointer items-center gap-3 px-3 py-2 text-sm capitalize",
+            current === key ? "text-theme" : "text-[#c3c3c3]",
+          )}
+        >
           <Icon /> {label}
-        </Menu>
+        </Link>
       ))}
-    </Nav>
+    </nav>
   );
 };
 
 export default SideNav;
-
-const Nav = styled.nav`
-  position: fixed;
-  left: 0;
-  width: 25dvw;
-  height: 100dvh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-
-  background-color: rgba(255,255,255,0.8);
-  backdrop-filter: blur(24px);
-  box-shadow: 2px 0 20px rgba(0,0,0,0.04);
-`;
-
-const LogoWrapper = styled.div`
-  margin-bottom: 16px;
-`;
-
-const Menu = styled(Link) <{ $active: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 80%;
-  padding: 8px 12px;
-  font-size: 14px;
-  text-transform: capitalize;
-  color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : '#c3c3c3'};
-  cursor: pointer;
-`;

@@ -11,5 +11,5 @@ export const useAutoCloseSnackbar = () => {
     if (pathname) {
       closeSnackbar();
     }
-  }, [pathname, closeSnackbar]);
-}
+  }, [pathname]);
+};

@@ -9,7 +9,6 @@ import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import Image from "next/image";
-import styled from "styled-components";
 import Carousel from "../../ui/Carousel";
 import { Modal } from "../../ui/Modal";
 
@@ -49,15 +48,15 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
 
   return <Modal>
     <Modal.Header headerTitleText={headerTitle} />
-    <ZoomViewContent>
-      <CarouselWrapper>
+    <Modal.Content className="p-0">
+      <div className="h-full w-full">
         <Carousel objectFit="contain">
           <TextSlide diaryData={diaryData} />
           {images?.map((e: ZoomViewImage) => (
-            <InteractiveImage
+            <Image
               key={e.id}
               onClick={zoomToggle}
-              className={zoomState}
+              className={zoomState === 'zoom' ? "cursor-pointer !object-cover" : "cursor-pointer"}
               src={e.src}
               alt="zoomImage"
               width={400}
@@ -67,30 +66,9 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
             />
           ))}
         </Carousel>
-      </CarouselWrapper>
-    </ZoomViewContent>
+      </div>
+    </Modal.Content>
   </Modal>;
 }
 
 export default ZoomView;
-
-
-const ZoomViewContent = styled(Modal.Content)`
-  /* padding: 0 0 12px 0; */
-  padding: 0;
-`;
-
-const CarouselWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  /* padding: 0 12px; */
-`;
-
-const InteractiveImage = styled(Image)`
-  cursor: pointer;
-  /* SlideItem에서 object-fit 쓰니까 zoom일 때만 덮음 */
-  
-  &.zoom {
-    object-fit: cover !important;
-  }
-`;

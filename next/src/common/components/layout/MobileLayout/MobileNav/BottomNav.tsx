@@ -1,104 +1,47 @@
-'use client'
+'use client';
 
 import Link from "next/link";
-import styled from "styled-components";
 import { useNavItems } from "./useNavItems";
+
+const cx = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
 
 const BottomNav = () => {
   const { items, current } = useNavItems();
 
-  // setting을 제외한 메인 메뉴
   const mainItems = items.filter(item => item.key !== 'setting');
   const settingItem = items.find(item => item.key === 'setting');
 
   return (
-    <NavWrapper>
-      <NavGroup>
+    <div className="pointer-events-none fixed bottom-0 left-0 right-0 z-[95] flex h-[var(--mobileNav)] w-full items-center justify-center gap-6">
+      <nav className="pointer-events-auto flex items-center gap-[7px] rounded-[60px] bg-white/75 h-[60px] px-[7px] py-[7px] shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-2xl">
         {mainItems.map(({ key, icon: Icon, href }) => (
-          <NavMenu key={key} href={href} $active={current === key}>
+          <Link
+            key={key}
+            href={href}
+            className={cx(
+              "flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-[46px] text-[22px] transition-colors duration-[180ms]",
+              current === key ? "bg-theme text-white" : "bg-transparent text-[#999]",
+            )}
+          >
             <Icon />
-          </NavMenu>
+          </Link>
         ))}
-      </NavGroup>
+      </nav>
 
       {settingItem && (
-        <SettingButton href={settingItem.href} $active={current === 'setting'}>
+        <Link
+          href={settingItem.href}
+          className={cx(
+            "pointer-events-auto flex h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-[60px] text-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-2xl transition-colors duration-[180ms]",
+            current === 'setting' ? "bg-theme text-white" : "bg-white/75 text-[#999]",
+          )}
+        >
           <settingItem.icon />
-        </SettingButton>
+        </Link>
       )}
-    </NavWrapper>
+    </div>
   );
 };
 
 export default BottomNav;
-
-const NavWrapper = styled.div`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 95;
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-  width: 100%;
-  height: var(--mobileNav);
-  
-  pointer-events: none;
-`;
-
-const NavGroup = styled.nav`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  
-  padding: 6px 8px;
-  border-radius: 28px;
-  
-  background-color: rgba(255,255,255,0.8);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  
-  pointer-events: auto;
-`;
-
-const NavMenu = styled(Link) <{ $active: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  width: 44px;
-  height: 44px;
-  border-radius: 22px;
-  
-  font-size: 22px;
-  color: ${({ $active }) => $active ? '#fff' : '#999'};
-  background-color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : 'transparent'};
-  
-  cursor: pointer;
-  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
-`;
-
-const SettingButton = styled(Link) <{ $active: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  width: 52px;
-  height: 52px;
-  border-radius: 26px;
-  
-  font-size: 24px;
-  color: ${({ $active }) => $active ? '#fff' : '#999'};
-  background-color: ${({ $active, theme }) => $active ? (theme.themeColor || '#979FC7') : 'rgba(255,255,255,0.8)'};
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  
-  pointer-events: auto;
-  cursor: pointer;
-  transition: color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
-`;

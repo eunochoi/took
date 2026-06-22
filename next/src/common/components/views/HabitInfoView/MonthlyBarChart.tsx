@@ -1,5 +1,4 @@
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
-import styled from "styled-components";
 
 import { AppSurfaceCard } from "@/common/components/ui/AppSection";
 
@@ -15,102 +14,37 @@ const MonthlyBarChart = ({ data, year, onCurrentYear, onNextYear, onPrevYear }: 
   const maxCount = Math.max(...(data ?? [1]), 1);
 
   return (
-    <ChartCard>
-      <ChartHeader>
-        <button onClick={onPrevYear}><MdKeyboardArrowLeft /></button>
-        <ChartTitle as="button" onClick={onCurrentYear}>
+    <AppSurfaceCard className="flex flex-col gap-4">
+      <header className="flex w-full items-center justify-between py-1.5 [&>button]:flex [&>button]:p-[3px] [&>button]:text-gray-500">
+        <button onClick={onPrevYear} type="button"><MdKeyboardArrowLeft /></button>
+        <button className="font-bmjua text-xl capitalize text-grey-title" onClick={onCurrentYear} type="button">
           {year}년
-        </ChartTitle>
-        <button onClick={onNextYear}><MdKeyboardArrowRight /></button>
-      </ChartHeader>
+        </button>
+        <button onClick={onNextYear} type="button"><MdKeyboardArrowRight /></button>
+      </header>
 
-      <Chart>
-        {[...Array(12)].map((_, i: number) =>
-          <BarWrapper key={'month' + i + 1}>
-            <BarArea>
-              <BarCount>{data && data[i] > 0 && data[i]}</BarCount>
-              <Bar $height={data && data[i] > 0 ? Math.max((data[i] / maxCount) * 160, 8) : 4} $hasValue={!!data && data[i] > 0} />
-            </BarArea>
-            <BarLabel>{i + 1}</BarLabel>
-          </BarWrapper>)}
-      </Chart>
-    </ChartCard>);
-}
+      <div className="flex min-h-[200px] w-full items-end justify-between">
+        {[...Array(12)].map((_, i: number) => {
+          const count = data?.[i] ?? 0;
+          const hasValue = count > 0;
+          const height = hasValue ? Math.max((count / maxCount) * 160, 8) : 4;
+
+          return (
+            <div key={'month' + i + 1} className="flex min-w-0 flex-1 flex-col items-center gap-1.5">
+              <div className="flex h-[178px] w-full flex-col items-center justify-end gap-1.5">
+                <div className="min-h-[18px] text-[13px] text-[rgba(var(--greyTitle),0.6)]">{hasValue && count}</div>
+                <div
+                  className={hasValue ? "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-theme transition-[height] duration-300 ease-in-out" : "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-[rgba(var(--greyTitle),0.15)] transition-[height] duration-300 ease-in-out"}
+                  style={{ height: `${height}px` }}
+                />
+              </div>
+              <span className="text-sm text-[rgba(var(--greyTitle),0.6)]">{i + 1}</span>
+            </div>
+          );
+        })}
+      </div>
+    </AppSurfaceCard>
+  );
+};
 
 export default MonthlyBarChart;
-
-const ChartCard = styled(AppSurfaceCard)`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const ChartHeader = styled.header`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 0;
-
-  button{
-    display: flex;
-    color: grey;
-    padding: 3px;
-  }
-`;
-
-const ChartTitle = styled.span`
-  text-transform: capitalize;
-  color: rgb(var(--greyTitle)) !important;
-  font-family: 'BMJUA';
-  font-size: 20px;
-`;
-
-const Chart = styled.div`
-  width: 100%;
-  min-height: 200px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-`;
-
-const BarWrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-`;
-
-const BarArea = styled.div`
-  width: 100%;
-  height: 178px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 6px;
-`;
-
-const BarCount = styled.div`
-  min-height: 18px;
-  font-size: 13px;
-  color: rgba(var(--greyTitle), 0.6);
-`;
-
-const Bar = styled.div<{ $height: number; $hasValue: boolean }>`
-  width: 60%;
-  max-width: 20px;
-  min-height: 4px;
-  height: ${({ $height }) => $height}px;
-  border-radius: 3px;
-  background-color: ${({ $hasValue, theme }) =>
-    $hasValue ? (theme.themeColor ?? '#979FC7') : 'rgba(var(--greyTitle), 0.15)'};
-  transition: height 0.3s ease;
-`;
-
-const BarLabel = styled.span`
-  font-size: 14px;
-  color: rgba(var(--greyTitle), 0.6);
-`;

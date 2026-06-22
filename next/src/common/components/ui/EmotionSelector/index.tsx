@@ -1,10 +1,10 @@
 'use client';
 
 import Image from "next/image";
-import styled from "styled-components";
 
 import { EMOTIONS } from "@/common/constants/emotions";
 import { EMOTION_UNSELECTED } from "@/common/constants/filterDefaults";
+import { cn } from "@/common/utils/cn";
 
 export interface EmotionSelectorProps {
   value: number;
@@ -22,90 +22,46 @@ export const EmotionSelector = ({ value, onChange }: EmotionSelectorProps) => {
     else onChange(id);
   };
 
+  const renderEmotion = (emotion: (typeof EMOTIONS)[number]) => {
+    const selected = isSelected(emotion.id);
+
+    return (
+      <button
+        key={emotion.name}
+        className="flex flex-1 cursor-pointer flex-col items-center gap-2"
+        onClick={() => handleClick(emotion.id)}
+        type="button"
+      >
+        <Image
+          className={cn(
+            "h-12 w-12 shrink-0 object-contain transition-opacity duration-200 ease-in-out",
+            selected ? "opacity-100" : "opacity-50",
+          )}
+          src={emotion.src}
+          alt={emotion.nameKr}
+          width={128}
+          height={128}
+        />
+        <span
+          className={cn(
+            "text-center text-sm text-grey-title transition-opacity duration-200 ease-in-out min-[480px]:text-base",
+            selected ? "font-semibold opacity-100" : "opacity-50",
+          )}
+        >
+          {emotion.nameKr}
+        </span>
+      </button>
+    );
+  };
+
   return (
-    <Wrapper>
-      <Row>
-        {firstRow.map((e) => (
-          <Item
-            key={e.name}
-            className={isSelected(e.id) ? "selected" : ""}
-            onClick={() => handleClick(e.id)}
-          >
-            <EmotionImage src={e.src} alt={e.nameKr} width={128} height={128} />
-            <EmotionName>{e.nameKr}</EmotionName>
-          </Item>
-        ))}
-      </Row>
-      <Row>
-        {secondRow.map((e) => (
-          <Item
-            key={e.name}
-            className={isSelected(e.id) ? "selected" : ""}
-            onClick={() => handleClick(e.id)}
-          >
-            <EmotionImage src={e.src} alt={e.nameKr} width={128} height={128} />
-            <EmotionName>{e.nameKr}</EmotionName>
-          </Item>
-        ))}
-      </Row>
-    </Wrapper>
+    <div className="flex w-full flex-col gap-3">
+      <div className="flex w-full items-start justify-between">
+        {firstRow.map(renderEmotion)}
+      </div>
+      <div className="flex w-full items-start justify-between">
+        {secondRow.map(renderEmotion)}
+      </div>
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-`;
-
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-`;
-
-const EmotionImage = styled(Image)`
-  box-sizing: border-box;
-  transition: opacity ease-in-out 200ms;
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  object-fit: contain;
-`;
-
-const EmotionName = styled.span`
-  font-size: 16px;
-  color: rgb(var(--greyTitle));
-  text-align: center;
-  transition: opacity ease-in-out 200ms;
-
-  @media (max-width: 479px) {
-    font-size: 14px;
-  }
-`;
-
-const Item = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  flex: 1;
-
-  &.selected ${EmotionImage} {
-    opacity: 1;
-  }
-  &:not(.selected) ${EmotionImage} {
-    opacity: 0.5;
-  }
-
-  &.selected ${EmotionName} {
-    opacity: 1;
-    font-weight: 600;
-  }
-  &:not(.selected) ${EmotionName} {
-    opacity: 0.5;
-  }
-`;

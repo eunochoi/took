@@ -1,5 +1,4 @@
 import { ChangeEvent, RefObject, useCallback, useRef } from "react";
-import styled from "styled-components";
 
 
 interface Props {
@@ -14,14 +13,14 @@ const DiaryInputTextArea = ({ text, setText, contentsRef }: Props) => {
 
   const onChangeText = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
-  }, []);
+  }, [setText]);
   const scroll = () => {
     setTimeout(() => {
       contentsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     }, 200);
-  }
+  };
 
-  return (<InputWrapper ref={inputRef} >
+  return (<div className="h-full w-full [&>textarea]:h-full [&>textarea]:w-full [&>textarea]:resize-none [&>textarea]:border-none [&>textarea]:text-app [&>textarea]:outline-none [&>textarea::placeholder]:pt-[70px] [&>textarea::placeholder]:text-center [&>textarea::placeholder]:text-gray-500" ref={inputRef} >
     <textarea
       onFocus={scroll}
       onClick={scroll}
@@ -29,28 +28,8 @@ const DiaryInputTextArea = ({ text, setText, contentsRef }: Props) => {
 
       value={text}
       placeholder="일상의 작은 감정들을 기록하세요." />
-  </InputWrapper>
+  </div>
   );
-}
+};
 
 export default DiaryInputTextArea;
-
-const InputWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-
-  textarea {
-    font-size: ${(props) => props.theme.fontSize ?? '15pt'};
-    width: 100%;
-    height: 100%;
-    resize: none;
-    border: none;
-    outline: none;
-
-    &::placeholder {
-      padding-top: 70px;
-      text-align: center;
-      color: grey;
-    }
-  }
-`

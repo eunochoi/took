@@ -1,7 +1,6 @@
 'use client';
 
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
-import styled from "styled-components";
 
 import { FONT_TYPE_LIST } from "@/common/utils/settingsContext/SettingsContext";
 import { useSettingsContext } from "@/common/utils/settingsContext/useSettingsContext";
@@ -26,41 +25,14 @@ export const FontTypeSelector = () => {
   const displayName = fontType === 'type1' ? '타입1' : fontType === 'type2' ? '타입2' : '타입3';
 
   return (
-    <Wrapper>
-      <ArrowButton onClick={decrease} disabled={currentIndex === 0}>
+    <div className="flex items-center justify-center gap-2">
+      <button className="flex items-center justify-center text-2xl text-grey-title disabled:opacity-30" onClick={decrease} disabled={currentIndex === 0} type="button">
         <MdChevronLeft />
-      </ArrowButton>
-      <TypeDisplay>{displayName}</TypeDisplay>
-      <ArrowButton onClick={increase} disabled={currentIndex === FONT_TYPE_LIST.length - 1}>
+      </button>
+      <span className="min-w-12 text-center text-app text-grey-title">{displayName}</span>
+      <button className="flex items-center justify-center text-2xl text-grey-title disabled:opacity-30" onClick={increase} disabled={currentIndex === FONT_TYPE_LIST.length - 1} type="button">
         <MdChevronRight />
-      </ArrowButton>
-    </Wrapper>
+      </button>
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-`;
-
-const TypeDisplay = styled.span`
-  min-width: 48px;
-  text-align: center;
-  font-size: ${(props) => props.theme.fontSize ?? '15pt'};
-  color: rgb(var(--greyTitle));
-`;
-
-const ArrowButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 24px;
-  color: rgb(var(--greyTitle));
-  
-  &:disabled {
-    opacity: 0.3;
-  }
-`;

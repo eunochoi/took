@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 interface Props {
   habitName: string;
   setHabitName: (name: string) => void;
@@ -7,21 +5,13 @@ interface Props {
 
 export const HabitName = ({ habitName, setHabitName }: Props) => {
   return (
-    <Wrapper>
+    <div className="w-full">
       <input
+        className="w-full text-base"
         onChange={(e) => setHabitName(e.currentTarget.value)}
         value={habitName || ""}
         placeholder="습관 이름을 입력하세요"
       />
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  width: 100%;
-
-  input {
-    font-size: 16px;
-    width: 100%;
-  }
-`;

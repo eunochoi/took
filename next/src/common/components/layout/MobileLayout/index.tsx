@@ -1,7 +1,6 @@
-'use client'
+'use client';
 
 import { ReactNode } from "react";
-import styled from "styled-components";
 import MobileNav from "./MobileNav";
 
 interface Props {
@@ -11,25 +10,12 @@ interface Props {
 
 const MobileLayout = ({ modal, children }: Props) => {
   return (
-    <Wrapper>
+    <div className="flex w-[100dvw] flex-col items-center justify-start min-[480px]:max-[1024px]:ml-[25dvw] min-[480px]:max-[1024px]:w-[75dvw]">
       {modal}
       {children}
       <MobileNav />
-    </Wrapper>
+    </div>
   );
-}
+};
 
 export default MobileLayout;
-
-const Wrapper = styled.div`
-  width: 100dvw;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-
-  @media (min-width:480px) and (max-width:1024px) {
-    width: 75dvw;
-    margin-left: 25dvw;
-  }
-`;

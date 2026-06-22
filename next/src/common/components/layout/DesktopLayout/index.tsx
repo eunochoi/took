@@ -1,7 +1,5 @@
 'use client';
 
-import styled from "styled-components";
-
 import { ReactNode } from "react";
 import SideBar from "./SideBar";
 
@@ -10,35 +8,16 @@ interface Props {
   modal?: ReactNode;
 }
 
-
 const DesktopLayout = ({ modal, children }: Props) => {
   return (
-    <DesktopLayoutWrapper>
+    <div className="flex w-screen justify-center">
       <SideBar />
-      <DesktopContent>
+      <div className="ml-[var(--sidebarWidth)] flex w-[calc(100vw_-_var(--sidebarWidth))] flex-col items-center justify-start">
         {modal}
         {children}
-      </DesktopContent>
-    </DesktopLayoutWrapper>
+      </div>
+    </div>
   );
-}
+};
 
 export default DesktopLayout;
-
-
-const DesktopLayoutWrapper = styled.div`
-  width: 100vw;
-  /* height: 100vh; */
-  display: flex;
-  justify-content: center;
-`;
-
-const DesktopContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-
-  width: calc(100vw - var(--sidebarWidth));
-  margin-left: var(--sidebarWidth);
-`

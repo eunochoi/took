@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode } from 'react';
-import styled from 'styled-components';
 
 interface OverlayProps {
   isOpen: boolean;
@@ -9,36 +8,20 @@ interface OverlayProps {
   children: ReactNode;
 }
 
+const cx = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
+
 export const Overlay = ({ isOpen, onClose, children }: OverlayProps) => {
   return (
-    <Wrapper className={isOpen ? 'open' : ''} onClick={onClose}>
+    <div
+      className={cx(
+        "fixed left-0 top-0 h-[100dvh] w-[100dvw] bg-[rgba(75,75,75,0.05)] backdrop-blur-xl transition-[opacity,visibility] duration-300 ease-in-out",
+        "max-[479px]:z-[98] min-[480px]:z-[105]",
+        isOpen ? "visible opacity-100" : "invisible opacity-0",
+      )}
+      onClick={onClose}
+    >
       {children}
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100dvw;
-  height: 100dvh;
-  background-color: rgba(75, 75, 75, 0.05);
-  backdrop-filter: blur(12px);
-
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  opacity: 0;
-  visibility: hidden;
-
-  &.open {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  @media (max-width: 479px) {
-    z-index: 98;
-  }
-  @media (min-width: 480px) {
-    z-index: 105;
-  }
-`;
