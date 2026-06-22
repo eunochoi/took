@@ -8,12 +8,12 @@ export const THEME_COLORS = ['#8CADE2', '#83c6b6', '#979FC7', '#eda5b1', '#f9c74
 export const THEME_COLORS_NAME = ['blue', 'green', 'purple', 'pink', 'yellow', 'grey'];
 // 배경색
 export const THEME_BG_COLORS: Record<string, string> = {
-  '#979FC7': '#f5f5fa',
-  '#8CADE2': '#f3f7fc',
-  '#83c6b6': '#f2faf8',
-  '#eda5b1': '#fef9fa',
-  '#f9c74f': '#f7f7f7',
-  '#8f8f8f': '#f7f7f7',
+  '#979FC7': '#ededf7',
+  '#8CADE2': '#eaf1f9',
+  '#83c6b6': '#eefaf6',
+  '#eda5b1': '#f6ebed',
+  '#f9c74f': '#fcf5e7',
+  '#8f8f8f': '#f2f2f2',
 };
 
 interface SettingsContextType {
