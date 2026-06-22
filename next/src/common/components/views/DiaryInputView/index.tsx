@@ -7,15 +7,24 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { notFound, useRouter, useSearchParams } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { MdOutlineEditNote, MdOutlineEmojiEmotions, MdOutlineImage } from "react-icons/md";
-import styled from "styled-components";
 import { EmotionSelector } from "../../ui/EmotionSelector";
 import { Modal } from "../../ui/Modal";
 import { SectionTitle, SectionTitleIcon } from "../../ui/SectionTitle";
 import { DiaryInputCard } from "./DiaryInputCard";
 import DiaryInputImages from "./DiaryInputImages";
 import DiaryInputTextArea from "./DiaryInputTextarea";
+
+const gradientStyle = (direction: "top" | "bottom"): CSSProperties => ({
+  background: `linear-gradient(
+    to ${direction},
+    var(--theme-bg, #f5f5fa) 0%,
+    color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent) 40%,
+    color-mix(in srgb, var(--theme-bg, #f5f5fa) 30%, transparent) 70%,
+    transparent 100%
+  )`,
+});
 
 interface DiaryInputProps {
   isEdit: boolean;
@@ -154,127 +163,40 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
   return (
     <Modal>
       <Modal.Header headerTitleText={headerTitle} headerConfirmText={submitText} onConfirm={onSubmit} />
-      <DiaryInputContent ref={scrollContentRef}>
-        <TopGradient className={isScrollable && scrolled ? 'visible' : ''} />
-        <ContentWithPadding>
-          <Section>
+      <Modal.Content ref={scrollContentRef} className="flex w-full flex-col items-stretch p-0">
+        <div
+          className={isScrollable && scrolled ? "pointer-events-none sticky inset-x-0 top-0 z-[90] h-12 shrink-0 opacity-100 transition-opacity duration-300 ease-in-out -mb-12" : "pointer-events-none sticky inset-x-0 top-0 z-[90] h-12 shrink-0 opacity-0 transition-opacity duration-300 ease-in-out -mb-12"}
+          style={gradientStyle("bottom")}
+        />
+        <div className="flex w-full flex-col gap-6 px-[4dvw] py-9 min-[480px]:max-[1023px]:px-6 min-[480px]:max-[1023px]:py-6 min-[1024px]:px-6 min-[1024px]:py-9">
+          <section className="flex w-full flex-col gap-3">
             <SectionTitle><SectionTitleIcon><MdOutlineEmojiEmotions /></SectionTitleIcon>하루의 감정</SectionTitle>
             <DiaryInputCard>
-              <EmotionRadioSelectors>
+              <div className="h-full w-full">
                 <EmotionSelector value={emotion} onChange={setEmotion} />
-              </EmotionRadioSelectors>
+              </div>
             </DiaryInputCard>
-          </Section>
-          <Section>
+          </section>
+          <section className="flex w-full flex-col gap-3">
             <SectionTitle><SectionTitleIcon><MdOutlineEditNote /></SectionTitleIcon>하루의 기록</SectionTitle>
             <DiaryInputCard>
-              <DiaryInputTextarea>
+              <div className="h-[220px] w-full">
                 <DiaryInputTextArea text={text} setText={setText} contentsRef={contentsRef} />
-              </DiaryInputTextarea>
+              </div>
             </DiaryInputCard>
-          </Section>
-          <Section>
+          </section>
+          <section className="flex w-full flex-col gap-3">
             <SectionTitle><SectionTitleIcon><MdOutlineImage /></SectionTitleIcon>사진</SectionTitle>
             <DiaryInputImages imageUploadRef={imageUploadRef} images={images} setImages={setImages} isLoading={isSubmitting} />
-          </Section>
-        </ContentWithPadding>
-        <BottomGradient className={isScrollable ? 'visible' : ''} />
-      </DiaryInputContent>
+          </section>
+        </div>
+        <div
+          className={isScrollable ? "pointer-events-none sticky inset-x-0 bottom-0 z-[90] mt-auto h-12 shrink-0 opacity-100 transition-opacity duration-300 ease-in-out" : "pointer-events-none sticky inset-x-0 bottom-0 z-[90] mt-auto h-12 shrink-0 opacity-0 transition-opacity duration-300 ease-in-out"}
+          style={gradientStyle("top")}
+        />
+      </Modal.Content>
     </Modal>
   );
 }
 
 export default DiaryInputView;
-
-const DiaryInputContent = styled(Modal.Content)`
-  width: 100%;
-  align-items: stretch;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-`;
-
-const ContentWithPadding = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-  padding: 36px 4dvw 36px;
-
-  @media (min-width: 480px) and (max-width: 1023px) {
-    padding: 24px 24px;
-  }
-  @media (min-width: 1024px) {
-    padding: 36px 24px;
-  }
-`;
-
-const Section = styled.section`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-`;
-
-const GRADIENT_HEIGHT = 48;
-
-const TopGradient = styled.div`
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: ${GRADIENT_HEIGHT}px;
-  margin-bottom: -${GRADIENT_HEIGHT}px;
-  z-index: 90;
-  pointer-events: none;
-  flex-shrink: 0;
-  background: linear-gradient(
-    to bottom,
-    var(--theme-bg, #f5f5fa) 0%,
-    color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent) 40%,
-    color-mix(in srgb, var(--theme-bg, #f5f5fa) 30%, transparent) 70%,
-    transparent 100%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-
-  &.visible {
-    opacity: 1;
-  }
-`;
-
-const BottomGradient = styled.div`
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: ${GRADIENT_HEIGHT}px;
-  z-index: 90;
-  pointer-events: none;
-  flex-shrink: 0;
-  margin-top: auto;
-  background: linear-gradient(
-    to top,
-    var(--theme-bg, #f5f5fa) 0%,
-    color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent) 40%,
-    color-mix(in srgb, var(--theme-bg, #f5f5fa) 30%, transparent) 70%,
-    transparent 100%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-
-  &.visible {
-    opacity: 1;
-  }
-`;
-
-const EmotionRadioSelectors = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-const DiaryInputTextarea = styled.div`
-  width: 100%;
-  height: 220px;
-`;

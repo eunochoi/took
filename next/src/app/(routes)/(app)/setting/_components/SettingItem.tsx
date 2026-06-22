@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import styled from "styled-components";
 
 interface SettingItemProps {
   settingItemKey: string;
@@ -7,29 +6,10 @@ interface SettingItemProps {
 }
 
 export const SettingItem = ({ settingItemKey, settingItemValue }: SettingItemProps) => {
-  return (<Wrapper>
-    <span className="settingItemKey">{settingItemKey}</span>
-    <span className="settingItemValue">{settingItemValue}</span>
-  </Wrapper>);
-}
-
-const Wrapper = styled.span`
-  display: flex;
-  justify-content: space-between;
-
-  width: 100%;
-  padding: 12px 0;
-  box-sizing: border-box;
-
-  *{
-    color: darkgray;
-  }
-
-  .settingItemKey{
-    font-size: 18px;
-    text-transform: capitalize;
-  }
-  .settingItemValue{
-
-  }
-`
+  return (
+    <span className="box-border flex w-full justify-between py-3 text-gray-400 [&_*]:text-gray-400">
+      <span className="text-lg capitalize">{settingItemKey}</span>
+      <span>{settingItemValue}</span>
+    </span>
+  );
+};

@@ -2,7 +2,6 @@
 
 import type { DiaryData } from '@/common/types/diary';
 import Image from "next/image";
-import styled from "styled-components";
 import Carousel from "../Carousel";
 import DiaryCardShell from "./DiaryCardShell";
 import DiaryDateHeader from "./DiaryDateHeader";
@@ -13,26 +12,30 @@ interface Props {
   diaryData: DiaryData;
 }
 
-// 캘린더 작은 카드
 const DiaryInCalendar = ({ diaryData }: Props) => {
   const images = diaryData.Images ?? [];
   const { navigateToZoom } = useDiaryNavigation(diaryData.id);
 
   return (
-    <Wrapper>
+    <DiaryCardShell $type="small">
       <Carousel resetOnChange showIndicator={false}>
-        <FirstSlide>
+        <div className="box-border flex h-full w-full shrink-0 flex-col justify-between">
           <DiaryDateHeader diaryData={diaryData} />
-          <TextWrapper onClick={navigateToZoom}>
-            <Text>{diaryData.text}</Text>
+          <div className="flex flex-col justify-center px-3.5" onClick={navigateToZoom}>
+            <div className="[display:-webkit-box] overflow-hidden whitespace-pre-wrap break-words text-app leading-[1.35] text-grey-title [-webkit-box-orient:vertical] [-webkit-line-clamp:3] min-[1025px]:[-webkit-line-clamp:4]">
+              {diaryData.text}
+            </div>
             {images.length > 0 && (
-              <MoreImagesText>{images.length} images ➝</MoreImagesText>
+              <button className="self-end text-right text-base text-theme" type="button">
+                {images.length} images ➝
+              </button>
             )}
-          </TextWrapper>
+          </div>
           <DiaryHabits habits={diaryData.Habits} />
-        </FirstSlide>
+        </div>
         {images.map((img) => (
-          <SlideImage
+          <Image
+            className="h-full w-full cursor-pointer object-cover"
             onClick={navigateToZoom}
             key={img.id}
             src={img.src}
@@ -44,58 +47,8 @@ const DiaryInCalendar = ({ diaryData }: Props) => {
           />
         ))}
       </Carousel>
-    </Wrapper>
+    </DiaryCardShell>
   );
 };
 
 export default DiaryInCalendar;
-
-const Wrapper = styled(DiaryCardShell).attrs<{ $type?: 'small' }>({ $type: 'small' })``;
-
-const FirstSlide = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-sizing: border-box;
-  flex-shrink: 0;
-`;
-
-const TextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 14px;
-  padding-right: 14px;
-`;
-
-const Text = styled.div`
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  @media (min-width:1025px) {
-    -webkit-line-clamp: 4;
-  }
-
-  overflow: hidden;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  line-height: 1.35;
-  font-size: ${(props) => props.theme.fontSize ?? '15pt'};
-  color: rgb(var(--greyTitle));
-`;
-
-const MoreImagesText = styled.button`
-  align-self: flex-end;
-  text-align: right;
-  font-size: 16px;
-  color: ${(props) => props.theme.themeColor ?? '#979FC7'};
-`;
-
-const SlideImage = styled(Image)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  cursor: pointer;
-`;

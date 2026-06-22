@@ -3,7 +3,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
-import styled from "styled-components";
 
 import EmotionFilter from "@/app/(routes)/(app)/list/_components/EmotionFilter";
 import MonthFilter from "@/app/(routes)/(app)/list/_components/MonthFilter";
@@ -96,15 +95,9 @@ const ListView = () => {
           setSelectedMonth={setSelectedMonth}
         />
         {flatDiaries && <Diaries diaries={flatDiaries} />}
-        <Observer ref={inViewRef} />
+        <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
     </AppPage>
   );
 }
 
 export default ListView;
-
-const Observer = styled.div`
-  flex-shrink: 0;
-  width: 100%;
-  height: 50px;
-`;

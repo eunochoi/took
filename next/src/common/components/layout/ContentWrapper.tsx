@@ -1,44 +1,72 @@
-import styled from "styled-components";
+import { CSSProperties, HTMLAttributes, forwardRef } from "react";
 
-export interface ContentWrapperProps {
-  $gap?: number; // 기본 gap 값 (px)
-  $mobileGap?: number; // 모바일 gap 값 (px)
-  $tabletGap?: number; // 태블릿 gap 값 (px)
-  $paddingTop?: number; // 상단 패딩 (px)
-  $paddingBottom?: number; // 하단 패딩 (px)
-  $flex?: string; // flex 속성 (예: "1 1 0")
-  className?: string;
-  children?: React.ReactNode;
+export interface ContentWrapperProps extends HTMLAttributes<HTMLDivElement> {
+  $gap?: number;
+  $mobileGap?: number;
+  $tabletGap?: number;
+  $paddingTop?: number;
+  $paddingBottom?: number;
+  $flex?: string;
 }
 
-export const ContentWrapper = styled.div<ContentWrapperProps>`
-  width: 100%;
-  max-width: 650px;
-  height: auto;
-  
-  display: flex;
-  flex-direction: column;
-  
-  ${props => props.$flex && `flex: ${props.$flex};`}
-  ${props => props.$gap && `gap: ${props.$gap}px;`}
+interface ContentWrapperStyle extends CSSProperties {
+  "--content-gap": string;
+  "--content-mobile-gap": string;
+  "--content-tablet-gap": string;
+  "--content-mobile-padding-top": string;
+  "--content-mobile-padding-bottom": string;
+  "--content-padding-top": string;
+  "--content-padding-bottom": string;
+}
 
-  @media (max-width: 479px) {
-    padding: 0px 4dvw var(--mobileNav) 4dvw;
-    ${props => props.$mobileGap && `gap: ${props.$mobileGap}px;`}
-    ${props => props.$paddingTop !== undefined && `padding-top: ${props.$paddingTop}px;`}
-    ${props => props.$paddingBottom !== undefined && `padding-bottom: calc(var(--mobileNav) + ${props.$paddingBottom}px);`}
-  }
-  
-  @media (min-width:480px) and (max-width:1024px) {
-    padding: 36px;
-    ${props => props.$tabletGap && `gap: ${props.$tabletGap}px;`}
-    ${props => props.$paddingTop !== undefined && `padding-top: ${props.$paddingTop}px;`}
-    ${props => props.$paddingBottom !== undefined && `padding-bottom: ${props.$paddingBottom}px;`}
-  }
-  
-  @media (min-width:1025px) {
-    padding: 36px;
-    ${props => props.$paddingTop !== undefined && `padding-top: ${props.$paddingTop}px;`}
-    ${props => props.$paddingBottom !== undefined && `padding-bottom: ${props.$paddingBottom}px;`}
-  }
-`;
+const cx = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
+
+export const ContentWrapper = forwardRef<HTMLDivElement, ContentWrapperProps>(
+  (
+    {
+      $gap,
+      $mobileGap,
+      $tabletGap,
+      $paddingTop,
+      $paddingBottom,
+      $flex,
+      className,
+      style,
+      ...props
+    },
+    ref,
+  ) => {
+    const baseGap = `${$gap ?? 0}px`;
+    const contentStyle: ContentWrapperStyle = {
+      "--content-gap": baseGap,
+      "--content-mobile-gap": `${$mobileGap ?? $gap ?? 0}px`,
+      "--content-tablet-gap": `${$tabletGap ?? $gap ?? 0}px`,
+      "--content-mobile-padding-top": `${$paddingTop ?? 0}px`,
+      "--content-mobile-padding-bottom":
+        $paddingBottom !== undefined
+          ? `calc(var(--mobileNav) + ${$paddingBottom}px)`
+          : "var(--mobileNav)",
+      "--content-padding-top": `${$paddingTop ?? 36}px`,
+      "--content-padding-bottom": `${$paddingBottom ?? 36}px`,
+      flex: $flex,
+      ...style,
+    };
+
+    return (
+      <div
+        ref={ref}
+        className={cx(
+          "flex h-auto w-full max-w-[650px] flex-col gap-[var(--content-gap)]",
+          "max-[479px]:gap-[var(--content-mobile-gap)] max-[479px]:px-[4dvw] max-[479px]:pb-[var(--content-mobile-padding-bottom)] max-[479px]:pt-[var(--content-mobile-padding-top)]",
+          "min-[480px]:max-[1024px]:gap-[var(--content-tablet-gap)] min-[480px]:max-[1024px]:px-9 min-[480px]:max-[1024px]:pb-[var(--content-padding-bottom)] min-[480px]:max-[1024px]:pt-[var(--content-padding-top)]",
+          "min-[1025px]:px-9 min-[1025px]:pb-[var(--content-padding-bottom)] min-[1025px]:pt-[var(--content-padding-top)]",
+          className,
+        )}
+        style={contentStyle}
+        {...props}
+      />
+    );
+  },
+);
+ContentWrapper.displayName = "ContentWrapper";

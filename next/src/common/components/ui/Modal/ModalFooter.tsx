@@ -1,25 +1,25 @@
 'use client';
 
-import { ReactNode } from "react";
-import styled from "styled-components";
+import { HTMLAttributes, forwardRef } from "react";
 
-interface ModalFooterProps {
-  className?: string;
-  children: ReactNode;
-}
+type ModalFooterProps = HTMLAttributes<HTMLDivElement>;
 
-export const ModalFooter = ({ className, children }: ModalFooterProps) => {
-  return (<Wrapper className={className}>
-    {children}
-  </Wrapper>);
-}
+const cx = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: var(--mobileHeader);
-  flex-shrink: 0;
+export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
+  ({ className, ...props }, ref) => {
+    return (
+      <div
+        ref={ref}
+        className={cx(
+          "flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-center",
+          className,
+        )}
+        {...props}
+      />
+    );
+  },
+);
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
+ModalFooter.displayName = "ModalFooter";

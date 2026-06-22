@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { format, startOfMonth } from "date-fns";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import styled, { keyframes } from "styled-components";
 
 //function
 import { authAction } from "@/common/auth/authAction";
@@ -75,7 +74,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
     <AppPage
       contentVariant="fill"
       contentProps={{ $gap: 12, $mobileGap: 20, $tabletGap: 24, $paddingTop: 24 }}>
-        <CalendarSection>
+        <div className="min-h-[520px] flex-[1_1_0] overflow-visible max-[479px]:min-h-[480px]">
           <Calendar<DiaryDateData>
             isTouchGestureEnabled={true}
             variant="default"
@@ -89,42 +88,16 @@ const CalendarView = ({ date }: CalendarViewProps) => {
             onClickDate={onClickDate}
             onGoToday={onGoToday}
           />
-        </CalendarSection>
-        <DiaryWrapper key={date}>
+        </div>
+        <div key={date} className="shrink-0 animate-[diary-card-enter_300ms_ease-in]">
           {diaryData?.visible ? (
             <Diary type="small" diaryData={diaryData} />
           ) : (
             <EmptyCalendarDiary date={date} habits={diaryData?.Habits} />
           )}
-        </DiaryWrapper>
+        </div>
     </AppPage>
   );
 };
 
 export default CalendarView;
-
-const CalendarSection = styled.div`
-  flex: 1 1 0;
-  min-height: 520px;
-  overflow: visible;
-  
-  @media (max-width: 479px) {
-    min-height: 480px;
-  }
-`;
-
-const diaryCardEnter = keyframes`
-  from {
-    opacity: 0.7;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-const DiaryWrapper = styled.div`
-  flex-shrink: 0;
-  animation: ${diaryCardEnter} 300ms ease-in;
-`;

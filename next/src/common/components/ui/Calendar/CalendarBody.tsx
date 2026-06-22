@@ -1,7 +1,5 @@
 'use client';
 
-import styled from "styled-components";
-
 import { CalendarCell } from "./CalendarCell";
 import { CalendarDateContentRenderer, CalendarDateDataMap } from "./types";
 
@@ -30,14 +28,14 @@ const CalendarBody = <T,>({
   handleTouchStart,
   handleTouchEnd,
 }: CalendarBodyProps<T>) => {
-
   return (
-    <CalBody
+    <div
+      className="flex grow flex-col justify-around overflow-visible"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       {calendarWeeks.map((weekRow, i) =>
-        <CalRow key={'weeks' + i} className="cal_week_row">
+        <div key={'weeks' + i} className="cal_week_row flex h-full items-center justify-around overflow-visible">
           {weekRow.map(date => (
             <CalendarCell
               key={date.toString()}
@@ -51,25 +49,10 @@ const CalendarBody = <T,>({
               nextMonth={nextMonth}
             />
           ))}
-        </CalRow>)
+        </div>)
       }
-    </CalBody >
+    </div>
   );
-}
+};
 
 export default CalendarBody;
-
-const CalBody = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  overflow: visible;
-`
-const CalRow = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 100%;
-  overflow: visible;
-`

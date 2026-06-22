@@ -1,16 +1,21 @@
 import { format } from "date-fns";
 import Image from "next/image";
-import styled from "styled-components";
 
 import { CalendarDateContentProps } from "@/common/components/ui/Calendar/types";
 import { EMOTIONS } from "@/common/constants/emotions";
-import { lightenColor } from "@/common/utils/lightenColor";
 
 interface DiaryDateData {
   habitsCount: number;
   isVisible: boolean;
   emotionType: number;
 }
+
+const badgeClass =
+  "flex h-[26px] w-[26px] items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] text-base font-semibold text-white";
+
+const badgeStyle = {
+  backgroundColor: "color-mix(in srgb, var(--theme-color) 70%, white)",
+};
 
 export const renderCalendarPageContent = ({ date, dateData }: CalendarDateContentProps<DiaryDateData>) => {
   const {
@@ -24,65 +29,22 @@ export const renderCalendarPageContent = ({ date, dateData }: CalendarDateConten
 
   if (hasDiary && emotion) {
     return (
-      <Wrapper>
+      <div className="relative z-[2] w-full [&>img]:h-auto [&>img]:w-full">
         <Image src={emotion.src} alt={emotion.nameKr} />
-        {habitsCount > 0 && <Badge>{habitsCount}</Badge>}
-      </Wrapper>
+        {habitsCount > 0 && (
+          <div className={`${badgeClass} absolute -right-2.5 -top-2.5 z-10`} style={badgeStyle}>
+            {habitsCount}
+          </div>
+        )}
+      </div>
     );
   }
   if (!hasDiary && hasHabit) {
     return (
-      <CenterBadge>{habitsCount}</CenterBadge>
+      <div className={`${badgeClass} scale-[1.3]`} style={badgeStyle}>
+        {habitsCount}
+      </div>
     );
   }
   return (<span className="date">{formattedDate}</span>);
 };
-
-
-const Wrapper = styled.div`
-  position: relative; 
-  width: 100%;
-  z-index: 2;
-
-  & > img {
-    width: 100%; 
-    height: auto;
-  }
-`;
-
-const Badge = styled.div`
-  position: absolute;
-  z-index: 10;
-  top: -10px; 
-  right: -10px;
-
-  width: 26px;
-  height: 26px;
-  font-size: 16px;
-  border-radius: 50% 45% 55% 50% / 60% 50% 50% 55%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 30) : '#B8C4E8'};
-  color: white;
-  font-weight: 600;
-`;
-
-const CenterBadge = styled.div`
-  width: 26px;
-  height: 26px;
-  font-size: 16px;
-  border-radius: 50% 45% 55% 50% / 60% 50% 50% 55%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 30) : '#B8C4E8'};
-  color: white;
-  font-weight: 600;
-  
-  transform: scale(1.3);
-`;

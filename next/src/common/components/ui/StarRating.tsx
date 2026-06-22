@@ -1,6 +1,6 @@
 'use client';
 
-import styled from "styled-components";
+import { cn } from "@/common/utils/cn";
 
 interface StarRatingProps {
   rating: number;
@@ -10,17 +10,13 @@ interface StarRatingProps {
 
 export const StarRating = ({ rating, className, color }: StarRatingProps) => {
   return (
-    <Wrapper className={className} $color={color}>
+    <div
+      className={cn("flex gap-1 text-app text-theme", className)}
+      style={color ? { color } : undefined}
+    >
       {Array.from({ length: rating }, (_, index) => (
         <span className="star" key={index}>★</span>
       ))}
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled.div<{ $color?: string }>`
-  display: flex;
-  font-size: ${(props) => props.theme.fontSize ?? '15pt'};
-  gap: 4px;
-  color: ${(props) => props.$color ?? props.theme.themeColor ?? '#979FC7'};
-`;

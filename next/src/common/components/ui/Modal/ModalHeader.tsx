@@ -1,8 +1,6 @@
 'use client';
 
 import { useRouter } from "next/navigation";
-import styled from "styled-components";
-
 import { MdArrowBackIos } from 'react-icons/md';
 
 interface ModalHeaderProps {
@@ -12,57 +10,41 @@ interface ModalHeaderProps {
   onConfirm?: () => void;
 }
 
+const cx = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
+
 export const ModalHeader = ({ className, headerTitleText, headerConfirmText = '완료', onConfirm }: ModalHeaderProps) => {
   const router = useRouter();
 
-  return (<Wrapper className={className}>
-    <Button
-      className="left"
-      onClick={() => router.back()}>
-      <MdArrowBackIos />
-    </Button>
-    {headerTitleText ? <Title>{headerTitleText}</Title> : <></>}
-    {onConfirm ? <Button className="right" onClick={onConfirm}>{headerConfirmText}</Button> : <></>}
-  </Wrapper>);
-}
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: var(--mobileHeader);
-
-  position: relative;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-shrink: 0;
-
-
-  @media (max-width: 479px) { //mobile port
-    padding: 0 4dvw;
-  }
-  @media (min-width:480px) and (max-width:1023px) { //mobild land + tablet
-    padding: 0 24px;
-  }
-  @media (min-width:1024px) { //desktop
-    padding: 0 24px;
-  }
-`
-const Button = styled.button` 
-  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-  .left{
-
-  }
-  .right{
-
-  }
-`
-const Title = styled.span`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  color: rgb(var(--greyTitle));
-  font-size: 20px;
-`
+  return (
+    <div
+      className={cx(
+        "relative flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-between",
+        "max-[479px]:px-[4dvw] min-[480px]:px-6",
+        className,
+      )}
+    >
+      <button
+        className="flex items-center justify-center text-theme"
+        onClick={() => router.back()}
+        type="button"
+      >
+        <MdArrowBackIos />
+      </button>
+      {headerTitleText ? (
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl text-grey-title">
+          {headerTitleText}
+        </span>
+      ) : null}
+      {onConfirm ? (
+        <button
+          className="flex items-center justify-center text-theme"
+          onClick={onConfirm}
+          type="button"
+        >
+          {headerConfirmText}
+        </button>
+      ) : null}
+    </div>
+  );
+};

@@ -1,29 +1,31 @@
-import styled from "styled-components";
+import { HTMLAttributes, forwardRef } from "react";
 
-export const SectionTitle = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.2;
-  color: ${(props) => props.theme?.themeColor ?? '#979FC7'};
-`;
+const cx = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
 
-export const SectionTitleIcon = styled.span`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.2em;
-  height: 1.2em;
-  line-height: 0;
-  font-size: 20px;
-  color: ${(props) => props.theme?.themeColor ?? '#979FC7'};
-  flex-shrink: 0;
+type SpanProps = HTMLAttributes<HTMLSpanElement>;
 
-  svg {
-    width: 100%;
-    height: 100%;
-    fill: currentColor;
-  }
-`;
+export const SectionTitle = forwardRef<HTMLSpanElement, SpanProps>(
+  ({ className, ...props }, ref) => (
+    <span
+      ref={ref}
+      className={cx("inline-flex items-center gap-2 text-xl font-medium leading-[1.2] text-theme", className)}
+      {...props}
+    />
+  ),
+);
+SectionTitle.displayName = "SectionTitle";
+
+export const SectionTitleIcon = forwardRef<HTMLSpanElement, SpanProps>(
+  ({ className, ...props }, ref) => (
+    <span
+      ref={ref}
+      className={cx(
+        "inline-flex h-[1.2em] w-[1.2em] shrink-0 items-center justify-center text-xl leading-none text-theme [&>svg]:h-full [&>svg]:w-full [&>svg]:fill-current",
+        className,
+      )}
+      {...props}
+    />
+  ),
+);
+SectionTitleIcon.displayName = "SectionTitleIcon";

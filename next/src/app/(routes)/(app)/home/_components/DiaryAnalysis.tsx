@@ -1,9 +1,7 @@
 'use client';
 
 import { DiaryStats } from "@/common/actions/stats";
-import styled from "styled-components";
 
-import { getStreakMessage } from "../_messages/streakMessages";
 import {
   AppCardGrid,
   AppInfoCard,
@@ -20,6 +18,7 @@ import {
   AppStatValueWrapper,
   AppSubsectionTitle,
 } from "@/common/components/ui/AppSection";
+import { getStreakMessage } from "../_messages/streakMessages";
 
 interface Props {
   stats?: DiaryStats;
@@ -51,7 +50,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         <AppSectionMeta>{totalCount}개의 일기</AppSectionMeta>
       </AppSectionHeader>
 
-      <AppCardGrid>
+      <AppCardGrid $columns={3}>
         <AppStatCard>
           <AppStatLabel>{currentStreakLabel}</AppStatLabel>
           <AppStatValueWrapper>
@@ -86,73 +85,28 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         </AppInfoText>
       </AppInfoCard>
 
-      <ChartSection>
+      <div className="flex flex-col gap-6">
         <AppSubsectionTitle>{year}년 월간 기록 그래프</AppSubsectionTitle>
-        <ChartWrapper>
+        <div className="flex items-end justify-between rounded-2xl bg-white/90 px-2 py-4 shadow-card">
           {(stats?.monthlyCount ?? Array(12).fill(0)).map((count, index) => {
             const maxCount = Math.max(...(stats?.monthlyCount ?? [1]), 1);
             const barHeight = count > 0 ? Math.max((count / maxCount) * 72, 8) : 4;
             return (
-              <BarWrapper key={index}>
-                <BarArea>
-                  <Bar $height={barHeight} $hasValue={count > 0} />
-                </BarArea>
-                <BarLabel>{index + 1}</BarLabel>
-              </BarWrapper>
+              <div key={index} className="flex flex-1 flex-col items-center gap-1.5">
+                <div className="flex h-20 w-full items-end justify-center">
+                  <div
+                    className={count > 0 ? "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-theme transition-[height] duration-300 ease-in-out" : "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-[rgba(var(--greyTitle),0.15)] transition-[height] duration-300 ease-in-out"}
+                    style={{ height: `${barHeight}px` }}
+                  />
+                </div>
+                <span className="text-sm text-[rgba(var(--greyTitle),0.6)]">{index + 1}</span>
+              </div>
             );
           })}
-        </ChartWrapper>
-      </ChartSection>
+        </div>
+      </div>
     </AppSection>
   );
 };
 
 export default DiaryAnalysis;
-
-const ChartSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-`;
-
-const ChartWrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding: 16px 8px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-`;
-
-const BarWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  flex: 1;
-`;
-
-const BarArea = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 80px;
-  width: 100%;
-`;
-
-const Bar = styled.div<{ $height: number; $hasValue: boolean }>`
-  width: 60%;
-  max-width: 20px;
-  min-height: 4px;
-  height: ${({ $height }) => $height}px;
-  background-color: ${({ $hasValue, theme }) =>
-    $hasValue ? (theme.themeColor ?? '#979FC7') : 'rgba(var(--greyTitle), 0.15)'};
-  border-radius: 3px;
-  transition: height 0.3s ease;
-`;
-
-const BarLabel = styled.span`
-  font-size: 14px;
-  color: rgba(var(--greyTitle), 0.6);
-`;

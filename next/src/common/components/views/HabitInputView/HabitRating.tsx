@@ -1,5 +1,4 @@
-import { lightenColor } from "@/common/utils/lightenColor";
-import styled from "styled-components";
+import { cn } from "@/common/utils/cn";
 import { StarRating } from '../../ui/StarRating';
 
 const PRIORITY_LABELS = ['낮음', '보통', '높음'] as const;
@@ -11,69 +10,36 @@ interface Props {
 
 export const HabitRating = ({ priority, setPriority }: Props) => {
   return (
-    <Wrapper>
-      {[0, 1, 2].map((i) => (
-        <Option
-          key={i}
-          $selected={i === priority}
-          onClick={() => setPriority(i)}
-        >
-          <input
-            type="radio"
-            checked={i === priority}
-            name="priority"
-            value={i}
-            onChange={() => setPriority(i)}
-          />
-          <StarsWrap>
-            <StarRating rating={i + 1} color={i === priority ? '#fff' : undefined} />
-          </StarsWrap>
-          <Label $selected={i === priority}>{PRIORITY_LABELS[i]}</Label>
-        </Option>
-      ))}
-    </Wrapper>
+    <div className="flex w-full gap-3">
+      {[0, 1, 2].map((i) => {
+        const selected = i === priority;
+
+        return (
+          <label
+            key={i}
+            className={cn(
+              "flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl px-2 py-3 transition-colors duration-200",
+              selected && "bg-theme",
+            )}
+            style={selected ? undefined : { backgroundColor: "color-mix(in srgb, var(--theme-color) 30%, white)" }}
+          >
+            <input
+              className="pointer-events-none absolute opacity-0"
+              type="radio"
+              checked={selected}
+              name="priority"
+              value={i}
+              onChange={() => setPriority(i)}
+            />
+            <div className="flex items-center justify-center text-app">
+              <StarRating rating={i + 1} color={selected ? '#fff' : undefined} />
+            </div>
+            <span className={cn("text-[13px] font-medium", selected ? "text-white" : "text-grey-title")}>
+              {PRIORITY_LABELS[i]}
+            </span>
+          </label>
+        );
+      })}
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  gap: 12px;
-  width: 100%;
-`;
-
-const Option = styled.label<{ $selected: boolean }>`
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 12px 8px;
-  border-radius: 12px;
-  background-color: ${(props) =>
-    props.$selected
-      ? (props.theme?.themeColor ?? '#979FC7')
-      : (props.theme?.themeColor ? lightenColor(props.theme.themeColor, 70) : '#E8ECF5')};
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-`;
-
-const StarsWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: ${(props) => props.theme?.fontSize ?? '15pt'};
-`;
-
-const Label = styled.span<{ $selected: boolean }>`
-  font-size: 13px;
-  font-weight: 500;
-  color: ${(props) => (props.$selected ? '#fff' : 'rgb(var(--greyTitle))')};
-`;

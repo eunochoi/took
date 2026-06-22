@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { enqueueSnackbar } from "notistack";
-import styled from "styled-components";
 
 import { RefObject, useEffect, useRef } from "react";
 import { MdOutlineImage, MdRemove } from 'react-icons/md';
@@ -107,13 +106,18 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
   };
 
   return (
-    <Wrapper>
-      <SquareBox>
-        <UploadButton disabled={isLoading} onClick={() => imageUploadRef.current?.click()}>
+    <div className="flex h-auto w-full shrink-0 items-stretch gap-4 overflow-x-auto rounded-2xl bg-white/90 py-4 shadow-card [&>*:first-child]:ml-4 [&>*:last-child]:mr-4 [&::-webkit-scrollbar-thumb]:rounded-sm [&::-webkit-scrollbar-thumb]:bg-black/10 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:h-1">
+      <div className="relative flex h-20 w-20 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl bg-black/[0.02]">
+        <button
+          className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-xl bg-theme shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] disabled:cursor-not-allowed disabled:opacity-40 [&>.icon]:text-[32px] [&>.icon]:text-white"
+          disabled={isLoading}
+          onClick={() => imageUploadRef.current?.click()}
+          type="button"
+        >
           <input ref={imageUploadRef} type="file" accept={DIARY_IMAGE_ALLOWED_MIME_TYPES.join(',')} name="image" multiple hidden onChange={onChangeImages} />
           <MdOutlineImage className="icon" />
-        </UploadButton>
-      </SquareBox>
+        </button>
+      </div>
       {images?.length > 0 &&
         <>
           {images.map((img, i: number) => {
@@ -123,142 +127,29 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
             if (!imageUrl) return null;
 
             return (
-              <SquareBox key={key}>
-                <UploadedImage
+              <div key={key} className="relative flex h-20 w-20 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl bg-black/[0.02]">
+                <Image
+                  className="h-full w-full object-cover"
                   src={imageUrl}
                   alt='diary image'
                   width={100}
                   height={100}
                   unoptimized
                 />
-                <ImageDeleteButton onClick={() => handleRemoveImage(i)}>
+                <button
+                  className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-theme text-xl text-white transition-all duration-200 ease-in-out hover:scale-110 hover:opacity-90"
+                  onClick={() => handleRemoveImage(i)}
+                  type="button"
+                >
                   <MdRemove />
-                </ImageDeleteButton>
-              </SquareBox>
+                </button>
+              </div>
             );
           })}
         </>
       }
-    </Wrapper>
+    </div>
   );
 }
 
 export default DiaryInputImages;
-
-
-const Wrapper = styled.div`
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  width: 100%;
-  flex-shrink: 0;
-
-  display: flex;
-  overflow-x: auto;
-  gap: 16px;
-  height: auto;
-  align-items: stretch;
-
-  padding: 16px 0;
-
-  > *:first-child {
-    margin-left: 16px;
-  }
-
-  > *:last-child {
-    margin-right: 16px;
-  }
-
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
-  }
-`
-const SquareBox = styled.div`
-  position: relative;
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.02);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  &.loading {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-`
-const UploadedImage = styled(Image)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`
-const ImageDeleteButton = styled.button`
-  position: absolute;
-  top: 6px;
-  right: 6px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 24px;
-  height: 24px;
-  border: none;
-  border-radius: 50%;
-  font-size: 20px;
-  background-color: ${(props) => props.theme.themeColor ?? '#979FC7'};
-  color: white;
-  transition: all 0.2s ease;
-
-  &:hover {
-    opacity: 0.9;
-    transform: scale(1.1);
-  }
-`
-
-const UploadButton = styled.button`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  background-color: ${(props) => props.theme.themeColor ?? '#979FC7'};
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-  transition: all 0.2s ease;
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  }
-
-  &:disabled{
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-
-  span{
-    font-size: 14px;
-    font-weight: 500;
-    color: rgb(var(--greyTitle));
-  }
-
-  .icon{
-    font-size: 32px;
-    color: white;
-  }
-`

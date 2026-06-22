@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { MdAndroid, MdDeleteForever, MdLogout, MdLowPriority } from 'react-icons/md';
-import styled from "styled-components";
 
 import AppPage from "@/common/components/layout/AppPage";
 import { AppCard, AppSection, AppSectionTitle } from "@/common/components/ui/AppSection";
@@ -45,39 +44,39 @@ const SettingPage = () => {
           <button className="normal">intro</button>
         </a>
       </>}>
-      <Section>
-        <Title>계정 정보</Title>
-        <Card>
-          <SubSection>
+      <AppSection>
+        <AppSectionTitle>계정 정보</AppSectionTitle>
+        <AppCard>
+          <section className="flex flex-col gap-3 px-5 py-4">
             <SettingItem settingItemKey="이메일" settingItemValue={<span>{email}</span>}></SettingItem>
             <SettingItem settingItemKey="계정 타입" settingItemValue={<span>{provider}</span>}></SettingItem>
             <SettingItem settingItemKey="가입일" settingItemValue={<span>{createAt}</span>}></SettingItem>
-          </SubSection>
-        </Card>
-      </Section>
+          </section>
+        </AppCard>
+      </AppSection>
 
-      <Section>
-        <Title>앱 설정</Title>
-        <Card>
-          <SubSection>
-            <SubTitle>테마 색상</SubTitle>
+      <AppSection>
+        <AppSectionTitle>앱 설정</AppSectionTitle>
+        <AppCard>
+          <section className="flex flex-col gap-3 px-5 py-4">
+            <span className="block text-[22px] font-medium capitalize text-gray-500">테마 색상</span>
             <ThemeColorSelector />
-          </SubSection>
-        </Card>
-        <Card>
-          <SubSection>
-            <SubTitle>폰트</SubTitle>
+          </section>
+        </AppCard>
+        <AppCard>
+          <section className="flex flex-col gap-3 px-5 py-4">
+            <span className="block text-[22px] font-medium capitalize text-gray-500">폰트</span>
             <SettingItem
               settingItemKey="다이어리 글씨 크기"
               settingItemValue={<FontSizeSelector />} />
             <SettingItem
               settingItemKey="폰트 타입"
               settingItemValue={<FontTypeSelector />} />
-          </SubSection>
-        </Card>
-        <Card>
-          <SubSection>
-            <SubTitle>습관</SubTitle>
+          </section>
+        </AppCard>
+        <AppCard>
+          <section className="flex flex-col gap-3 px-5 py-4">
+            <span className="block text-[22px] font-medium capitalize text-gray-500">습관</span>
             <SettingItem
               settingItemKey="습관 순서 커스텀"
               settingItemValue={
@@ -86,14 +85,14 @@ const SettingPage = () => {
                 }}>
                   <MdLowPriority />
                 </button>} />
-          </SubSection>
-        </Card>
-      </Section>
+          </section>
+        </AppCard>
+      </AppSection>
 
-      <Section>
-        <Title>계정 관리</Title>
-        <Card>
-          <SubSection>
+      <AppSection>
+        <AppSectionTitle>계정 관리</AppSectionTitle>
+        <AppCard>
+          <section className="flex flex-col gap-3 px-5 py-4">
             <SettingItem
               settingItemKey="로그아웃"
               settingItemValue={
@@ -106,31 +105,11 @@ const SettingPage = () => {
                 <button onClick={onDeleteAccount}>
                   <MdDeleteForever />
                 </button>} />
-          </SubSection>
-        </Card>
-      </Section>
+          </section>
+        </AppCard>
+      </AppSection>
     </AppPage >
   );
 }
 
 export default SettingPage;
-
-const Section = styled(AppSection)`
-`
-
-const Card = styled(AppCard)``
-
-const SubSection = styled.section`
-  padding: 16px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-`
-const Title = styled(AppSectionTitle)``
-const SubTitle = styled.span`
-  display : block;
-  font-size: 22px;
-  font-weight: 500;
-  text-transform: capitalize;
-  color: grey;
-`

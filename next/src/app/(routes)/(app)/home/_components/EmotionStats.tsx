@@ -1,8 +1,8 @@
 'use client';
 
+import { cn } from "@/common/utils/cn";
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import styled from "styled-components";
 
 import {
   AppInfoCard,
@@ -38,7 +38,6 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
 
   const displayEmotionCounts = useMemo(() => {
     if (selectedQuarter === 0) {
-      // 전체 탭: emotionCounts를 10개로 확장 (부족한 부분은 0으로 채움)
       const expandedCounts = [...emotionCounts];
       while (expandedCounts.length < 10) {
         expandedCounts.push(0);
@@ -77,6 +76,23 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
     });
   };
 
+  const renderEmotionRow = (startIndex: number) => (
+    <div className={cn("flex justify-between gap-2", startIndex > 0 && "mt-4")}>
+      {EMOTIONS.slice(startIndex, startIndex + 5).map((emotion, index) => (
+        <div key={emotion.id} className="flex flex-1 flex-col items-center gap-2.5">
+          <Image
+            className="h-12 w-12"
+            src={emotion.src}
+            alt={emotion.nameKr}
+            width={77}
+            height={77}
+          />
+          <span className="text-base font-semibold text-grey-title">{displayEmotionCounts[index + startIndex]}</span>
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <AppSection>
       <AppSectionHeader>
@@ -84,45 +100,28 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
         <AppSectionMeta>{totalCount}개의 감정 기록</AppSectionMeta>
       </AppSectionHeader>
 
-      <TabWrapper>
+      <div className="flex gap-3">
         {QUARTER_OPTIONS.map((quarter, index) => (
-          <Tab
+          <button
             key={index}
-            $active={selectedQuarter === index}
-            onClick={() => setSelectedQuarter(index)}>
+            className={cn(
+              "border-b-2 pb-1 text-base",
+              selectedQuarter === index
+                ? "border-theme font-semibold text-grey-title"
+                : "border-transparent font-normal text-[rgba(var(--greyTitle),0.5)]",
+            )}
+            onClick={() => setSelectedQuarter(index)}
+            type="button"
+          >
             {quarter}
-          </Tab>
+          </button>
         ))}
-      </TabWrapper>
+      </div>
 
-      <EmotionCard>
-        <EmotionList>
-          {EMOTIONS.slice(0, 5).map((emotion, index) => (
-            <EmotionItem key={emotion.id}>
-              <EmotionImage
-                src={emotion.src}
-                alt={emotion.nameKr}
-                width={77}
-                height={77}
-              />
-              <EmotionCount>{displayEmotionCounts[index]}</EmotionCount>
-            </EmotionItem>
-          ))}
-        </EmotionList>
-        <EmotionList>
-          {EMOTIONS.slice(5, 10).map((emotion, index) => (
-            <EmotionItem key={emotion.id}>
-              <EmotionImage
-                src={emotion.src}
-                alt={emotion.nameKr}
-                width={77}
-                height={77}
-              />
-              <EmotionCount>{displayEmotionCounts[index + 5]}</EmotionCount>
-            </EmotionItem>
-          ))}
-        </EmotionList>
-      </EmotionCard>
+      <div className="rounded-2xl bg-white/90 px-4 py-5 shadow-card min-[480px]:px-5 min-[480px]:py-6">
+        {renderEmotionRow(0)}
+        {renderEmotionRow(5)}
+      </div>
 
       <AppInfoCard>
         <AppInfoContent>
@@ -139,60 +138,3 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
 };
 
 export default EmotionStats;
-
-const TabWrapper = styled.div`
-  display: flex;
-  gap: 12px;
-`;
-
-const Tab = styled.button<{ $active: boolean }>`
-  font-size: 16px;
-  font-weight: ${({ $active }) => ($active ? '600' : '400')};
-  color: ${({ $active }) => ($active ? 'rgb(var(--greyTitle))' : 'rgba(var(--greyTitle), 0.5)')};
-  padding-bottom: 4px;
-  border-bottom: 2px solid ${({ $active, theme }) => $active ? (theme.themeColor ?? '#979FC7') : 'transparent'};
-`;
-
-const EmotionCard = styled.div`
-  padding: 20px 16px;
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  
-  @media (min-width: 480px) {
-    padding: 24px 20px;
-  }
-`;
-
-const EmotionList = styled.div`
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  
-  &:not(:last-child) {
-    margin-bottom: 16px;
-  }
-`;
-
-const EmotionItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-`;
-
-const EmotionImage = styled(Image)`
-  width: 48px;
-  height: 48px;
-`;
-
-const EmotionCount = styled.span`
-  font-size: 16px;
-  font-weight: 600;
-  color: rgb(var(--greyTitle));
-  
-  @media (min-width: 480px) {
-    font-size: 16px;
-  }
-`;

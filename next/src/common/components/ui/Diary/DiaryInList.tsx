@@ -2,7 +2,7 @@
 
 import type { DiaryData } from '@/common/types/diary';
 import Image from "next/image";
-import styled from "styled-components";
+import { cn } from "@/common/utils/cn";
 import Carousel from "../Carousel";
 import DiaryCardShell from "./DiaryCardShell";
 import DiaryDateHeader from "./DiaryDateHeader";
@@ -13,21 +13,21 @@ interface Props {
   diaryData: DiaryData;
 }
 
-// 리스트 큰 카드
 const DiaryInList = ({ diaryData }: Props) => {
   const { Images: images } = diaryData;
   const hasImages = images.length >= 1;
   const { navigateToZoom } = useDiaryNavigation(diaryData.id);
 
   return (
-    <Wrapper>
+    <DiaryCardShell $type="large">
       <DiaryDateHeader diaryData={diaryData} />
-      <Content onClick={navigateToZoom}>
+      <div className="my-4 flex h-full w-full flex-col justify-center gap-4" onClick={navigateToZoom}>
         {hasImages && (
-          <CarouselContainer>
+          <div className="h-[300px] w-full min-[1024px]:h-[400px]">
             <Carousel>
               {images.map((img) => (
-                <CarouselImage
+                <Image
+                  className="h-full w-full object-cover"
                   key={img.id}
                   src={img.src}
                   width={400}
@@ -36,71 +36,21 @@ const DiaryInList = ({ diaryData }: Props) => {
                 />
               ))}
             </Carousel>
-          </CarouselContainer>
+          </div>
         )}
-        <Text className={hasImages ? 'hasImages' : ''}>
+        <div
+          className={cn(
+            "shrink-0 overflow-hidden whitespace-pre-wrap break-words px-4 text-app leading-[1.8] text-grey-title [display:-webkit-box] [-webkit-box-orient:vertical]",
+            hasImages ? "[-webkit-line-clamp:4]" : "[-webkit-line-clamp:6]",
+            "max-[479px]:[-webkit-line-clamp:3]",
+          )}
+        >
           {diaryData.text}
-        </Text>
-      </Content>
+        </div>
+      </div>
       <DiaryHabits habits={diaryData.Habits} />
-    </Wrapper>
+    </DiaryCardShell>
   );
 };
 
 export default DiaryInList;
-
-const Content = styled.div`
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  gap: 16px;
-  margin: 16px 0;
-`;
-
-const Text = styled.div`
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-
-  flex-shrink: 0;
-  overflow: hidden;
-
-  padding: 0 16px;
-  
-  font-size: ${(props) => props.theme.fontSize ?? '15pt'};
-  line-height: 1.8;
-  color: rgb(var(--greyTitle));
-
-  &.hasImages{
-    -webkit-line-clamp: 4;
-  }
-  @media (max-width: 479px) {
-    -webkit-line-clamp: 3;
-    &.hasImages{
-      -webkit-line-clamp: 3;
-    }
-  }
-`;
-
-const CarouselContainer = styled.div`
-  width: 100%;
-  height: 300px;
-  
-  @media (min-width: 1024px) {
-    height: 400px;
-  }
-`;
-
-const CarouselImage = styled(Image)`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-const Wrapper = styled(DiaryCardShell).attrs<{ $type?: 'large' }>({ $type: 'large' })``;

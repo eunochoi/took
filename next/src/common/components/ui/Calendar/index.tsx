@@ -1,8 +1,6 @@
 'use client';
 
-import styled from "styled-components";
-
-//function
+import { cn } from "@/common/utils/cn";
 import { addMonths, subMonths } from "date-fns";
 import { Dispatch, SetStateAction, useCallback, useMemo } from "react";
 import CalendarBody from "./CalendarBody";
@@ -47,7 +45,7 @@ const Calendar = <T,>({
   onClickDate,
   onGoToday,
   renderDateContent,
-  isTouchGestureEnabled = false
+  isTouchGestureEnabled = false,
 }: CalendarProps<T>) => {
   const calendarWeeks = useMemo(() => makeMonthCalendarWeeks(visibleMonth), [visibleMonth]);
   const { headerSize, headerTitlePosition } = CALENDAR_HEADER_VARIANTS[variant];
@@ -67,7 +65,7 @@ const Calendar = <T,>({
   const { handleTouchStart, handleTouchEnd } = useSwipe({ isTouchGestureEnabled, prevMonth, nextMonth });
 
   return (
-    <Wrapper className={className}>
+    <div className={cn("flex h-full w-full flex-col overflow-visible", className)}>
       <CalendarHeader
         headerSize={headerSize}
         headerTitlePosition={headerTitlePosition}
@@ -88,17 +86,8 @@ const Calendar = <T,>({
         handleTouchStart={handleTouchStart}
         handleTouchEnd={handleTouchEnd}
       />
-    </Wrapper>
+    </div>
   );
-}
+};
 
 export default Calendar;
-
-const Wrapper = styled.div`
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-    overflow: visible;
-    `

@@ -1,13 +1,10 @@
 import type { DiaryHabit } from '@/common/types/diary';
-import { lightenColor } from "@/common/utils/lightenColor";
 import { useRouter } from "next/navigation";
-import styled from "styled-components";
 
 interface Props {
   habits: DiaryHabit[];
 }
 
-// 완료 습관 태그
 const DiaryHabits = ({ habits }: Props) => {
   const router = useRouter();
   const completedCount = habits?.length ?? 0;
@@ -17,70 +14,22 @@ const DiaryHabits = ({ habits }: Props) => {
   };
 
   return (
-    <Habits>
-      <Habit>
+    <div className="flex h-auto w-full shrink-0 flex-nowrap justify-start gap-2 overflow-x-scroll px-3.5 pb-3.5 pt-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+      <span className="flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-[14px] bg-theme px-3.5 py-1 leading-[1.4] [&>span]:text-sm [&>span]:font-medium [&>span]:capitalize [&>span]:text-white">
         <span>{completedCount}개 완료</span>
-      </Habit>
+      </span>
       {habits?.map((habit) => (
-        <Habit
+        <span
           key={habit.id}
+          className="flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded-[14px] px-3.5 py-1 leading-[1.4] [&>span]:text-sm [&>span]:font-medium [&>span]:capitalize [&>span]:text-grey-title"
           onClick={() => handleHabitClick(habit.id)}
+          style={{ backgroundColor: "color-mix(in srgb, var(--theme-color) 40%, white)" }}
         >
           <span>{habit.name}</span>
-        </Habit>
+        </span>
       ))}
-    </Habits>
+    </div>
   );
 };
 
 export default DiaryHabits;
-
-const Habits = styled.div`
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-  width: 100%;
-  height: auto;
-  padding: 14px;
-  padding-top: 0;
-  
-  display: flex;
-  flex-shrink: 0;
-  justify-content: start;
-  gap: 8px;
-
-  overflow-x: scroll;
-  flex-wrap: nowrap;
-`
-const Habit = styled.span`
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  flex-shrink: 0;
-
-  padding: 4px 14px;
-  border-radius: 14px;
-  line-height: 1.4;
-  white-space: nowrap;
-  
-  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 60) : '#E4E8F2'};
-
-  span {
-    font-size: 14px;
-    font-weight: 500;
-    color: rgb(var(--greyTitle));
-    text-transform: capitalize;
-  }
-  &:first-child {
-    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-    span {
-      color: white;
-    }
-  }
-`

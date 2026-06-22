@@ -1,85 +1,34 @@
 'use client';
 
 import { ReactNode } from "react";
-import styled from "styled-components";
 
 interface Props {
   children?: ReactNode;
+  className?: string;
   classname?: string;
 }
 
-const TopButtons = ({ children, classname }: Props) => {
+const cx = (...classes: Array<string | false | null | undefined>) =>
+  classes.filter(Boolean).join(" ");
+
+const TopButtons = ({ children, className, classname }: Props) => {
   return (
-    <Wrapper className={classname || ''}>
+    <div
+      className={cx(
+        "sticky left-0 right-0 top-0 z-[91] flex w-full shrink-0 items-center justify-end gap-1.5",
+        "max-[479px]:h-[var(--mobileHeader)] max-[479px]:px-[4dvw]",
+        "min-[480px]:max-[1024px]:h-[var(--mobileHeader)] min-[480px]:max-[1024px]:px-5",
+        "min-[1025px]:h-[var(--desktopHeader)] min-[1025px]:px-12",
+        "[&>button]:flex [&>button]:h-8 [&>button]:items-center [&>button]:justify-center [&>button]:rounded-2xl [&>button]:bg-theme [&>button]:text-base [&>button]:font-medium [&>button]:capitalize [&>button]:text-white [&>button]:shadow-card [&>button]:transition-all [&>button]:duration-200 [&>button]:ease-in-out",
+        "[&>button.auto]:w-auto [&>button.auto]:gap-2 [&>button.auto]:px-3.5 [&>button.large]:w-20 [&>button.normal]:w-16 [&>button.small]:w-12",
+        "min-[1025px]:[&>button]:h-9 min-[1025px]:[&>button]:rounded-[18px] min-[1025px]:[&>button]:px-3.5 min-[1025px]:[&>button]:py-1",
+        className,
+        classname,
+      )}
+    >
       {children}
-    </Wrapper>
+    </div>
   );
-}
+};
 
 export default TopButtons;
-
-const Wrapper = styled.div`
-  z-index: 91;
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  flex-shrink: 0;
-  gap: 6px;
-
-  position: sticky;
-  width: 100%;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  @media (max-width: 479px) {
-    height: var(--mobileHeader);
-    padding: 0 4dvw;
-  }
-  @media (min-width:480px) and (max-width:1024px) {
-    height: var(--mobileHeader);
-    padding: 0 20px;
-  }
-  @media (min-width:1025px) {
-    height: var(--desktopHeader);
-    padding: 0 48px;
-  }
-
-  button{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    height: 32px;
-
-    transition: all ease-in-out 200ms;
-    text-transform: capitalize;
-
-    font-size: 16px;
-    font-weight: 500;
-    color: white;
-    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-    border-radius: 16px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-
-    &.small{
-      width: 48px;
-    }
-    &.normal{
-      width: 64px;
-    }
-    &.large{
-      width: 80px;
-    }
-    &.auto{
-      width: auto;
-      padding: 0 14px;
-      gap: 8px;
-    }
-    @media (min-width:1025px) {
-      padding: 4px 14px;
-      height: 36px;
-      border-radius: 18px;
-    }
-  }
-`

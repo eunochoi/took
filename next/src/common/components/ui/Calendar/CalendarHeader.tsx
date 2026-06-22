@@ -1,8 +1,8 @@
+import { cn } from "@/common/utils/cn";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdToday } from 'react-icons/md';
-import styled from "styled-components";
 
 interface CalendarHeaderProps {
   headerSize: 'small' | 'middle' | 'large';
@@ -15,6 +15,24 @@ interface CalendarHeaderProps {
 
 const WEEK_TITLE_ENG = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
+const titlePaddingClass = {
+  small: "py-1.5",
+  middle: "py-3",
+  large: "py-[18px]",
+} as const;
+
+const titleTextClass = {
+  small: "text-xl",
+  middle: "text-[26px]",
+  large: "text-[32px]",
+} as const;
+
+const arrowButtonClass = {
+  small: "p-[3px]",
+  middle: "p-1",
+  large: "p-1.5",
+} as const;
+
 const CalendarHeader = ({
   headerSize,
   headerTitlePosition,
@@ -23,83 +41,50 @@ const CalendarHeader = ({
   nextMonth,
   goToday,
 }: CalendarHeaderProps) => {
+  const title = format(visibleMonth, 'yyyy년 M월', { locale: ko });
 
   return (
     <>
-      {headerTitlePosition === 'center' &&
-        <CalTitle className={`${headerSize} ${headerTitlePosition}`} >
-          <button onClick={prevMonth}><MdKeyboardArrowLeft /></button>
-          <CalTitleText as="button" className={headerSize} onClick={goToday}>
-            {format(visibleMonth, 'yyyy년 M월', { locale: ko })}
-          </CalTitleText>
-          <button onClick={nextMonth}><MdKeyboardArrowRight /></button>
-        </CalTitle>
-      }
-      {headerTitlePosition === 'start' &&
-        <CalTitle className={`${headerSize} ${headerTitlePosition}`}>
-          <CalTitleText
-            as="span"
-            className={headerSize}>
-            {format(visibleMonth, 'yyyy년 M월', { locale: ko })}
-          </CalTitleText>
-          <ArrowButtonWrapper>
-            <button className={headerSize} onClick={prevMonth}><MdKeyboardArrowLeft /></button>
-            <button className={headerSize} onClick={goToday} aria-label="오늘로 이동"><MdToday /></button>
-            <button className={headerSize} onClick={nextMonth}><MdKeyboardArrowRight /></button>
-          </ArrowButtonWrapper>
-        </CalTitle>}
-      <CalWeeks>
+      {headerTitlePosition === 'center' && (
+        <header className={cn("flex items-center justify-between", titlePaddingClass[headerSize])}>
+          <button className="flex text-gray-500" onClick={prevMonth} type="button">
+            <MdKeyboardArrowLeft />
+          </button>
+          <button
+            className={cn("font-bmjua capitalize text-grey-title", titleTextClass[headerSize])}
+            onClick={goToday}
+            type="button"
+          >
+            {title}
+          </button>
+          <button className="flex text-gray-500" onClick={nextMonth} type="button">
+            <MdKeyboardArrowRight />
+          </button>
+        </header>
+      )}
+      {headerTitlePosition === 'start' && (
+        <header className={cn("flex items-center justify-between", titlePaddingClass[headerSize])}>
+          <span className={cn("font-bmjua capitalize text-grey-title", titleTextClass[headerSize])}>
+            {title}
+          </span>
+          <div className="flex items-center justify-center gap-3">
+            <button className={cn("flex text-gray-500", arrowButtonClass[headerSize])} onClick={prevMonth} type="button">
+              <MdKeyboardArrowLeft />
+            </button>
+            <button className={cn("flex text-gray-500", arrowButtonClass[headerSize])} onClick={goToday} aria-label="오늘로 이동" type="button">
+              <MdToday />
+            </button>
+            <button className={cn("flex text-gray-500", arrowButtonClass[headerSize])} onClick={nextMonth} type="button">
+              <MdKeyboardArrowRight />
+            </button>
+          </div>
+        </header>
+      )}
+      <div className="flex w-full justify-around py-1.5 text-base capitalize text-grey-title [&>span]:w-full [&>span]:text-center">
         {WEEK_TITLE_ENG.map(e => <span key={e}>{e}</span>)}
-      </CalWeeks>
-    </>);
-}
+      </div>
+    </>
+  );
+};
 
 export default CalendarHeader;
-
-const CalTitle = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  &.small{ padding: 6px 0; }
-  &.middle{ padding: 12px 0; }
-  &.large{ padding: 18px 0; }
-`
-const CalWeeks = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  text-transform: capitalize;
-  padding: 6px 0;
-  font-size: 16px;
-  color: rgb(var(--greyTitle));
-
-  span{
-    width: 100%;
-    text-align: center;
-  }
-`
-const CalTitleText = styled.span`
-  text-transform: capitalize;
-  color: rgb(var(--greyTitle));
-  font-family: 'BMJUA';
-  
-  &.small{   font-size: 20px;}
-  &.middle{   font-size: 26px;}
-  &.large{    font-size: 32px;}
-`
-const ArrowButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-
-  button{
-    color: grey;
-    display: flex;
-
-    &.small{   padding: 3px; }
-    &.middle{    padding: 4px;  }
-    &.large{      padding: 6px; }
-  }
-`

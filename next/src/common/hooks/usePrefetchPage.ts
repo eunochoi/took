@@ -9,5 +9,5 @@ export const usePrefetchPage = () => {
     router.prefetch('/list');
     router.prefetch('/habit');
     router.prefetch('/setting');
-  }, [])
-}
+  }, [router]);
+};

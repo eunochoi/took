@@ -1,11 +1,10 @@
 import { EMOTIONS } from '@/common/constants/emotions';
 import type { DiaryData } from '@/common/types/diary';
+import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
 import { MdMoreVert } from 'react-icons/md';
-import styled from 'styled-components';
-import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import DiaryMenus from './DiaryMenus';
 
 interface Props {
@@ -24,72 +23,35 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
     setMenuOpen((prev) => !prev);
   };
 
-  // 일기 바뀌면 메뉴 닫기
   useEffect(() => {
     setMenuOpen(false);
   }, [diaryData]);
 
   return (
-    <Wrapper>
-      <DateInfo>
-        <span className="date">{formattedDate}</span>
-        <span className="week">{day}</span>
-        <span className="emotion">
+    <div className="relative flex w-full items-center justify-between px-3.5 pt-3.5">
+      <div className="flex items-center gap-3 [&>span]:text-xl [&>span]:font-medium">
+        <span className="text-grey-title">{formattedDate}</span>
+        <span className="text-gray-500">{day}</span>
+        <span className="text-theme">
           {EMOTIONS[diaryData.emotion]?.nameKr}
         </span>
-      </DateInfo>
-      <Edit ref={menuButtonRef} onClick={handleToggleMenu}>
+      </div>
+      <button
+        ref={menuButtonRef}
+        className="flex cursor-pointer items-center gap-2 text-xl text-[#a5a5a5]"
+        onClick={handleToggleMenu}
+        type="button"
+      >
         <MdMoreVert />
-      </Edit>
+      </button>
       <DiaryMenus
         isMenuOpen={isMenuOpen}
         setMenuOpen={setMenuOpen}
         anchorRef={menuButtonRef}
         diaryData={diaryData}
       />
-    </Wrapper>
+    </div>
   );
 };
 
 export default DiaryDateHeader;
-
-const Wrapper = styled.div`
-  width: 100%;
-  padding: 14px;
-  padding-bottom: 0;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  position: relative;
-`;
-
-const DateInfo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  span {
-    font-weight: 500;
-    font-size: 20px;
-  }
-  .week {
-    color: grey;
-  }
-  .date {
-    color: rgb(var(--greyTitle));
-  }
-  .emotion {
-    color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-  }
-`;
-
-const Edit = styled.button`
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 20px;
-  color: #a5a5a5;
-`;

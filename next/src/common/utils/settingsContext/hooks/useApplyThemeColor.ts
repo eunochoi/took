@@ -7,6 +7,7 @@ export const useApplyThemeColor = (themeColor: string) => {
   useEffect(() => {
     const bgColor = getThemeBackgroundColor(themeColor);
     document.body.style.backgroundColor = bgColor;
+    document.documentElement.style.setProperty('--theme-color', themeColor);
     document.documentElement.style.setProperty('--theme-bg', bgColor);
 
     let metaThemeColor = document.querySelector('meta[name="theme-color"]');

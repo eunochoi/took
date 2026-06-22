@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import { useEffect, useRef, useState } from "react";
 import { MdArrowUpward } from 'react-icons/md';
 
@@ -13,8 +11,8 @@ const ScrollToTopButton = ({ contentRef }: Props) => {
   const buttonVisibleHeight = 2000;
 
   const goToTop = () => {
-    contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+    contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,44 +40,19 @@ const ScrollToTopButton = ({ contentRef }: Props) => {
         cancelAnimationFrame(scrollTimeoutRef.current);
       }
     };
-  }, [buttonVisible, buttonVisibleHeight]);
+  }, [buttonVisible, contentRef]);
 
   if (!buttonVisible) return null;
 
   return (
-    <Wrapper onClick={goToTop}>
+    <button
+      className="fixed right-[4dvw] flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-xl text-theme shadow-[0_1px_6px_rgba(0,0,0,0.06)] backdrop-blur-xl max-[479px]:bottom-[calc(var(--mobileNav)+20px)] min-[480px]:max-[1024px]:bottom-8 min-[1025px]:bottom-12"
+      onClick={goToTop}
+      type="button"
+    >
       <MdArrowUpward />
-    </Wrapper>
+    </button>
   );
-}
+};
 
 export default ScrollToTopButton;
-
-const Wrapper = styled.button`
-  position: fixed;
-  right: 4dvw;
-
-  @media (max-width: 479px) {
-    bottom: calc(var(--mobileNav) + 20px);
-  }
-  @media (min-width:480px) and (max-width:1024px) {
-    bottom: 32px;
-  }
-  @media (min-width:1025px) {
-    bottom: 48px;
-  }
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  font-size: 20px;
-
-  background-color: rgba(255,255,255,0.8);
-  backdrop-filter: blur(20px);
-  color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
-  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
-`
