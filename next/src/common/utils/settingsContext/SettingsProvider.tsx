@@ -2,7 +2,7 @@
 'use client';
 
 import { ReactNode, useMemo } from 'react';
-import { ThemeProvider } from 'styled-components';
+import { useApplyFontSize } from './hooks/useApplyFontSize';
 import { useApplyFontType } from './hooks/useApplyFontType';
 import { useApplyThemeColor } from './hooks/useApplyThemeColor';
 import { useUserSettings } from './hooks/useUserSettings';
@@ -19,13 +19,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   } = useUserSettings();
 
   useApplyThemeColor(themeColor);
+  useApplyFontSize(fontSize);
   useApplyFontType(fontType);
-
-  const theme = useMemo(() => ({
-    themeColor: themeColor,
-    fontSize: fontSize
-  }), [themeColor, fontSize]);
-
 
   const value = useMemo(() => ({
     fontSize,
@@ -38,9 +33,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   return (
     <SettingsContext.Provider value={value}>
-      <ThemeProvider theme={theme}>
-        {children}
-      </ThemeProvider>
+      {children}
     </SettingsContext.Provider >
   );
 }
