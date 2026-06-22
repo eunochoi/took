@@ -51,7 +51,7 @@ const pulse = keyframes`
 const Wrapper = styled.div`
   width: 100dvw;
   height: 100dvh;
-  background-color: var(--theme-bg, #f3f7fc);
+  background-color: white;
 
   display: flex;
   flex-direction: column;
