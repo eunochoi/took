@@ -3,7 +3,6 @@
 import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
-import StyledComponentsRegistry from "../../../lib/registry";
 import TopLoader from "../components/ui/TopLoader";
 import { useAutoCloseSnackbar } from "../hooks/useAutoCloseSnackbar";
 import RQProvider from "./reactQueryProvider";
@@ -20,7 +19,6 @@ interface Props {
 /**
  * 전역 Provider 모음
  * - SessionProvider: 인증 (next-auth)
- * - StyledComponentsRegistry: SSR 스타일 처리
  * - RQProvider: React Query 상태 관리
  * - CustomSnackbarProvider: 토스트 알림
  * - HydrationBoundary: 서버 데이터 hydration
@@ -33,20 +31,18 @@ export const RootProviders = ({ children, dehydratedState }: Props) => {
 
   return (
     <SessionProvider>
-      <StyledComponentsRegistry>
-        <RQProvider>
-          <CustomSnackbarProvider>
-            <HydrationBoundary state={dehydratedState}>
-              <SettingsProvider>
-                <TimezoneSync />
-                <TopLoader />
-                <ServiceWorkerRegister />
-                {children}
-              </SettingsProvider>
-            </HydrationBoundary>
-          </CustomSnackbarProvider>
-        </RQProvider>
-      </StyledComponentsRegistry>
+      <RQProvider>
+        <CustomSnackbarProvider>
+          <HydrationBoundary state={dehydratedState}>
+            <SettingsProvider>
+              <TimezoneSync />
+              <TopLoader />
+              <ServiceWorkerRegister />
+              {children}
+            </SettingsProvider>
+          </HydrationBoundary>
+        </CustomSnackbarProvider>
+      </RQProvider>
     </SessionProvider>
   );
-}
+};
