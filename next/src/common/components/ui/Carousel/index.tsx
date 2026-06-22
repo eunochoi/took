@@ -10,6 +10,7 @@ interface CarouselProps {
   gap?: number;
   resetOnChange?: boolean;
   className?: string;
+  indicatorColor?: string;
   onPageChange?: (page: number) => void;
   objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 }
@@ -20,6 +21,7 @@ const Carousel = ({
   gap = 0,
   resetOnChange = false,
   className,
+  indicatorColor,
   onPageChange,
   objectFit = 'cover'
 }: CarouselProps) => {
@@ -61,6 +63,7 @@ const Carousel = ({
           slideWrapperRef={slideWrapperRef}
           page={page}
           indicatorLength={childrenArray.length}
+          color={indicatorColor}
         />
       )}
     </Wrapper>

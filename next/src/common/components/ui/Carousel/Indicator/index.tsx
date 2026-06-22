@@ -6,14 +6,16 @@ interface IndicatorProps {
   slideWrapperRef: RefObject<HTMLDivElement>;
   page: number;
   indicatorLength: number;
+  color?: string;
   type?: string;
 }
 
-const Indicator = ({ slideWrapperRef, page, indicatorLength, type }: IndicatorProps) => {
+const Indicator = ({ slideWrapperRef, page, indicatorLength, color, type }: IndicatorProps) => {
   return <IndicatorWrapper>
     {[...Array(indicatorLength)].map((_: any, i: number) =>
       <Dot
         key={`indicator${i}`}
+        $color={color}
         className={page === i ? `current ${type}` : `${type}`}
         onClick={() => {
           slideWrapperRef.current?.scrollTo({
@@ -38,8 +40,8 @@ const IndicatorWrapper = styled.div`
   @media (min-width:480px) and (max-width:1024px) { //mobild land + tablet
   }
 `
-const Dot = styled.div`
-  background-color: ${(props) => props.theme.themeColor ? lightenColor(props.theme.themeColor, 15) : '#B0B8D4'};
+const Dot = styled.div<{ $color?: string }>`
+  background-color: ${(props) => props.$color ? lightenColor(props.$color, 15) : props.theme.themeColor ? lightenColor(props.theme.themeColor, 15) : '#B0B8D4'};
 
   margin: 3px;
   width: 8px;
@@ -53,7 +55,7 @@ const Dot = styled.div`
    }
   }
   &.current {
-    background-color: ${(props) => props.theme.themeColor ? props.theme.themeColor : '#979FC7'};
+    background-color: ${(props) => props.$color ?? props.theme.themeColor ?? '#8CADE2'};
     width: 20px;
   }
 `
