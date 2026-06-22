@@ -39,8 +39,5 @@ const nextConfig = {
       'axajzftmwrmj.compat.objectstorage.ap-chuncheon-1.oraclecloud.com',
     ],
   },
-  compiler: {
-    styledComponents: true,
-  },
 };
 export default withPWA(nextConfig);
