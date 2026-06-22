@@ -1,7 +1,5 @@
 'use client';
 
-import styled from 'styled-components';
-
 import useIsMobile from '@/common/functions/useIsMobile';
 import DesktopIntroView from './_components/DesktopIntroView';
 import MobileIntroView from './_components/MobileIntroView';
@@ -10,17 +8,10 @@ const IntroView = () => {
   const isMobile = useIsMobile();
 
   return (
-    <Container>
+    <div className="h-[100dvh] w-[100dvw] overflow-y-auto bg-[#f3f7fc]">
       {isMobile === false ? <DesktopIntroView /> : <MobileIntroView />}
-    </Container>
+    </div>
   );
 };
 
 export default IntroView;
-
-const Container = styled.div`
-  width: 100dvw;
-  height: 100dvh;
-  overflow-y: auto;
-  background-color: #f3f7fc;
-`;
