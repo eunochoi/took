@@ -21,8 +21,7 @@ export const usePwaInstall = () => {
   const installPwa = async () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log(outcome === 'accepted' ? 'PWA installed' : 'PWA install denied');
+      await deferredPrompt.userChoice;
       setDeferredPrompt(null);
     } else {
       alert(

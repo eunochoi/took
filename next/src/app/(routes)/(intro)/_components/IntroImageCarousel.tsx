@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import styled from 'styled-components';
 
 import Carousel from '@/common/components/ui/Carousel';
 import { IMAGE_ALT_TEXT } from '../_constants/images';
@@ -19,7 +18,7 @@ const IntroImageCarousel = ({
   sizes,
 }: IntroImageCarouselProps) => {
   return (
-    <CarouselCard $height={height}>
+    <div className="w-full overflow-hidden bg-transparent pt-3 min-[1025px]:pt-4" style={{ height }}>
       <Carousel objectFit="contain" indicatorColor={INTRO_THEME_COLOR}>
         {images.map((src, index) => (
           <Image
@@ -33,20 +32,8 @@ const IntroImageCarousel = ({
           />
         ))}
       </Carousel>
-    </CarouselCard>
+    </div>
   );
 };
 
 export default IntroImageCarousel;
-
-const CarouselCard = styled.div<{ $height: number }>`
-  width: 100%;
-  height: ${({ $height }) => $height}px;
-  padding: 12px 0 0;
-  background-color: transparent;
-  overflow: hidden;
-
-  @media (min-width: 1025px) {
-    padding-top: 16px;
-  }
-`;
