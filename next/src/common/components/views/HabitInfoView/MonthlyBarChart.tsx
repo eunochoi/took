@@ -1,6 +1,6 @@
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
-import { AppSurfaceCard } from "@/common/components/ui/AppSection";
+import { AppSurfaceCard } from "@/common/components/ui/AppSection/card";
 
 interface Props {
   data?: number[];

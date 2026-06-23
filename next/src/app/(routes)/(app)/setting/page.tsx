@@ -4,7 +4,9 @@ import { useRouter } from 'next/navigation';
 import { MdAndroid, MdDeleteForever, MdLogout, MdLowPriority } from 'react-icons/md';
 
 import AppPage from "@/common/components/layout/AppPage";
-import { AppCard, AppSection, AppSectionTitle } from "@/common/components/ui/AppSection";
+import { AppCard } from "@/common/components/ui/AppSection/card";
+import { AppSection, AppSectionTitle } from "@/common/components/ui/AppSection/section";
+import TopButtonLink from "@/common/components/ui/TopButtons/TopButtonLink";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { format } from "date-fns";
@@ -33,16 +35,20 @@ const SettingPage = () => {
       contentVariant="normal"
       contentProps={{ $gap: 56 }}
       topButtons={<>
-        <a href="https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share"
+        <TopButtonLink
+          size="auto"
+          href="https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share"
           target="_blank"
-          rel="noopener noreferrer" >
-          <button className="auto"><MdAndroid /></button>
-        </a>
-        <a href={introURL}
+          rel="noopener noreferrer">
+          <MdAndroid />
+        </TopButtonLink>
+        <TopButtonLink
+          size="default"
+          href={introURL}
           target="_blank"
-          rel="noopener noreferrer" >
-          <button className="normal">intro</button>
-        </a>
+          rel="noopener noreferrer">
+          intro
+        </TopButtonLink>
       </>}>
       <AppSection>
         <AppSectionTitle>계정 정보</AppSectionTitle>
