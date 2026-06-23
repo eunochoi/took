@@ -4,15 +4,10 @@ import { cn } from "@/common/utils/cn";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 
-import {
-  AppInfoCard,
-  AppInfoContent,
-  AppInfoText,
-  AppSection,
-  AppSectionHeader,
-  AppSectionMeta,
-  AppSectionTitle,
-} from "@/common/components/ui/AppSection";
+import { AppSurfaceCard } from "@/common/components/ui/AppSection/card";
+import { AppInfoCard, AppInfoContent, AppInfoText } from "@/common/components/ui/AppSection/info";
+import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
+import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import { EMOTIONS } from "@/common/constants/emotions";
 import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { getEmotionMessage } from "../_messages/emotionMessages";
@@ -24,6 +19,7 @@ interface Props {
 
 const EMOTION_NAMES_KR = ['행복', '기쁨', '사랑', '평온', '놀람', '불안', '슬픔', '화남', '혼란', '?'];
 const QUARTER_OPTIONS = ['전체', '1분기', '2분기', '3분기', '4분기'];
+const QUARTER_TAB_OPTIONS = QUARTER_OPTIONS.map((label, value) => ({ label, value }));
 
 const QUARTER_MONTHS = [
   [],
@@ -81,13 +77,13 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
       {EMOTIONS.slice(startIndex, startIndex + 5).map((emotion, index) => (
         <div key={emotion.id} className="flex flex-1 flex-col items-center gap-2.5">
           <Image
-            className="h-12 w-12"
+            className="h-11 w-11"
             src={emotion.src}
             alt={emotion.nameKr}
             width={77}
             height={77}
           />
-          <span className="text-base font-semibold text-grey-title">{displayEmotionCounts[index + startIndex]}</span>
+          <span className="text-sm font-semibold text-grey-title">{displayEmotionCounts[index + startIndex]}</span>
         </div>
       ))}
     </div>
@@ -97,31 +93,19 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
     <AppSection>
       <AppSectionHeader>
         <AppSectionTitle>감정 정보</AppSectionTitle>
-        <AppSectionMeta>{totalCount}개의 감정 기록</AppSectionMeta>
+        <AppSectionMeta>전체 {totalCount}개의 감정 기록</AppSectionMeta>
       </AppSectionHeader>
 
-      <div className="flex gap-3">
-        {QUARTER_OPTIONS.map((quarter, index) => (
-          <button
-            key={index}
-            className={cn(
-              "border-b-2 pb-1 text-base",
-              selectedQuarter === index
-                ? "border-theme font-semibold text-grey-title"
-                : "border-transparent font-normal text-[rgba(var(--greyTitle),0.5)]",
-            )}
-            onClick={() => setSelectedQuarter(index)}
-            type="button"
-          >
-            {quarter}
-          </button>
-        ))}
-      </div>
+      <AppUnderlineTabs
+        options={QUARTER_TAB_OPTIONS}
+        value={selectedQuarter}
+        onChange={setSelectedQuarter}
+      />
 
-      <div className="rounded-2xl bg-white/90 px-4 py-5 shadow-card min-[480px]:px-5 min-[480px]:py-6">
+      <AppSurfaceCard className="px-4 py-5 min-[480px]:px-5 min-[480px]:py-6">
         {renderEmotionRow(0)}
         {renderEmotionRow(5)}
-      </div>
+      </AppSurfaceCard>
 
       <AppInfoCard>
         <AppInfoContent>

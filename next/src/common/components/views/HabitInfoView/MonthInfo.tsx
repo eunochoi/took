@@ -6,20 +6,10 @@ import { notFound } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect } from "react";
 
 import Calendar from "../../ui/Calendar";
-import {
-  AppCardGrid,
-  AppNoteCard,
-  AppSection,
-  AppSectionHeader,
-  AppSectionMeta,
-  AppSectionTitle,
-  AppStatCard,
-  AppStatLabel,
-  AppStatUnit,
-  AppStatValue,
-  AppStatValueWrapper,
-  AppSurfaceCard,
-} from "@/common/components/ui/AppSection";
+import { AppCardGrid, AppSurfaceCard } from "@/common/components/ui/AppSection/card";
+import { AppNoteCard } from "@/common/components/ui/AppSection/info";
+import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
+import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
 import { renderHabitInfoPageContent } from "./_utils/renderHabitInfoPageContent";
 
 interface Props {

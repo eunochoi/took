@@ -3,18 +3,9 @@ import { authAction } from "@/common/auth/authAction";
 import { useQuery } from "@tanstack/react-query";
 import { addYears, format, isLeapYear, subYears } from "date-fns";
 import { Dispatch, SetStateAction } from "react";
-import {
-  AppCardGrid,
-  AppSection,
-  AppSectionHeader,
-  AppSectionMeta,
-  AppSectionTitle,
-  AppStatCard,
-  AppStatLabel,
-  AppStatUnit,
-  AppStatValue,
-  AppStatValueWrapper,
-} from "@/common/components/ui/AppSection";
+import { AppCardGrid } from "@/common/components/ui/AppSection/card";
+import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
+import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
 import MonthlyBarChart from "./MonthlyBarChart";
 
 interface Props {

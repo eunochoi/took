@@ -2,22 +2,10 @@
 
 import { DiaryStats } from "@/common/actions/stats";
 
-import {
-  AppCardGrid,
-  AppInfoCard,
-  AppInfoContent,
-  AppInfoText,
-  AppSection,
-  AppSectionHeader,
-  AppSectionMeta,
-  AppSectionTitle,
-  AppStatCard,
-  AppStatLabel,
-  AppStatUnit,
-  AppStatValue,
-  AppStatValueWrapper,
-  AppSubsectionTitle,
-} from "@/common/components/ui/AppSection";
+import { AppCardGrid, AppSurfaceCard } from "@/common/components/ui/AppSection/card";
+import { AppInfoCard, AppInfoContent, AppInfoText } from "@/common/components/ui/AppSection/info";
+import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle, AppSubsectionTitle } from "@/common/components/ui/AppSection/section";
+import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
 import { getStreakMessage } from "../_messages/streakMessages";
 
 interface Props {
@@ -87,7 +75,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
 
       <div className="flex flex-col gap-6">
         <AppSubsectionTitle>{year}년 월간 기록 그래프</AppSubsectionTitle>
-        <div className="flex items-end justify-between rounded-2xl bg-white/90 px-2 py-4 shadow-card">
+        <AppSurfaceCard className="flex items-end justify-between px-2 py-4">
           {(stats?.monthlyCount ?? Array(12).fill(0)).map((count, index) => {
             const maxCount = Math.max(...(stats?.monthlyCount ?? [1]), 1);
             const barHeight = count > 0 ? Math.max((count / maxCount) * 72, 8) : 4;
@@ -103,7 +91,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
               </div>
             );
           })}
-        </div>
+        </AppSurfaceCard>
       </div>
     </AppSection>
   );
