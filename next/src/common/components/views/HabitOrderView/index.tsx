@@ -1,7 +1,7 @@
 'use client';
 
-import { authAction } from '@/common/auth/authAction';
 import { getHabitList } from '@/common/actions/habit';
+import { authAction } from '@/common/auth/authAction';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
@@ -55,7 +55,7 @@ export const HabitOrderView = () => {
   return (
     <ModalRoot>
       <ModalHeader title='습관 순서 설정' onConfirm={onSubmit} />
-      <ModalBody>
+      <ModalBody withScrollFade={true}>
         <HabitList tempHabits={tempHabits} setTempHabits={setTempHabits} />
       </ModalBody>
       <ModalFooter>
