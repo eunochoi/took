@@ -10,6 +10,9 @@ import AppPage from "@/common/components/layout/AppPage";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import { authAction } from "@/common/auth/authAction";
 import { getDiaryList } from "@/common/actions/diary";
+import TopButton from "@/common/components/ui/TopButtons/TopButton";
+import { EMOTIONS } from "@/common/constants/emotions";
+import { EMOTION_UNSELECTED, getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -34,6 +37,10 @@ const ListView = () => {
   const { isOpen: isMonthFilterOpen, open: openMonthFilter, close: closeMonthFilter } = useModalParam('month-filter');
   const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useFilter();
   const { toggleValue, sortOrderChange } = useListToggle({ ref: wrapperRef });
+  const isEmotionSelected = emotionToggle !== EMOTION_UNSELECTED;
+  const isPeriodSelected = selectedYear !== getDefaultYear() || selectedMonth !== MONTH_UNSELECTED;
+  const selectedEmotionLabel = EMOTIONS[emotionToggle]?.nameKr ?? '';
+  const selectedPeriodLabel = selectedMonth === MONTH_UNSELECTED ? `${selectedYear}년` : `${selectedYear}년 ${selectedMonth}월`;
 
   const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage } = useInfiniteQuery({
     queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', toggleValue, 'year', selectedYear, 'month', selectedMonth],
@@ -61,24 +68,24 @@ const ListView = () => {
       contentVariant="list"
       pageRef={wrapperRef}
       topButtons={<>
-        <button
-          className='small'
+        <TopButton
+          size="auto"
           onClick={() => { openEmotionFilter(); }}
         >
-          <MdEmojiEmotions />
-        </button>
-        <button
-          className='small'
+          {isEmotionSelected ? <span>{selectedEmotionLabel}</span> : <MdEmojiEmotions />}
+        </TopButton>
+        <TopButton
+          size="auto"
           onClick={openMonthFilter}
         >
-          <MdCalendarMonth />
-        </button>
-        <button
-          className='normal'
+          {isPeriodSelected ? <span>{selectedPeriodLabel}</span> : <MdCalendarMonth />}
+        </TopButton>
+        <TopButton
+          size="default"
           onClick={sortOrderChange}
         >
           <span>{toggleValue === 'DESC' ? 'New' : 'Old'}</span>
-        </button>
+        </TopButton>
       </>}
       afterContent={<ScrollToTopButton contentRef={wrapperRef} />}>
         <EmotionFilter
