@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import NextTopLoader from 'nextjs-toploader';
 
-import { useSettingsContext } from '@/common/utils/settingsContext/useSettingsContext';
+import { useSettingsContext } from '@/common/providers/settings/useSettingsContext';
 
 export default function TopLoader() {
   const { themeColor } = useSettingsContext();

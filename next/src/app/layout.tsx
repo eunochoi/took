@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-import { RootProviders } from "@/common/utils/RootProviders";
+import { GlobalProviders } from "@/common/providers/GlobalProviders";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { headers } from 'next/headers';
 
@@ -83,9 +83,9 @@ export default async function RootLayout({
       </head>
 
       <body className={`${pretendard.variable} ${jotiOne.variable}`}>
-        <RootProviders dehydratedState={dehydratedState}>
+        <GlobalProviders dehydratedState={dehydratedState}>
           {children}
-        </RootProviders>
+        </GlobalProviders>
       </body>
     </html>
   );

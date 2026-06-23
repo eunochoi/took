@@ -10,7 +10,7 @@ import { closeSnackbar, enqueueSnackbar } from "notistack";
 import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { MdContentCopy, MdOutlineDeleteForever, MdOutlineEdit } from 'react-icons/md';
-import { SnackBarAction } from "../../../utils/snackBar/SnackBarAction";
+import { SnackBarAction } from "../../../providers/snackbar/SnackBarAction";
 
 interface Props {
   isMenuOpen: boolean;

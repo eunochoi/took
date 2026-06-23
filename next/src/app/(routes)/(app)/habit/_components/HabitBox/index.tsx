@@ -4,7 +4,7 @@ import { checkHabit as checkHabitAction, deleteHabit as deleteHabitAction, getHa
 import { authAction } from "@/common/auth/authAction";
 import { StarRating } from "@/common/components/ui/StarRating";
 import { getTodayString } from "@/common/functions/getTodayString";
-import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
+import { SnackBarAction } from "@/common/providers/snackbar/SnackBarAction";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format, subDays } from "date-fns";
 import { ko } from "date-fns/locale";
