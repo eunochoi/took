@@ -50,15 +50,15 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
         style={selected ? { backgroundColor: "color-mix(in srgb, var(--theme-color) 65%, white)" } : undefined}
         type="button"
       >
-        <span className="text-base text-grey-title">{month}</span>
-        <span className="text-base capitalize text-gray-500">{label}</span>
+        <span className="text-sm text-grey-title">{month}</span>
+        <span className="text-sm capitalize text-gray-400">{label}</span>
       </button>
     );
   };
 
   return (
     <div>
-      <div className="flex w-full items-center justify-between p-2.5 min-[480px]:max-[1023px]:px-0 min-[480px]:max-[1023px]:py-1.5 [&>button]:px-2 [&>button]:py-[3px] [&>button]:text-xl [&>button]:text-grey-title">
+      <div className="flex w-full items-center justify-between p-2 min-[480px]:max-[1023px]:px-0 min-[480px]:max-[1023px]:py-1.5 [&>button]:px-2 [&>button]:py-[3px] [&>button]:text-base [&>button]:text-grey-title">
         <button onClick={goToPreYear} type="button"><MdKeyboardArrowLeft /></button>
         <button onClick={goToCurrentDate} type="button">{selectedYear}</button>
         <button onClick={goToNextYear} type="button"><MdKeyboardArrowRight /></button>

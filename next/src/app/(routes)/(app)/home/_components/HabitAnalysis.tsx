@@ -52,7 +52,7 @@ const HabitAnalysis = ({ stats }: Props) => {
         </AppCardGrid> :
         <AppCardGrid $columns={1}>
           <AppInfoCard>
-            <AppInfoText>{habitTab === 'top' ? '아직 완료한 습관이 없어요' : '하위 습관이 없어요'}</AppInfoText>
+            <AppInfoText>* 아직 완료한 습관이 없어요 :(</AppInfoText>
           </AppInfoCard>
         </AppCardGrid>}
 
