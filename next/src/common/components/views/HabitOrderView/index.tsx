@@ -45,7 +45,7 @@ export const HabitOrderView = () => {
       setCustomOrder(tempHabitsIdArray);
       router.back();
       setTimeout(() => {
-        enqueueSnackbar('변경 완료', { variant: 'success' });
+        enqueueSnackbar('변경 완료');
       }, 300);
     } catch (e) {
       console.error(e);

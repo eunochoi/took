@@ -42,21 +42,21 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
       const ArrayImages = Array.from(e.target.files);
 
       if (images.length + ArrayImages.length > DIARY_IMAGE_MAX_COUNT) {
-        enqueueSnackbar(`이미지 파일은 최대 ${DIARY_IMAGE_MAX_COUNT}개까지 삽입 가능합니다.`, { variant: 'error' });
+        enqueueSnackbar(`이미지 파일은 최대 ${DIARY_IMAGE_MAX_COUNT}개까지 삽입 가능합니다.`);
         e.target.value = '';
         return;
       }
 
       const invalidTypeFile = ArrayImages.find((file) => !DIARY_IMAGE_ALLOWED_MIME_TYPES.includes(file.type as typeof DIARY_IMAGE_ALLOWED_MIME_TYPES[number]));
       if (invalidTypeFile) {
-        enqueueSnackbar("이미지 파일만 업로드 가능합니다.", { variant: 'error' });
+        enqueueSnackbar("이미지 파일만 업로드 가능합니다.");
         e.target.value = '';
         return;
       }
 
       const isOverSize = ArrayImages.find((file) => file.size > DIARY_IMAGE_MAX_SIZE_BYTES);
       if (isOverSize) {
-        enqueueSnackbar(`선택된 이미지 중 ${DIARY_IMAGE_MAX_SIZE_MB}MB를 초과하는 이미지가 존재합니다.`, { variant: 'error' });
+        enqueueSnackbar(`선택된 이미지 중 ${DIARY_IMAGE_MAX_SIZE_MB}MB를 초과하는 이미지가 존재합니다.`);
         e.target.value = '';
         return;
       }

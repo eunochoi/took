@@ -58,12 +58,12 @@ const HabitInputView = ({ isEdit, habitId }: HabitInputProps) => {
         queryClient.invalidateQueries({ queryKey: ['habits'] });
         queryClient.invalidateQueries({ queryKey: ['habit'] });
         router.back();
-        setTimeout(() => enqueueSnackbar(successMessage, { variant: 'success' }), 300);
+        setTimeout(() => enqueueSnackbar(successMessage), 300);
       } catch (error) {
-        enqueueSnackbar(errorMessage, { variant: 'error' });
+        enqueueSnackbar(errorMessage);
       }
     }
-    else enqueueSnackbar('1~10 글자의 이름을 입력해주세요.', { variant: 'info' });
+    else enqueueSnackbar('1~10 글자의 이름을 입력해주세요.');
   };
 
   useEffect(() => {

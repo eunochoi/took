@@ -7,18 +7,18 @@ export const SnackBarAction = ({ yesAction, noAction }: SnackBarActionProps) => 
   return (
     <div className="flex gap-2">
       <button
-        className="rounded-[14px] bg-[rgba(220,120,137,0.9)] px-4 py-1.5 font-medium text-white"
+        className="rounded-2xl bg-gray-100 px-4 py-1.5 font-medium text-gray-500 shadow-card"
         onClick={noAction}
         type="button"
       >
-        no
+        취소
       </button>
       <button
-        className="rounded-[14px] bg-[rgba(131,198,182,0.9)] px-4 py-1.5 font-medium text-white"
+        className="rounded-2xl bg-theme px-4 py-1.5 font-medium text-white shadow-card"
         onClick={yesAction}
         type="button"
       >
-        yes
+        확인
       </button>
     </div>
   );
