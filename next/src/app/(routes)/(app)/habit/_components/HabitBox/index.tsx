@@ -42,6 +42,8 @@ const HabitBox = ({ name, id, priority }: Props) => {
             await authAction(() => deleteHabitAction({ habitId: id }));
             queryClient.invalidateQueries({ queryKey: ['habits'] });
             queryClient.invalidateQueries({ queryKey: ['habit'] });
+            queryClient.invalidateQueries({ queryKey: ['stats', 'habit'] });
+            queryClient.invalidateQueries({ queryKey: ['stats', 'years'] });
             enqueueSnackbar('습관 항목 삭제 완료');
           } catch (error) {
             enqueueSnackbar(error instanceof Error ? error.message : '습관 항목 삭제 실패');
@@ -65,6 +67,8 @@ const HabitBox = ({ name, id, priority }: Props) => {
 
       queryClient.invalidateQueries({ queryKey: ['habits'] });
       queryClient.invalidateQueries({ queryKey: ['habit'] });
+      queryClient.invalidateQueries({ queryKey: ['stats', 'habit'] });
+      queryClient.invalidateQueries({ queryKey: ['stats', 'years'] });
     } catch (error) {
       enqueueSnackbar(error instanceof Error ? error.message : '습관 체크 변경 실패');
     }
