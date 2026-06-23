@@ -10,7 +10,9 @@ import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import Image from "next/image";
 import Carousel from "../../ui/Carousel";
-import { Modal } from "../../ui/Modal";
+import { ModalBody } from "../../ui/Modal/ModalBody";
+import { ModalHeader } from "../../ui/Modal/ModalHeader";
+import { ModalRoot } from "../../ui/Modal/ModalRoot";
 
 import { TextSlide } from "./TextSlide";
 import { ZoomViewImage } from "./types";
@@ -46,9 +48,9 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
 
   if (!diaryData) return null;
 
-  return <Modal>
-    <Modal.Header headerTitleText={headerTitle} />
-    <Modal.Content className="p-0">
+  return <ModalRoot>
+    <ModalHeader title={headerTitle} />
+    <ModalBody>
       <div className="h-full w-full">
         <Carousel objectFit="contain">
           <TextSlide diaryData={diaryData} />
@@ -67,8 +69,8 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
           ))}
         </Carousel>
       </div>
-    </Modal.Content>
-  </Modal>;
+    </ModalBody>
+  </ModalRoot>;
 }
 
 export default ZoomView;

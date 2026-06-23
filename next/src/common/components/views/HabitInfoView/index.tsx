@@ -6,7 +6,9 @@ import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { Modal } from "../../ui/Modal";
+import { ModalBody } from "../../ui/Modal/ModalBody";
+import { ModalHeader } from "../../ui/Modal/ModalHeader";
+import { ModalRoot } from "../../ui/Modal/ModalRoot";
 import { StarRating } from "../../ui/StarRating";
 import MonthInfo from "./MonthInfo";
 import YearInfo from "./YearInfo";
@@ -30,9 +32,9 @@ const HabitInfoView = ({ habitId }: Props) => {
   }, [isError]);
 
   return (
-    <Modal>
-      <Modal.Header headerTitleText='습관 정보' />
-      <Modal.Content className="p-0">
+    <ModalRoot>
+      <ModalHeader title='습관 정보' />
+      <ModalBody withScrollFade>
         <div className="flex w-full flex-col gap-6 px-3 py-4 pb-6 min-[480px]:px-6 min-[480px]:py-5 min-[480px]:pb-7">
           <section className="flex w-full flex-col items-center gap-2">
             <StarRating rating={(habitDataById?.priority ?? 0) + 1} className="items-center justify-center text-lg" />
@@ -52,8 +54,8 @@ const HabitInfoView = ({ habitId }: Props) => {
             habitId={habitId}
             setDisplayDate={setChartDate} />
         </div>
-      </Modal.Content>
-    </Modal>
+      </ModalBody>
+    </ModalRoot>
   );
 };
 

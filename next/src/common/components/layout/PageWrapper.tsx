@@ -1,24 +1,13 @@
 'use client';
+import { ScrollEdgeFade } from "@/common/components/ui/Modal/ScrollEdgeFade";
 import { useScroll } from "@/common/hooks/useScrollContext";
+import { cn } from "@/common/utils/cn";
 import { forwardRef, useEffect, useRef, useState } from "react";
 
 interface PageWrapperProps {
   children: React.ReactNode;
   className?: string;
 }
-
-const cx = (...classes: Array<string | false | null | undefined>) =>
-  classes.filter(Boolean).join(" ");
-
-const gradientStyle = (direction: "top" | "bottom"): React.CSSProperties => ({
-  background: `linear-gradient(
-    to ${direction},
-    var(--theme-bg, #f5f5fa) 0%,
-    color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent) 40%,
-    color-mix(in srgb, var(--theme-bg, #f5f5fa) 30%, transparent) 70%,
-    transparent 100%
-  )`,
-});
 
 export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(({ children, className }, ref) => {
   const { scrolled } = useScroll();
@@ -57,29 +46,25 @@ export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(({ child
   return (
     <div
       ref={finalRef}
-      className={cx(
+      className={cn(
         "relative flex h-[100dvh] w-full flex-col items-center justify-start overflow-y-scroll border-none outline-none",
         className,
       )}
       data-scroll-container
     >
       <div className="pointer-events-none sticky left-0 right-0 top-0 z-[90] h-0 w-full shrink-0">
-        <div
-          className={cx(
-            "absolute inset-x-0 top-0 h-[70px] transition-opacity duration-300 ease-in-out",
-            isScrollable && scrolled ? "opacity-100" : "opacity-0",
-          )}
-          style={gradientStyle("bottom")}
+        <ScrollEdgeFade
+          edge="top"
+          visible={isScrollable && scrolled}
+          className="absolute inset-x-0 top-0 h-[70px]"
         />
       </div>
       {children}
       <div className="pointer-events-none sticky bottom-0 left-0 right-0 z-[90] mt-auto h-0 w-full shrink-0">
-        <div
-          className={cx(
-            "absolute inset-x-0 bottom-0 h-[70px] transition-opacity duration-300 ease-in-out",
-            isScrollable ? "opacity-100" : "opacity-0",
-          )}
-          style={gradientStyle("top")}
+        <ScrollEdgeFade
+          edge="bottom"
+          visible={isScrollable}
+          className="absolute inset-x-0 bottom-0 h-[70px]"
         />
       </div>
     </div>

@@ -1,26 +1,15 @@
 'use client';
 
+import { cn } from "@/common/utils/cn";
 import { useRouter } from "next/navigation";
 import { ReactNode, useCallback } from "react";
-import { ModalContent } from "./ModalContent";
-import { ModalFooter } from "./ModalFooter";
-import { ModalHeader } from "./ModalHeader";
 
-interface ModalProps {
+interface Props {
   className?: string;
   children: ReactNode;
 }
 
-type ModalComponent = ((props: ModalProps) => JSX.Element) & {
-  Header: typeof ModalHeader;
-  Content: typeof ModalContent;
-  Footer: typeof ModalFooter;
-};
-
-const cx = (...classes: Array<string | false | null | undefined>) =>
-  classes.filter(Boolean).join(" ");
-
-export const Modal = (({ className, children }: ModalProps) => {
+export const ModalRoot = ({ className, children }: Props) => {
   const router = useRouter();
   const closeModal = useCallback(() => {
     router.back();
@@ -32,7 +21,7 @@ export const Modal = (({ className, children }: ModalProps) => {
       onClick={closeModal}
     >
       <div
-        className={cx(
+        className={cn(
           "flex h-full w-full flex-col overflow-hidden rounded-none bg-theme-bg transition-all duration-300 ease-in-out",
           "min-[1025px]:h-[85dvh] min-[1025px]:max-h-[85%] min-[1025px]:w-[500px] min-[1025px]:rounded-[28px] min-[1025px]:shadow-[0_8px_32px_rgba(0,0,0,0.12)]",
           className,
@@ -43,8 +32,4 @@ export const Modal = (({ className, children }: ModalProps) => {
       </div>
     </div>
   );
-}) as ModalComponent;
-
-Modal.Header = ModalHeader;
-Modal.Content = ModalContent;
-Modal.Footer = ModalFooter;
+};
