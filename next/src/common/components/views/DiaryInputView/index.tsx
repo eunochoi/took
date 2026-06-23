@@ -68,11 +68,11 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
     if (isSubmitting) return;
 
     if (emotion < 0 || emotion > 9) {
-      enqueueSnackbar('감정을 선택해주세요', { variant: 'info' });
+      enqueueSnackbar('감정을 선택해주세요');
       return;
     }
     if (text.length === 0) {
-      enqueueSnackbar('내용을 입력해주세요', { variant: 'error' });
+      enqueueSnackbar('내용을 입력해주세요');
       return;
     }
 
@@ -113,11 +113,11 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
 
       router.back();
       setTimeout(() => {
-        enqueueSnackbar(isEdit ? '일기 수정 완료' : '일기 작성 완료', { variant: 'success' });
+        enqueueSnackbar(isEdit ? '일기 수정 완료' : '일기 작성 완료');
       }, 300);
     } catch (error) {
       console.error('일기 저장 실패:', error);
-      enqueueSnackbar(isEdit ? '일기 수정 실패' : '일기 작성 실패', { variant: 'error' });
+      enqueueSnackbar(isEdit ? '일기 수정 실패' : '일기 작성 실패');
     } finally {
       setIsSubmitting(false);
     }

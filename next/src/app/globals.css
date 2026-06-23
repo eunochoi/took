@@ -25,6 +25,7 @@
     opacity: 0.7;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -35,6 +36,7 @@
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
@@ -119,33 +121,25 @@ body.font-type3 * {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.notistack-SnackbarContainer {
+.notistack-SnackbarContainer,
+.app-snackbar-container {
   z-index: 999999 !important;
 }
 
-.notistack-MuiContent-default,
-.notistack-MuiContent-info,
-.notistack-MuiContent-success,
-.notistack-MuiContent-error {
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  font-weight: 500;
-  backdrop-filter: blur(20px);
+.app-snackbar-root,
+.notistack-Snackbar,
+.notistack-CollapseWrapper {
+  width: 100% !important;
 }
 
+.notistack-MuiContent,
 .notistack-MuiContent-default {
-  color: rgb(88, 88, 88);
-  background-color: rgba(255, 255, 255, 0.95);
-}
-
-.notistack-MuiContent-info {
-  background-color: rgba(142, 188, 219, 0.95);
-}
-
-.notistack-MuiContent-success {
-  background-color: rgba(131, 198, 182, 0.95);
-}
-
-.notistack-MuiContent-error {
-  background-color: rgba(220, 120, 137, 0.95);
+  box-sizing: border-box !important;
+  border-radius: 20px !important;
+  background-color: white !important;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15) !important;
+  color: rgb(var(--greyTitle)) !important;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
 }

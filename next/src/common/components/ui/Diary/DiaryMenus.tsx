@@ -110,9 +110,9 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
             await authAction(() => deleteDiary({ id: diaryData.id }));
             queryClient.invalidateQueries({ queryKey: ['diary'] });
             queryClient.invalidateQueries({ queryKey: ['stats'] });
-            enqueueSnackbar('일기 삭제 완료', { variant: 'success' });
+            enqueueSnackbar('일기 삭제 완료');
           } catch (error) {
-            enqueueSnackbar(error instanceof Error ? error.message : '일기 삭제 실패', { variant: 'error' });
+            enqueueSnackbar(error instanceof Error ? error.message : '일기 삭제 실패');
           }
         }}
         noAction={() => {
@@ -124,7 +124,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
   };
   const onClickCopy = () => {
     navigator.clipboard.writeText(diaryData.text).then(() => {
-      enqueueSnackbar('텍스트가 클립보드에 복사되었습니다.', { variant: 'success' });
+      enqueueSnackbar('텍스트가 클립보드에 복사되었습니다.');
     });
     closeMenu();
   };
