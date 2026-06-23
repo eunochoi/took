@@ -6,7 +6,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { useCustomHabitOrder } from '@/app/(routes)/(app)/habit/_hooks/useCustomHabitOrder';
-import { Modal } from '@/common/components/ui/Modal';
+import { ModalBody } from '@/common/components/ui/Modal/ModalBody';
+import { ModalFooter } from '@/common/components/ui/Modal/ModalFooter';
+import { ModalHeader } from '@/common/components/ui/Modal/ModalHeader';
+import { ModalRoot } from '@/common/components/ui/Modal/ModalRoot';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { Habit } from './_types';
@@ -50,13 +53,13 @@ export const HabitOrderView = () => {
   };
 
   return (
-    <Modal>
-      <Modal.Header headerTitleText='습관 순서 설정' onConfirm={onSubmit} />
-      <Modal.Content>
+    <ModalRoot>
+      <ModalHeader title='습관 순서 설정' onConfirm={onSubmit} />
+      <ModalBody>
         <HabitList tempHabits={tempHabits} setTempHabits={setTempHabits} />
-      </Modal.Content>
-      <Modal.Footer>
+      </ModalBody>
+      <ModalFooter>
         <button className="text-base capitalize text-theme" onClick={onInitialize} type="button">변경사항 취소</button>
-      </Modal.Footer>
-    </Modal>);
+      </ModalFooter>
+    </ModalRoot>);
 }

@@ -1,24 +1,22 @@
 'use client';
 
+import { cn } from "@/common/utils/cn";
 import { useRouter } from "next/navigation";
 import { MdArrowBackIos } from 'react-icons/md';
 
 interface ModalHeaderProps {
   className?: string;
-  headerTitleText?: string;
-  headerConfirmText?: string;
+  title?: string;
+  confirmText?: string;
   onConfirm?: () => void;
 }
 
-const cx = (...classes: Array<string | false | null | undefined>) =>
-  classes.filter(Boolean).join(" ");
-
-export const ModalHeader = ({ className, headerTitleText, headerConfirmText = '완료', onConfirm }: ModalHeaderProps) => {
+export const ModalHeader = ({ className, title, confirmText = '완료', onConfirm }: ModalHeaderProps) => {
   const router = useRouter();
 
   return (
     <div
-      className={cx(
+      className={cn(
         "relative flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-between",
         "max-[479px]:px-[4dvw] min-[480px]:px-6",
         className,
@@ -31,9 +29,9 @@ export const ModalHeader = ({ className, headerTitleText, headerConfirmText = '�
       >
         <MdArrowBackIos />
       </button>
-      {headerTitleText ? (
+      {title ? (
         <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xl text-grey-title">
-          {headerTitleText}
+          {title}
         </span>
       ) : null}
       {onConfirm ? (
@@ -42,7 +40,7 @@ export const ModalHeader = ({ className, headerTitleText, headerConfirmText = '�
           onClick={onConfirm}
           type="button"
         >
-          {headerConfirmText}
+          {confirmText}
         </button>
       ) : null}
     </div>
