@@ -29,7 +29,7 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
 
   return (
     <div className="relative flex w-full items-center justify-between px-3.5 pt-3.5">
-      <div className="flex items-center gap-3 [&>span]:text-xl [&>span]:font-medium">
+      <div className="flex items-center gap-3 [&>span]:text-base [&>span]:font-medium">
         <span className="text-grey-title">{formattedDate}</span>
         <span className="text-gray-500">{day}</span>
         <span className="text-theme">

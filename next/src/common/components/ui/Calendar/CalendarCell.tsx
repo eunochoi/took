@@ -49,7 +49,7 @@ const CalendarCellComponent = <T,>({
   return (
     <div
       className={cn(
-        "relative flex h-[98%] w-[14%] flex-col items-center justify-center overflow-visible rounded-lg border-[3px] border-transparent text-base text-[#666565] transition-opacity duration-200 ease-in-out [&_span]:text-base",
+        "relative flex h-[98%] w-[14%] flex-col items-center justify-center overflow-visible rounded-lg border-[3px] border-transparent text-sm text-[#666565] transition-opacity duration-200 ease-in-out [&_span]:text-sm",
         !isCurrentMonth && "opacity-30",
         isCurrentMonth && isSelectedDate && "animate-[calendar-selected-pop_0.35s_ease-out]",
       )}

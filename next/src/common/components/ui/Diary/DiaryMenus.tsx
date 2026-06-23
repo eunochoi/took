@@ -1,5 +1,5 @@
-import { authAction } from "@/common/auth/authAction";
 import { deleteDiary } from "@/common/actions/diary";
+import { authAction } from "@/common/auth/authAction";
 import type { DiaryMenuData } from "@/common/types/diary";
 import { cn } from "@/common/utils/cn";
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
@@ -139,9 +139,9 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
     <div
       ref={menuRef}
       className={cn(
-        "absolute z-[1000] flex h-auto w-auto items-center gap-5 rounded-2xl px-5 py-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.08)] backdrop-blur-xl transition-opacity duration-200 ease-in-out",
+        "absolute z-[1000] flex h-auto w-auto items-center gap-5 rounded-2xl px-5 py-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.18)] backdrop-blur-xl transition-opacity duration-200 ease-in-out",
         menuPosition ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
-        "[&>button]:flex [&>button]:items-center [&>button]:text-base [&>button]:text-grey-title [&>button_.icon]:mr-1 [&>button_.icon]:text-lg [&>button_.icon]:leading-none [&>button:last-child]:text-[#d24343]",
+        "[&>button]:flex [&>button]:items-center [&>button>span]:text-sm [&>button]:text-grey-title [&>button_.icon]:mr-1 [&>button_.icon]:text-lg [&>button_.icon]:leading-none [&>button:last-child]:text-[#d24343]",
       )}
       style={{
         top: menuPosition ? `${menuPosition.top}px` : '0',
@@ -150,13 +150,16 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
       }}
     >
       <button onClick={onClickCopy} type="button">
-        <MdContentCopy className='icon' />텍스트 복사
+        <MdContentCopy className='icon' />
+        <span>텍스트 복사</span>
       </button>
       <button onClick={onClickEdit} type="button">
-        <MdOutlineEdit className='icon' />수정
+        <MdOutlineEdit className='icon' />
+        <span>수정</span>
       </button>
       <button onClick={onClickDeleteButton} type="button">
-        <MdOutlineDeleteForever className='icon' />삭제
+        <MdOutlineDeleteForever className='icon' />
+        <span>삭제</span>
       </button>
     </div>,
     document.body,

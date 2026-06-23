@@ -34,7 +34,7 @@ export const EmotionSelector = ({ value, onChange }: EmotionSelectorProps) => {
       >
         <Image
           className={cn(
-            "h-12 w-12 shrink-0 object-contain transition-opacity duration-200 ease-in-out",
+            "h-11 w-11 shrink-0 object-contain transition-opacity duration-200 ease-in-out",
             selected ? "opacity-100" : "opacity-50",
           )}
           src={emotion.src}
@@ -44,7 +44,7 @@ export const EmotionSelector = ({ value, onChange }: EmotionSelectorProps) => {
         />
         <span
           className={cn(
-            "text-center text-sm text-grey-title transition-opacity duration-200 ease-in-out min-[480px]:text-base",
+            "text-center text-sm text-gray-500 transition-opacity duration-200 ease-in-out",
             selected ? "font-semibold opacity-100" : "opacity-50",
           )}
         >

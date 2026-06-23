@@ -8,7 +8,7 @@ interface SettingSubsectionProps {
 export const SettingSubsection = ({ title, children }: SettingSubsectionProps) => {
   return (
     <section className="subsection flex-row">
-      <span className="block text-[22px] font-medium capitalize text-gray-500">{title}</span>
+      <span className="block text-base font-semibold capitalize text-gray-500">{title}</span>
       {children}
     </section>
   );

@@ -5,6 +5,7 @@ import { SelectionPanel } from "@/common/components/ui/SelectionPanel";
 import { EMOTION_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { MdRefresh } from "react-icons/md";
 
 interface Props {
   contentRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -55,7 +56,7 @@ const EmotionFilter = ({
       isOpen={isOpen}
       title="감정 선택"
       minHeightClassName="max-[479px]:min-h-[300px]"
-      resetLabel="초기화"
+      resetLabel={<><MdRefresh />초기화</>}
       onClose={() => onClose()}
       onReset={onInitialize}
       onSubmit={onSubmit}
