@@ -3,6 +3,7 @@
 import AppPage from "@/common/components/layout/AppPage";
 import { authAction } from "@/common/auth/authAction";
 import { getHabitList } from "@/common/actions/habit";
+import PageTitle from "@/common/components/ui/PageTitle";
 import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useQuery } from "@tanstack/react-query";
@@ -56,10 +57,11 @@ const HabitView = () => {
           <span>{SORT_TEXT[toggleValue]}</span>
         </TopButton>
       }>
-        <div className="mb-7 mt-4 flex flex-col items-start justify-center gap-2">
-          <span className="w-full font-bmjua text-[32px] text-grey-title min-[1025px]:text-4xl">목표 습관 {todayDoneHabitRate}% 완료</span>
-          <span className="text-lg text-gray-500">오늘의 목표 습관 {todayDoneHabitCount}개를 실천하셨습니다 :)</span>
-        </div>
+        <PageTitle
+          title={`목표 습관 ${todayDoneHabitRate}% 완료`}
+          description={`오늘의 목표 습관 ${todayDoneHabitCount}개를 실천하셨습니다 :)`}
+          className="mb-7"
+        />
 
         <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3 pb-2 min-[480px]:max-[1023px]:grid-cols-3 min-[1024px]:grid-cols-3">
           {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}

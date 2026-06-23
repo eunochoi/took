@@ -1,26 +1,20 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { MdAndroid, MdDeleteForever, MdLogout, MdLowPriority } from 'react-icons/md';
+import { MdAndroid } from 'react-icons/md';
 
 import AppPage from "@/common/components/layout/AppPage";
-import { AppCard } from "@/common/components/ui/AppSection/card";
-import { AppSection, AppSectionTitle } from "@/common/components/ui/AppSection/section";
+import PageTitle from "@/common/components/ui/PageTitle";
 import TopButtonLink from "@/common/components/ui/TopButtons/TopButtonLink";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { format } from "date-fns";
 
-import { FontSizeSelector } from "./_components/FontSizeSelector";
-import { FontTypeSelector } from "./_components/FontTypeSelector";
-import { SettingItem } from "./_components/SettingItem";
-import { ThemeColorSelector } from "./_components/ThemeColorSelector";
-import { onDeleteAccount } from "./_functions/onDeleteAccount";
-import { onLogout } from "./_functions/onLogout";
+import { AccountInfoSection } from "./_components/AccountInfoSection";
+import { AccountManageSection } from "./_components/AccountManageSection";
+import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
 
 const SettingPage = () => {
   usePrefetchPage();
-  const router = useRouter();
 
   const dev = process.env.NODE_ENV === 'development';
   const protocol = dev ? 'http://' : 'https://';
@@ -33,7 +27,7 @@ const SettingPage = () => {
   return (
     <AppPage
       contentVariant="normal"
-      contentProps={{ $gap: 56 }}
+      contentProps={{ $gap: 24 }}
       topButtons={<>
         <TopButtonLink
           size="auto"
@@ -50,72 +44,15 @@ const SettingPage = () => {
           intro
         </TopButtonLink>
       </>}>
-      <AppSection>
-        <AppSectionTitle>계정 정보</AppSectionTitle>
-        <AppCard>
-          <section className="flex flex-col gap-3 px-5 py-4">
-            <SettingItem settingItemKey="이메일" settingItemValue={<span>{email}</span>}></SettingItem>
-            <SettingItem settingItemKey="계정 타입" settingItemValue={<span>{provider}</span>}></SettingItem>
-            <SettingItem settingItemKey="가입일" settingItemValue={<span>{createAt}</span>}></SettingItem>
-          </section>
-        </AppCard>
-      </AppSection>
 
-      <AppSection>
-        <AppSectionTitle>앱 설정</AppSectionTitle>
-        <AppCard>
-          <section className="flex flex-col gap-3 px-5 py-4">
-            <span className="block text-[22px] font-medium capitalize text-gray-500">테마 색상</span>
-            <ThemeColorSelector />
-          </section>
-        </AppCard>
-        <AppCard>
-          <section className="flex flex-col gap-3 px-5 py-4">
-            <span className="block text-[22px] font-medium capitalize text-gray-500">폰트</span>
-            <SettingItem
-              settingItemKey="다이어리 글씨 크기"
-              settingItemValue={<FontSizeSelector />} />
-            <SettingItem
-              settingItemKey="폰트 타입"
-              settingItemValue={<FontTypeSelector />} />
-          </section>
-        </AppCard>
-        <AppCard>
-          <section className="flex flex-col gap-3 px-5 py-4">
-            <span className="block text-[22px] font-medium capitalize text-gray-500">습관</span>
-            <SettingItem
-              settingItemKey="습관 순서 커스텀"
-              settingItemValue={
-                <button onClick={() => {
-                  router.push('/inter/habitOrder', { scroll: false })
-                }}>
-                  <MdLowPriority />
-                </button>} />
-          </section>
-        </AppCard>
-      </AppSection>
+      <PageTitle title="앱 설정" />
 
-      <AppSection>
-        <AppSectionTitle>계정 관리</AppSectionTitle>
-        <AppCard>
-          <section className="flex flex-col gap-3 px-5 py-4">
-            <SettingItem
-              settingItemKey="로그아웃"
-              settingItemValue={
-                <button onClick={onLogout}>
-                  <MdLogout />
-                </button>} />
-            <SettingItem
-              settingItemKey="회원 탈퇴"
-              settingItemValue={
-                <button onClick={onDeleteAccount}>
-                  <MdDeleteForever />
-                </button>} />
-          </section>
-        </AppCard>
-      </AppSection>
+      <ThemeSettingsSection />
+      <AccountInfoSection email={email} provider={provider} createAt={createAt} />
+      <AccountManageSection />
+
     </AppPage >
   );
-}
+};
 
 export default SettingPage;
