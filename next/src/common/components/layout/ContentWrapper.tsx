@@ -1,3 +1,4 @@
+import { cn } from "@/common/utils/cn";
 import { CSSProperties, HTMLAttributes, forwardRef } from "react";
 
 export interface ContentWrapperProps extends HTMLAttributes<HTMLDivElement> {
@@ -18,9 +19,6 @@ interface ContentWrapperStyle extends CSSProperties {
   "--content-padding-top": string;
   "--content-padding-bottom": string;
 }
-
-const cx = (...classes: Array<string | false | null | undefined>) =>
-  classes.filter(Boolean).join(" ");
 
 export const ContentWrapper = forwardRef<HTMLDivElement, ContentWrapperProps>(
   (
@@ -56,7 +54,7 @@ export const ContentWrapper = forwardRef<HTMLDivElement, ContentWrapperProps>(
     return (
       <div
         ref={ref}
-        className={cx(
+        className={cn(
           "flex h-auto w-full max-w-[650px] flex-col gap-[var(--content-gap)]",
           "max-[479px]:gap-[var(--content-mobile-gap)] max-[479px]:px-[4dvw] max-[479px]:pb-[var(--content-mobile-padding-bottom)] max-[479px]:pt-[var(--content-mobile-padding-top)]",
           "min-[480px]:max-[1024px]:gap-[var(--content-tablet-gap)] min-[480px]:max-[1024px]:px-9 min-[480px]:max-[1024px]:pb-[var(--content-padding-bottom)] min-[480px]:max-[1024px]:pt-[var(--content-padding-top)]",

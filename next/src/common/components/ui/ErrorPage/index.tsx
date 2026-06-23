@@ -1,4 +1,5 @@
 import { EMOTIONS } from '@/common/constants/emotions';
+import { cn } from '@/common/utils/cn';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 
@@ -13,9 +14,6 @@ interface ErrorPageProps {
   description: string | ReactNode;
   buttons?: Button[];
 }
-
-const cx = (...classes: Array<string | false | null | undefined>) =>
-  classes.filter(Boolean).join(" ");
 
 export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) => {
   return (
@@ -38,7 +36,7 @@ export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) 
           {buttons.map((button, index) => (
             <button
               key={index}
-              className={cx(
+              className={cn(
                 "cursor-pointer rounded-3xl px-6 py-2.5 text-base transition-opacity hover:opacity-80 min-[1025px]:text-lg",
                 (button.variant || 'primary') === 'primary'
                   ? "bg-[#585858] text-white"
