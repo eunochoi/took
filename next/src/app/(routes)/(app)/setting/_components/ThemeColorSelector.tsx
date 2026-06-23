@@ -3,8 +3,8 @@
 import { MdCheck } from 'react-icons/md';
 
 import { cn } from "@/common/utils/cn";
-import { THEME_COLORS } from "@/common/utils/settingsContext/SettingsContext";
-import { useSettingsContext } from "@/common/utils/settingsContext/useSettingsContext";
+import { THEME_COLORS } from "@/common/providers/settings/SettingsContext";
+import { useSettingsContext } from "@/common/providers/settings/useSettingsContext";
 
 export const ThemeColorSelector = () => {
   const { themeColor, setThemeColor } = useSettingsContext();

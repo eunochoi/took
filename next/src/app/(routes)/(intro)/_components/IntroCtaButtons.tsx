@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { closeSnackbar, enqueueSnackbar } from 'notistack';
 import { MdInstallMobile, MdLanguage, MdOpenInNew } from 'react-icons/md';
 
-import { SnackBarAction } from '@/common/utils/snackBar/SnackBarAction';
+import { SnackBarAction } from '@/common/providers/snackbar/SnackBarAction';
 import { usePwaInstall } from '../_hooks/usePwaInstall';
 import { INTRO_CARD_SHADOW, INTRO_THEME_BG, INTRO_THEME_COLOR } from '../_constants/theme';
 

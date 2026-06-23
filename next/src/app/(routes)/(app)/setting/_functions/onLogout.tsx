@@ -1,5 +1,5 @@
 import { logout } from "@/common/auth/logout";
-import { SnackBarAction } from "@/common/utils/snackBar/SnackBarAction";
+import { SnackBarAction } from "@/common/providers/snackbar/SnackBarAction";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
 
 export const onLogout = () => {

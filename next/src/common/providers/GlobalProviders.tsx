@@ -3,13 +3,10 @@
 import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
-import TopLoader from "../components/ui/TopLoader";
 import { useAutoCloseSnackbar } from "../hooks/useAutoCloseSnackbar";
-import RQProvider from "./reactQueryProvider";
-import ServiceWorkerRegister from "./ServiceWorkerRegister";
-import { SettingsProvider } from "./settingsContext/SettingsProvider";
-import CustomSnackbarProvider from "./snackBar/CustomSnackbarProvider";
-import { TimezoneSync } from "./TimezoneSync";
+import ServiceWorkerRegister from "../utils/ServiceWorkerRegister";
+import RQProvider from "./reactQuery/ReactQueryProvider";
+import CustomSnackbarProvider from "./snackbar/CustomSnackbarProvider";
 
 interface Props {
   children: ReactNode;
@@ -22,11 +19,9 @@ interface Props {
  * - RQProvider: React Query 상태 관리
  * - CustomSnackbarProvider: 토스트 알림
  * - HydrationBoundary: 서버 데이터 hydration
- * - SettingsProvider: 테마/폰트 설정
- * - TopLoader: 페이지 전환 시 상단 로딩바 (테마색 적용)
- * - TimezoneSync: 브라우저 시간대로 동기화
+ * - ServiceWorkerRegister: PWA service worker 등록
  */
-export const RootProviders = ({ children, dehydratedState }: Props) => {
+export const GlobalProviders = ({ children, dehydratedState }: Props) => {
   useAutoCloseSnackbar();
 
   return (
@@ -34,12 +29,8 @@ export const RootProviders = ({ children, dehydratedState }: Props) => {
       <RQProvider>
         <CustomSnackbarProvider>
           <HydrationBoundary state={dehydratedState}>
-            <SettingsProvider>
-              <TimezoneSync />
-              <TopLoader />
-              <ServiceWorkerRegister />
-              {children}
-            </SettingsProvider>
+            <ServiceWorkerRegister />
+            {children}
           </HydrationBoundary>
         </CustomSnackbarProvider>
       </RQProvider>

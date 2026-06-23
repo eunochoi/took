@@ -1,7 +1,7 @@
 'use client';
 
-import { FONT_SIZE_LIST } from "@/common/utils/settingsContext/SettingsContext";
-import { useSettingsContext } from "@/common/utils/settingsContext/useSettingsContext";
+import { FONT_SIZE_LIST } from "@/common/providers/settings/SettingsContext";
+import { useSettingsContext } from "@/common/providers/settings/useSettingsContext";
 
 import { SettingStepSelector } from "./SettingStepSelector";
 
