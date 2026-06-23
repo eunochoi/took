@@ -18,6 +18,7 @@ const Page = () => {
   const router = useRouter();
 
   const { data: user, isSuccess } = useCurrentUser({
+    redirectOnAuthError: false,
     refetchOnWindowFocus: "always",
     staleTime: 0,
     gcTime: 0,

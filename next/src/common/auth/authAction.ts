@@ -5,6 +5,10 @@ import { signOut } from 'next-auth/react';
 import type { ActionResult } from '../actions/types';
 import { AUTH_ERROR_CODE } from './types';
 
+interface AuthActionOptions {
+  redirectOnAuthError?: boolean;
+}
+
 // 로그인 화면으로 이동
 const goToLogin = () => {
   if (window.location.pathname !== '/login') {
@@ -25,7 +29,9 @@ const requestAccessTokenRefresh = async () => {
 // 클라이언트단에서 로그인 여부 확인후 엑세스 토큰 리프레시 관리
 export const authAction = async <T,>(
   action: () => Promise<ActionResult<T>>,
+  options: AuthActionOptions = {},
 ): Promise<T> => {
+  const { redirectOnAuthError = true } = options;
   const result = await action();
 
   if (result.ok) {
@@ -51,7 +57,9 @@ export const authAction = async <T,>(
 
       if (retryNeedLogin || retryAccessTokenExpired) {
         await signOut({ redirect: false });
-        goToLogin();
+        if (redirectOnAuthError) {
+          goToLogin();
+        }
       }
 
       throw new Error(retryResult.message);
@@ -60,7 +68,9 @@ export const authAction = async <T,>(
 
   if (needLogin || accessTokenExpired) {
     await signOut({ redirect: false });
-    goToLogin();
+    if (redirectOnAuthError) {
+      goToLogin();
+    }
   }
 
   throw new Error(result.message);
