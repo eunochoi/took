@@ -3,6 +3,7 @@
 import AppPage from "@/common/components/layout/AppPage";
 import { authAction } from "@/common/auth/authAction";
 import { getHabitList } from "@/common/actions/habit";
+import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -51,9 +52,9 @@ const HabitView = () => {
     <AppPage
       contentVariant="normal"
       topButtons={
-        <button onClick={onToggle} className={toggleValue === 'CUSTOM' ? 'large' : 'normal'} >
+        <TopButton onClick={onToggle} size={toggleValue === 'CUSTOM' ? 'auto' : 'default'} >
           <span>{SORT_TEXT[toggleValue]}</span>
-        </button>
+        </TopButton>
       }>
         <div className="mb-7 mt-4 flex flex-col items-start justify-center gap-2">
           <span className="w-full font-bmjua text-[32px] text-grey-title min-[1025px]:text-4xl">목표 습관 {todayDoneHabitRate}% 완료</span>

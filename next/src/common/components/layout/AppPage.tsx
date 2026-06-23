@@ -4,7 +4,7 @@ import { RefObject, ReactNode } from "react";
 
 import { ContentWrapper, ContentWrapperProps } from "./ContentWrapper";
 import { PageWrapper } from "./PageWrapper";
-import TopButtons from "../ui/TopButtons";
+import TopButtons from "../ui/TopButtons/TopButtons";
 
 const CONTENT_VARIANT_PROPS = {
   normal: {},

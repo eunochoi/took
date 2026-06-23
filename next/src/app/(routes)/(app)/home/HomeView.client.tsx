@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
 import AppPage from "@/common/components/layout/AppPage";
+import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
@@ -53,11 +54,11 @@ const HomeView = () => {
     <AppPage
       contentVariant="normal"
       topButtons={
-        <button
-          className='auto'
+        <TopButton
+          size="auto"
           onClick={openYearSelector}>
           <span>{selectedYear}년</span>
-        </button>
+        </TopButton>
       }
       contentProps={{ $gap: 56, $paddingTop: 8, $paddingBottom: 48 }}
       afterContent={
