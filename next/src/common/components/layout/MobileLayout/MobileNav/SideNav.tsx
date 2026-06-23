@@ -1,11 +1,9 @@
 'use client';
 
 import Logo from '@/common/components/ui/Logo';
+import { cn } from '@/common/utils/cn';
 import Link from "next/link";
 import { useNavItems } from "./useNavItems";
-
-const cx = (...classes: Array<string | false | null | undefined>) =>
-  classes.filter(Boolean).join(" ");
 
 const SideNav = () => {
   const { items, current } = useNavItems();
@@ -19,7 +17,7 @@ const SideNav = () => {
         <Link
           key={key}
           href={href}
-          className={cx(
+          className={cn(
             "flex w-4/5 cursor-pointer items-center gap-3 px-3 py-2 text-sm capitalize",
             current === key ? "text-theme" : "text-[#c3c3c3]",
           )}

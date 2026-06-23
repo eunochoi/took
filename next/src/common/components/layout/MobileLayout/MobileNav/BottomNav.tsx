@@ -1,10 +1,8 @@
 'use client';
 
+import { cn } from "@/common/utils/cn";
 import Link from "next/link";
 import { useNavItems } from "./useNavItems";
-
-const cx = (...classes: Array<string | false | null | undefined>) =>
-  classes.filter(Boolean).join(" ");
 
 const BottomNav = () => {
   const { items, current } = useNavItems();
@@ -19,7 +17,7 @@ const BottomNav = () => {
           <Link
             key={key}
             href={href}
-            className={cx(
+            className={cn(
               "flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-[46px] text-[22px] transition-colors duration-[180ms]",
               current === key ? "bg-theme text-white" : "bg-transparent text-[#999]",
             )}
@@ -32,7 +30,7 @@ const BottomNav = () => {
       {settingItem && (
         <Link
           href={settingItem.href}
-          className={cx(
+          className={cn(
             "pointer-events-auto flex h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-[60px] text-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-2xl transition-colors duration-[180ms]",
             current === 'setting' ? "bg-theme text-white" : "bg-white/75 text-[#999]",
           )}
