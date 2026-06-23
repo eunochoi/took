@@ -36,19 +36,21 @@ export const HabitList = memo(({ tempHabits, setTempHabits }: HabitListProps) =>
   };
 
 
-  return (<DndContext
-    sensors={sensors}
-    collisionDetection={closestCenter}
-    onDragEnd={handleDragEnd}
-    modifiers={[restrictToVerticalAxis, restrictToParentElement]}
-  >
-    <SortableContext items={tempHabits.map((tempHabit: Habit) => tempHabit.id)} strategy={verticalListSortingStrategy}>
-      {tempHabits.map((tempHabit: Habit) => (
-        <HabitItem key={tempHabit.id} habit={tempHabit} />
-      ))}
-    </SortableContext>
+  return (<div className='w-full h-full px-6 py-4'>
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+      modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+    >
+      <SortableContext items={tempHabits.map((tempHabit: Habit) => tempHabit.id)} strategy={verticalListSortingStrategy}>
+        {tempHabits.map((tempHabit: Habit) => (
+          <HabitItem key={tempHabit.id} habit={tempHabit} />
+        ))}
+      </SortableContext>
 
-  </DndContext>);
+    </DndContext>
+  </div>);
 })
 
 HabitList.displayName = 'HabitList';
