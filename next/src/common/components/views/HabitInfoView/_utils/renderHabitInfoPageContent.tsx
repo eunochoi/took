@@ -6,7 +6,7 @@ export const renderHabitInfoPageContent = ({ date, dateData: isDone }: CalendarD
   const formattedDate = format(date, 'd');
 
   return (
-    <div className={cn("flex h-7 w-7 items-center justify-center rounded-full text-base text-[#525252]", isDone && "bg-theme text-white")}>
+    <div className={cn("flex h-7 w-7 items-center justify-center rounded-full text-sm text-[#525252]", isDone && "bg-theme text-white")}>
       {formattedDate}
     </div>
   );
