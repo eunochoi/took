@@ -7,6 +7,7 @@ import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@
 import { AppStatCard } from "@/common/components/ui/AppSection/stat";
 import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import { StarRating } from "@/common/components/ui/StarRating";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface Props {
@@ -21,9 +22,14 @@ const HABIT_TAB_OPTIONS: Array<{ label: string; value: HabitTab }> = [
 ];
 
 const HabitAnalysis = ({ stats }: Props) => {
+  const router = useRouter();
+
   const [habitTab, setHabitTab] = useState<HabitTab>('top');
 
   const habits = habitTab === 'top' ? stats?.topHabits : stats?.bottomHabits;
+  const handleHabitClick = (habitId: number) => {
+    router.push(`/inter/habitInfo?id=${habitId}`, { scroll: false });
+  };
 
   return (
     <AppSection>
@@ -41,7 +47,11 @@ const HabitAnalysis = ({ stats }: Props) => {
       {habits && habits.length > 0 ?
         <AppCardGrid $columns={3}>
           {habits.slice(0, 3).map((habit) => (
-            <AppStatCard key={habit.id} className="min-w-0 items-center justify-center overflow-hidden px-2 py-3">
+            <AppStatCard
+              onClick={() => handleHabitClick(habit.id)}
+              key={habit.id}
+              className="min-w-0 items-center justify-center overflow-hidden px-2 py-3"
+            >
               <StarRating rating={habit.priority + 1} className="shrink-0 gap-0.5 text-sm opacity-80" />
               <span className="line-clamp-2 max-h-[calc(1.4em*2)] w-full min-w-0 break-words text-center text-sm font-semibold leading-[1.4] text-grey-title">
                 {habit.name}
