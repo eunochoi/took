@@ -22,14 +22,14 @@ const DiaryInCalendar = ({ diaryData }: Props) => {
         <div className="box-border flex h-full w-full shrink-0 flex-col justify-between">
           <DiaryDateHeader diaryData={diaryData} />
           <div className="flex flex-col justify-center px-3.5" onClick={navigateToZoom}>
-            <div className="[display:-webkit-box] overflow-hidden whitespace-pre-wrap break-words text-app leading-[1.35] text-grey-title [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
+            <div className="[display:-webkit-box] overflow-hidden whitespace-pre-wrap break-words text-app leading-[1.35] text-gray-500 [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
               {diaryData.text}
             </div>
-            {images.length > 0 && (
+            {/* {images.length > 0 && (
               <button className="self-end text-right text-base text-theme" type="button">
                 {images.length} images ➝
               </button>
-            )}
+            )} */}
           </div>
           <DiaryHabits habits={diaryData.Habits} />
         </div>
