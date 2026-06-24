@@ -4,7 +4,10 @@ import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
+import { IoMdImage } from "react-icons/io";
 import { MdMoreVert } from 'react-icons/md';
+
+
 import DiaryMenus from './DiaryMenus';
 
 interface Props {
@@ -30,11 +33,16 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
   return (
     <div className="relative flex w-full items-center justify-between px-3.5 pt-3.5">
       <div className="flex items-center gap-3">
-        <span className="text-base font-medium text-grey-title">{formattedDate}</span>
-        <span className="text-base font-medium text-gray-500">{day}</span>
-        <span className="text-base font-medium text-theme">
+        <span className="text-base font-semibold text-grey-title">{formattedDate}</span>
+        {/* <span className="text-base font-semibold text-gray-400">{day}</span> */}
+        <span className="text-base font-semibold text-theme">
           {EMOTIONS[diaryData.emotion]?.nameKr}
         </span>
+        {diaryData.Images.length > 0 &&
+          <div className='flex items-center justify-center gap-1'>
+            <IoMdImage className='flex items-center justify-center text-lg text-gray-400' />
+            <span className='text-base text-gray-400 font-semibold'>{diaryData.Images.length}</span>
+          </div>}
       </div>
       <button
         ref={menuButtonRef}

@@ -1,8 +1,8 @@
 'use client';
 
 import type { DiaryData } from '@/common/types/diary';
-import Image from "next/image";
 import { cn } from "@/common/utils/cn";
+import Image from "next/image";
 import Carousel from "../Carousel";
 import DiaryCardShell from "./DiaryCardShell";
 import DiaryDateHeader from "./DiaryDateHeader";
@@ -40,7 +40,7 @@ const DiaryInList = ({ diaryData }: Props) => {
         )}
         <div
           className={cn(
-            "shrink-0 overflow-hidden whitespace-pre-wrap break-words px-4 text-app leading-[1.8] text-grey-title [display:-webkit-box] [-webkit-box-orient:vertical]",
+            "shrink-0 overflow-hidden whitespace-pre-wrap break-words px-4 text-app leading-[1.8] text-gray-500 [display:-webkit-box] [-webkit-box-orient:vertical]",
             hasImages ? "[-webkit-line-clamp:4]" : "[-webkit-line-clamp:6]",
           )}
         >
