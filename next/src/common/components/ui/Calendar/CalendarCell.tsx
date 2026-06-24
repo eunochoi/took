@@ -57,8 +57,8 @@ const CalendarCellComponent = <T,>({
     >
       <div
         className={cn(
-          "absolute top-0 z-[99] hidden h-2.5 w-2.5 rounded-full bg-theme",
-          isCurrentMonth && isToday && "block",
+          "absolute top-0 z-[99] h-2.5 w-2.5 rounded-full bg-theme",
+          isToday ? "block" : "hidden",
         )}
       />
       {renderDateContent ?
