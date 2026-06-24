@@ -8,7 +8,7 @@
         "fullscreen"
     ],
     "scope": "/",
-    "start_url": "/",
+    "start_url": "/login",
     "name": "Took",
     "short_name": "Took",
     "orientation": "portrait",
