@@ -9,6 +9,8 @@ import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { format } from "date-fns";
 
+import TopButton from '@/common/components/ui/TopButtons/TopButton';
+import { useRouter } from 'next/navigation';
 import { AccountInfoSection } from "./_components/AccountInfoSection";
 import { AccountManageSection } from "./_components/AccountManageSection";
 import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
@@ -16,13 +18,12 @@ import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
 const SettingPage = () => {
   usePrefetchPage();
 
-  const dev = process.env.NODE_ENV === 'development';
-  const protocol = dev ? 'http://' : 'https://';
-  const introURL = `${protocol}${process.env.NEXT_PUBLIC_DOMAIN}/intro`;
+  const router = useRouter();
   const { data: user } = useCurrentUser();
   const email = user?.email ?? '-';
   const provider = user?.provider ?? '-';
   const createAt = user?.createdAt ? format(user.createdAt, 'yyyy.MM.dd') : '-';
+
 
   return (
     <AppPage
@@ -36,13 +37,12 @@ const SettingPage = () => {
           rel="noopener noreferrer">
           <MdAndroid />
         </TopButtonLink>
-        <TopButtonLink
+        <TopButton
           size="default"
-          href={introURL}
-          target="_blank"
-          rel="noopener noreferrer">
+          onClick={() => router.push('/')}
+        >
           intro
-        </TopButtonLink>
+        </TopButton>
       </>}>
 
       <PageTitle title="앱 설정" />
