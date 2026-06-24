@@ -1,8 +1,8 @@
 'use client';
 
-import AppPage from "@/common/components/layout/AppPage";
-import { authAction } from "@/common/auth/authAction";
 import { getHabitList } from "@/common/actions/habit";
+import { authAction } from "@/common/auth/authAction";
+import AppPage from "@/common/components/layout/AppPage";
 import PageTitle from "@/common/components/ui/PageTitle";
 import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -25,10 +25,10 @@ const MAX_HABIT_COUNT = 18;
 
 type SORT = 'ASC' | 'DESC' | 'PRIORITY' | 'CUSTOM';
 const SORT_TEXT: Record<SORT, string> = {
-  ASC: 'old',
-  DESC: 'new',
-  PRIORITY: '★',
-  CUSTOM: 'custom'
+  ASC: '과거순',
+  DESC: '최신순',
+  PRIORITY: '중요도',
+  CUSTOM: '커스텀'
 }
 
 const HabitView = () => {
@@ -57,28 +57,28 @@ const HabitView = () => {
     <AppPage
       contentVariant="normal"
       topButtons={
-        <TopButton onClick={onToggle} size={toggleValue === 'CUSTOM' ? 'auto' : 'default'} >
+        <TopButton onClick={onToggle} size='default' >
           <span>{SORT_TEXT[toggleValue]}</span>
         </TopButton>
       }>
-        <PageTitle
-          title={`목표 습관 ${todayDoneHabitRate}% 완료`}
-          description={`오늘의 목표 습관 ${todayDoneHabitCount}개를 실천하셨습니다 :)`}
-          className="mb-7"
-        />
+      <PageTitle
+        title={`목표 습관 ${todayDoneHabitRate}% 완료`}
+        description={`오늘의 목표 습관 ${todayDoneHabitCount}개를 실천하셨습니다 :)`}
+        className="mb-7"
+      />
 
-        <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3 pb-2 min-[480px]:max-[1023px]:grid-cols-3 min-[1024px]:grid-cols-3">
-          {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
-          {(habits?.length ?? 0) < MAX_HABIT_COUNT && (
-            <button
-              className="flex aspect-[0.8] w-full shrink-0 items-center justify-center rounded-3xl bg-white/90 text-5xl text-theme shadow-[0_1px_8px_rgba(0,0,0,0.04)]"
-              onClick={onAddHabit}
-              type="button"
-            >
-              <MdAdd />
-            </button>
-          )}
-        </div>
+      <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3 pb-2 min-[480px]:max-[1023px]:grid-cols-3 min-[1024px]:grid-cols-3">
+        {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
+        {(habits?.length ?? 0) < MAX_HABIT_COUNT && (
+          <button
+            className="flex aspect-[0.8] w-full shrink-0 items-center justify-center rounded-3xl bg-white/90 text-5xl text-theme shadow-[0_1px_8px_rgba(0,0,0,0.04)]"
+            onClick={onAddHabit}
+            type="button"
+          >
+            <MdAdd />
+          </button>
+        )}
+      </div>
     </AppPage >
   );
 }
