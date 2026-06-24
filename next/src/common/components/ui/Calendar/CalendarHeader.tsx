@@ -17,8 +17,8 @@ const WEEK_TITLE_ENG = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 const titlePaddingClass = {
   small: "py-1.5",
-  middle: "py-3",
-  large: "py-[18px]",
+  middle: "py-2",
+  large: "py-3",
 } as const;
 
 const titleTextClass = {
@@ -63,7 +63,7 @@ const CalendarHeader = ({
         </header>
       )}
       {headerTitlePosition === 'start' && (
-        <header className={cn("flex items-center justify-between", titlePaddingClass[headerSize])}>
+        <header className={cn("flex items-center justify-between", 'pb-4')}>
           <span className={cn("font-bmjua capitalize text-grey-title", titleTextClass[headerSize])}>
             {title}
           </span>

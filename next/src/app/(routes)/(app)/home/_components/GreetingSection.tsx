@@ -25,7 +25,7 @@ const GreetingSection = () => {
         />
       </div>
       <h1 className="font-bmjua text-[32px] capitalize text-grey-title">TOOK! 오늘도 하나씩 :)</h1>
-      <p className="m-0 flex flex-col gap-1 break-words text-justify text-lg font-semibold leading-normal text-gray-600">
+      <p className="m-0 flex flex-col gap-1 break-words text-justify text-lg font-semibold leading-normal text-grey-title">
         <span className="block">완벽한 하루가 아니어도 좋습니다.</span>
         <span className="block">습관 발자국 하나만 남겨도 충분해요.</span>
       </p>
