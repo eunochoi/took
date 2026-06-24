@@ -18,10 +18,11 @@ const IntroImageCarousel = ({
   sizes,
 }: IntroImageCarouselProps) => {
   return (
-    <div className="w-full overflow-hidden bg-transparent pt-3 min-[1025px]:pt-4" style={{ height }}>
-      <Carousel objectFit="contain" indicatorColor={INTRO_THEME_COLOR}>
+    <div className="w-full overflow-hidden bg-transparent pt-3" style={{ height }}>
+      <Carousel indicatorColor={INTRO_THEME_COLOR}>
         {images.map((src, index) => (
           <Image
+            className="h-full w-full object-contain"
             key={src}
             src={src}
             alt={`${IMAGE_ALT_TEXT[src] ?? 'TOOK 앱 화면'} 미리보기`}

@@ -18,6 +18,9 @@ const RECORD_IMAGES = [INTRO_IMAGES.pc_calendar, INTRO_IMAGES.pc_list, INTRO_IMA
 const HABIT_IMAGES = [INTRO_IMAGES.pc_habit, INTRO_IMAGES.pc_habitinfo1, INTRO_IMAGES.pc_habitinfo2, INTRO_IMAGES.habitbox];
 const TRUST_IMAGES = [INTRO_IMAGES.pc_login, INTRO_IMAGES.pc_setting, INTRO_IMAGES.login, INTRO_IMAGES.setting];
 const RESPONSIVE_IMAGES = [INTRO_IMAGES.list, INTRO_IMAGES.pc_list, INTRO_IMAGES.pc_calendar, INTRO_IMAGES.pc_list2];
+const desktopSectionClass = "grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-center gap-14 px-[min(7vw,112px)] py-24";
+const desktopSectionTextClass = "m-0 break-keep text-lg leading-[1.75] text-[rgba(var(--greyTitle),0.72)]";
+const trustCardClass = "flex min-h-[150px] flex-col gap-2 rounded-2xl px-4 py-5";
 
 interface IntroSectionBlockProps {
   bg: 'white' | 'blue';
@@ -30,7 +33,7 @@ interface IntroSectionBlockProps {
 
 const IntroSectionBlock = ({ bg, reverse, title, meta, text, children }: IntroSectionBlockProps) => (
   <section
-    className="grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-center gap-14 px-[min(7vw,112px)] py-24"
+    className={desktopSectionClass}
     style={{ backgroundColor: bg === 'blue' ? INTRO_THEME_BG : 'white' }}
   >
     <div className={reverse ? "order-2 flex flex-col justify-center gap-[18px]" : "flex flex-col justify-center gap-[18px]"}>
@@ -38,14 +41,14 @@ const IntroSectionBlock = ({ bg, reverse, title, meta, text, children }: IntroSe
         <h2 className="m-0 flex-1 break-keep font-bmjua text-4xl capitalize leading-tight text-grey-title">{title}</h2>
         <span className="whitespace-nowrap text-base font-bold" style={{ color: INTRO_THEME_COLOR }}>{meta}</span>
       </div>
-      <p className="m-0 break-keep text-lg leading-[1.75] text-[rgba(var(--greyTitle),0.72)]">{text}</p>
+      <p className={desktopSectionTextClass}>{text}</p>
     </div>
     {children}
   </section>
 );
 
 const TrustCard = ({ icon, title, text }: { icon: ReactNode; title: string; text: string }) => (
-  <div className="flex min-h-[150px] flex-col gap-2 rounded-2xl px-4 py-5" style={{ backgroundColor: INTRO_THEME_BG, boxShadow: INTRO_CARD_SHADOW }}>
+  <div className={trustCardClass} style={{ backgroundColor: INTRO_THEME_BG, boxShadow: INTRO_CARD_SHADOW }}>
     <span className="inline-flex h-[30px] w-[30px] text-[30px]" style={{ color: INTRO_THEME_COLOR }}>{icon}</span>
     <strong className="text-lg text-grey-title">{title}</strong>
     <span className="text-base leading-normal text-[rgba(var(--greyTitle),0.64)]">{text}</span>
@@ -57,7 +60,7 @@ const DesktopIntroView = () => {
     <div className="min-h-[100dvh] w-full overflow-x-hidden" style={{ backgroundColor: INTRO_PAGE_BG }}>
       <main className="mx-auto flex w-full flex-col">
         <section className="grid min-h-[100dvh] grid-cols-[minmax(420px,0.9fr)_minmax(0,1.1fr)] items-center gap-14 bg-white px-[min(7vw,112px)] py-[72px]">
-          <div className="flex flex-col items-start gap-[22px] [&>div:last-child]:justify-start">
+          <div className="flex flex-col items-start gap-[22px]">
             <div className="mb-1">
               <Logo size={64} />
             </div>
@@ -66,7 +69,7 @@ const DesktopIntroView = () => {
               툭, 무심히 습관 발도장을 찍고 더 나은 나에게 OK를 건네세요.
               TOOK은 가볍게 기록하는 소리인 툭과, 더 좋은 방향으로 나아가자는 TO OK의 의미를 함께 담았습니다.
             </p>
-            <IntroCtaButtons />
+            <IntroCtaButtons className="justify-start" />
           </div>
           <IntroImageCarousel images={HERO_IMAGES} height={520} priorityFirst sizes="50vw" />
         </section>

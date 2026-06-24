@@ -18,20 +18,24 @@ const RECORD_IMAGES = [INTRO_IMAGES.calendar, INTRO_IMAGES.list, INTRO_IMAGES.li
 const HABIT_IMAGES = [INTRO_IMAGES.habit, INTRO_IMAGES.habitbox, INTRO_IMAGES.habitinfo1, INTRO_IMAGES.habitinfo2];
 const TRUST_IMAGES = [INTRO_IMAGES.login, INTRO_IMAGES.setting, INTRO_IMAGES.otherinfo1];
 const RESPONSIVE_IMAGES = [INTRO_IMAGES.list, INTRO_IMAGES.pc_list, INTRO_IMAGES.pc_calendar, INTRO_IMAGES.pc_list2];
+const mobileSectionClass = "flex flex-col items-center gap-[22px] px-5 py-16";
+const mobileSectionHeaderClass = "flex w-full max-w-[620px] flex-col items-center gap-2.5 text-center";
+const mobileSectionTextClass = "m-0 max-w-[620px] break-keep text-center text-base leading-[1.65] text-[rgba(var(--greyTitle),0.72)]";
+const infoCardClass = "grid grid-cols-[32px_1fr] gap-x-3 gap-y-1 rounded-2xl bg-white/80 p-4";
 
 const MobileSection = ({ bg, title, meta, text, children }: { bg: 'white' | 'blue'; title: string; meta: string; text?: string; children: ReactNode }) => (
-  <section className="flex flex-col items-center gap-[22px] px-5 py-16" style={{ backgroundColor: bg === 'blue' ? INTRO_THEME_BG : 'white' }}>
-    <div className="flex w-full max-w-[620px] flex-col items-center gap-2.5 text-center">
+  <section className={mobileSectionClass} style={{ backgroundColor: bg === 'blue' ? INTRO_THEME_BG : 'white' }}>
+    <div className={mobileSectionHeaderClass}>
       <h2 className="m-0 flex-1 break-keep font-bmjua text-3xl capitalize leading-tight text-grey-title">{title}</h2>
       <span className="whitespace-nowrap text-[15px] font-bold" style={{ color: INTRO_THEME_COLOR }}>{meta}</span>
     </div>
-    {text && <p className="m-0 max-w-[620px] break-keep text-center text-base leading-[1.65] text-[rgba(var(--greyTitle),0.72)]">{text}</p>}
+    {text && <p className={mobileSectionTextClass}>{text}</p>}
     {children}
   </section>
 );
 
 const InfoCard = ({ icon, title, text }: { icon: ReactNode; title: string; text: string }) => (
-  <div className="grid grid-cols-[32px_1fr] gap-x-3 gap-y-1 rounded-2xl bg-white/80 p-4" style={{ boxShadow: INTRO_CARD_SHADOW }}>
+  <div className={infoCardClass} style={{ boxShadow: INTRO_CARD_SHADOW }}>
     <span className="row-span-2 inline-flex h-7 w-7 text-[28px]" style={{ color: INTRO_THEME_COLOR }}>{icon}</span>
     <strong className="text-[17px] text-grey-title">{title}</strong>
     <span className="text-[15px] leading-normal text-[rgba(var(--greyTitle),0.64)]">{text}</span>

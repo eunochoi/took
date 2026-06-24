@@ -5,6 +5,7 @@ import { authAction } from "@/common/auth/authAction";
 import { StarRating } from "@/common/components/ui/StarRating";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { SnackBarAction } from "@/common/providers/snackbar/SnackBarAction";
+import { cn } from "@/common/utils/cn";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { format, subDays } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -18,6 +19,8 @@ interface Props {
   id: number;
   priority: number;
 }
+
+const actionButtonClass = "mx-2 text-xl";
 
 const HabitBox = ({ name, id, priority }: Props) => {
   const router = useRouter();
@@ -82,6 +85,8 @@ const HabitBox = ({ name, id, priority }: Props) => {
       </div>
       <div className="my-1.5 flex h-auto w-full items-center justify-evenly">
         {recentDateArray.map((date, i: number) => {
+          const checked = !!recentDateStatus?.[i];
+
           return (
             <div key={`${date}-${name}`} className="flex h-full items-center justify-center">
               <label htmlFor={`${date}-${name}`} className="flex h-full flex-col items-center justify-between text-sm font-medium text-gray-500">
@@ -89,28 +94,28 @@ const HabitBox = ({ name, id, priority }: Props) => {
                 <span className="my-0.5">{format(date, 'd')}</span>
                 <input
                   id={`${date}-${name}`}
-                  className="peer absolute h-0 w-0 cursor-pointer opacity-0"
+                  className="absolute h-0 w-0 cursor-pointer opacity-0"
                   type="checkbox"
-                  checked={!!recentDateStatus?.[i]}
+                  checked={checked}
                   onChange={(e) => {
                     ontoggleHabit(e, format(date, 'yyyy-MM-dd'));
                   }} />
-                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-black/5 peer-checked:[&>div]:bg-theme">
-                  <div className="h-3 w-3 shrink-0 rounded-full transition-all duration-[400ms] ease-in-out" />
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-black/5">
+                  <div className={cn("h-3 w-3 shrink-0 rounded-full transition-all duration-[400ms] ease-in-out", checked && "bg-theme")} />
                 </div>
               </label>
             </div>
           );
         })}
       </div>
-      <div className="flex h-auto w-full items-center justify-center text-[#b9b9b9] [&>button]:mx-2 [&>button]:text-xl">
-        <button onClick={() => router.push(`/inter/habitInfo?id=${id}`, { scroll: false })} type="button">
+      <div className="flex h-auto w-full items-center justify-center text-[#b9b9b9]">
+        <button className={actionButtonClass} onClick={() => router.push(`/inter/habitInfo?id=${id}`, { scroll: false })} type="button">
           <MdOutlineInsertChart />
         </button>
-        <button onClick={() => router.push(`/inter/input/editHabit?id=${id}`, { scroll: false })} type="button">
+        <button className={actionButtonClass} onClick={() => router.push(`/inter/input/editHabit?id=${id}`, { scroll: false })} type="button">
           <MdOutlineEdit />
         </button>
-        <button onClick={onDeleteHabit} type="button">
+        <button className={actionButtonClass} onClick={onDeleteHabit} type="button">
           <MdOutlineDeleteForever />
         </button>
       </div>

@@ -52,13 +52,13 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
     <ModalHeader title={headerTitle} />
     <ModalBody>
       <div className="h-full w-full">
-        <Carousel objectFit="contain">
+        <Carousel>
           <TextSlide diaryData={diaryData} />
           {images?.map((e: ZoomViewImage) => (
             <Image
               key={e.id}
               onClick={zoomToggle}
-              className={zoomState === 'zoom' ? "cursor-pointer !object-cover" : "cursor-pointer"}
+              className={zoomState === 'zoom' ? "h-full w-full cursor-pointer object-cover" : "h-full w-full cursor-pointer object-contain"}
               src={e.src}
               alt="zoomImage"
               width={400}

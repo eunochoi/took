@@ -102,7 +102,7 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
         onChange={setSelectedQuarter}
       />
 
-      <AppSurfaceCard className="px-4 py-5 min-[480px]:px-5 min-[480px]:py-6">
+      <AppSurfaceCard className="px-4 py-5">
         {renderEmotionRow(0)}
         {renderEmotionRow(5)}
       </AppSurfaceCard>

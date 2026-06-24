@@ -22,9 +22,9 @@ const EmptyCalendarDiary = ({ date, habits = [] }: Props) => {
     <DiaryCardShell $type="small">
       <div className="box-border flex h-full w-full flex-col justify-between">
         <div className="flex w-full items-center justify-between px-3.5 pt-3.5">
-          <div className="flex items-center gap-3 [&>span]:text-xl [&>span]:font-medium">
-            <span className="text-grey-title">{formattedDate}</span>
-            <span className="text-gray-500">{day}</span>
+          <div className="flex items-center gap-3">
+            <span className="text-xl font-medium text-grey-title">{formattedDate}</span>
+            <span className="text-xl font-medium text-gray-500">{day}</span>
           </div>
         </div>
         <DiaryAddButton date={date} />

@@ -41,12 +41,12 @@ const HabitAnalysis = ({ stats }: Props) => {
       {habits && habits.length > 0 ?
         <AppCardGrid $columns={3}>
           {habits.slice(0, 3).map((habit) => (
-            <AppStatCard key={habit.id} className="h- min-w-0 items-center justify-center overflow-hidden px-2 py-3 min-[480px]:h-[130px] min-[480px]:px-3 min-[480px]:py-4">
-              <StarRating rating={habit.priority + 1} className="shrink-0 gap-0.5 text-sm opacity-80 min-[480px]:text-xs" />
-              <span className="line-clamp-2 max-h-[calc(1.4em*2)] w-full min-w-0 break-words text-center text-sm font-semibold leading-[1.4] text-grey-title min-[480px]:text-lg">
+            <AppStatCard key={habit.id} className="min-w-0 items-center justify-center overflow-hidden px-2 py-3">
+              <StarRating rating={habit.priority + 1} className="shrink-0 gap-0.5 text-sm opacity-80" />
+              <span className="line-clamp-2 max-h-[calc(1.4em*2)] w-full min-w-0 break-words text-center text-sm font-semibold leading-[1.4] text-grey-title">
                 {habit.name}
               </span>
-              <span className="text-sm font-medium text-[rgba(var(--greyTitle),0.6)] min-[480px]:text-base">{habit.count}회</span>
+              <span className="text-sm font-medium text-[rgba(var(--greyTitle),0.6)]">{habit.count}회</span>
             </AppStatCard>
           ))}
         </AppCardGrid> :

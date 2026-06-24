@@ -5,6 +5,7 @@ import { closeSnackbar, enqueueSnackbar } from 'notistack';
 import { MdInstallMobile, MdLanguage, MdOpenInNew } from 'react-icons/md';
 
 import { SnackBarAction } from '@/common/providers/snackbar/SnackBarAction';
+import { cn } from '@/common/utils/cn';
 import { usePwaInstall } from '../_hooks/usePwaInstall';
 import { INTRO_CARD_SHADOW, INTRO_THEME_BG, INTRO_THEME_COLOR } from '../_constants/theme';
 
@@ -12,9 +13,16 @@ const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.everst
 
 interface IntroCtaButtonsProps {
   tone?: 'light' | 'dark';
+  className?: string;
 }
 
-const IntroCtaButtons = ({ tone = 'light' }: IntroCtaButtonsProps) => {
+const buttonLayoutClass = "inline-flex min-h-[46px] items-center justify-center gap-2 whitespace-nowrap px-4 max-[420px]:flex-[1_1_100%]";
+const buttonThemeClass = "rounded-2xl border border-[rgba(140,173,226,0.26)] text-base font-medium leading-none text-grey-title";
+const buttonMotionClass = "transition-[transform,border-color,background-color] duration-[180ms] active:translate-y-px";
+const buttonClass = cn(buttonLayoutClass, buttonThemeClass, buttonMotionClass);
+const iconClass = "h-5 w-5 shrink-0";
+
+const IntroCtaButtons = ({ tone = 'light', className }: IntroCtaButtonsProps) => {
   const router = useRouter();
   const { installPwa } = usePwaInstall();
 
@@ -47,32 +55,32 @@ const IntroCtaButtons = ({ tone = 'light' }: IntroCtaButtonsProps) => {
   const iconStyle = { color: INTRO_THEME_COLOR };
 
   return (
-    <div className="flex w-full flex-wrap justify-center gap-3">
+    <div className={cn("flex w-full flex-wrap justify-center gap-3", className)}>
       <button
-        className="inline-flex min-h-[46px] items-center justify-center gap-2 whitespace-nowrap rounded-2xl border border-[rgba(140,173,226,0.26)] px-4 text-base font-medium leading-none text-grey-title transition-[transform,border-color,background-color] duration-[180ms] active:translate-y-px max-[420px]:flex-[1_1_100%] [&>svg]:h-5 [&>svg]:w-5 [&>svg]:shrink-0"
+        className={buttonClass}
         type="button"
         onClick={startInWeb}
         style={buttonStyle}
       >
-        <MdLanguage style={iconStyle} />
+        <MdLanguage className={iconClass} style={iconStyle} />
         웹에서 실행
       </button>
       <button
-        className="inline-flex min-h-[46px] items-center justify-center gap-2 whitespace-nowrap rounded-2xl border border-[rgba(140,173,226,0.26)] px-4 text-base font-medium leading-none text-grey-title transition-[transform,border-color,background-color] duration-[180ms] active:translate-y-px max-[420px]:flex-[1_1_100%] [&>svg]:h-5 [&>svg]:w-5 [&>svg]:shrink-0"
+        className={buttonClass}
         type="button"
         onClick={installPwa}
         style={buttonStyle}
       >
-        <MdInstallMobile style={iconStyle} />
+        <MdInstallMobile className={iconClass} style={iconStyle} />
         PWA 설치
       </button>
       <button
-        className="inline-flex min-h-[46px] items-center justify-center gap-2 whitespace-nowrap rounded-2xl border border-[rgba(140,173,226,0.26)] px-4 text-base font-medium leading-none text-grey-title transition-[transform,border-color,background-color] duration-[180ms] active:translate-y-px max-[420px]:flex-[1_1_100%] [&>svg]:h-5 [&>svg]:w-5 [&>svg]:shrink-0"
+        className={buttonClass}
         type="button"
         onClick={() => router.push(PLAY_STORE_URL)}
         style={buttonStyle}
       >
-        <MdOpenInNew style={iconStyle} />
+        <MdOpenInNew className={iconClass} style={iconStyle} />
         Play Store
       </button>
     </div>

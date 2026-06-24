@@ -14,6 +14,7 @@ interface Props {
 
 const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Props) => {
   const [tempYear, setTempYear] = useState(selectedYear);
+  const yearGridClass = "grid w-full grid-cols-3 gap-2.5 overflow-y-auto p-1 max-h-[calc(50dvh-120px)] min-[480px]:max-h-[300px]";
 
   useEffect(() => {
     if (isOpen) {
@@ -33,7 +34,7 @@ const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Pr
       onClose={onClose}
       onSubmit={onSubmit}
     >
-      <div className="grid w-full grid-cols-3 gap-2.5 overflow-y-auto p-1 max-[479px]:max-h-[calc(50dvh-120px)] min-[480px]:max-h-[300px] [@media(max-width:479px)_and_(orientation:landscape)_and_(max-height:600px)]:max-h-[calc(100dvh-200px)] [@media(min-width:480px)_and_(orientation:landscape)_and_(max-height:600px)]:max-h-[calc(100dvh-180px)]">
+      <div className={yearGridClass}>
         {years.map((year) => {
           const selected = year === tempYear;
 

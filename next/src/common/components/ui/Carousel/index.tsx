@@ -12,13 +12,11 @@ interface CarouselProps {
   className?: string;
   indicatorColor?: string;
   onPageChange?: (page: number) => void;
-  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
 }
 
 interface CarouselStyle extends CSSProperties {
   "--carousel-gap": string;
   "--carousel-slide-size": string;
-  "--carousel-object-fit": string;
 }
 
 const Carousel = ({
@@ -29,7 +27,6 @@ const Carousel = ({
   className,
   indicatorColor,
   onPageChange,
-  objectFit = 'cover',
 }: CarouselProps) => {
   const childrenArray = React.Children.toArray(children);
   const slideWrapperRef = useRef<HTMLDivElement>(null);
@@ -52,21 +49,20 @@ const Carousel = ({
   const carouselStyle: CarouselStyle = {
     "--carousel-gap": `${gap}px`,
     "--carousel-slide-size": gap > 0 ? `calc(100% - ${gap}px)` : "100%",
-    "--carousel-object-fit": objectFit,
   };
 
   return (
     <div className={cn("relative flex h-full w-full flex-col overflow-hidden", className)}>
       <div
         ref={slideWrapperRef}
-        className="flex h-full w-full snap-x snap-mandatory overflow-x-scroll overflow-y-hidden scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden [&>*:not(:first-child)]:ml-[var(--carousel-gap)]"
+        className="flex h-full w-full snap-x snap-mandatory gap-[var(--carousel-gap)] overflow-x-scroll overflow-y-hidden scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         onScroll={handleScroll}
         style={carouselStyle}
       >
         {childrenArray.map((child, i) => (
           <div
             key={`slide-${i}`}
-            className="box-border flex h-full w-[var(--carousel-slide-size)] min-w-[var(--carousel-slide-size)] shrink-0 snap-center snap-always items-center justify-center overflow-hidden [&>*]:max-h-full [&>*]:max-w-full [&>img]:h-full [&>img]:w-full [&>img]:[object-fit:var(--carousel-object-fit)]"
+            className="box-border flex h-full w-[var(--carousel-slide-size)] min-w-[var(--carousel-slide-size)] shrink-0 snap-center snap-always items-center justify-center overflow-hidden"
           >
             {child}
           </div>

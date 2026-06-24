@@ -29,8 +29,8 @@ export const renderCalendarPageContent = ({ date, dateData }: CalendarDateConten
 
   if (hasDiary && emotion) {
     return (
-      <div className="relative z-[2] w-full [&>img]:h-auto [&>img]:w-full">
-        <Image src={emotion.src} alt={emotion.nameKr} />
+      <div className="relative z-[2] w-full">
+        <Image className="h-auto w-full" src={emotion.src} alt={emotion.nameKr} />
         {habitsCount > 0 && (
           <div className={`${badgeClass} absolute -right-2.5 -top-2.5 z-10`} style={badgeStyle}>
             {habitsCount}
