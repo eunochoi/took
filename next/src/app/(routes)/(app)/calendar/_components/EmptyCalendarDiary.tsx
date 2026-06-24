@@ -21,7 +21,7 @@ const EmptyCalendarDiary = ({ date, habits = [] }: Props) => {
       <div className="box-border flex h-full w-full flex-col justify-between">
         <div className="flex w-full items-center justify-between px-3.5 pt-3.5">
           <div className="flex items-center gap-3">
-            <span className="text-base font-medium text-grey-title">{formattedDate}</span>
+            <span className="text-base font-semibold text-grey-title">{formattedDate}</span>
           </div>
         </div>
         <DiaryAddButton date={date} />
