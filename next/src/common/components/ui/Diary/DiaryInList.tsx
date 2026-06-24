@@ -23,7 +23,7 @@ const DiaryInList = ({ diaryData }: Props) => {
       <DiaryDateHeader diaryData={diaryData} />
       <div className="my-4 flex h-full w-full flex-col justify-center gap-4" onClick={navigateToZoom}>
         {hasImages && (
-          <div className="h-[300px] w-full min-[1024px]:h-[400px]">
+          <div className="h-[300px] w-full">
             <Carousel>
               {images.map((img) => (
                 <Image
@@ -42,7 +42,6 @@ const DiaryInList = ({ diaryData }: Props) => {
           className={cn(
             "shrink-0 overflow-hidden whitespace-pre-wrap break-words px-4 text-app leading-[1.8] text-grey-title [display:-webkit-box] [-webkit-box-orient:vertical]",
             hasImages ? "[-webkit-line-clamp:4]" : "[-webkit-line-clamp:6]",
-            "max-[479px]:[-webkit-line-clamp:3]",
           )}
         >
           {diaryData.text}

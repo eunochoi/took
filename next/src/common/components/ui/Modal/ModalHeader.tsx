@@ -18,7 +18,7 @@ export const ModalHeader = ({ className, title, confirmText = '완료', onConfir
     <div
       className={cn(
         "relative flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-between",
-        "max-[479px]:px-[4dvw] min-[480px]:px-6",
+        "px-[4dvw] min-[480px]:px-6",
         className,
       )}
     >

@@ -11,6 +11,7 @@ import {
   DIARY_IMAGE_MAX_SIZE_MB,
 } from "@/common/constants/image";
 
+const imageTileClass = "relative flex h-20 w-20 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl bg-black/[0.02]";
 
 
 interface Props {
@@ -106,16 +107,16 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
   };
 
   return (
-    <div className="flex h-auto w-full shrink-0 items-stretch gap-4 overflow-x-auto rounded-2xl bg-white/90 py-4 shadow-card [&>*:first-child]:ml-4 [&>*:last-child]:mr-4 [&::-webkit-scrollbar-thumb]:rounded-sm [&::-webkit-scrollbar-thumb]:bg-black/10 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:h-1">
-      <div className="relative flex h-20 w-20 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl bg-black/[0.02]">
+    <div className="flex h-auto w-full shrink-0 items-stretch gap-4 overflow-x-auto rounded-2xl bg-white/90 px-4 py-4 shadow-card [&::-webkit-scrollbar-thumb]:rounded-sm [&::-webkit-scrollbar-thumb]:bg-black/10 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:h-1">
+      <div className={imageTileClass}>
         <button
-          className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-xl bg-theme shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] disabled:cursor-not-allowed disabled:opacity-40 [&>.icon]:text-[32px] [&>.icon]:text-white"
+          className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-xl bg-theme shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] disabled:cursor-not-allowed disabled:opacity-40"
           disabled={isLoading}
           onClick={() => imageUploadRef.current?.click()}
           type="button"
         >
           <input ref={imageUploadRef} type="file" accept={DIARY_IMAGE_ALLOWED_MIME_TYPES.join(',')} name="image" multiple hidden onChange={onChangeImages} />
-          <MdOutlineImage className="icon" />
+          <MdOutlineImage className="text-[32px] text-white" />
         </button>
       </div>
       {images?.length > 0 &&
@@ -127,7 +128,7 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
             if (!imageUrl) return null;
 
             return (
-              <div key={key} className="relative flex h-20 w-20 shrink-0 flex-col items-center justify-center overflow-hidden rounded-xl bg-black/[0.02]">
+              <div key={key} className={imageTileClass}>
                 <Image
                   className="h-full w-full object-cover"
                   src={imageUrl}

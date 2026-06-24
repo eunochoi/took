@@ -1,6 +1,7 @@
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 import { AppSurfaceCard } from "@/common/components/ui/AppSection/card";
+import { cn } from "@/common/utils/cn";
 
 interface Props {
   data?: number[];
@@ -10,17 +11,19 @@ interface Props {
   onPrevYear: () => void;
 }
 
+const yearButtonClass = "flex p-[3px] text-gray-500";
+
 const MonthlyBarChart = ({ data, year, onCurrentYear, onNextYear, onPrevYear }: Props) => {
   const maxCount = Math.max(...(data ?? [1]), 1);
 
   return (
     <AppSurfaceCard className="flex flex-col gap-4">
-      <header className="flex w-full items-center justify-between py-1.5 [&>button]:flex [&>button]:p-[3px] [&>button]:text-gray-500">
-        <button onClick={onPrevYear} type="button"><MdKeyboardArrowLeft /></button>
-        <button className="font-bmjua text-xl capitalize text-grey-title" onClick={onCurrentYear} type="button">
+      <header className="flex w-full items-center justify-between py-1.5">
+        <button className={yearButtonClass} onClick={onPrevYear} type="button"><MdKeyboardArrowLeft /></button>
+        <button className={cn(yearButtonClass, "font-bmjua text-xl capitalize text-grey-title")} onClick={onCurrentYear} type="button">
           {year}년
         </button>
-        <button onClick={onNextYear} type="button"><MdKeyboardArrowRight /></button>
+        <button className={yearButtonClass} onClick={onNextYear} type="button"><MdKeyboardArrowRight /></button>
       </header>
 
       <div className="flex min-h-[200px] w-full items-end justify-between">

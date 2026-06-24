@@ -19,14 +19,14 @@ export const ThemeColorSelector = () => {
             <button
               key={color}
               className={cn(
-                "flex h-[42px] w-[42px] items-center justify-center rounded-full transition-transform duration-200 ease-in-out hover:scale-[1.2] [&>svg]:text-lg [&>svg]:text-white [&>svg]:drop-shadow-[0_1px_1px_rgba(0,0,0,0.2)]",
+                "flex h-[42px] w-[42px] items-center justify-center rounded-full transition-transform duration-200 ease-in-out hover:scale-[1.2]",
                 selected ? "scale-[1.15]" : "scale-100",
               )}
               onClick={() => setThemeColor(color)}
               style={{ backgroundColor: color }}
               type="button"
             >
-              {selected && <MdCheck />}
+              {selected && <MdCheck className="text-lg text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.2)]" />}
             </button>
           );
         })}

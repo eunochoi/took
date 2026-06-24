@@ -25,6 +25,9 @@ type MenuPosition = {
 };
 
 const MENU_GAP = 6;
+const menuButtonClass = "flex items-center text-grey-title";
+const menuIconClass = "mr-1 text-lg leading-none";
+const menuTextClass = "text-sm";
 
 const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) => {
   const queryClient = useQueryClient();
@@ -141,7 +144,6 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
       className={cn(
         "absolute z-[1000] flex h-auto w-auto items-center gap-5 rounded-2xl px-5 py-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.18)] backdrop-blur-xl transition-opacity duration-200 ease-in-out",
         menuPosition ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
-        "[&>button]:flex [&>button]:items-center [&>button>span]:text-sm [&>button]:text-grey-title [&>button_.icon]:mr-1 [&>button_.icon]:text-lg [&>button_.icon]:leading-none [&>button:last-child]:text-[#d24343]",
       )}
       style={{
         top: menuPosition ? `${menuPosition.top}px` : '0',
@@ -149,17 +151,17 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
         backgroundColor: "color-mix(in srgb, var(--theme-bg, #f5f5fa) 90%, white)",
       }}
     >
-      <button onClick={onClickCopy} type="button">
-        <MdContentCopy className='icon' />
-        <span>텍스트 복사</span>
+      <button className={menuButtonClass} onClick={onClickCopy} type="button">
+        <MdContentCopy className={menuIconClass} />
+        <span className={menuTextClass}>텍스트 복사</span>
       </button>
-      <button onClick={onClickEdit} type="button">
-        <MdOutlineEdit className='icon' />
-        <span>수정</span>
+      <button className={menuButtonClass} onClick={onClickEdit} type="button">
+        <MdOutlineEdit className={menuIconClass} />
+        <span className={menuTextClass}>수정</span>
       </button>
-      <button onClick={onClickDeleteButton} type="button">
-        <MdOutlineDeleteForever className='icon' />
-        <span>삭제</span>
+      <button className={cn(menuButtonClass, "text-[#d24343]")} onClick={onClickDeleteButton} type="button">
+        <MdOutlineDeleteForever className={menuIconClass} />
+        <span className={menuTextClass}>삭제</span>
       </button>
     </div>,
     document.body,

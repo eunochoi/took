@@ -80,8 +80,10 @@ const CalendarHeader = ({
           </div>
         </header>
       )}
-      <div className="flex w-full justify-around py-1.5 text-base capitalize text-grey-title [&>span]:w-full [&>span]:text-center">
-        {WEEK_TITLE_ENG.map(e => <span key={e}>{e}</span>)}
+      <div className="flex w-full justify-around py-1.5 text-base capitalize text-grey-title">
+        {WEEK_TITLE_ENG.map(e => (
+          <span className="w-full text-center" key={e}>{e}</span>
+        ))}
       </div>
     </>
   );

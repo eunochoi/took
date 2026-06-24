@@ -13,6 +13,8 @@ interface Props {
   year: number;
 }
 
+const monthlyBarClass = "min-h-1 w-3/5 max-w-5 rounded-[3px] transition-[height] duration-300 ease-in-out";
+
 const DiaryAnalysis = ({ stats, year }: Props) => {
   const formatTextLength = (length: number) => {
     if (length < 1000) return { value: length, unit: '자' };
@@ -83,7 +85,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
               <div key={index} className="flex flex-1 flex-col items-center gap-1.5">
                 <div className="flex h-20 w-full items-end justify-center">
                   <div
-                    className={count > 0 ? "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-theme transition-[height] duration-300 ease-in-out" : "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-[rgba(var(--greyTitle),0.15)] transition-[height] duration-300 ease-in-out"}
+                    className={count > 0 ? `${monthlyBarClass} bg-theme` : `${monthlyBarClass} bg-[rgba(var(--greyTitle),0.15)]`}
                     style={{ height: `${barHeight}px` }}
                   />
                 </div>

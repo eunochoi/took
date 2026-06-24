@@ -35,9 +35,8 @@ export const ContentWrapper = forwardRef<HTMLDivElement, ContentWrapperProps>(
     },
     ref,
   ) => {
-    const baseGap = `${$gap ?? 0}px`;
     const contentStyle: ContentWrapperStyle = {
-      "--content-gap": baseGap,
+      "--content-gap": `${$gap ?? 0}px`,
       "--content-mobile-gap": `${$mobileGap ?? $gap ?? 0}px`,
       "--content-tablet-gap": `${$tabletGap ?? $gap ?? 0}px`,
       "--content-mobile-padding-top": `${$paddingTop ?? 0}px`,
@@ -57,8 +56,7 @@ export const ContentWrapper = forwardRef<HTMLDivElement, ContentWrapperProps>(
         className={cn(
           "flex h-auto w-full max-w-[650px] flex-col gap-[var(--content-gap)]",
           "max-[479px]:gap-[var(--content-mobile-gap)] max-[479px]:px-[4dvw] max-[479px]:pb-[var(--content-mobile-padding-bottom)] max-[479px]:pt-[var(--content-mobile-padding-top)]",
-          "min-[480px]:max-[1024px]:gap-[var(--content-tablet-gap)] min-[480px]:max-[1024px]:px-9 min-[480px]:max-[1024px]:pb-[var(--content-padding-bottom)] min-[480px]:max-[1024px]:pt-[var(--content-padding-top)]",
-          "min-[1025px]:px-9 min-[1025px]:pb-[var(--content-padding-bottom)] min-[1025px]:pt-[var(--content-padding-top)]",
+          "min-[480px]:gap-[var(--content-tablet-gap)] min-[480px]:px-9 min-[480px]:pb-[var(--content-padding-bottom)] min-[480px]:pt-[var(--content-padding-top)]",
           className,
         )}
         style={contentStyle}

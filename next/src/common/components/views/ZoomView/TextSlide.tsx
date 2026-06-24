@@ -13,17 +13,22 @@ export const TextSlide = ({ diaryData }: TextSlideProps) => {
   const emotion = EMOTIONS[diaryData?.emotion];
 
   return (
-    <div className="slideChild flex h-full w-full shrink-0 flex-col justify-center gap-8 p-6 min-[480px]:max-[1023px]:gap-3 min-[480px]:max-[1023px]:px-[4dvw] min-[480px]:max-[1023px]:py-3">
-      <div className="flex justify-center min-[480px]:max-[1023px]:[&>img]:h-12 min-[480px]:max-[1023px]:[&>img]:w-12">
+    <div className="slideChild flex h-full w-full shrink-0 flex-col justify-center gap-8 p-6">
+      <div className="flex justify-center">
         <Image
+          className="h-16 w-16"
           width={64}
           height={64}
           src={emotion?.src}
           alt={emotion?.nameKr || '감정'} />
       </div>
       {diaryData?.Habits.length > 0 &&
-        <div className="flex flex-wrap [&>span]:mr-2 [&>span]:shrink-0 [&>span]:whitespace-nowrap [&>span]:text-app [&>span]:text-theme">
-          {diaryData?.Habits?.map((e: { name: string }) => <span key={e.name}>#{e.name}</span>)}
+        <div className="flex flex-wrap gap-x-2">
+          {diaryData?.Habits?.map((e: { name: string }) => (
+            <span className="shrink-0 whitespace-nowrap text-app text-theme" key={e.name}>
+              #{e.name}
+            </span>
+          ))}
         </div>}
       <div className="h-full w-full overflow-y-scroll whitespace-pre-wrap break-words text-app leading-[1.8] text-grey-title">{text}</div>
     </div>

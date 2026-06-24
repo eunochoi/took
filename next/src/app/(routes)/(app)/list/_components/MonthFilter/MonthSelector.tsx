@@ -17,6 +17,7 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
   const monthsBottomEng = ['jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
   const [touchStartX, setTouchStartX] = useState<number>(0);
+  const yearButtonClass = "px-2 py-[3px] text-base text-grey-title";
 
   const goToNextYear = () => {
     setSelectedYear(c => c + 1);
@@ -43,28 +44,28 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
       <button
         className={cn(
           "flex w-[16%] flex-col items-center justify-center",
-          selected && "rounded-[14px] [&>span]:text-white",
+          selected && "rounded-[14px]",
         )}
         key={'month' + month}
         onClick={() => selectMonth(month)}
         style={selected ? { backgroundColor: "color-mix(in srgb, var(--theme-color) 65%, white)" } : undefined}
         type="button"
       >
-        <span className="text-sm text-grey-title">{month}</span>
-        <span className="text-sm capitalize text-gray-400">{label}</span>
+        <span className={cn("text-sm text-grey-title", selected && "text-white")}>{month}</span>
+        <span className={cn("text-sm capitalize text-gray-400", selected && "text-white")}>{label}</span>
       </button>
     );
   };
 
   return (
     <div>
-      <div className="flex w-full items-center justify-between p-2 min-[480px]:max-[1023px]:px-0 min-[480px]:max-[1023px]:py-1.5 [&>button]:px-2 [&>button]:py-[3px] [&>button]:text-base [&>button]:text-grey-title">
-        <button onClick={goToPreYear} type="button"><MdKeyboardArrowLeft /></button>
-        <button onClick={goToCurrentDate} type="button">{selectedYear}</button>
-        <button onClick={goToNextYear} type="button"><MdKeyboardArrowRight /></button>
+      <div className="flex w-full items-center justify-between p-2">
+        <button className={yearButtonClass} onClick={goToPreYear} type="button"><MdKeyboardArrowLeft /></button>
+        <button className={yearButtonClass} onClick={goToCurrentDate} type="button">{selectedYear}</button>
+        <button className={yearButtonClass} onClick={goToNextYear} type="button"><MdKeyboardArrowRight /></button>
       </div>
       <div
-        className="flex h-[150px] w-full flex-col items-center justify-center min-[480px]:max-[1023px]:h-[120px]"
+        className="flex h-[150px] w-full flex-col items-center justify-center"
         onTouchStart={(e: any) => {
           setTouchStartX(e.changedTouches[0].clientX);
         }}

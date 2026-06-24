@@ -15,12 +15,19 @@ interface Props {
   onSubmit: () => void;
 }
 
-const panelClass =
-  "fixed -top-[3px] flex shrink-0 flex-col items-center justify-start overflow-hidden backdrop-blur-2xl " +
-  "max-[479px]:max-h-[calc(100dvh-var(--mobileHeader))] max-[479px]:w-full max-[479px]:origin-top max-[479px]:gap-5 max-[479px]:overflow-y-auto max-[479px]:overflow-x-hidden max-[479px]:rounded-b-[28px] max-[479px]:px-6 max-[479px]:pb-6 max-[479px]:pt-[calc(var(--mobileHeader)+24px)] max-[479px]:shadow-[0_4px_20px_rgba(0,0,0,0.08)] max-[479px]:transition-transform max-[479px]:duration-300 max-[479px]:ease-in-out " +
-  "min-[480px]:max-[1024px]:left-1/2 min-[480px]:max-[1024px]:top-[50dvh] min-[480px]:max-[1024px]:z-[999] min-[480px]:max-[1024px]:max-h-[80dvh] min-[480px]:max-[1024px]:w-[400px] min-[480px]:max-[1024px]:-translate-x-1/2 min-[480px]:max-[1024px]:-translate-y-1/2 min-[480px]:max-[1024px]:gap-4 min-[480px]:max-[1024px]:rounded-[28px] min-[480px]:max-[1024px]:px-7 min-[480px]:max-[1024px]:py-6 min-[480px]:max-[1024px]:shadow-[0_4px_24px_rgba(0,0,0,0.1)] min-[480px]:max-[1024px]:transition-[opacity,visibility] min-[480px]:max-[1024px]:duration-300 " +
-  "min-[1025px]:left-1/2 min-[1025px]:top-[50dvh] min-[1025px]:max-h-[80dvh] min-[1025px]:w-[450px] min-[1025px]:-translate-x-1/2 min-[1025px]:-translate-y-1/2 min-[1025px]:gap-6 min-[1025px]:rounded-[28px] min-[1025px]:px-10 min-[1025px]:py-8 min-[1025px]:shadow-[0_4px_24px_rgba(0,0,0,0.1)] min-[1025px]:transition-[opacity,visibility] min-[1025px]:duration-300 " +
+const panelBaseClass =
+  "fixed -top-[3px] flex shrink-0 flex-col items-center justify-start overflow-hidden backdrop-blur-2xl";
+
+const panelMobileClass =
+  "max-[479px]:max-h-[calc(100dvh-var(--mobileHeader))] max-[479px]:w-full max-[479px]:origin-top max-[479px]:gap-5 max-[479px]:overflow-y-auto max-[479px]:overflow-x-hidden max-[479px]:rounded-b-[28px] max-[479px]:px-6 max-[479px]:pb-6 max-[479px]:pt-[calc(var(--mobileHeader)+24px)] max-[479px]:shadow-[0_4px_20px_rgba(0,0,0,0.08)] max-[479px]:transition-transform max-[479px]:duration-300 max-[479px]:ease-in-out";
+
+const panelFloatingClass =
+  "min-[480px]:left-1/2 min-[480px]:top-[50dvh] min-[480px]:z-[999] min-[480px]:max-h-[80dvh] min-[480px]:w-[400px] min-[480px]:-translate-x-1/2 min-[480px]:-translate-y-1/2 min-[480px]:gap-5 min-[480px]:rounded-[28px] min-[480px]:px-7 min-[480px]:py-6 min-[480px]:shadow-[0_4px_24px_rgba(0,0,0,0.1)] min-[480px]:transition-[opacity,visibility] min-[480px]:duration-300 min-[1025px]:w-[450px] min-[1025px]:gap-6 min-[1025px]:px-10 min-[1025px]:py-8";
+
+const panelLandscapeClass =
   "[@media(orientation:landscape)_and_(max-height:600px)]:max-h-[calc(100dvh-20px)] [@media(orientation:landscape)_and_(max-height:600px)]:justify-start [@media(orientation:landscape)_and_(max-height:600px)]:gap-4 [@media(orientation:landscape)_and_(max-height:600px)]:overflow-y-auto [@media(orientation:landscape)_and_(max-height:600px)]:px-6 [@media(orientation:landscape)_and_(max-height:600px)]:py-5 [@media(orientation:landscape)_and_(max-height:600px)]:pt-[calc(var(--mobileHeader)+20px)]";
+
+const panelActionButtonClass = "shrink-0 rounded-[14px] px-5 py-1.5 text-base shadow-card";
 
 export const SelectionPanel = ({
   isOpen,
@@ -36,7 +43,10 @@ export const SelectionPanel = ({
     <BackdropLayer isOpen={isOpen} onClose={onClose}>
       <div
         className={cn(
-          panelClass,
+          panelBaseClass,
+          panelMobileClass,
+          panelFloatingClass,
+          panelLandscapeClass,
           minHeightClassName,
           isOpen
             ? "max-[479px]:scale-y-100 min-[480px]:visible min-[480px]:opacity-100"
@@ -55,8 +65,8 @@ export const SelectionPanel = ({
           </button>
         )}
         <div className="flex items-center gap-3">
-          <button className="shrink-0 rounded-[14px] bg-white/90 px-5 py-1.5 text-base text-grey-title shadow-card min-[480px]:max-[1024px]:px-4 min-[480px]:max-[1024px]:py-1 min-[480px]:max-[1024px]:text-sm" onClick={onClose} type="button">취소</button>
-          <button className="shrink-0 rounded-[14px] bg-theme px-5 py-1.5 text-base text-white shadow-card min-[480px]:max-[1024px]:px-4 min-[480px]:max-[1024px]:py-1 min-[480px]:max-[1024px]:text-sm" onClick={onSubmit} type="button">확인</button>
+          <button className={cn(panelActionButtonClass, "bg-white/90 text-grey-title")} onClick={onClose} type="button">취소</button>
+          <button className={cn(panelActionButtonClass, "bg-theme text-white")} onClick={onSubmit} type="button">확인</button>
         </div>
       </div>
     </BackdropLayer>
