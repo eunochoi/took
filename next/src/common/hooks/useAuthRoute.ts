@@ -17,6 +17,8 @@ export function useAuthRoute() {
   });
 
   useEffect(() => {
+    if (typeof navigator !== 'undefined' && !navigator.onLine) return;
+
     if (!isLoading && isError) {
       console.error("🚨 인증되지 않은 사용자, 로그인 페이지로 리다이렉트합니다.", error);
       router.replace('/login');
