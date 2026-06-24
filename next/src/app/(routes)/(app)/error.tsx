@@ -2,13 +2,15 @@
 
 import { useEffect } from 'react';
 import { ErrorPage } from '@/common/components/ui/ErrorPage';
+import { ERROR_PAGE_PRESETS } from '@/common/components/ui/ErrorPage/presets';
 
 interface ErrorProps {
   error: Error & { digest?: string };
   reset: () => void;
 }
 
-// React Error Boundary
+// 로그인 후 앱 영역의 error boundary입니다.
+// (routes)/(app) 하위 화면 렌더링 중 예외가 발생하면 표시됩니다.
 export default function Error({ error, reset }: ErrorProps) {
   useEffect(() => {
     console.error('Error:', error);
@@ -16,14 +18,7 @@ export default function Error({ error, reset }: ErrorProps) {
 
   return (
     <ErrorPage
-      title="문제가 발생했습니다"
-      description={
-        <>
-          일시적인 오류가 발생했습니다.
-          <br />
-          잠시 후 다시 시도해주세요.
-        </>
-      }
+      {...ERROR_PAGE_PRESETS.appError}
       buttons={[
         {
           label: '다시 시도',
