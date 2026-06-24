@@ -21,7 +21,7 @@ const Devtools = () => {
 
   return (
     <>
-      <ReactQueryDevtools initialIsOpen={process.env.NEXT_PUBLIC_MODE === 'local'} />
+      <ReactQueryDevtools />
       {showDevtools && (
         <Suspense fallback={null}>
           <ReactQueryDevtoolsProduction />
