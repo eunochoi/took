@@ -15,13 +15,13 @@ const Logo = ({ size = 36, className }: LogoProps) => {
   return (
     <div className={cn("flex flex-col items-center justify-center gap-2", className)}>
       <div className="flex items-center justify-center">
-        <Image src={emotionsImage} alt="TO:OK Logo" width={imageSize} height={imageSize} priority />
+        <Image src={emotionsImage} alt="TOOK Logo" width={imageSize} height={imageSize} priority />
       </div>
       <span
         className="uppercase leading-[1.2] text-[#5C5C5C]"
         style={{ fontFamily: "var(--font-joti-one), 'Joti One', sans-serif", fontSize: `${size}px` }}
       >
-        TO:OK
+        TOOK
       </span>
     </div>
   );
