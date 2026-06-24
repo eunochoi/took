@@ -5,8 +5,8 @@ import { format, startOfMonth } from "date-fns";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 //function
-import { authAction } from "@/common/auth/authAction";
 import { getDiaryByDate, getMonthlyDiaryData } from "@/common/actions/diary";
+import { authAction } from "@/common/auth/authAction";
 
 //styledComponent
 
@@ -74,28 +74,28 @@ const CalendarView = ({ date }: CalendarViewProps) => {
     <AppPage
       contentVariant="fill"
       contentProps={{ $gap: 12, $mobileGap: 20, $tabletGap: 24, $paddingTop: 24 }}>
-        <div className="min-h-[520px] flex-[1_1_0] overflow-visible max-[479px]:min-h-[480px]">
-          <Calendar<DiaryDateData>
-            isTouchGestureEnabled={true}
-            variant="default"
+      <div className="min-h-[520px] flex-[1_1_0] overflow-visible max-[479px]:min-h-[380px]">
+        <Calendar<DiaryDateData>
+          isTouchGestureEnabled={true}
+          variant="default"
 
-            visibleMonth={visibleMonth}
-            setVisibleMonth={setVisibleMonth}
-            selectedDate={selectedDate}
-            dateDataMap={diaryDateDataMap}
-            renderDateContent={renderCalendarPageContent}
+          visibleMonth={visibleMonth}
+          setVisibleMonth={setVisibleMonth}
+          selectedDate={selectedDate}
+          dateDataMap={diaryDateDataMap}
+          renderDateContent={renderCalendarPageContent}
 
-            onClickDate={onClickDate}
-            onGoToday={onGoToday}
-          />
-        </div>
-        <div key={date} className="shrink-0 animate-[diary-card-enter_300ms_ease-in]">
-          {diaryData?.visible ? (
-            <Diary type="small" diaryData={diaryData} />
-          ) : (
-            <EmptyCalendarDiary date={date} habits={diaryData?.Habits} />
-          )}
-        </div>
+          onClickDate={onClickDate}
+          onGoToday={onGoToday}
+        />
+      </div>
+      <div key={date} className="shrink-0 animate-[diary-card-enter_300ms_ease-in]">
+        {diaryData?.visible ? (
+          <Diary type="small" diaryData={diaryData} />
+        ) : (
+          <EmptyCalendarDiary date={date} habits={diaryData?.Habits} />
+        )}
+      </div>
     </AppPage>
   );
 };
