@@ -6,10 +6,10 @@ import { useInView } from "react-intersection-observer";
 
 import EmotionFilter from "@/app/(routes)/(app)/list/_components/EmotionFilter";
 import MonthFilter from "@/app/(routes)/(app)/list/_components/MonthFilter";
+import { getDiaryList } from "@/common/actions/diary";
+import { authAction } from "@/common/auth/authAction";
 import AppPage from "@/common/components/layout/AppPage";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
-import { authAction } from "@/common/auth/authAction";
-import { getDiaryList } from "@/common/actions/diary";
 import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { EMOTIONS } from "@/common/constants/emotions";
 import { EMOTION_UNSELECTED, getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
@@ -84,25 +84,25 @@ const ListView = () => {
           size="default"
           onClick={sortOrderChange}
         >
-          <span>{toggleValue === 'DESC' ? 'New' : 'Old'}</span>
+          <span>{toggleValue === 'DESC' ? '최신순' : '과거순'}</span>
         </TopButton>
       </>}
       afterContent={<ScrollToTopButton contentRef={wrapperRef} />}>
-        <EmotionFilter
-          contentRef={wrapperRef}
-          isOpen={isEmotionFilterOpen}
-          onClose={closeEmotionFilter}
-          setEmotionToggle={setEmotionToggle}
-        />
-        <MonthFilter
-          contentRef={wrapperRef}
-          isOpen={isMonthFilterOpen}
-          onClose={closeMonthFilter}
-          setSelectedYear={setSelectedYear}
-          setSelectedMonth={setSelectedMonth}
-        />
-        {flatDiaries && <Diaries diaries={flatDiaries} />}
-        <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
+      <EmotionFilter
+        contentRef={wrapperRef}
+        isOpen={isEmotionFilterOpen}
+        onClose={closeEmotionFilter}
+        setEmotionToggle={setEmotionToggle}
+      />
+      <MonthFilter
+        contentRef={wrapperRef}
+        isOpen={isMonthFilterOpen}
+        onClose={closeMonthFilter}
+        setSelectedYear={setSelectedYear}
+        setSelectedMonth={setSelectedMonth}
+      />
+      {flatDiaries && <Diaries diaries={flatDiaries} />}
+      <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
     </AppPage>
   );
 }
