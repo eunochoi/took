@@ -3,8 +3,9 @@
 import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
+import OfflineScreen from "../components/ui/OfflineScreen";
 import { useAutoCloseSnackbar } from "../hooks/useAutoCloseSnackbar";
-import ServiceWorkerRegister from "../utils/ServiceWorkerRegister";
+import { ServiceWorkerRegister } from "../utils/ServiceWorker/ServiceWorkerRegister";
 import RQProvider from "./reactQuery/ReactQueryProvider";
 import CustomSnackbarProvider from "./snackbar/CustomSnackbarProvider";
 
@@ -19,7 +20,7 @@ interface Props {
  * - RQProvider: React Query 상태 관리
  * - CustomSnackbarProvider: 토스트 알림
  * - HydrationBoundary: 서버 데이터 hydration
- * - ServiceWorkerRegister: PWA service worker 등록
+ * - OfflineScreen: 오프라인 상태 화면
  */
 export const GlobalProviders = ({ children, dehydratedState }: Props) => {
   useAutoCloseSnackbar();
@@ -30,6 +31,7 @@ export const GlobalProviders = ({ children, dehydratedState }: Props) => {
         <CustomSnackbarProvider>
           <HydrationBoundary state={dehydratedState}>
             <ServiceWorkerRegister />
+            <OfflineScreen />
             {children}
           </HydrationBoundary>
         </CustomSnackbarProvider>

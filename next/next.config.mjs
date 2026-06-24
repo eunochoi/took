@@ -2,16 +2,29 @@
 
 import nextPWA from 'next-pwa';
 
+
 const dev = process.env.NODE_ENV === 'development';
 
 const withPWA = nextPWA({
   dest: 'public',
-  register: true,
+  register: false,
   skipWaiting: true,
-  disable: dev ? true : false,
-  // 에러 페이지 이미지 precache (오프라인 대응)
+  disable: dev,
+  buildExcludes: [
+    /app-build-manifest\.json$/,
+  ],
+  fallbacks: {
+    document: '/offline',
+  },
   additionalManifestEntries: [
-    { url: '/img/emotion/emotion1.png', revision: null }
+    {
+      url: '/offline',
+      revision: '1',
+    },
+    {
+      url: '/img/emotion/sad.png',
+      revision: '1',
+    },
   ],
   runtimeCaching: [
     {
@@ -19,6 +32,7 @@ const withPWA = nextPWA({
       handler: 'NetworkFirst',
       options: {
         cacheName: 'offlineCache',
+        networkTimeoutSeconds: 3,
         expiration: {
           maxEntries: 200,
         },

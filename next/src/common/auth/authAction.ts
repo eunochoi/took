@@ -11,6 +11,8 @@ interface AuthActionOptions {
 
 // 로그인 화면으로 이동
 const goToLogin = () => {
+  if (!navigator.onLine) return;
+
   if (window.location.pathname !== '/login') {
     window.location.replace('/login');
   }
@@ -18,6 +20,8 @@ const goToLogin = () => {
 
 // refreshToken으로 accessToken 재발급 요청
 const requestAccessTokenRefresh = async () => {
+  if (!navigator.onLine) return false;
+
   const response = await fetch('/api/auth/refresh', {
     method: 'POST',
     credentials: 'include',
