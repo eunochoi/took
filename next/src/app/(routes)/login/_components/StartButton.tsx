@@ -15,7 +15,7 @@ const StartButton = ({ provider, email }: StartButtonProps) => {
 
   return <button
     key={LOGIN_PROVIDERS[provider].id + '-start'}
-    className={cn("flex justify-between items-center gap-4 w-auto min-w-60 max-w-[80dvw] h-12 px-4 rounded-full border-2",
+    className={cn("flex justify-between items-center gap-4 w-auto min-w-60 max-w-[300px] h-12 px-4 rounded-full border-2",
       LOGIN_PROVIDERS[provider].bgColor
     )}
     onClick={() => router.push('/home')}
@@ -26,7 +26,7 @@ const StartButton = ({ provider, email }: StartButtonProps) => {
       height={24}
       alt={LOGIN_PROVIDERS[provider].id}
     />
-    <span className={cn('text-base font-semibold mr-1 w-full overflow-scroll', LOGIN_PROVIDERS[provider].textColor)}>
+    <span className={cn('text-base font-semibold mr-1 w-full truncate', LOGIN_PROVIDERS[provider].textColor)}>
       {email}
     </span>
     <span></span>
