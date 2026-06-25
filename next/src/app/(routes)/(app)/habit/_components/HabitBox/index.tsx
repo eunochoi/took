@@ -78,10 +78,10 @@ const HabitBox = ({ name, id, priority }: Props) => {
   };
 
   return (
-    <div className="flex aspect-[0.8] w-full flex-col items-center justify-evenly rounded-3xl bg-white/90 shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-xl">
-      <StarRating rating={priority + 1} />
-      <div className="flex h-auto w-full items-center justify-center text-center text-app font-medium text-grey-title">
-        <span className="max-w-[90%] overflow-scroll whitespace-nowrap">{name}</span>
+    <div className="flex aspect-[0.8] py-2 w-full flex-col items-center justify-evenly rounded-3xl bg-white/90 shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-xl">
+      <div className="flex flex-col gap-1 h-auto w-full items-center justify-center text-center text-app font-medium text-grey-title">
+        <StarRating rating={priority + 1} />
+        <span className="max-w-[90%] text-base truncate">{name}</span>
       </div>
       <div className="my-1.5 flex h-auto w-full items-center justify-evenly">
         {recentDateArray.map((date, i: number) => {
@@ -89,7 +89,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
 
           return (
             <div key={`${date}-${name}`} className="flex h-full items-center justify-center">
-              <label htmlFor={`${date}-${name}`} className="flex h-full flex-col items-center justify-between text-sm font-medium text-gray-500">
+              <label htmlFor={`${date}-${name}`} className="flex h-full flex-col items-center justify-between text-base font-medium text-gray-500">
                 <span className={i === 0 ? "text-theme" : "text-grey-title"}>{format(date, 'eee', { locale: ko })}</span>
                 <span className="my-0.5">{format(date, 'd')}</span>
                 <input
