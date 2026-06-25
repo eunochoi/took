@@ -6,6 +6,7 @@ import { AppCardGrid, AppSurfaceCard } from "@/common/components/ui/AppSection/c
 import { AppInfoCard, AppInfoContent, AppInfoText } from "@/common/components/ui/AppSection/info";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
+import { cn } from "@/common/utils/cn";
 import { getStreakMessage } from "../_messages/streakMessages";
 
 interface Props {
@@ -13,7 +14,7 @@ interface Props {
   year: number;
 }
 
-const monthlyBarClass = "min-h-1 w-3/5 max-w-5 rounded-[3px] transition-[height] duration-300 ease-in-out";
+const monthlyBarClass = "min-h-1 w-3 max-w-5 rounded-[3px] transition-[height] duration-300 ease-in-out";
 
 const DiaryAnalysis = ({ stats, year }: Props) => {
   const formatTextLength = (length: number) => {
@@ -75,27 +76,47 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         </AppInfoText>
       </AppInfoCard>
 
-      <AppSurfaceCard className="flex flex-col gap-6">
-        <span className="flex justify-center text-base text-grey-title">{year}년 월간 기록 그래프</span>
-        <div className="flex flex-row px-2 py-4">
+      <AppSurfaceCard className="flex flex-col gap-2">
+        <div className="flex flex-row px-2 py-2">
           {(stats?.monthlyCount ?? Array(12).fill(0)).map((count, index) => {
             const maxCount = Math.max(...(stats?.monthlyCount ?? [1]), 1);
-            const barHeight = count > 0 ? Math.max((count / maxCount) * 72, 8) : 4;
+            const barHeight = count > 0 ? Math.max((count / maxCount) * 112, 8) : 4;
+
             return (
               <div key={index} className="flex flex-1 flex-col items-center gap-1.5">
-                <div className="flex h-20 w-full items-end justify-center">
-                  <div
-                    className={count > 0 ? `${monthlyBarClass} bg-theme` : `${monthlyBarClass} bg-[rgba(var(--greyTitle),0.15)]`}
-                    style={{ height: `${barHeight}px` }}
-                  />
+                <div className="flex h-32 w-full items-end justify-center">
+                  <div className="flex flex-col items-center gap-1">
+                    {count > 0 && (
+                      <span className="text-sm font-medium leading-none text-theme">
+                        {count}
+                      </span>
+                    )}
+
+                    <div
+                      className={cn(
+                        monthlyBarClass,
+                        count > 0
+                          ? 'bg-theme'
+                          : 'bg-[rgba(var(--greyTitle),0.15)]',
+                      )}
+                      style={{ height: `${barHeight}px` }}
+                    />
+                  </div>
                 </div>
-                <span className="text-sm text-[rgba(var(--greyTitle),0.6)]">{index + 1}</span>
+
+                <span className="text-base text-[#8a8da3]">
+                  {index + 1}
+                </span>
               </div>
             );
           })}
         </div>
+
+        <span className="flex justify-center text-sm text-theme">
+          * {year}년 월간 기록 그래프
+        </span>
       </AppSurfaceCard>
-    </AppSection>
+    </AppSection >
   );
 };
 
