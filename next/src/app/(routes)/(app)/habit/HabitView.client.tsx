@@ -43,6 +43,8 @@ const HabitView = () => {
     queryFn: () => authAction(() => getHabitList({ sort: toggleValue, customOrder })),
   });
 
+  const totalHabitCount = habits?.length ? habits?.length : 0;
+
   const onAddHabit = () => {
     if (habits && habits.length >= MAX_HABIT_COUNT) {
       enqueueSnackbar(`습관은 최대 ${MAX_HABIT_COUNT}개 생성 가능합니다.`);
@@ -62,8 +64,8 @@ const HabitView = () => {
         </TopButton>
       }>
       <PageTitle
-        title={`목표 습관 ${todayDoneHabitRate}% 완료`}
-        description={`오늘의 목표 습관 ${todayDoneHabitCount}개를 실천하셨습니다 :)`}
+        title={`오늘의 습관 ${todayDoneHabitRate}% 완료`}
+        description={`목표 습관 ${totalHabitCount}개 중 ${todayDoneHabitCount}개를 완료했어요. :)`}
         className="mb-7"
       />
 
