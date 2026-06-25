@@ -7,9 +7,9 @@ interface SettingItemProps {
 
 export const SettingItem = ({ settingItemKey, settingItemValue }: SettingItemProps) => {
   return (
-    <span className="box-border flex w-full justify-between py-2 text-gray-400">
-      <span className="text-sm capitalize">{settingItemKey}</span>
-      <span className="text-sm">{settingItemValue}</span>
+    <span className="box-border flex w-full justify-between items-center py-2 text-gray-400">
+      <span className="flex justify-between items-center text-base capitalize">{settingItemKey}</span>
+      <span className="flex justify-between items-center text-base">{settingItemValue}</span>
     </span>
   );
 };
