@@ -1,6 +1,5 @@
 'use client';
 
-import { MdAndroid } from 'react-icons/md';
 
 import AppPage from "@/common/components/layout/AppPage";
 import PageTitle from "@/common/components/ui/PageTitle";
@@ -14,6 +13,9 @@ import { useRouter } from 'next/navigation';
 import { AccountInfoSection } from "./_components/AccountInfoSection";
 import { AccountManageSection } from "./_components/AccountManageSection";
 import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
+
+import { MdPrivacyTip } from "react-icons/md";
+
 
 const SettingPage = () => {
   usePrefetchPage();
@@ -30,19 +32,19 @@ const SettingPage = () => {
       contentVariant="normal"
       contentProps={{ $gap: 24 }}
       topButtons={<>
+        <TopButton
+          size="auto"
+          onClick={() => router.push('/privacy')}
+        >
+          <MdPrivacyTip />
+        </TopButton>
         <TopButtonLink
           size="auto"
           href="https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share"
           target="_blank"
           rel="noopener noreferrer">
-          <MdAndroid />
+          PlayStore
         </TopButtonLink>
-        <TopButton
-          size="default"
-          onClick={() => router.push('/')}
-        >
-          intro
-        </TopButton>
       </>}>
 
       <PageTitle title="앱 설정" />
