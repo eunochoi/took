@@ -11,7 +11,6 @@ import { format } from "date-fns";
 import TopButton from '@/common/components/ui/TopButtons/TopButton';
 import { useRouter } from 'next/navigation';
 import { AccountInfoSection } from "./_components/AccountInfoSection";
-import { AccountManageSection } from "./_components/AccountManageSection";
 import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
 
 import { MdPrivacyTip } from "react-icons/md";
@@ -51,8 +50,6 @@ const SettingPage = () => {
 
       <ThemeSettingsSection />
       <AccountInfoSection email={email} provider={provider} createAt={createAt} />
-      <AccountManageSection />
-
     </AppPage >
   );
 };

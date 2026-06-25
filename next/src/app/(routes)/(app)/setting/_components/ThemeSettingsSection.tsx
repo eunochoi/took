@@ -14,25 +14,25 @@ export const ThemeSettingsSection = () => {
   const router = useRouter();
 
   return (
-    <SettingSectionCard title="테마 설정">
-      <SettingSubsection title="메인 색상">
+    <SettingSectionCard title="테마" gap={24}>
+      <SettingSubsection title="테마 색상">
         <ThemeColorSelector />
       </SettingSubsection>
 
       <SettingSubsection title="폰트">
         <SettingItem
-          settingItemKey="다이어리 글씨 크기"
+          settingItemKey="다이어리 글씨 크기 선택"
           settingItemValue={<FontSizeSelector />}
         />
         <SettingItem
-          settingItemKey="폰트 타입"
+          settingItemKey="폰트 타입 선택"
           settingItemValue={<FontTypeSelector />}
         />
       </SettingSubsection>
 
-      <SettingSubsection title="습관">
+      <SettingSubsection title="습관 정렬">
         <SettingItem
-          settingItemKey="습관 순서 커스텀"
+          settingItemKey="습관 목록 순서 개인화"
           settingItemValue={
             <button
               onClick={() => {
@@ -40,7 +40,7 @@ export const ThemeSettingsSection = () => {
               }}
               type="button"
             >
-              <MdLowPriority />
+              <MdLowPriority className="text-xl" />
             </button>
           }
         />
