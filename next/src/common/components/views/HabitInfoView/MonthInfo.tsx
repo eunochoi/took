@@ -1,15 +1,15 @@
-import { authAction } from "@/common/auth/authAction";
 import { getHabitMonthlyStatus } from "@/common/actions/habit";
+import { authAction } from "@/common/auth/authAction";
 import { useQuery } from "@tanstack/react-query";
 import { differenceInCalendarDays, endOfMonth, format, isAfter, isBefore, isSameMonth, parseISO, startOfDay, startOfMonth, subDays } from "date-fns";
 import { notFound } from "next/navigation";
 import { Dispatch, SetStateAction, useEffect } from "react";
 
-import Calendar from "../../ui/Calendar";
 import { AppCardGrid, AppSurfaceCard } from "@/common/components/ui/AppSection/card";
 import { AppNoteCard } from "@/common/components/ui/AppSection/info";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
+import Calendar from "../../ui/Calendar";
 import { renderHabitInfoPageContent } from "./_utils/renderHabitInfoPageContent";
 
 interface Props {
@@ -93,7 +93,7 @@ const MonthInfo = ({ displayDate, habitId, setDisplayDate }: Props) => {
       </AppCardGrid>
 
       <AppNoteCard>
-        오늘 포함 최근 4일 동안만 습관 체크가 가능하며, 그보다 지난 날짜 중 완료하지 못한 횟수를 놓친 실천으로 계산해요.
+        * 오늘 포함 최근 4일 동안만 습관 체크가 가능하며, 그보다 지난 날짜 중 완료하지 못한 횟수를 놓친 실천으로 계산해요.
       </AppNoteCard>
 
       <AppSurfaceCard className="min-h-[430px] min-[480px]:min-h-[500px]">
