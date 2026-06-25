@@ -2,15 +2,15 @@ import { ReactNode } from 'react';
 import { MdCheckBox, MdLockOutline, MdLogin, MdPalette } from 'react-icons/md';
 
 import Logo from '@/common/components/ui/Logo';
-import IntroCtaButtons from './IntroCtaButtons';
-import IntroImageCarousel from './IntroImageCarousel';
 import { INTRO_IMAGES } from '../_constants/images';
 import {
+  INTRO_CARD_SHADOW,
   INTRO_PAGE_BG,
   INTRO_THEME_BG,
   INTRO_THEME_COLOR,
-  INTRO_CARD_SHADOW,
 } from '../_constants/theme';
+import IntroCtaButtons from './IntroCtaButtons';
+import IntroImageCarousel from './IntroImageCarousel';
 
 const HERO_IMAGES = [INTRO_IMAGES.pc_calendar, INTRO_IMAGES.pc_list, INTRO_IMAGES.pc_habit, INTRO_IMAGES.calendar];
 const HOME_IMAGES = [INTRO_IMAGES.pc_habitinfo1, INTRO_IMAGES.pc_habitinfo2, INTRO_IMAGES.habitinfo1];
@@ -64,7 +64,7 @@ const DesktopIntroView = () => {
             <div className="mb-1">
               <Logo size={64} />
             </div>
-            <h1 className="m-0 break-keep font-bmjua text-[52px] capitalize leading-[1.18] text-grey-title">TOOK! 오늘도 하나씩 :)</h1>
+            <h1 className="m-0 break-keep font-bmjua text-[52px] capitalize leading-[1.18] text-grey-title">툭! 오늘도 하나씩 :)</h1>
             <p className="m-0 break-keep text-[21px] leading-[1.7] text-grey-title">
               툭, 무심히 습관 발도장을 찍고 더 나은 나에게 OK를 건네세요.
               TOOK은 가볍게 기록하는 소리인 툭과, 더 좋은 방향으로 나아가자는 TO OK의 의미를 함께 담았습니다.

@@ -2,15 +2,15 @@ import { ReactNode } from 'react';
 import { MdCheckBox, MdLockOutline, MdLogin, MdPalette } from 'react-icons/md';
 
 import Logo from '@/common/components/ui/Logo';
-import IntroCtaButtons from './IntroCtaButtons';
-import IntroImageCarousel from './IntroImageCarousel';
 import { INTRO_IMAGES } from '../_constants/images';
 import {
+  INTRO_CARD_SHADOW,
   INTRO_PAGE_BG,
   INTRO_THEME_BG,
   INTRO_THEME_COLOR,
-  INTRO_CARD_SHADOW,
 } from '../_constants/theme';
+import IntroCtaButtons from './IntroCtaButtons';
+import IntroImageCarousel from './IntroImageCarousel';
 
 const HERO_IMAGES = [INTRO_IMAGES.calendar, INTRO_IMAGES.list, INTRO_IMAGES.habit];
 const HOME_IMAGES = [INTRO_IMAGES.habitinfo1, INTRO_IMAGES.habitinfo2, INTRO_IMAGES.calendar];
@@ -49,7 +49,7 @@ const MobileIntroView = () => {
         <section className="flex flex-col items-center gap-7 bg-white px-5 pb-14 pt-12">
           <Logo size={52} />
           <div className="flex flex-col items-center gap-3 text-center">
-            <h1 className="m-0 break-keep font-bmjua text-[32px] capitalize leading-tight text-grey-title">TOOK! 오늘도 하나씩 :)</h1>
+            <h1 className="m-0 break-keep font-bmjua text-[32px] capitalize leading-tight text-grey-title">툭! 오늘도 하나씩 :)</h1>
             <p className="m-0 flex flex-col gap-1 break-keep text-lg leading-normal text-grey-title">
               <span>툭, 무심히 습관 발도장을 찍고</span>
               <span>더 나은 나에게 OK를 건네세요.</span>
