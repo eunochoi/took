@@ -22,7 +22,7 @@ const AppUnderlineTabs = <T extends string | number>({
         <button
           key={option.value}
           className={cn(
-            "border-b-2 pb-1 text-base",
+            "border-b-2 pb-1 text-lg",
             value === option.value
               ? "border-theme font-semibold text-grey-title"
               : "border-transparent font-normal text-[rgba(var(--greyTitle),0.5)]",
