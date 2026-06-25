@@ -25,11 +25,6 @@ const DiaryInCalendar = ({ diaryData }: Props) => {
             <div className="[display:-webkit-box] overflow-hidden whitespace-pre-wrap break-words text-app leading-[1.35] text-gray-500 [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
               {diaryData.text}
             </div>
-            {/* {images.length > 0 && (
-              <button className="self-end text-right text-base text-theme" type="button">
-                {images.length} images ➝
-              </button>
-            )} */}
           </div>
           <DiaryHabits habits={diaryData.Habits} />
         </div>

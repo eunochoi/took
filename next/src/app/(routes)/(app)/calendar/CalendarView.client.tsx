@@ -89,7 +89,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
           onGoToday={onGoToday}
         />
       </div>
-      <div key={date} className="shrink-0 animate-[diary-card-enter_300ms_ease-in]">
+      <div key={date} className="shrink-0">
         {diaryData?.visible ? (
           <Diary type="small" diaryData={diaryData} />
         ) : (
