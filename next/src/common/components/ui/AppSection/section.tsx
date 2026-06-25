@@ -29,7 +29,7 @@ export const AppSectionTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTM
   ({ className, ...props }, ref) => (
     <h2
       ref={ref}
-      className={cn("m-0 text-lg font-bold text-grey-title", className)}
+      className={cn("m-0 text-xl font-bold text-grey-title", className)}
       {...props}
     />
   ),

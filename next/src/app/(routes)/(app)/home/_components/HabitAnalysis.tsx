@@ -53,10 +53,10 @@ const HabitAnalysis = ({ stats }: Props) => {
               className="min-w-0 items-center justify-center overflow-hidden px-2 py-3"
             >
               <StarRating rating={habit.priority + 1} className="shrink-0 gap-0.5 text-sm opacity-80" />
-              <span className="line-clamp-2 max-h-[calc(1.4em*2)] w-full min-w-0 break-words text-center text-sm font-semibold leading-[1.4] text-grey-title">
+              <span className="w-full min-w-0 text-center text-base truncate leading-[1.4] text-grey-title">
                 {habit.name}
               </span>
-              <span className="text-sm font-medium text-[rgba(var(--greyTitle),0.6)]">{habit.count}회</span>
+              <span className="text-base font-medium text-[rgba(var(--greyTitle),0.6)]">{habit.count}회</span>
             </AppStatCard>
           ))}
         </AppCardGrid> :

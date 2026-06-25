@@ -4,7 +4,7 @@ import { DiaryStats } from "@/common/actions/stats";
 
 import { AppCardGrid, AppSurfaceCard } from "@/common/components/ui/AppSection/card";
 import { AppInfoCard, AppInfoContent, AppInfoText } from "@/common/components/ui/AppSection/info";
-import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle, AppSubsectionTitle } from "@/common/components/ui/AppSection/section";
+import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
 import { getStreakMessage } from "../_messages/streakMessages";
 
@@ -75,9 +75,9 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         </AppInfoText>
       </AppInfoCard>
 
-      <div className="flex flex-col gap-6">
-        <AppSubsectionTitle>{year}년 월간 기록 그래프</AppSubsectionTitle>
-        <AppSurfaceCard className="flex items-end justify-between px-2 py-4">
+      <AppSurfaceCard className="flex flex-col gap-6">
+        <span className="flex justify-center text-base text-grey-title">{year}년 월간 기록 그래프</span>
+        <div className="flex flex-row px-2 py-4">
           {(stats?.monthlyCount ?? Array(12).fill(0)).map((count, index) => {
             const maxCount = Math.max(...(stats?.monthlyCount ?? [1]), 1);
             const barHeight = count > 0 ? Math.max((count / maxCount) * 72, 8) : 4;
@@ -93,8 +93,8 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
               </div>
             );
           })}
-        </AppSurfaceCard>
-      </div>
+        </div>
+      </AppSurfaceCard>
     </AppSection>
   );
 };
