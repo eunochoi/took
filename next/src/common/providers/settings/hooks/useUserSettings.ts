@@ -1,44 +1,64 @@
 'use client';
 
-import { useCallback } from 'react';
 import { useCurrentUser } from '@/common/hooks/useCurrentUser';
 import { useLocalStorage } from '@/common/hooks/useLocalStorage';
-import { LocalUserStorage } from '@/common/types';
-import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontType, THEME_COLORS } from '../SettingsContext';
+import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontSize, FontType, Setting, THEME_NAME_LIST, ThemeName } from '@/common/types/setting';
+import { useCallback } from 'react';
 
 export const useUserSettings = () => {
   const { data: user } = useCurrentUser();
-  const userStorageKey = user?.email;
+  const key = `took:${user?.email}:setting`;
 
-  const { value: userSettings, setStoredValue: setUserSettings } = useLocalStorage<LocalUserStorage>(userStorageKey, {});
-  const fontSize = userSettings?.fontSize ?? FONT_SIZE_LIST[1];
-  const fontType = userSettings?.fontType ?? FONT_TYPE_LIST[0];
-  const themeColor = userSettings?.themeColor ?? THEME_COLORS[0];
+  const { value: setting, setStoredValue: setSetting } = useLocalStorage<Setting>(key, {
+    font: {
+      size: '15px',
+      type: 'type1',
+    },
+    themeName: 'blue',
+  });
+  const fontSize = setting?.font?.size;
+  const fontType = setting?.font?.type;
+  const themeName = setting?.themeName;
 
-  const setFontSize = useCallback((size: string) => {
+  const setFontSize = useCallback((size: FontSize) => {
     if (FONT_SIZE_LIST.includes(size)) {
-      setUserSettings((prev) => ({ ...prev, fontSize: size }));
+      setSetting((prev) => ({
+        ...prev,
+        font: {
+          ...(prev.font),
+          size,
+        }
+      }));
     }
-  }, [setUserSettings]);
+  }, [setSetting]);
 
   const setFontType = useCallback((type: FontType) => {
     if (FONT_TYPE_LIST.includes(type)) {
-      setUserSettings((prev) => ({ ...prev, fontType: type }));
+      setSetting((prev) => ({
+        ...prev,
+        font: {
+          ...(prev.font),
+          type,
+        }
+      }));
     }
-  }, [setUserSettings]);
+  }, [setSetting]);
 
-  const setThemeColor = useCallback((color: string) => {
-    if (THEME_COLORS.includes(color)) {
-      setUserSettings((prev) => ({ ...prev, themeColor: color }));
+  const setThemeName = useCallback((themeName: ThemeName) => {
+    if (THEME_NAME_LIST.includes(themeName)) {
+      setSetting((prev) => ({
+        ...prev,
+        themeName
+      }));
     }
-  }, [setUserSettings]);
+  }, [setSetting]);
 
   return {
     fontSize,
     fontType,
-    themeColor,
+    themeName,
     setFontSize,
     setFontType,
-    setThemeColor,
+    setThemeName,
   };
 };

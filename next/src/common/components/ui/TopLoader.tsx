@@ -1,13 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import NextTopLoader from 'nextjs-toploader';
+import { useEffect, useState } from 'react';
 
 import { useSettingsContext } from '@/common/providers/settings/useSettingsContext';
+import { THEME_VALUE } from '@/common/types/setting';
 
 export default function TopLoader() {
-  const { themeColor } = useSettingsContext();
+  const { theme } = useSettingsContext();
   const [isMounted, setIsMounted] = useState(false);
+  const accentColor = THEME_VALUE[theme.themeName].accent;
 
   // nextjs-toploader가 window 쓰는데 SSR엔 없어서 클라이언트에서만 마운트
   useEffect(() => {
@@ -20,7 +22,7 @@ export default function TopLoader() {
 
   return (
     <NextTopLoader
-      color={themeColor}
+      color={accentColor}
       height={3}
       showSpinner={false}
       crawlSpeed={200}

@@ -1,19 +1,18 @@
 'use client';
 
-import { FONT_SIZE_LIST } from "@/common/providers/settings/SettingsContext";
 import { useSettingsContext } from "@/common/providers/settings/useSettingsContext";
-
+import { FONT_SIZE_LIST } from "@/common/types/setting";
 import { SettingStepSelector } from "./SettingStepSelector";
 
 export const FontSizeSelector = () => {
-  const { fontSize, setFontSize } = useSettingsContext();
+  const { font } = useSettingsContext();
 
   return (
     <SettingStepSelector
-      value={fontSize}
+      value={font.size}
       values={FONT_SIZE_LIST}
-      displayValue={fontSize}
-      onChange={setFontSize}
+      displayValue={font.size}
+      onChange={font.setFontSize}
     />
   );
 };

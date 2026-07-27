@@ -2,28 +2,29 @@
 
 import { MdCheck } from 'react-icons/md';
 
-import { cn } from "@/common/utils/cn";
-import { THEME_COLORS } from "@/common/providers/settings/SettingsContext";
 import { useSettingsContext } from "@/common/providers/settings/useSettingsContext";
+import { THEME_NAME_LIST, THEME_VALUE } from '@/common/types/setting';
+import { cn } from "@/common/utils/cn";
 
 export const ThemeColorSelector = () => {
-  const { themeColor, setThemeColor } = useSettingsContext();
-
+  const { theme } = useSettingsContext();
+  const currentThemeName = theme.themeName;
+  const setThemeName = theme.setThemeName;
   return (
     <div className="py-3">
       <div className="flex w-full items-center justify-between">
-        {THEME_COLORS.map((color) => {
-          const selected = themeColor === color;
+        {THEME_NAME_LIST.map((themeName) => {
+          const selected = themeName === currentThemeName;
 
           return (
             <button
-              key={color}
+              key={themeName}
               className={cn(
                 "flex h-[42px] w-[42px] items-center justify-center rounded-full transition-transform duration-200 ease-in-out hover:scale-[1.2]",
                 selected ? "scale-[1.15]" : "scale-100",
               )}
-              onClick={() => setThemeColor(color)}
-              style={{ backgroundColor: color }}
+              onClick={() => setThemeName(themeName)}
+              style={{ backgroundColor: THEME_VALUE[themeName].accent }}
               type="button"
             >
               {selected && <MdCheck className="text-lg text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.2)]" />}

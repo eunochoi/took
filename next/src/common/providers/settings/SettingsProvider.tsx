@@ -9,27 +9,33 @@ import { useUserSettings } from './hooks/useUserSettings';
 import { SettingsContext } from './SettingsContext';
 
 export function SettingsProvider({ children }: { children: ReactNode }) {
+  //load setting value, setter in local storage
   const {
     fontSize,
     fontType,
-    themeColor,
+    themeName,
     setFontSize,
     setFontType,
-    setThemeColor,
+    setThemeName,
   } = useUserSettings();
 
-  useApplyThemeColor(themeColor);
+  //apply setting value
+  useApplyThemeColor(themeName);
   useApplyFontSize(fontSize);
   useApplyFontType(fontType);
 
   const value = useMemo(() => ({
-    fontSize,
-    fontType,
-    themeColor,
-    setFontSize,
-    setFontType,
-    setThemeColor,
-  }), [fontSize, fontType, themeColor, setFontSize, setFontType, setThemeColor]);
+    font: {
+      size: fontSize,
+      type: fontType,
+      setFontSize,
+      setFontType,
+    },
+    theme: {
+      themeName,
+      setThemeName,
+    }
+  }), [fontSize, fontType, themeName, setFontSize, setFontType, setThemeName]);
 
   return (
     <SettingsContext.Provider value={value}>

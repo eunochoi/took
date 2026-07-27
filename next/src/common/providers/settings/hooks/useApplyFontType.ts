@@ -1,7 +1,7 @@
 'use client';
 
+import { FontType } from '@/common/types/setting';
 import { useEffect } from 'react';
-import { FontType } from '../SettingsContext';
 
 export const useApplyFontType = (fontType: FontType) => {
   useEffect(() => {

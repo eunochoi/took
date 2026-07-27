@@ -1,11 +1,12 @@
 'use client';
 
+import { THEME_VALUE, ThemeName } from '@/common/types/setting';
 import { useEffect } from 'react';
-import { getThemeBackgroundColor } from '../utils/getThemeBackgroundColor';
 
-export const useApplyThemeColor = (themeColor: string) => {
+export const useApplyThemeColor = (themeName: ThemeName) => {
   useEffect(() => {
-    const bgColor = getThemeBackgroundColor(themeColor);
+    const themeColor = THEME_VALUE[themeName].accent;
+    const bgColor = THEME_VALUE[themeName].bg;
     document.body.style.backgroundColor = bgColor;
     document.documentElement.style.setProperty('--theme-color', themeColor);
     document.documentElement.style.setProperty('--theme-bg', bgColor);
@@ -25,5 +26,5 @@ export const useApplyThemeColor = (themeColor: string) => {
         style: 'dark'
       }));
     }
-  }, [themeColor]);
+  }, [themeName]);
 };
