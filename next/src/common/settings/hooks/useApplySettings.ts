@@ -1,6 +1,6 @@
 'use client';
 
-import { FontSize, FontType, ThemeMode, ThemeName } from '@/common/types/setting';
+import { FontSize, FontType, THEME_VALUE, ThemeMode, ThemeName } from '@/common/types/setting';
 import { useEffect } from 'react';
 
 interface useApplySettingsProps {
@@ -23,6 +23,23 @@ export const useApplySettings = ({ accent, mode, fontSize, fontType }: useApplyS
   // apply accent Color
   useEffect(() => {
     document.documentElement.dataset.themeAccent = accent;
+    const bgColor = THEME_VALUE[accent].accent;
+    //apply status bar color for web
+    let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (!metaThemeColor) {
+      metaThemeColor = document.createElement('meta');
+      metaThemeColor.setAttribute('name', 'theme-color');
+      document.head.appendChild(metaThemeColor);
+    }
+    metaThemeColor.setAttribute('content', bgColor);
+    //apply status bar color for ReactNativeWeb
+    if (typeof window !== 'undefined' && (window as any).ReactNativeWebView) {
+      (window as any).ReactNativeWebView.postMessage(JSON.stringify({
+        type: 'THEME_CHANGE',
+        color: bgColor,
+        style: 'dark'
+      }));
+    }
   }, [accent]);
 
   //apply theme mode
