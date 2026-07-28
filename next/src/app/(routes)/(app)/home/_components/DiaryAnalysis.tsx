@@ -104,7 +104,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
                   </div>
                 </div>
 
-                <span className="text-base text-[#8a8da3]">
+                <span className="text-sm text-[#8a8da3]">
                   {index + 1}
                 </span>
               </div>

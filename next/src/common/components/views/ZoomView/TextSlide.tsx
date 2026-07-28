@@ -25,12 +25,12 @@ export const TextSlide = ({ diaryData }: TextSlideProps) => {
       {diaryData?.Habits.length > 0 &&
         <div className="flex flex-wrap gap-x-2">
           {diaryData?.Habits?.map((e: { name: string }) => (
-            <span className="shrink-0 whitespace-nowrap text-app text-theme" key={e.name}>
+            <span className="shrink-0 whitespace-nowrap text-base text-theme" key={e.name}>
               #{e.name}
             </span>
           ))}
         </div>}
-      <div className="h-full w-full overflow-y-scroll whitespace-pre-wrap break-words text-app leading-[1.8] text-grey-title">{text}</div>
+      <div className="h-full w-full overflow-y-scroll whitespace-pre-wrap break-words text-base leading-[1.8] text-grey-title">{text}</div>
     </div>
   );
 };

@@ -23,7 +23,7 @@ export const Diaries = ({ diaries }: DiariesProps) => {
           if (currentDiaryDate !== previousDiaryDate) {
             return (
               <React.Fragment key={'listNote' + i}>
-                <span className="my-4 flex w-full items-center justify-start  text-[32px] capitalize text-grey-title max-[479px]:w-[90dvw] min-[1025px]:my-7 min-[1025px]:text-4xl">
+                <span className="my-4 flex w-full items-center justify-start  text-3xl capitalize text-grey-title max-[479px]:w-[90dvw] min-[1025px]:my-7 min-[1025px]:text-4xl">
                   {currentDiaryDate}
                 </span>
                 <div className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
@@ -39,7 +39,7 @@ export const Diaries = ({ diaries }: DiariesProps) => {
           );
         })
         :
-        <div className="flex flex-col items-center justify-center gap-8 text-grey-title max-[479px]:pt-[25dvh] max-[479px]:text-lg min-[480px]:max-[1023px]:pt-8 min-[480px]:max-[1023px]:text-lg min-[1024px]:pt-[25dvh] min-[1024px]:text-[22px]">
+        <div className="flex flex-col items-center justify-center gap-8 text-grey-title max-[479px]:pt-[25dvh] max-[479px]:text-lg min-[480px]:max-[1023px]:pt-8 min-[480px]:max-[1023px]:text-lg min-[1024px]:pt-[25dvh] min-[1024px]:text-2xl">
           <Image src={EMOTIONS[1].src} alt={EMOTIONS[1].nameKr} width={128} height={128} />
           <span>작성된 일기가 존재하지 않습니다. :(</span>
         </div>}

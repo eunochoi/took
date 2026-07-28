@@ -23,8 +23,8 @@ const titlePaddingClass = {
 
 const titleTextClass = {
   small: "text-xl",
-  middle: "text-[26px]",
-  large: "text-[32px]",
+  middle: "text-2xl",
+  large: "text-3xl",
 } as const;
 
 const arrowButtonClass = {

@@ -21,13 +21,13 @@ const RESPONSIVE_IMAGES = [INTRO_IMAGES.list, INTRO_IMAGES.pc_list, INTRO_IMAGES
 const mobileSectionClass = "flex flex-col items-center gap-[22px] px-5 py-16";
 const mobileSectionHeaderClass = "flex w-full max-w-[620px] flex-col items-center gap-2.5 text-center";
 const mobileSectionTextClass = "m-0 max-w-[620px] break-keep text-center text-base leading-[1.65] text-[rgba(var(--greyTitle),0.72)]";
-const infoCardClass = "grid grid-cols-[32px_1fr] gap-x-3 gap-y-1 rounded-2xl bg-white/80 p-4";
+const infoCardClass = "grid grid-cols-[32px_1fr] gap-x-3 gap-y-1 rounded-2xl bg-theme-bg p-4";
 
 const MobileSection = ({ bg, title, meta, text, children }: { bg: 'white' | 'blue'; title: string; meta: string; text?: string; children: ReactNode }) => (
   <section className={mobileSectionClass} style={{ backgroundColor: bg === 'blue' ? INTRO_THEME_BG : 'white' }}>
     <div className={mobileSectionHeaderClass}>
       <h2 className="m-0 flex-1 break-keep  text-3xl capitalize leading-tight text-grey-title">{title}</h2>
-      <span className="whitespace-nowrap text-[15px] font-bold" style={{ color: INTRO_THEME_COLOR }}>{meta}</span>
+      <span className="whitespace-nowrap text-base font-bold" style={{ color: INTRO_THEME_COLOR }}>{meta}</span>
     </div>
     {text && <p className={mobileSectionTextClass}>{text}</p>}
     {children}
@@ -36,9 +36,9 @@ const MobileSection = ({ bg, title, meta, text, children }: { bg: 'white' | 'blu
 
 const InfoCard = ({ icon, title, text }: { icon: ReactNode; title: string; text: string }) => (
   <div className={infoCardClass} style={{ boxShadow: INTRO_CARD_SHADOW }}>
-    <span className="row-span-2 inline-flex h-7 w-7 text-[28px]" style={{ color: INTRO_THEME_COLOR }}>{icon}</span>
-    <strong className="text-[17px] text-grey-title">{title}</strong>
-    <span className="text-[15px] leading-normal text-[rgba(var(--greyTitle),0.64)]">{text}</span>
+    <span className="row-span-2 inline-flex h-7 w-7 text-2xl" style={{ color: INTRO_THEME_COLOR }}>{icon}</span>
+    <strong className="text-base text-grey-title">{title}</strong>
+    <span className="text-sm leading-normal text-[rgba(var(--greyTitle),0.64)]">{text}</span>
   </div>
 );
 
@@ -49,17 +49,14 @@ const MobileIntroView = () => {
         <section className="flex flex-col items-center gap-7 bg-white px-5 pb-14 pt-12">
           <Logo size={52} />
           <div className="flex flex-col items-center gap-3 text-center">
-            <h1 className="m-0 break-keep  text-[32px] capitalize leading-tight text-grey-title">툭! 오늘도 하나씩 :)</h1>
+            <h1 className="m-0 break-keep  text-3xl font-bold capitalize leading-tight text-grey-title">툭! 오늘도 하나씩 :)</h1>
             <p className="m-0 flex flex-col gap-1 break-keep text-lg leading-normal text-grey-title">
               <span>툭, 무심히 습관 발도장을 찍고</span>
               <span>더 나은 나에게 OK를 건네세요.</span>
             </p>
-            <p className="m-0 break-keep text-[15px] leading-[1.7] text-[rgba(var(--greyTitle),0.68)]">
-              TOOK은 가볍게 기록하는 소리인 툭과, 더 좋은 방향으로 나아가자는 TO OK의 의미를 함께 담았습니다.
-            </p>
           </div>
-          <IntroCtaButtons />
           <IntroImageCarousel images={HERO_IMAGES} height={420} priorityFirst sizes="90vw" />
+          <IntroCtaButtons />
         </section>
 
         <MobileSection bg="blue" title="홈에서 나의 흐름 확인" meta="일기와 습관 통계" text="감정 기록과 습관 실천 데이터를 한 화면에서 살펴보며 오늘의 상태를 빠르게 점검할 수 있습니다.">
@@ -88,8 +85,8 @@ const MobileIntroView = () => {
         </MobileSection>
 
         <section className="flex flex-col items-center gap-5 bg-white px-5 py-16">
-          <span className="inline-flex text-[32px]" style={{ color: INTRO_THEME_COLOR }}><MdCheckBox /></span>
-          <h2 className="m-0 break-keep text-center  text-[26px] leading-[1.35] text-grey-title">오늘도 툭, 더 나은 나에게 OK.</h2>
+          <span className="inline-flex text-2xl" style={{ color: INTRO_THEME_COLOR }}><MdCheckBox /></span>
+          <h2 className="m-0 break-keep text-center  text-xl leading-[1.35] text-grey-title">오늘도 툭, 더 나은 나에게 OK.</h2>
           <IntroCtaButtons />
         </section>
       </main>

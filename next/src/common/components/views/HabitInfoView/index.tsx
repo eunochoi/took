@@ -38,7 +38,7 @@ const HabitInfoView = ({ habitId }: Props) => {
         <div className="flex w-full flex-col gap-12 px-4 py-4 pb-6 min-[480px]:px-6 min-[480px]:py-5 min-[480px]:pb-7">
           <section className="flex w-full flex-col items-center gap-2">
             <StarRating rating={(habitDataById?.priority ?? 0) + 1} className="items-center justify-center text-lg" />
-            <div className="break-words text-center text-[28px] font-semibold uppercase text-grey-title">
+            <div className="break-words text-center text-2xl font-semibold uppercase text-grey-title">
               {habitDataById?.name ?? '-'}
             </div>
           </section>

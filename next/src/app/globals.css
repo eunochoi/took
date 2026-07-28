@@ -48,7 +48,8 @@
 :root {
   --theme-accent: #8CADE2;
   --theme-bg: #eaf1f9;
-  --app-font-size: 14px;
+  --app-font-size: 15px;
+  --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
 
   --greyTitle: 88, 88, 88;
 
@@ -140,20 +141,25 @@ html[data-font-type='type3'] {
 
 /* app font size */
 html[data-font-size='작게'] {
-  --app-font-size: 13px;
+  --app-font-size: 15px;
 }
 
 html[data-font-size='보통'] {
-  --app-font-size: 15px;
+  --app-font-size: 16px;
 }
 
 html[data-font-size='크게'] {
   --app-font-size: 17px;
 }
 
+html,
 html[data-font-type] body,
 html[data-font-type] body * {
   font-family: var(--app-font-family);
+}
+
+html {
+  font-size: var(--app-font-size);
 }
 
 

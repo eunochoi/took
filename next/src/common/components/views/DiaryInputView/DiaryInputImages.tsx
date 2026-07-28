@@ -116,7 +116,7 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
           type="button"
         >
           <input ref={imageUploadRef} type="file" accept={DIARY_IMAGE_ALLOWED_MIME_TYPES.join(',')} name="image" multiple hidden onChange={onChangeImages} />
-          <MdOutlineImage className="text-[32px] text-white" />
+          <MdOutlineImage className="text-3xl text-white" />
         </button>
       </div>
       {images?.length > 0 &&

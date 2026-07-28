@@ -22,7 +22,7 @@ export const AppStatLabel = forwardRef<HTMLParagraphElement, ParagraphProps>(
   ({ className, ...props }, ref) => (
     <p
       ref={ref}
-      className={cn("m-0 text-center text-base text-[#8a8da3]", className)}
+      className={cn("m-0 text-center text-sm text-[#8a8da3]", className)}
       {...props}
     />
   ),

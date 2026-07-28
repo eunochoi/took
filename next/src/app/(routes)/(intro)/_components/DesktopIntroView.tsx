@@ -49,7 +49,7 @@ const IntroSectionBlock = ({ bg, reverse, title, meta, text, children }: IntroSe
 
 const TrustCard = ({ icon, title, text }: { icon: ReactNode; title: string; text: string }) => (
   <div className={trustCardClass} style={{ backgroundColor: INTRO_THEME_BG, boxShadow: INTRO_CARD_SHADOW }}>
-    <span className="inline-flex h-[30px] w-[30px] text-[30px]" style={{ color: INTRO_THEME_COLOR }}>{icon}</span>
+    <span className="inline-flex h-[30px] w-[30px] text-2xl" style={{ color: INTRO_THEME_COLOR }}>{icon}</span>
     <strong className="text-lg text-grey-title">{title}</strong>
     <span className="text-base leading-normal text-[rgba(var(--greyTitle),0.64)]">{text}</span>
   </div>
@@ -64,8 +64,8 @@ const DesktopIntroView = () => {
             <div className="mb-1">
               <Logo size={64} />
             </div>
-            <h1 className="m-0 break-keep  text-[52px] capitalize leading-[1.18] text-grey-title">툭! 오늘도 하나씩 :)</h1>
-            <p className="m-0 break-keep text-[21px] leading-[1.7] text-grey-title">
+            <h1 className="m-0 break-keep  text-3xl capitalize leading-[1.18] text-grey-title">툭! 오늘도 하나씩 :)</h1>
+            <p className="m-0 break-keep text-xl leading-[1.7] text-grey-title">
               툭, 무심히 습관 발도장을 찍고 더 나은 나에게 OK를 건네세요.
               TOOK은 가볍게 기록하는 소리인 툭과, 더 좋은 방향으로 나아가자는 TO OK의 의미를 함께 담았습니다.
             </p>

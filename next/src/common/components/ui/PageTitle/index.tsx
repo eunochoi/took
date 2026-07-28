@@ -13,8 +13,8 @@ const PageTitle = ({ title, description, className }: PageTitleProps) => {
 
   return (
     <div className={cn("mt-4 flex flex-col items-start justify-center", hasDescription && "gap-2", className)}>
-      <span className="w-full  text-[32px] text-grey-title min-[1025px]:text-4xl">{title}</span>
-      {hasDescription && <span className="text-lg text-gray-500">{description}</span>}
+      <span className="w-full  text-3xl text-grey-title min-[1025px]:text-4xl">{title}</span>
+      {hasDescription && <span className="text-base text-gray-500">{description}</span>}
     </div>
   );
 };
