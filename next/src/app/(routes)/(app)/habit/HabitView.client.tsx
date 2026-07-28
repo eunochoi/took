@@ -54,7 +54,6 @@ const HabitView = () => {
     }
   };
 
-
   return (
     <AppPage
       contentVariant="normal"
@@ -64,8 +63,8 @@ const HabitView = () => {
         </TopButton>
       }>
       <PageTitle
-        title={`오늘의 습관 ${todayDoneHabitRate}% 완료`}
-        description={`목표 습관 ${totalHabitCount}개 중 ${todayDoneHabitCount}개를 완료했어요. :)`}
+        title={`오늘 ${todayDoneHabitRate}% 달성!`}
+        description={`오늘 목표 습관 ${totalHabitCount}개 중 ${todayDoneHabitCount}개를 완료했어요. :)`}
         className="mb-7"
       />
 
