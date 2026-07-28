@@ -15,10 +15,9 @@ const config: Config = {
         "theme-bg": "var(--theme-bg)",
         "grey-title": "rgb(var(--greyTitle))",
       },
-      // fontFamily: {
-      //   bmjua: ["BMJUA", "sans-serif"],
-      //   diary: ["HakgyoansimGeurimilgiTTF-R", "sans-serif"],
-      // },
+      fontFamily: {
+        title: ["Paperozi", "sans-serif"],
+      },
       fontSize: {
         app: "var(--app-font-size)",
       },

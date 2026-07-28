@@ -51,7 +51,7 @@ const CalendarHeader = ({
             <MdKeyboardArrowLeft />
           </button>
           <button
-            className={cn(" capitalize text-grey-title", titleTextClass[headerSize])}
+            className={cn("font-title font-bold capitalize text-grey-title", titleTextClass[headerSize])}
             onClick={goToday}
             type="button"
           >
@@ -64,7 +64,7 @@ const CalendarHeader = ({
       )}
       {headerTitlePosition === 'start' && (
         <header className={cn("flex items-center justify-between", 'pb-4')}>
-          <span className={cn(" capitalize text-grey-title", titleTextClass[headerSize])}>
+          <span className={cn("font-title font-bold capitalize text-grey-title", titleTextClass[headerSize])}>
             {title}
           </span>
           <div className="flex items-center justify-center gap-3">

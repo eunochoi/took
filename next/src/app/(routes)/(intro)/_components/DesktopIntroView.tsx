@@ -64,7 +64,7 @@ const DesktopIntroView = () => {
             <div className="mb-1">
               <Logo size={64} />
             </div>
-            <h1 className="m-0 break-keep  text-3xl capitalize leading-[1.18] text-grey-title">툭! 오늘도 하나씩 :)</h1>
+            <h1 className="m-0 break-keep text-3xl font-title font-bold capitalize leading-[1.18] text-grey-title">툭! 오늘도 하나씩 :)</h1>
             <p className="m-0 break-keep text-xl leading-[1.7] text-grey-title">
               툭, 무심히 습관 발도장을 찍고 더 나은 나에게 OK를 건네세요.
               TOOK은 가볍게 기록하는 소리인 툭과, 더 좋은 방향으로 나아가자는 TO OK의 의미를 함께 담았습니다.

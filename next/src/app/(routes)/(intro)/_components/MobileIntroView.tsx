@@ -49,7 +49,7 @@ const MobileIntroView = () => {
         <section className="flex flex-col items-center gap-7 bg-white px-5 pb-14 pt-12">
           <Logo size={52} />
           <div className="flex flex-col items-center gap-3 text-center">
-            <h1 className="m-0 break-keep  text-3xl font-bold capitalize leading-tight text-grey-title">툭! 오늘도 하나씩 :)</h1>
+            <h1 className="m-0 break-keep  text-3xl font-title font-bold capitalize leading-tight text-grey-title">툭! 오늘도 하나씩 :)</h1>
             <p className="m-0 flex flex-col gap-1 break-keep text-lg leading-normal text-grey-title">
               <span>툭, 무심히 습관 발도장을 찍고</span>
               <span>더 나은 나에게 OK를 건네세요.</span>
