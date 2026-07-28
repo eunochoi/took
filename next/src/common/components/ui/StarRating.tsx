@@ -11,7 +11,7 @@ interface StarRatingProps {
 export const StarRating = ({ rating, className, color }: StarRatingProps) => {
   return (
     <div
-      className={cn("flex gap-1 text-base text-theme", className)}
+      className={cn("flex gap-1 text-base text-theme-accent", className)}
       style={color ? { color } : undefined}
     >
       {Array.from({ length: rating }, (_, index) => (

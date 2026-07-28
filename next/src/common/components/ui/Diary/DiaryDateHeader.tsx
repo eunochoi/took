@@ -35,7 +35,7 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
       <div className="flex items-center gap-3">
         <span className="text-base font-semibold text-grey-title">{formattedDate}</span>
         {/* <span className="text-base font-semibold text-gray-400">{day}</span> */}
-        <span className="text-base font-semibold text-theme">
+        <span className="text-base font-semibold text-theme-accent">
           {EMOTIONS[diaryData.emotion]?.nameKr}
         </span>
         {diaryData.Images.length > 0 &&

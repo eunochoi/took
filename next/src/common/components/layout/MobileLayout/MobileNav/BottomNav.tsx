@@ -19,7 +19,7 @@ const BottomNav = () => {
             href={href}
             className={cn(
               "flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-[999px] text-xl transition-colors duration-[180ms]",
-              current === key ? "bg-theme text-white" : "bg-transparent text-[#999]",
+              current === key ? "bg-theme-accent text-white" : "bg-transparent text-[#999]",
             )}
           >
             <Icon />

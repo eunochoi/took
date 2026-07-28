@@ -32,7 +32,7 @@ export const AppInfoText = forwardRef<HTMLParagraphElement, ParagraphProps>(
   ({ className, ...props }, ref) => (
     <p
       ref={ref}
-      className={cn("m-0 break-words text-justify text-sm leading-normal text-theme", className)}
+      className={cn("m-0 break-words text-justify text-sm leading-normal text-theme-accent", className)}
       {...props}
     />
   ),
@@ -45,7 +45,7 @@ export const AppNoteCard = forwardRef<HTMLParagraphElement, ParagraphProps>(
       ref={ref}
       className={cn(
         APP_CARD_CLASS,
-        "m-0 break-keep px-4 py-5 text-justify text-sm leading-normal text-theme",
+        "m-0 break-keep px-4 py-5 text-justify text-sm leading-normal text-theme-accent",
         className,
       )}
       {...props}

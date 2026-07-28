@@ -40,7 +40,7 @@ export const AppSectionMeta = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpa
   ({ className, ...props }, ref) => (
     <span
       ref={ref}
-      className={cn("text-sm font-bold text-theme", className)}
+      className={cn("text-sm font-bold text-theme-accent", className)}
       {...props}
     />
   ),

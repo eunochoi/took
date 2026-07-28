@@ -17,41 +17,41 @@ const SideBar = () => {
       <div className="flex h-auto w-[70%] flex-col items-start justify-center gap-6">
         <Link
           href="/home"
-          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-gray-500 transition-colors duration-[180ms]", current === 'home' && "text-theme")}
+          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-gray-500 transition-colors duration-[180ms]", current === 'home' && "text-theme-accent")}
         >
           <MdHome className="icon" />
           <span>home</span>
         </Link>
         <Link
           href={`/calendar?date=${getTodayString()}`}
-          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-gray-500 transition-colors duration-[180ms]", current === 'calendar' && "text-theme")}
+          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-gray-500 transition-colors duration-[180ms]", current === 'calendar' && "text-theme-accent")}
         >
           <MdCalendarMonth className="icon" />
           <span>calendar</span>
         </Link>
         <Link
           href="/list"
-          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-gray-500 transition-colors duration-[180ms]", current === 'list' && "text-theme")}
+          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-gray-500 transition-colors duration-[180ms]", current === 'list' && "text-theme-accent")}
         >
           <MdViewList className="icon" />
           <span>list</span>
         </Link>
         <Link
           href="/habit"
-          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-gray-500 transition-colors duration-[180ms]", current === 'habit' && "text-theme")}
+          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-gray-500 transition-colors duration-[180ms]", current === 'habit' && "text-theme-accent")}
         >
           <MdCheckBox className="icon" />
           <span>habit</span>
         </Link>
         <Link
           href="/setting"
-          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-gray-500 transition-colors duration-[180ms]", current === 'setting' && "text-theme")}
+          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-gray-500 transition-colors duration-[180ms]", current === 'setting' && "text-theme-accent")}
         >
           <MdSettings className="icon" />
           <span>setting</span>
         </Link>
       </div>
-      <span className="w-full text-center text-base text-theme">eooooostudio@gmail.com</span>
+      <span className="w-full text-center text-base text-theme-accent">eooooostudio@gmail.com</span>
     </div>
   );
 };

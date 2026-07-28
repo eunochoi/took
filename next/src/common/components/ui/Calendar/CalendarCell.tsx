@@ -57,7 +57,7 @@ const CalendarCellComponent = <T,>({
     >
       <div
         className={cn(
-          "absolute top-0 z-[99] h-2.5 w-2.5 rounded-full bg-theme",
+          "absolute top-0 z-[99] h-2.5 w-2.5 rounded-full bg-theme-accent",
           isToday ? "block" : "hidden",
         )}
       />

@@ -13,9 +13,9 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => (
       <div className="flex flex-col items-center gap-6">
         <Logo size={48} />
         <div className="flex gap-2">
-          <div className="h-4 w-4 animate-pulse rounded-full bg-theme" />
-          <div className="h-4 w-4 animate-pulse rounded-full bg-theme [animation-delay:0.2s]" />
-          <div className="h-4 w-4 animate-pulse rounded-full bg-theme [animation-delay:0.4s]" />
+          <div className="h-4 w-4 animate-pulse rounded-full bg-theme-accent" />
+          <div className="h-4 w-4 animate-pulse rounded-full bg-theme-accent [animation-delay:0.2s]" />
+          <div className="h-4 w-4 animate-pulse rounded-full bg-theme-accent [animation-delay:0.4s]" />
         </div>
       </div>
     )}

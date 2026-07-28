@@ -44,7 +44,7 @@ export const AppStatValue = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanE
   ({ className, ...props }, ref) => (
     <span
       ref={ref}
-      className={cn("text-2xl font-extrabold leading-none text-theme min-[480px]:text-xl", className)}
+      className={cn("text-2xl font-extrabold leading-none text-theme-accent min-[480px]:text-xl", className)}
       {...props}
     />
   ),

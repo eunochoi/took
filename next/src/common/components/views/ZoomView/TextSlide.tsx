@@ -25,7 +25,7 @@ export const TextSlide = ({ diaryData }: TextSlideProps) => {
       {diaryData?.Habits.length > 0 &&
         <div className="flex flex-wrap gap-x-2">
           {diaryData?.Habits?.map((e: { name: string }) => (
-            <span className="shrink-0 whitespace-nowrap text-base text-theme" key={e.name}>
+            <span className="shrink-0 whitespace-nowrap text-base text-theme-accent" key={e.name}>
               #{e.name}
             </span>
           ))}

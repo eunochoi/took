@@ -37,7 +37,7 @@ const MonthlyBarChart = ({ data, year, onCurrentYear, onNextYear, onPrevYear }: 
               <div className="flex h-[178px] w-full flex-col items-center justify-end gap-1.5">
                 <div className="min-h-[18px] text-sm text-[rgba(var(--greyTitle),0.6)]">{hasValue && count}</div>
                 <div
-                  className={hasValue ? "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-theme transition-[height] duration-300 ease-in-out" : "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-[rgba(var(--greyTitle),0.15)] transition-[height] duration-300 ease-in-out"}
+                  className={hasValue ? "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-theme-accent transition-[height] duration-300 ease-in-out" : "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-[rgba(var(--greyTitle),0.15)] transition-[height] duration-300 ease-in-out"}
                   style={{ height: `${height}px` }}
                 />
               </div>

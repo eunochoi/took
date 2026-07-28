@@ -15,7 +15,7 @@ const DiaryAddButton = ({ date }: Props) => {
   return (
     <div className="box-border flex h-full w-full items-center justify-center">
       <button
-        className="flex items-center gap-2 text-base text-theme"
+        className="flex items-center gap-2 text-base text-theme-accent"
         onClick={onAddDiary}
         type="button"
       >

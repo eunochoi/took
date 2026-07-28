@@ -90,7 +90,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
           return (
             <div key={`${date}-${name}`} className="flex h-full items-center justify-center">
               <label htmlFor={`${date}-${name}`} className="flex h-full flex-col items-center justify-between text-base font-medium text-gray-500">
-                <span className={i === 0 ? "text-theme" : "text-grey-title"}>{format(date, 'eee', { locale: ko })}</span>
+                <span className={i === 0 ? "text-theme-accent" : "text-grey-title"}>{format(date, 'eee', { locale: ko })}</span>
                 <span className="my-0.5">{format(date, 'd')}</span>
                 <input
                   id={`${date}-${name}`}
@@ -101,7 +101,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
                     ontoggleHabit(e, format(date, 'yyyy-MM-dd'));
                   }} />
                 <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-black/5">
-                  <div className={cn("h-3 w-3 shrink-0 rounded-full transition-all duration-[400ms] ease-in-out", checked && "bg-theme")} />
+                  <div className={cn("h-3 w-3 shrink-0 rounded-full transition-all duration-[400ms] ease-in-out", checked && "bg-theme-accent")} />
                 </div>
               </label>
             </div>

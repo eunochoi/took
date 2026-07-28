@@ -110,7 +110,7 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
     <div className="flex h-auto w-full shrink-0 items-stretch gap-4 overflow-x-auto rounded-2xl bg-white/90 px-4 py-4 shadow-card [&::-webkit-scrollbar-thumb]:rounded-sm [&::-webkit-scrollbar-thumb]:bg-black/10 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:h-1">
       <div className={imageTileClass}>
         <button
-          className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-xl bg-theme shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-xl bg-theme-accent shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:shadow-[0_2px_8px_rgba(0,0,0,0.08)] disabled:cursor-not-allowed disabled:opacity-40"
           disabled={isLoading}
           onClick={() => imageUploadRef.current?.click()}
           type="button"
@@ -138,7 +138,7 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
                   unoptimized
                 />
                 <button
-                  className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-theme text-xl text-white transition-all duration-200 ease-in-out hover:scale-110 hover:opacity-90"
+                  className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-theme-accent text-xl text-white transition-all duration-200 ease-in-out hover:scale-110 hover:opacity-90"
                   onClick={() => handleRemoveImage(i)}
                   type="button"
                 >

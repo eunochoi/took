@@ -60,13 +60,13 @@ export const SelectionPanel = ({
           {children}
         </div>
         {resetLabel && onReset && (
-          <button className="flex items-center justify-center gap-2 text-base text-theme" onClick={onReset} type="button">
+          <button className="flex items-center justify-center gap-2 text-base text-theme-accent" onClick={onReset} type="button">
             {resetLabel}
           </button>
         )}
         <div className="flex items-center gap-3">
           <button className={cn(panelActionButtonClass, "bg-white/90 text-grey-title")} onClick={onClose} type="button">취소</button>
-          <button className={cn(panelActionButtonClass, "bg-theme text-white")} onClick={onSubmit} type="button">확인</button>
+          <button className={cn(panelActionButtonClass, "bg-theme-accent text-white")} onClick={onSubmit} type="button">확인</button>
         </div>
       </div>
     </BackdropLayer>

@@ -59,7 +59,7 @@ export const HabitOrderView = () => {
         <HabitList tempHabits={tempHabits} setTempHabits={setTempHabits} />
       </ModalBody>
       <ModalFooter>
-        <button className="text-base capitalize text-theme" onClick={onInitialize} type="button">변경사항 취소</button>
+        <button className="text-base capitalize text-theme-accent" onClick={onInitialize} type="button">변경사항 취소</button>
       </ModalFooter>
     </ModalRoot>);
 }

@@ -72,7 +72,7 @@ const HabitView = () => {
         {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
         {(habits?.length ?? 0) < MAX_HABIT_COUNT && (
           <button
-            className="flex aspect-[0.8] w-full shrink-0 items-center justify-center rounded-3xl bg-white/90 text-5xl text-theme shadow-[0_1px_8px_rgba(0,0,0,0.04)]"
+            className="flex aspect-[0.8] w-full shrink-0 items-center justify-center rounded-3xl bg-white/90 text-5xl text-theme-accent shadow-[0_1px_8px_rgba(0,0,0,0.04)]"
             onClick={onAddHabit}
             type="button"
           >

@@ -48,7 +48,7 @@ const DeleteAccountSnackbarContent = forwardRef<HTMLDivElement, CustomContentPro
             type="text"
             value={confirmText}
           />
-          {errorMessage && <span className="text-center text-sm font-medium text-theme">{errorMessage}</span>}
+          {errorMessage && <span className="text-center text-sm font-medium text-theme-accent">{errorMessage}</span>}
           <div className="flex justify-end gap-2">
             <button
               className="rounded-2xl bg-gray-100 px-4 py-1.5 font-medium text-gray-500 shadow-card"
@@ -60,7 +60,7 @@ const DeleteAccountSnackbarContent = forwardRef<HTMLDivElement, CustomContentPro
               취소
             </button>
             <button
-              className="rounded-2xl bg-theme px-4 py-1.5 font-medium text-white shadow-card"
+              className="rounded-2xl bg-theme-accent px-4 py-1.5 font-medium text-white shadow-card"
               onClick={onConfirm}
               type="button"
             >

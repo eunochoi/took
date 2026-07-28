@@ -87,7 +87,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
                 <div className="flex h-32 w-full items-end justify-center">
                   <div className="flex flex-col items-center gap-1">
                     {count > 0 && (
-                      <span className="text-sm font-medium leading-none text-theme">
+                      <span className="text-sm font-medium leading-none text-theme-accent">
                         {count}
                       </span>
                     )}
@@ -96,7 +96,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
                       className={cn(
                         monthlyBarClass,
                         count > 0
-                          ? 'bg-theme'
+                          ? 'bg-theme-accent'
                           : 'bg-[rgba(var(--greyTitle),0.15)]',
                       )}
                       style={{ height: `${barHeight}px` }}
@@ -112,7 +112,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
           })}
         </div>
 
-        <span className="flex justify-center text-sm text-theme">
+        <span className="flex justify-center text-sm text-theme-accent">
           * {year}년 월간 기록 그래프
         </span>
       </AppSurfaceCard>

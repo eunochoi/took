@@ -46,7 +46,7 @@ const ScrollToTopButton = ({ contentRef }: Props) => {
 
   return (
     <button
-      className="fixed right-[4dvw] flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-xl text-theme shadow-[0_1px_6px_rgba(0,0,0,0.06)] backdrop-blur-xl max-[479px]:bottom-[calc(var(--mobileNav)+20px)] min-[480px]:max-[1024px]:bottom-8 min-[1025px]:bottom-12"
+      className="fixed right-[4dvw] flex h-10 w-10 items-center justify-center rounded-full bg-white/80 text-xl text-theme-accent shadow-[0_1px_6px_rgba(0,0,0,0.06)] backdrop-blur-xl max-[479px]:bottom-[calc(var(--mobileNav)+20px)] min-[480px]:max-[1024px]:bottom-8 min-[1025px]:bottom-12"
       onClick={goToTop}
       type="button"
     >

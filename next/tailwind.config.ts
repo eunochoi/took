@@ -11,7 +11,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        theme: "var(--theme-accent)",
+        "theme-accent": "var(--theme-accent)",
         "theme-bg": "var(--theme-bg)",
         "grey-title": "rgb(var(--greyTitle))",
       },

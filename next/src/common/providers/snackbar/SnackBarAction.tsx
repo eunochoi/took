@@ -14,7 +14,7 @@ export const SnackBarAction = ({ yesAction, noAction }: SnackBarActionProps) => 
         취소
       </button>
       <button
-        className="rounded-2xl bg-theme px-4 py-1.5 font-medium text-white shadow-card"
+        className="rounded-2xl bg-theme-accent px-4 py-1.5 font-medium text-white shadow-card"
         onClick={yesAction}
         type="button"
       >

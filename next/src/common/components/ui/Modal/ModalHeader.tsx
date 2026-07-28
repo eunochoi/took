@@ -23,7 +23,7 @@ export const ModalHeader = ({ className, title, confirmText = '완료', onConfir
       )}
     >
       <button
-        className="flex items-center justify-center text-theme"
+        className="flex items-center justify-center text-theme-accent"
         onClick={() => router.back()}
         type="button"
       >
@@ -36,7 +36,7 @@ export const ModalHeader = ({ className, title, confirmText = '완료', onConfir
       ) : null}
       {onConfirm ? (
         <button
-          className="flex items-center justify-center text-theme"
+          className="flex items-center justify-center text-theme-accent"
           onClick={onConfirm}
           type="button"
         >
