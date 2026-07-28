@@ -5,16 +5,16 @@ import { Buffer } from 'node:buffer';
 import { randomUUID } from 'node:crypto';
 import sharp from 'sharp';
 
+import { getAuth } from '../../auth/getAuth';
 import {
   DIARY_IMAGE_ALLOWED_MIME_TYPES,
   DIARY_IMAGE_MAX_COUNT,
   DIARY_IMAGE_MAX_SIZE_BYTES,
   DIARY_IMAGE_MAX_SIZE_MB,
 } from '../../constants/image';
-import { getAuth } from '../../auth/getAuth';
 import { getEnvValue } from '../../utils/getEnvValue';
 import type { ActionResult } from '../types';
-import { createAuthErrorResult, createErrorResult, createS3Client, validateImageBuffer } from './utils';
+import { createAuthErrorResult, createErrorResult, createS3Client } from './utils';
 
 export const uploadImages = async (formData: FormData): Promise<ActionResult<string[]>> => {
   try {
@@ -52,18 +52,14 @@ export const uploadImages = async (formData: FormData): Promise<ActionResult<str
     for (const file of files) {
       const buffer = Buffer.from(await file.arrayBuffer());
 
-      if (!validateImageBuffer(buffer)) {
-        return createErrorResult('INVALID_IMAGE_SIGNATURE', '유효하지 않은 이미지 파일입니다. 실제 이미지 파일만 업로드 가능합니다.');
-      }
-
-      const optimizedImage = await sharp(buffer)
+      const optimizedImage = await sharp(buffer, { failOn: 'none' })
         .resize(1920, 1920, {
           fit: 'inside',
           withoutEnlargement: true,
         })
         .jpeg({
           quality: 85,
-          progressive: true,
+          progressive: false,
         })
         .toBuffer();
 
