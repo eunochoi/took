@@ -38,7 +38,7 @@ const IntroSectionBlock = ({ bg, reverse, title, meta, text, children }: IntroSe
   >
     <div className={reverse ? "order-2 flex flex-col justify-center gap-[18px]" : "flex flex-col justify-center gap-[18px]"}>
       <div className="flex items-baseline justify-between gap-[18px]">
-        <h2 className="m-0 flex-1 break-keep font-bmjua text-4xl capitalize leading-tight text-grey-title">{title}</h2>
+        <h2 className="m-0 flex-1 break-keep  text-4xl capitalize leading-tight text-grey-title">{title}</h2>
         <span className="whitespace-nowrap text-base font-bold" style={{ color: INTRO_THEME_COLOR }}>{meta}</span>
       </div>
       <p className={desktopSectionTextClass}>{text}</p>
@@ -64,7 +64,7 @@ const DesktopIntroView = () => {
             <div className="mb-1">
               <Logo size={64} />
             </div>
-            <h1 className="m-0 break-keep font-bmjua text-[52px] capitalize leading-[1.18] text-grey-title">툭! 오늘도 하나씩 :)</h1>
+            <h1 className="m-0 break-keep  text-[52px] capitalize leading-[1.18] text-grey-title">툭! 오늘도 하나씩 :)</h1>
             <p className="m-0 break-keep text-[21px] leading-[1.7] text-grey-title">
               툭, 무심히 습관 발도장을 찍고 더 나은 나에게 OK를 건네세요.
               TOOK은 가볍게 기록하는 소리인 툭과, 더 좋은 방향으로 나아가자는 TO OK의 의미를 함께 담았습니다.
@@ -88,7 +88,7 @@ const DesktopIntroView = () => {
 
         <section className="flex flex-col items-center gap-[22px] bg-white px-[min(7vw,112px)] py-24">
           <div className="flex items-baseline justify-between gap-[18px]">
-            <h2 className="m-0 flex-1 break-keep font-bmjua text-4xl capitalize leading-tight text-grey-title">필요한 기본 기능까지</h2>
+            <h2 className="m-0 flex-1 break-keep  text-4xl capitalize leading-tight text-grey-title">필요한 기본 기능까지</h2>
             <span className="whitespace-nowrap text-base font-bold" style={{ color: INTRO_THEME_COLOR }}>로그인, 테마, 보안</span>
           </div>
           <div className="grid w-[min(100%,980px)] grid-cols-3 gap-3">
@@ -105,7 +105,7 @@ const DesktopIntroView = () => {
 
         <section className="flex flex-col items-center gap-7 bg-white px-6 py-[82px]">
           <span className="inline-flex text-4xl" style={{ color: INTRO_THEME_COLOR }}><MdCheckBox /></span>
-          <h2 className="m-0 break-keep text-center font-bmjua text-4xl leading-[1.3] text-grey-title">오늘도 툭, 더 나은 나에게 OK.</h2>
+          <h2 className="m-0 break-keep text-center  text-4xl leading-[1.3] text-grey-title">오늘도 툭, 더 나은 나에게 OK.</h2>
           <IntroCtaButtons />
         </section>
       </main>

@@ -20,7 +20,7 @@ const MonthlyBarChart = ({ data, year, onCurrentYear, onNextYear, onPrevYear }: 
     <AppSurfaceCard className="flex flex-col gap-4">
       <header className="flex w-full items-center justify-between py-1.5">
         <button className={yearButtonClass} onClick={onPrevYear} type="button"><MdKeyboardArrowLeft /></button>
-        <button className={cn(yearButtonClass, "font-bmjua text-xl capitalize text-grey-title")} onClick={onCurrentYear} type="button">
+        <button className={cn(yearButtonClass, " text-xl capitalize text-grey-title")} onClick={onCurrentYear} type="button">
           {year}년
         </button>
         <button className={yearButtonClass} onClick={onNextYear} type="button"><MdKeyboardArrowRight /></button>

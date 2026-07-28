@@ -21,7 +21,7 @@ export const HabitRating = ({ priority, setPriority }: Props) => {
               "flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl px-2 py-3 transition-colors duration-200",
               selected && "bg-theme",
             )}
-            style={selected ? undefined : { backgroundColor: "color-mix(in srgb, var(--theme-color) 30%, white)" }}
+            style={selected ? undefined : { backgroundColor: "color-mix(in srgb, var(--theme-accent) 30%, white)" }}
           >
             <input
               className="pointer-events-none absolute opacity-0"

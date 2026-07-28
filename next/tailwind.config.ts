@@ -11,14 +11,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        theme: "var(--theme-color)",
+        theme: "var(--theme-accent)",
         "theme-bg": "var(--theme-bg)",
         "grey-title": "rgb(var(--greyTitle))",
       },
-      fontFamily: {
-        bmjua: ["BMJUA", "sans-serif"],
-        diary: ["HakgyoansimGeurimilgiTTF-R", "sans-serif"],
-      },
+      // fontFamily: {
+      //   bmjua: ["BMJUA", "sans-serif"],
+      //   diary: ["HakgyoansimGeurimilgiTTF-R", "sans-serif"],
+      // },
       fontSize: {
         app: "var(--app-font-size)",
       },

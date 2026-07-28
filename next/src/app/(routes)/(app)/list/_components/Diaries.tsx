@@ -23,7 +23,7 @@ export const Diaries = ({ diaries }: DiariesProps) => {
           if (currentDiaryDate !== previousDiaryDate) {
             return (
               <React.Fragment key={'listNote' + i}>
-                <span className="my-4 flex w-full items-center justify-start font-bmjua text-[32px] capitalize text-grey-title max-[479px]:w-[90dvw] min-[1025px]:my-7 min-[1025px]:text-4xl">
+                <span className="my-4 flex w-full items-center justify-start  text-[32px] capitalize text-grey-title max-[479px]:w-[90dvw] min-[1025px]:my-7 min-[1025px]:text-4xl">
                   {currentDiaryDate}
                 </span>
                 <div className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">

@@ -14,7 +14,7 @@ const badgeClass =
   "flex h-[24px] w-[24px] items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] text-base font-semibold text-white";
 
 const badgeStyle = {
-  backgroundColor: "color-mix(in srgb, var(--theme-color) 70%, white)",
+  backgroundColor: "color-mix(in srgb, var(--theme-accent) 70%, white)",
 };
 
 export const renderCalendarPageContent = ({ date, dateData }: CalendarDateContentProps<DiaryDateData>) => {

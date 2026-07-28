@@ -4,8 +4,8 @@ import { ReactNode } from "react";
 
 import TopLoader from "../components/ui/TopLoader";
 import { ScrollProvider } from "../hooks/useScrollContext";
+import { SettingsProvider } from "../settings/SettingsProvider";
 import { TimezoneSync } from "../utils/TimezoneSync";
-import { SettingsProvider } from "./settings/SettingsProvider";
 
 interface AppProvidersProps {
   children: ReactNode;

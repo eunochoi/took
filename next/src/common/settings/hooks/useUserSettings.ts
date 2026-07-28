@@ -2,23 +2,27 @@
 
 import { useCurrentUser } from '@/common/hooks/useCurrentUser';
 import { useLocalStorage } from '@/common/hooks/useLocalStorage';
-import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontSize, FontType, Setting, THEME_NAME_LIST, ThemeName } from '@/common/types/setting';
+import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontSize, FontType, LocalSettingValue, THEME_MODE_LIST, THEME_NAME_LIST, ThemeMode, ThemeName } from '@/common/types/setting';
 import { useCallback } from 'react';
 
 export const useUserSettings = () => {
   const { data: user } = useCurrentUser();
   const key = `took:${user?.email}:setting`;
 
-  const { value: setting, setStoredValue: setSetting } = useLocalStorage<Setting>(key, {
+  const { value: setting, setStoredValue: setSetting } = useLocalStorage<LocalSettingValue>(key, {
     font: {
-      size: '15px',
+      size: '보통',
       type: 'type1',
     },
-    themeName: 'blue',
+    theme: {
+      accent: 'blue',
+      mode: 'light',
+    }
   });
   const fontSize = setting?.font?.size;
   const fontType = setting?.font?.type;
-  const themeName = setting?.themeName;
+  const accent = setting?.theme?.accent;
+  const mode = setting?.theme?.mode;
 
   const setFontSize = useCallback((size: FontSize) => {
     if (FONT_SIZE_LIST.includes(size)) {
@@ -44,11 +48,25 @@ export const useUserSettings = () => {
     }
   }, [setSetting]);
 
-  const setThemeName = useCallback((themeName: ThemeName) => {
+  const setAccent = useCallback((themeName: ThemeName) => {
     if (THEME_NAME_LIST.includes(themeName)) {
       setSetting((prev) => ({
         ...prev,
-        themeName
+        theme: {
+          ...(prev.theme),
+          accent: themeName,
+        }
+      }));
+    }
+  }, [setSetting]);
+  const setMode = useCallback((themeMode: ThemeMode) => {
+    if (THEME_MODE_LIST.includes(themeMode)) {
+      setSetting((prev) => ({
+        ...prev,
+        theme: {
+          ...(prev.theme),
+          mode: themeMode
+        }
       }));
     }
   }, [setSetting]);
@@ -56,9 +74,11 @@ export const useUserSettings = () => {
   return {
     fontSize,
     fontType,
-    themeName,
+    accent,
+    mode,
     setFontSize,
     setFontType,
-    setThemeName,
+    setAccent,
+    setMode,
   };
 };

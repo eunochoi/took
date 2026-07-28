@@ -1,6 +1,6 @@
-import { RefObject } from "react";
-import { lightenColor } from "@/common/utils/lightenColor";
 import { cn } from "@/common/utils/cn";
+import { lightenColor } from "@/common/utils/lightenColor";
+import { RefObject } from "react";
 
 interface IndicatorProps {
   slideWrapperRef: RefObject<HTMLDivElement>;
@@ -16,10 +16,10 @@ const Indicator = ({ slideWrapperRef, page, indicatorLength, color, type }: Indi
       {[...Array(indicatorLength)].map((_: any, i: number) => {
         const current = page === i;
         const backgroundColor = current
-          ? color ?? "var(--theme-color)"
+          ? color ?? "var(--theme-accent)"
           : color
             ? lightenColor(color, 15)
-            : "color-mix(in srgb, var(--theme-color) 85%, white)";
+            : "color-mix(in srgb, var(--theme-accent) 85%, white)";
 
         return (
           <button

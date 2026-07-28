@@ -1,8 +1,8 @@
 'use client';
 
+import { SelectionPanel } from "@/common/components/ui/SelectionPanel";
 import { cn } from "@/common/utils/cn";
 import { useEffect, useState } from "react";
-import { SelectionPanel } from "@/common/components/ui/SelectionPanel";
 
 interface Props {
   isOpen: boolean;
@@ -46,7 +46,7 @@ const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Pr
                 selected ? "bg-theme font-semibold text-white shadow-[0_2px_8px_rgba(0,0,0,0.1)]" : "font-normal text-grey-title",
               )}
               onClick={() => setTempYear(year)}
-              style={selected ? undefined : { backgroundColor: "color-mix(in srgb, var(--theme-color) 40%, white)" }}
+              style={selected ? undefined : { backgroundColor: "color-mix(in srgb, var(--theme-accent) 40%, white)" }}
               type="button"
             >
               {year}년

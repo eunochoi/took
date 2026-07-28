@@ -2,14 +2,14 @@
 
 import { MdCheck } from 'react-icons/md';
 
-import { useSettingsContext } from "@/common/providers/settings/useSettingsContext";
+import { useSettingsContext } from "@/common/settings/useSettingsContext";
 import { THEME_NAME_LIST, THEME_VALUE } from '@/common/types/setting';
 import { cn } from "@/common/utils/cn";
 
 export const ThemeColorSelector = () => {
   const { theme } = useSettingsContext();
-  const currentThemeName = theme.themeName;
-  const setThemeName = theme.setThemeName;
+  const currentThemeName = theme.accent;
+  const setThemeName = theme.setAccent;
   return (
     <div className="py-3">
       <div className="flex w-full items-center justify-between">
@@ -20,7 +20,7 @@ export const ThemeColorSelector = () => {
             <button
               key={themeName}
               className={cn(
-                "flex h-[42px] w-[42px] items-center justify-center rounded-full transition-transform duration-200 ease-in-out hover:scale-[1.2]",
+                "bg-theme flex h-[42px] w-[42px] items-center justify-center rounded-full transition-transform duration-200 ease-in-out hover:scale-[1.2]",
                 selected ? "scale-[1.15]" : "scale-100",
               )}
               onClick={() => setThemeName(themeName)}

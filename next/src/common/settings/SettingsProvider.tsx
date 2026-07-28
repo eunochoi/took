@@ -2,9 +2,7 @@
 'use client';
 
 import { ReactNode, useMemo } from 'react';
-import { useApplyFontSize } from './hooks/useApplyFontSize';
-import { useApplyFontType } from './hooks/useApplyFontType';
-import { useApplyThemeColor } from './hooks/useApplyThemeColor';
+import { useApplySettings } from './hooks/useApplySettings';
 import { useUserSettings } from './hooks/useUserSettings';
 import { SettingsContext } from './SettingsContext';
 
@@ -13,16 +11,18 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const {
     fontSize,
     fontType,
-    themeName,
+    accent,
+    mode,
     setFontSize,
     setFontType,
-    setThemeName,
+    setAccent,
+    setMode,
   } = useUserSettings();
 
   //apply setting value
-  useApplyThemeColor(themeName);
-  useApplyFontSize(fontSize);
-  useApplyFontType(fontType);
+  useApplySettings({
+    fontSize, fontType, accent, mode
+  });
 
   const value = useMemo(() => ({
     font: {
@@ -32,10 +32,12 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       setFontType,
     },
     theme: {
-      themeName,
-      setThemeName,
+      accent,
+      mode,
+      setAccent,
+      setMode,
     }
-  }), [fontSize, fontType, themeName, setFontSize, setFontType, setThemeName]);
+  }), [fontSize, fontType, accent, mode, setFontSize, setFontType, setAccent, setMode]);
 
   return (
     <SettingsContext.Provider value={value}>

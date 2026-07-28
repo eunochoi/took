@@ -26,7 +26,7 @@ const infoCardClass = "grid grid-cols-[32px_1fr] gap-x-3 gap-y-1 rounded-2xl bg-
 const MobileSection = ({ bg, title, meta, text, children }: { bg: 'white' | 'blue'; title: string; meta: string; text?: string; children: ReactNode }) => (
   <section className={mobileSectionClass} style={{ backgroundColor: bg === 'blue' ? INTRO_THEME_BG : 'white' }}>
     <div className={mobileSectionHeaderClass}>
-      <h2 className="m-0 flex-1 break-keep font-bmjua text-3xl capitalize leading-tight text-grey-title">{title}</h2>
+      <h2 className="m-0 flex-1 break-keep  text-3xl capitalize leading-tight text-grey-title">{title}</h2>
       <span className="whitespace-nowrap text-[15px] font-bold" style={{ color: INTRO_THEME_COLOR }}>{meta}</span>
     </div>
     {text && <p className={mobileSectionTextClass}>{text}</p>}
@@ -49,7 +49,7 @@ const MobileIntroView = () => {
         <section className="flex flex-col items-center gap-7 bg-white px-5 pb-14 pt-12">
           <Logo size={52} />
           <div className="flex flex-col items-center gap-3 text-center">
-            <h1 className="m-0 break-keep font-bmjua text-[32px] capitalize leading-tight text-grey-title">툭! 오늘도 하나씩 :)</h1>
+            <h1 className="m-0 break-keep  text-[32px] capitalize leading-tight text-grey-title">툭! 오늘도 하나씩 :)</h1>
             <p className="m-0 flex flex-col gap-1 break-keep text-lg leading-normal text-grey-title">
               <span>툭, 무심히 습관 발도장을 찍고</span>
               <span>더 나은 나에게 OK를 건네세요.</span>
@@ -89,7 +89,7 @@ const MobileIntroView = () => {
 
         <section className="flex flex-col items-center gap-5 bg-white px-5 py-16">
           <span className="inline-flex text-[32px]" style={{ color: INTRO_THEME_COLOR }}><MdCheckBox /></span>
-          <h2 className="m-0 break-keep text-center font-bmjua text-[26px] leading-[1.35] text-grey-title">오늘도 툭, 더 나은 나에게 OK.</h2>
+          <h2 className="m-0 break-keep text-center  text-[26px] leading-[1.35] text-grey-title">오늘도 툭, 더 나은 나에게 OK.</h2>
           <IntroCtaButtons />
         </section>
       </main>

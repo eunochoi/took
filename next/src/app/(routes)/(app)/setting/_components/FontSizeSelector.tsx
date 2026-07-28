@@ -1,6 +1,6 @@
 'use client';
 
-import { useSettingsContext } from "@/common/providers/settings/useSettingsContext";
+import { useSettingsContext } from "@/common/settings/useSettingsContext";
 import { FONT_SIZE_LIST } from "@/common/types/setting";
 import { SettingStepSelector } from "./SettingStepSelector";
 

@@ -19,7 +19,7 @@ const HabitPill = ({ value, pointer = false, className, style, ...props }: Habit
       className,
     )}
     style={{
-      backgroundColor: "color-mix(in srgb, var(--theme-color) 40%, white)",
+      backgroundColor: "color-mix(in srgb, var(--theme-accent) 40%, white)",
       ...style,
     }}
     {...props}

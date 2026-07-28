@@ -29,7 +29,7 @@ export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) 
             priority
           />
         </div>
-        <h2 className="m-0 font-bmjua text-[32px] text-grey-title">{title}</h2>
+        <h2 className="m-0  text-[32px] text-grey-title">{title}</h2>
         <div className="text-base font-medium leading-normal text-gray-500">
           {typeof description === 'string' ? <p className="m-0 leading-normal">{description}</p> : description}
         </div>

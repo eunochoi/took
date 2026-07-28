@@ -48,7 +48,7 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
         )}
         key={'month' + month}
         onClick={() => selectMonth(month)}
-        style={selected ? { backgroundColor: "color-mix(in srgb, var(--theme-color) 65%, white)" } : undefined}
+        style={selected ? { backgroundColor: "color-mix(in srgb, var(--theme-accent) 65%, white)" } : undefined}
         type="button"
       >
         <span className={cn("text-sm text-grey-title", selected && "text-white")}>{month}</span>
