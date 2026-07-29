@@ -43,7 +43,7 @@ export const useApplySettings = ({ accent, mode, fontSize, fontType }: useApplyS
   }, [accent]);
 
   //apply theme mode
-  // useEffect(() => {
-  //   document.documentElement.dataset.themeMode = themeName;
-  // }, [themeName]);
+  useEffect(() => {
+    document.documentElement.dataset.themeMode = mode;
+  }, [mode]);
 };

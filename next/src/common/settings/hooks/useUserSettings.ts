@@ -12,11 +12,11 @@ export const useUserSettings = () => {
   const { value: setting, setStoredValue: setSetting } = useLocalStorage<LocalSettingValue>(key, {
     font: {
       size: '보통',
-      type: 'type1',
+      type: '타입1',
     },
     theme: {
       accent: 'blue',
-      mode: 'light',
+      mode: '밝게',
     }
   });
   const fontSize = setting?.font?.size;

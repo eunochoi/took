@@ -190,16 +190,16 @@ html[data-theme-accent='grey'] {
 }
 
 /* app font type */
-html[data-font-type='type1'] {
+html[data-font-type='타입1'] {
   --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
 }
 
-html[data-font-type='type2'] {
+html[data-font-type='타입2'] {
   /* --app-font-family: 'BMJUA'; */
   --app-font-family: 'Paperozi';
 }
 
-html[data-font-type='type3'] {
+html[data-font-type='타입3'] {
   --app-font-family: system-ui, sans-serif;
 }
 
