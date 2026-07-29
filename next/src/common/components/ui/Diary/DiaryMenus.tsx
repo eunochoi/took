@@ -7,8 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
-import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useRef } from "react";
 import { MdContentCopy, MdOutlineDeleteForever, MdOutlineEdit } from 'react-icons/md';
 import { SnackBarAction } from "../../../providers/snackbar/SnackBarAction";
 
@@ -19,12 +18,7 @@ interface Props {
   diaryData: DiaryMenuData;
 }
 
-type MenuPosition = {
-  top: number;
-  right: number;
-};
-
-const MENU_GAP = 6;
+const menuWrapperPositionClass = "absolute z-[1000] top-12 right-4";
 const menuButtonClass = "flex items-center text-grey-title";
 const menuIconClass = "mr-1 text-lg leading-none";
 const menuTextClass = "text-sm";
@@ -35,34 +29,10 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
 
   const timer = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const [menuPosition, setMenuPosition] = useState<MenuPosition | null>(null);
 
   const closeMenu = useCallback(() => {
     setMenuOpen(false);
   }, [setMenuOpen]);
-
-  const updateMenuPosition = useCallback(() => {
-    const anchor = anchorRef.current;
-    const menu = menuRef.current;
-
-    if (!anchor || !menu) return;
-
-    const anchorRect = anchor.getBoundingClientRect();
-    const menuRect = menu.getBoundingClientRect();
-    const top = Math.max(MENU_GAP, anchorRect.top + window.scrollY - menuRect.height - MENU_GAP);
-    const right = Math.max(MENU_GAP, window.innerWidth - anchorRect.right);
-
-    setMenuPosition({ top, right });
-  }, [anchorRef]);
-
-  useEffect(() => {
-    if (!isMenuOpen) {
-      setMenuPosition(null);
-      return;
-    }
-
-    updateMenuPosition();
-  }, [isMenuOpen, updateMenuPosition]);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -136,36 +106,26 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
     closeMenu();
   };
 
-  if (!isMenuOpen) return null;
-
-  return createPortal(
-    <div
-      ref={menuRef}
-      className={cn(
-        "absolute z-[1000] flex h-auto w-auto items-center gap-5 rounded-2xl px-5 py-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.18)] backdrop-blur-xl transition-opacity duration-200 ease-in-out",
-        menuPosition ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
-      )}
-      style={{
-        top: menuPosition ? `${menuPosition.top}px` : '0',
-        right: menuPosition ? `${menuPosition.right}px` : '0',
-        backgroundColor: "color-mix(in srgb, var(--theme-bg, #f5f5fa) 90%, white)",
-      }}
-    >
-      <button className={menuButtonClass} onClick={onClickCopy} type="button">
-        <MdContentCopy className={menuIconClass} />
-        <span className={menuTextClass}>텍스트 복사</span>
-      </button>
-      <button className={menuButtonClass} onClick={onClickEdit} type="button">
-        <MdOutlineEdit className={menuIconClass} />
-        <span className={menuTextClass}>수정</span>
-      </button>
-      <button className={cn(menuButtonClass, "text-[#d24343]")} onClick={onClickDeleteButton} type="button">
-        <MdOutlineDeleteForever className={menuIconClass} />
-        <span className={menuTextClass}>삭제</span>
-      </button>
-    </div>,
-    document.body,
-  );
+  return (<div
+    ref={menuRef}
+    className={cn(menuWrapperPositionClass,
+      isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
+      "bg-white flex h-auto w-auto items-center gap-5 rounded-2xl px-5 py-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.18)] transition-opacity duration-200 ease-in-out",
+    )}
+  >
+    <button className={menuButtonClass} onClick={onClickCopy} type="button">
+      <MdContentCopy className={menuIconClass} />
+      <span className={menuTextClass}>텍스트 복사</span>
+    </button>
+    <button className={menuButtonClass} onClick={onClickEdit} type="button">
+      <MdOutlineEdit className={menuIconClass} />
+      <span className={menuTextClass}>수정</span>
+    </button>
+    <button className={cn(menuButtonClass, "text-[#d24343]")} onClick={onClickDeleteButton} type="button">
+      <MdOutlineDeleteForever className={menuIconClass} />
+      <span className={menuTextClass}>삭제</span>
+    </button>
+  </div>);
 };
 
 export default DiaryMenus;
