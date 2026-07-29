@@ -9,23 +9,31 @@ import { SettingItem } from "./SettingItem";
 import { SettingSectionCard } from "./SettingSectionCard";
 import { SettingSubsection } from "./SettingSubsection";
 import { ThemeColorSelector } from "./ThemeColorSelector";
+import { ThemeModeSelector } from "./ThemeModeSelector";
 
 export const ThemeSettingsSection = () => {
   const router = useRouter();
 
   return (
-    <SettingSectionCard title="테마" gap={24}>
-      <SettingSubsection title="테마 색상">
-        <ThemeColorSelector />
+    <SettingSectionCard gap={24}>
+      <SettingSubsection title="테마">
+        <SettingItem
+          settingItemKey="강조 색상"
+          settingItemValue={<ThemeColorSelector />}
+        />
+        <SettingItem
+          settingItemKey="배경 색상"
+          settingItemValue={<ThemeModeSelector />}
+        />
       </SettingSubsection>
 
       <SettingSubsection title="폰트">
         <SettingItem
-          settingItemKey="앱 폰트 크기 선택"
+          settingItemKey="폰트 크기 선택"
           settingItemValue={<FontSizeSelector />}
         />
         <SettingItem
-          settingItemKey="앱 폰트 타입 선택"
+          settingItemKey="폰트 타입 선택"
           settingItemValue={<FontTypeSelector />}
         />
       </SettingSubsection>
