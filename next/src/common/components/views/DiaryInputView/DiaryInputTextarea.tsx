@@ -22,7 +22,8 @@ const DiaryInputTextArea = ({ text, setText, contentsRef }: Props) => {
 
   return (<div className="h-full w-full" ref={inputRef} >
     <textarea
-      className="h-full w-full resize-none border-none text-base outline-none placeholder:pt-[70px] placeholder:text-center placeholder:text-gray-500"
+      name="diary-input-text"
+      className="h-full w-full resize-none border-none text-base outline-none placeholder:pt-20 placeholder:text-center"
       onFocus={scroll}
       onClick={scroll}
       onChange={onChangeText}

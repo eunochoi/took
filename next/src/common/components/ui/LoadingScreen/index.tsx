@@ -19,7 +19,7 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => (
         </div>
       </div>
     )}
-    {message && <span className="text-base text-[rgb(150,150,150)]">{message}</span>}
+    {message && <span className="text-base text-grey-title">{message}</span>}
   </div>
 );
 

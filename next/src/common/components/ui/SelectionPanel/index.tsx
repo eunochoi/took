@@ -19,7 +19,7 @@ const panelBaseClass =
   "fixed -top-[3px] flex shrink-0 flex-col items-center justify-start overflow-hidden backdrop-blur-2xl";
 
 const panelMobileClass =
-  "max-[479px]:max-h-[calc(100dvh-var(--mobileHeader))] max-[479px]:w-full max-[479px]:origin-top max-[479px]:gap-5 max-[479px]:overflow-y-auto max-[479px]:overflow-x-hidden max-[479px]:rounded-b-[28px] max-[479px]:px-6 max-[479px]:pb-6 max-[479px]:pt-[calc(var(--mobileHeader)+24px)] max-[479px]:shadow-[0_4px_20px_rgba(0,0,0,0.08)] max-[479px]:transition-transform max-[479px]:duration-300 max-[479px]:ease-in-out";
+  "max-[479px]:max-h-[calc(100dvh-var(--mobileHeader))] max-[479px]:w-full max-[479px]:origin-top max-[479px]:gap-5 max-[479px]:overflow-y-auto max-[479px]:overflow-x-hidden max-[479px]:rounded-b-[28px] max-[479px]:px-6 max-[479px]:pb-8 max-[479px]:pt-8 max-[479px]:shadow-[0_2px_8px_rgba(0,0,0,0.1)] max-[479px]:transition-transform max-[479px]:duration-300 max-[479px]:ease-in-out";
 
 const panelFloatingClass =
   "min-[480px]:left-1/2 min-[480px]:top-[50dvh] min-[480px]:z-[999] min-[480px]:max-h-[80dvh] min-[480px]:w-[400px] min-[480px]:-translate-x-1/2 min-[480px]:-translate-y-1/2 min-[480px]:gap-5 min-[480px]:rounded-[28px] min-[480px]:px-7 min-[480px]:py-6 min-[480px]:shadow-[0_4px_24px_rgba(0,0,0,0.1)] min-[480px]:transition-[opacity,visibility] min-[480px]:duration-300 min-[1025px]:w-[450px] min-[1025px]:gap-6 min-[1025px]:px-10 min-[1025px]:py-8";
@@ -43,6 +43,7 @@ export const SelectionPanel = ({
     <BackdropLayer isOpen={isOpen} onClose={onClose}>
       <div
         className={cn(
+          "bg-theme-bg",
           panelBaseClass,
           panelMobileClass,
           panelFloatingClass,
@@ -53,7 +54,6 @@ export const SelectionPanel = ({
             : "max-[479px]:scale-y-0 min-[480px]:invisible min-[480px]:opacity-0",
         )}
         onClick={(e) => e.stopPropagation()}
-        style={{ backgroundColor: "color-mix(in srgb, var(--theme-bg, #f5f5fa) 95%, transparent)" }}
       >
         <span className="mb-3 block text-center text-lg font-semibold leading-none text-grey-title">{title}</span>
         <div className="flex w-full flex-col rounded-[20px] bg-white/90 p-4 shadow-[0_2px_12px_rgba(0,0,0,0.05)]">
