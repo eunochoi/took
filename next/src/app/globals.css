@@ -309,15 +309,15 @@ html[data-font-type='타입3'] {
 
 /* app font size */
 html[data-font-size='작게'] {
-  --app-font-size: 14px;
-}
-
-html[data-font-size='보통'] {
   --app-font-size: 15px;
 }
 
-html[data-font-size='크게'] {
+html[data-font-size='보통'] {
   --app-font-size: 16px;
+}
+
+html[data-font-size='크게'] {
+  --app-font-size: 17px;
 }
 
 html {
