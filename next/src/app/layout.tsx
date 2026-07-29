@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 
 import { GlobalProviders } from "@/common/providers/GlobalProviders";
@@ -25,13 +24,6 @@ export const viewport: Viewport = {
   // interactiveWidget: 'resizes-visual',
   interactiveWidget: 'resizes-content'
 }
-
-const pretendard = localFont({
-  src: '../assets/fonts/PretendardVariable.woff2',
-  display: "swap",
-  weight: "45 920",
-  variable: '--font-pretendard',
-});
 
 export default async function RootLayout({
   children,
@@ -75,7 +67,7 @@ export default async function RootLayout({
         <meta property="og:image" content="https://i.ibb.co/WfHNc58/shareImg.png" />
       </head>
 
-      <body className={`${pretendard.variable}`}>
+      <body>
         <GlobalProviders dehydratedState={dehydratedState}>
           {children}
         </GlobalProviders>

@@ -3,10 +3,66 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'BMJUA';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'MaruBuri';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-ExtraLight.woff2);
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaruBuri';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Light.woff2);
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaruBuri';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Regular.woff2);
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaruBuri';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-SemiBold.woff2);
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaruBuri';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Bold.woff2);
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaruBuri';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Light.woff2);
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaruBuri';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-ExtraLight.woff2);
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaruBuri';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-SemiBold.woff2);
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MaruBuri';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Bold.woff2);
+  font-weight: 700;
+  font-display: swap;
 }
 
 @font-face {
@@ -238,40 +294,17 @@ html[data-theme-mode='어둡게'] {
   color-scheme: dark;
 }
 
-@layer utilities {
-
-  html[data-theme-mode='어둡게'] .bg-white,
-  html[data-theme-mode='어둡게'] .bg-white\/80,
-  html[data-theme-mode='어둡게'] .bg-white\/90 {
-    background-color: rgb(var(--theme-surface) / 0.95);
-  }
-
-  html[data-theme-mode='어둡게'] .bg-gray-100 {
-    background-color: rgb(var(--theme-surface-muted));
-  }
-
-  html[data-theme-mode='어둡게'] .text-gray-500,
-  html[data-theme-mode='어둡게'] .text-gray-400 {
-    color: rgb(var(--theme-text-secondary));
-  }
-
-  html[data-theme-mode='어둡게'] .text-gray-300 {
-    color: rgb(var(--theme-text-tertiary));
-  }
-}
-
 /* app font type */
 html[data-font-type='타입1'] {
   --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
 }
 
 html[data-font-type='타입2'] {
-  /* --app-font-family: 'BMJUA'; */
   --app-font-family: 'Paperozi';
 }
 
 html[data-font-type='타입3'] {
-  --app-font-family: system-ui, sans-serif;
+  --app-font-family: 'MaruBuri';
 }
 
 /* app font size */
@@ -294,20 +327,6 @@ html {
 html {
   font-size: var(--app-font-size);
 }
-
-
-/* div,
-span {
-  font-family: 'HakgyoansimGeurimilgiTTF-R';
-}
-body.font-type2,
-body.font-type2 * {
-  font-family: 'BMJUA', sans-serif !important;
-}
-body.font-type3,
-body.font-type3 * {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-} */
 
 .notistack-SnackbarContainer,
 .app-snackbar-container {
