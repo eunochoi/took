@@ -27,17 +27,10 @@ export const viewport: Viewport = {
 }
 
 const pretendard = localFont({
-  src: '../common/fonts/PretendardVariable.woff2',
+  src: '../assets/fonts/PretendardVariable.woff2',
   display: "swap",
   weight: "45 920",
   variable: '--font-pretendard',
-});
-
-const jotiOne = localFont({
-  src: '../common/fonts/JotiOne.woff2',
-  display: "swap",
-  weight: "400",
-  variable: '--font-joti-one',
 });
 
 export default async function RootLayout({
@@ -82,7 +75,7 @@ export default async function RootLayout({
         <meta property="og:image" content="https://i.ibb.co/WfHNc58/shareImg.png" />
       </head>
 
-      <body className={`${pretendard.variable} ${jotiOne.variable}`}>
+      <body className={`${pretendard.variable}`}>
         <GlobalProviders dehydratedState={dehydratedState}>
           {children}
         </GlobalProviders>
