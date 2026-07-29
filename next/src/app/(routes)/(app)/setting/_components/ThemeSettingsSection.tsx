@@ -21,11 +21,11 @@ export const ThemeSettingsSection = () => {
 
       <SettingSubsection title="폰트">
         <SettingItem
-          settingItemKey="다이어리 글씨 크기 선택"
+          settingItemKey="앱 폰트 크기 선택"
           settingItemValue={<FontSizeSelector />}
         />
         <SettingItem
-          settingItemKey="폰트 타입 선택"
+          settingItemKey="앱 폰트 타입 선택"
           settingItemValue={<FontTypeSelector />}
         />
       </SettingSubsection>
