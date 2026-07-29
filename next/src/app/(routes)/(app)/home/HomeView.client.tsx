@@ -2,7 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
@@ -15,14 +16,16 @@ import DiaryAnalysis from "./_components/DiaryAnalysis";
 import EmotionStats from "./_components/EmotionStats";
 import GreetingSection from "./_components/GreetingSection";
 import HabitAnalysis from "./_components/HabitAnalysis";
-import YearSelector from "./_components/YearSelector";
+import YearFilter from "./_components/YearFilter";
 
 const HomeView = () => {
   usePrefetchPage();
 
   const currentYear = getYear(new Date());
-  const [selectedYear, setSelectedYear] = useState(currentYear);
-  const { isOpen: isYearSelectorOpen, open: openYearSelector, close: closeYearSelector } = useModalParam('year-filter');
+  const searchParams = useSearchParams();
+  const queryYear = Number(searchParams.get('year'));
+  const selectedYear = Number.isInteger(queryYear) && queryYear > 0 ? queryYear : currentYear;
+  const { isOpen: isYearFilterOpen, open: openYearFilter, close: closeYearFilter } = useModalParam('year-filter');
 
   const { data: availableYears } = useQuery({
     queryKey: ['stats', 'years'],
@@ -54,22 +57,25 @@ const HomeView = () => {
     <AppPage
       contentVariant="normal"
       topButtons={
-        <TopButton
-          size="auto"
-          onClick={openYearSelector}>
+        <TopButton size="auto" onClick={openYearFilter}>
           <span>{selectedYear}년</span>
         </TopButton>
       }
       contentProps={{ $gap: 56, $paddingTop: 8, $paddingBottom: 48 }}
       afterContent={
-        <YearSelector
-          isOpen={isYearSelectorOpen}
-          onClose={closeYearSelector}
+        <YearFilter
+          isOpen={isYearFilterOpen}
+          onClose={() => closeYearFilter()}
           years={years}
           selectedYear={selectedYear}
-          onSelectYear={(year) => {
-            setSelectedYear(year);
-            closeYearSelector();
+          onApplyYear={(year) => {
+            const params = new URLSearchParams(searchParams);
+            params.delete('modal');
+
+            if (year === currentYear) params.delete('year');
+            else params.set('year', year.toString());
+
+            closeYearFilter(params);
           }}
         />
       }>

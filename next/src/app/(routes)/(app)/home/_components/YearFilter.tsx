@@ -9,10 +9,10 @@ interface Props {
   onClose: () => void;
   years: number[];
   selectedYear: number;
-  onSelectYear: (year: number) => void;
+  onApplyYear: (year: number) => void;
 }
 
-const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Props) => {
+const YearFilter = ({ isOpen, onClose, years, selectedYear, onApplyYear }: Props) => {
   const [tempYear, setTempYear] = useState(selectedYear);
   const yearGridClass = "grid w-full grid-cols-3 gap-2.5 overflow-y-auto p-1 max-h-[calc(50dvh-120px)] min-[480px]:max-h-[300px]";
 
@@ -23,7 +23,7 @@ const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Pr
   }, [isOpen, selectedYear]);
 
   const onSubmit = () => {
-    onSelectYear(tempYear);
+    onApplyYear(tempYear);
   };
 
   return (
@@ -31,7 +31,7 @@ const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Pr
       isOpen={isOpen}
       title="연도 선택"
       minHeightClassName="max-[479px]:min-h-[300px]"
-      onClose={onClose}
+      onClose={() => onClose()}
       onSubmit={onSubmit}
     >
       <div className={yearGridClass}>
@@ -57,4 +57,4 @@ const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Pr
   );
 };
 
-export default YearSelector;
+export default YearFilter;

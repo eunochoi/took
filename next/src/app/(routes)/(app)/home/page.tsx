@@ -6,9 +6,17 @@ import HomeView from "./HomeView.client";
 
 export const dynamic = 'force-dynamic';
 
-const HomePage = async () => {
+interface Props {
+  searchParams?: {
+    year?: string;
+  };
+}
+
+const HomePage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();
   const currentYear = await getCurrentYearInUserTimezone();
+  const parsedYear = Number(searchParams?.year);
+  const selectedYear = Number.isInteger(parsedYear) && parsedYear > 0 ? parsedYear : currentYear;
 
   await queryClient.prefetchQuery({
     queryKey: ['stats', 'years'],
@@ -20,18 +28,18 @@ const HomePage = async () => {
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ['stats', 'diary', currentYear],
+    queryKey: ['stats', 'diary', selectedYear],
     queryFn: async () => {
-      const result = await getDiaryStats({ year: currentYear });
+      const result = await getDiaryStats({ year: selectedYear });
       if (!result.ok) throw new Error(result.message);
       return result.data;
     },
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ['stats', 'habit', currentYear],
+    queryKey: ['stats', 'habit', selectedYear],
     queryFn: async () => {
-      const result = await getHabitStats({ year: currentYear });
+      const result = await getHabitStats({ year: selectedYear });
       if (!result.ok) throw new Error(result.message);
       return result.data;
     },
