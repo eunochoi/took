@@ -14,6 +14,7 @@ import { AccountInfoSection } from "./_components/AccountInfoSection";
 import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
 
 import { MdPrivacyTip } from "react-icons/md";
+import { AccountActionSection } from "./_components/AccountActionSection";
 
 
 const SettingPage = () => {
@@ -50,6 +51,7 @@ const SettingPage = () => {
 
       <ThemeSettingsSection />
       <AccountInfoSection email={email} provider={provider} createAt={createAt} />
+      <AccountActionSection />
     </AppPage >
   );
 };
