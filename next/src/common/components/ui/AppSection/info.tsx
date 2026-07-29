@@ -19,7 +19,7 @@ export const AppInfoContent = forwardRef<HTMLDivElement, DivProps>(
     <div
       ref={ref}
       className={cn(
-        "flex w-full justify-start items-center gap-3 text-pretty text-justify text-sm leading-normal text-grey-title",
+        "flex w-full justify-start items-center gap-3 text-pretty text-justify text-sm leading-normal text-theme-text-primary",
         className,
       )}
       {...props}

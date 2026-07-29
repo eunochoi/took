@@ -10,7 +10,7 @@ interface DiaryDateData {
   emotionType: number;
 }
 
-const badgeClass = "bg-theme-accent flex h-[24px] w-[24px] items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] text-base font-semibold text-white";
+const badgeClass = "bg-theme-accent flex h-[24px] w-[24px] items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] text-base font-semibold text-theme-text-on-accent";
 
 export const renderCalendarPageContent = ({ date, dateData }: CalendarDateContentProps<DiaryDateData>) => {
   const {

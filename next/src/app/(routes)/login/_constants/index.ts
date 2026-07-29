@@ -9,7 +9,7 @@ interface LoginProvider {
   signInOptions: {
     prompt?: 'consent' | 'select_account',
   },
-  bgColor: 'bg-white' | 'bg-[#fae100]' | 'bg-[#02c73c]';
+  bgColor: 'bg-brand-google' | 'bg-brand-kakao' | 'bg-brand-naver';
   textColor: string;
   icon: StaticImageData;
 }
@@ -21,8 +21,8 @@ export const LOGIN_PROVIDERS: Record<string, LoginProvider> = {
     signInOptions: {
       prompt: 'consent'
     },
-    bgColor: 'bg-white',
-    textColor: 'text-grey-title',
+    bgColor: 'bg-brand-google',
+    textColor: 'text-theme-text-primary',
     icon: googleIcon,
   },
   ['naver']: {
@@ -31,8 +31,8 @@ export const LOGIN_PROVIDERS: Record<string, LoginProvider> = {
     signInOptions: {
       prompt: 'select_account'
     },
-    bgColor: 'bg-[#02c73c]',
-    textColor: 'text-white',
+    bgColor: 'bg-brand-naver',
+    textColor: 'text-theme-text-on-accent',
     icon: naverIcon,
   },
   ['kakao']: {
@@ -40,8 +40,8 @@ export const LOGIN_PROVIDERS: Record<string, LoginProvider> = {
     content: '카카오 계정으로 로그인',
     signInOptions: {
     },
-    bgColor: 'bg-[#fae100]',
-    textColor: 'text-[#39181D]',
+    bgColor: 'bg-brand-kakao',
+    textColor: 'text-brand-kakao-text',
     icon: kakaoIcon,
   }
 }

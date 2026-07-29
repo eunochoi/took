@@ -33,7 +33,7 @@ export const HabitRating = ({ priority, setPriority }: Props) => {
             <div className="flex items-center justify-center text-base">
               <StarRating rating={i + 1} color={selected ? '#fff' : undefined} />
             </div>
-            <span className={cn("text-base font-medium", selected ? "text-white" : "text-grey-title")}>
+            <span className={cn("text-base font-medium", selected ? "text-theme-text-on-accent" : "text-theme-text-primary")}>
               {PRIORITY_LABELS[i]}
             </span>
           </label>

@@ -78,8 +78,8 @@ const HabitBox = ({ name, id, priority }: Props) => {
   };
 
   return (
-    <div className="flex aspect-[0.8] py-2 w-full flex-col items-center justify-evenly rounded-3xl bg-white/90 shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-xl">
-      <div className="flex flex-col gap-1 h-auto w-full items-center justify-center text-center text-base font-medium text-grey-title">
+    <div className="flex aspect-[0.8] py-2 w-full flex-col items-center justify-evenly rounded-3xl bg-theme-surface shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.06)] backdrop-blur-xl">
+      <div className="flex flex-col gap-1 h-auto w-full items-center justify-center text-center text-base font-medium text-theme-text-primary">
         <StarRating rating={priority + 1} />
         <span className="max-w-[90%] text-base truncate">{name}</span>
       </div>
@@ -89,8 +89,8 @@ const HabitBox = ({ name, id, priority }: Props) => {
 
           return (
             <div key={`${date}-${name}`} className="flex h-full items-center justify-center">
-              <label htmlFor={`${date}-${name}`} className="flex h-full flex-col items-center justify-between text-base font-medium text-gray-500">
-                <span className={i === 0 ? "text-theme-accent" : "text-grey-title"}>{format(date, 'eee', { locale: ko })}</span>
+              <label htmlFor={`${date}-${name}`} className="flex h-full flex-col items-center justify-between text-base font-medium text-theme-text-secondary">
+                  <span className={i === 0 ? "text-theme-accent" : "text-theme-text-primary"}>{format(date, 'eee', { locale: ko })}</span>
                 <span className="my-0.5">{format(date, 'd')}</span>
                 <input
                   id={`${date}-${name}`}
@@ -100,7 +100,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
                   onChange={(e) => {
                     ontoggleHabit(e, format(date, 'yyyy-MM-dd'));
                   }} />
-                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-black/5">
+                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-theme-overlay/5">
                   <div className={cn("h-3 w-3 shrink-0 rounded-full transition-all duration-[400ms] ease-in-out", checked && "bg-theme-accent")} />
                 </div>
               </label>
@@ -108,7 +108,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
           );
         })}
       </div>
-      <div className="flex h-auto w-full items-center justify-center text-[#b9b9b9]">
+      <div className="flex h-auto w-full items-center justify-center text-theme-text-disabled">
         <button className={actionButtonClass} onClick={() => router.push(`/inter/habitInfo?id=${id}`, { scroll: false })} type="button">
           <MdOutlineInsertChart />
         </button>

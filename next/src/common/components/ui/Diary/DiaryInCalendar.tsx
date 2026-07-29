@@ -22,7 +22,7 @@ const DiaryInCalendar = ({ diaryData }: Props) => {
         <div className="box-border flex h-full w-full shrink-0 flex-col justify-between">
           <DiaryDateHeader diaryData={diaryData} />
           <div className="flex flex-col justify-center px-3.5" onClick={navigateToZoom}>
-            <div className="[display:-webkit-box] overflow-hidden whitespace-pre-wrap break-words text-base leading-[1.35] text-gray-500 [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
+            <div className="[display:-webkit-box] overflow-hidden whitespace-pre-wrap break-words text-base leading-[1.35] text-theme-text-secondary [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">
               {diaryData.text}
             </div>
           </div>

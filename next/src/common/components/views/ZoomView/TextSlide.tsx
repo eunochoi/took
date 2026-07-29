@@ -30,7 +30,7 @@ export const TextSlide = ({ diaryData }: TextSlideProps) => {
             </span>
           ))}
         </div>}
-      <div className="h-full w-full overflow-y-scroll whitespace-pre-wrap break-words text-base leading-[1.8] text-grey-title">{text}</div>
+      <div className="h-full w-full overflow-y-scroll whitespace-pre-wrap break-words text-base leading-[1.8] text-theme-text-primary">{text}</div>
     </div>
   );
 };

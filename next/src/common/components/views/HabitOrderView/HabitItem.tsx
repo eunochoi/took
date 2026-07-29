@@ -26,7 +26,7 @@ export const HabitItem = ({ habit }: HabitItemProps) => {
     <div
       ref={setNodeRef}
       className={cn(
-        "shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white my-1 flex h-12 w-full max-w-[420px] shrink-0 items-center justify-between rounded-2xl px-[18px] py-1 text-sm text-grey-title",
+        "shadow-[0_4px_12px_rgb(var(--theme-shadow-color)/0.08)] bg-theme-surface my-1 flex h-12 w-full max-w-[420px] shrink-0 items-center justify-between rounded-2xl px-[18px] py-1 text-sm text-theme-text-primary",
         isDragging && "border-2 border-solid border-theme-accent",
       )}
       style={style}
@@ -34,7 +34,7 @@ export const HabitItem = ({ habit }: HabitItemProps) => {
       <span className='flex w-1/5 justify-center text-base text-theme-accent'><StarRating rating={habit?.priority + 1} /></span>
       <span className='flex w-3/5 justify-center overflow-x-scroll'>{habit?.name}</span>
       <button
-        className="flex w-1/5 touch-none justify-center text-gray-400"
+        className="flex w-1/5 touch-none justify-center text-theme-text-tertiary"
         {...attributes}
         {...listeners}
         type="button"

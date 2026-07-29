@@ -9,7 +9,7 @@ const SideNav = () => {
   const { items, current } = useNavItems();
 
   return (
-    <nav className="fixed left-0 flex h-[100dvh] w-[25dvw] flex-col items-center justify-center gap-2 bg-white/80 shadow-[2px_0_20px_rgba(0,0,0,0.04)] backdrop-blur-2xl">
+    <nav className="fixed left-0 flex h-[100dvh] w-[25dvw] flex-col items-center justify-center gap-2 bg-theme-surface/80 shadow-[2px_0_20px_rgb(var(--theme-shadow-color)/0.04)] backdrop-blur-2xl">
       <div className="mb-4">
         <Logo size={24} />
       </div>
@@ -19,7 +19,7 @@ const SideNav = () => {
           href={href}
           className={cn(
             "flex w-4/5 cursor-pointer items-center gap-3 px-3 py-2 text-sm capitalize",
-            current === key ? "text-theme-accent" : "text-[#c3c3c3]",
+            current === key ? "text-theme-accent" : "text-theme-text-tertiary",
           )}
         >
           <Icon /> {label}

@@ -23,7 +23,7 @@ export const useApplySettings = ({ accent, mode, fontSize, fontType }: useApplyS
   // apply accent Color
   useEffect(() => {
     document.documentElement.dataset.themeAccent = accent;
-    const bgColor = THEME_VALUE[accent].accent;
+    const bgColor = mode === '어둡게' ? '#000000' : THEME_VALUE[accent].bg;
     //apply status bar color for web
     let metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (!metaThemeColor) {
@@ -37,10 +37,10 @@ export const useApplySettings = ({ accent, mode, fontSize, fontType }: useApplyS
       (window as any).ReactNativeWebView.postMessage(JSON.stringify({
         type: 'THEME_CHANGE',
         color: bgColor,
-        style: 'dark'
+        style: mode === '어둡게' ? 'dark' : 'light'
       }));
     }
-  }, [accent]);
+  }, [accent, mode]);
 
   //apply theme mode
   useEffect(() => {

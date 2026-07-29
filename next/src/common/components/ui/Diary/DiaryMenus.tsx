@@ -19,7 +19,7 @@ interface Props {
 }
 
 const menuWrapperPositionClass = "absolute z-[1000] top-12 right-4";
-const menuButtonClass = "flex items-center text-grey-title";
+const menuButtonClass = "flex items-center text-theme-text-primary";
 const menuIconClass = "mr-1 text-lg leading-none";
 const menuTextClass = "text-sm";
 
@@ -110,7 +110,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
     ref={menuRef}
     className={cn(menuWrapperPositionClass,
       isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
-      "bg-white flex h-auto w-auto items-center gap-5 rounded-2xl px-5 py-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.18)] transition-opacity duration-200 ease-in-out",
+      "bg-theme-surface flex h-auto w-auto items-center gap-5 rounded-2xl px-5 py-2.5 shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.18)] transition-opacity duration-200 ease-in-out",
     )}
   >
     <button className={menuButtonClass} onClick={onClickCopy} type="button">
@@ -121,7 +121,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
       <MdOutlineEdit className={menuIconClass} />
       <span className={menuTextClass}>수정</span>
     </button>
-    <button className={cn(menuButtonClass, "text-[#d24343]")} onClick={onClickDeleteButton} type="button">
+    <button className={cn(menuButtonClass, "text-theme-danger")} onClick={onClickDeleteButton} type="button">
       <MdOutlineDeleteForever className={menuIconClass} />
       <span className={menuTextClass}>삭제</span>
     </button>

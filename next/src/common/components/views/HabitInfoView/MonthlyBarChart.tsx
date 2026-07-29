@@ -11,7 +11,7 @@ interface Props {
   onPrevYear: () => void;
 }
 
-const yearButtonClass = "flex p-[3px] text-gray-500";
+const yearButtonClass = "flex p-[3px] text-theme-text-secondary";
 
 const MonthlyBarChart = ({ data, year, onCurrentYear, onNextYear, onPrevYear }: Props) => {
   const maxCount = Math.max(...(data ?? [1]), 1);
@@ -20,7 +20,7 @@ const MonthlyBarChart = ({ data, year, onCurrentYear, onNextYear, onPrevYear }: 
     <AppSurfaceCard className="flex flex-col gap-4">
       <header className="flex w-full items-center justify-between py-1.5">
         <button className={yearButtonClass} onClick={onPrevYear} type="button"><MdKeyboardArrowLeft /></button>
-        <button className={cn(yearButtonClass, " text-xl capitalize text-grey-title")} onClick={onCurrentYear} type="button">
+        <button className={cn(yearButtonClass, " text-xl capitalize text-theme-text-primary")} onClick={onCurrentYear} type="button">
           {year}년
         </button>
         <button className={yearButtonClass} onClick={onNextYear} type="button"><MdKeyboardArrowRight /></button>
@@ -35,13 +35,13 @@ const MonthlyBarChart = ({ data, year, onCurrentYear, onNextYear, onPrevYear }: 
           return (
             <div key={'month' + i + 1} className="flex min-w-0 flex-1 flex-col items-center gap-1.5">
               <div className="flex h-[178px] w-full flex-col items-center justify-end gap-1.5">
-                <div className="min-h-[18px] text-sm text-[rgba(var(--greyTitle),0.6)]">{hasValue && count}</div>
+                <div className="min-h-[18px] text-sm text-theme-text-tertiary">{hasValue && count}</div>
                 <div
-                  className={hasValue ? "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-theme-accent transition-[height] duration-300 ease-in-out" : "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-[rgba(var(--greyTitle),0.15)] transition-[height] duration-300 ease-in-out"}
+                  className={hasValue ? "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-theme-accent transition-[height] duration-300 ease-in-out" : "min-h-1 w-3/5 max-w-5 rounded-[3px] bg-theme-text-primary/15 transition-[height] duration-300 ease-in-out"}
                   style={{ height: `${height}px` }}
                 />
               </div>
-              <span className="text-sm text-[rgba(var(--greyTitle),0.6)]">{i + 1}</span>
+              <span className="text-sm text-theme-text-tertiary">{i + 1}</span>
             </div>
           );
         })}

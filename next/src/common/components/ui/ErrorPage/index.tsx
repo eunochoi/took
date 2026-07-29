@@ -17,8 +17,8 @@ interface ErrorPageProps {
 
 export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) => {
   return (
-    <div className="flex h-[100dvh] w-[100dvw] items-center justify-center bg-theme-bg p-5 text-grey-title">
-      <div className="flex w-full max-w-[420px] flex-col items-center gap-4 rounded-3xl bg-white/90 px-6 py-9 text-center shadow-[0_2px_12px_rgba(0,0,0,0.06)] backdrop-blur-xl">
+    <div className="flex h-[100dvh] w-[100dvw] items-center justify-center bg-theme-bg p-5 text-theme-text-primary">
+      <div className="flex w-full max-w-[420px] flex-col items-center gap-4 rounded-3xl bg-theme-surface px-6 py-9 text-center shadow-theme-floating backdrop-blur-xl">
         <div className="flex items-center justify-center leading-none">
           <Image
             className="h-24 w-24 brightness-110"
@@ -29,8 +29,8 @@ export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) 
             priority
           />
         </div>
-        <h2 className="m-0  text-3xl text-grey-title">{title}</h2>
-        <div className="text-base font-medium leading-normal text-gray-500">
+        <h2 className="m-0  text-3xl text-theme-text-primary">{title}</h2>
+        <div className="text-base font-medium leading-normal text-theme-text-secondary">
           {typeof description === 'string' ? <p className="m-0 leading-normal">{description}</p> : description}
         </div>
         {buttons.length > 0 && (
@@ -41,8 +41,8 @@ export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) 
                 className={cn(
                   "cursor-pointer rounded-[999px] px-5 py-2 text-sm font-medium shadow-card transition-opacity hover:opacity-80",
                   (button.variant || 'primary') === 'primary'
-                    ? "bg-theme-accent text-white"
-                    : "bg-gray-100 text-gray-500",
+                    ? "bg-theme-accent text-theme-text-on-accent"
+                    : "bg-theme-surface-muted text-theme-text-secondary",
                 )}
                 onClick={button.onClick}
                 type="button"

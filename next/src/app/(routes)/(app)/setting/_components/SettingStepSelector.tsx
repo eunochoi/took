@@ -30,7 +30,7 @@ export const SettingStepSelector = <T extends string>({
   return (
     <div className="flex items-center justify-center gap-2">
       <button
-        className="flex items-center justify-center text-2xl text-theme-accent disabled:text-grey-title disabled:opacity-30"
+        className="flex items-center justify-center text-2xl text-theme-accent disabled:text-theme-text-disabled disabled:opacity-30"
         onClick={decrease}
         disabled={currentIndex === 0}
         type="button"
@@ -39,7 +39,7 @@ export const SettingStepSelector = <T extends string>({
       </button>
       <span className="min-w-12 text-center text-base font-semibold text-theme-accent">{displayValue}</span>
       <button
-        className="flex items-center justify-center text-2xl text-theme-accent disabled:text-grey-title disabled:opacity-30"
+        className="flex items-center justify-center text-2xl text-theme-accent disabled:text-theme-text-disabled disabled:opacity-30"
         onClick={increase}
         disabled={currentIndex === values.length - 1}
         type="button"

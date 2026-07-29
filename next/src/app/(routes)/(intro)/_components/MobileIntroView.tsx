@@ -20,13 +20,13 @@ const TRUST_IMAGES = [INTRO_IMAGES.login, INTRO_IMAGES.setting, INTRO_IMAGES.oth
 const RESPONSIVE_IMAGES = [INTRO_IMAGES.list, INTRO_IMAGES.pc_list, INTRO_IMAGES.pc_calendar, INTRO_IMAGES.pc_list2];
 const mobileSectionClass = "flex flex-col items-center gap-[22px] px-5 py-16";
 const mobileSectionHeaderClass = "flex w-full max-w-[620px] flex-col items-center gap-2.5 text-center";
-const mobileSectionTextClass = "m-0 max-w-[620px] break-keep text-center text-base leading-[1.65] text-[rgba(var(--greyTitle),0.72)]";
+const mobileSectionTextClass = "m-0 max-w-[620px] break-keep text-center text-base leading-[1.65] text-theme-text-secondary";
 const infoCardClass = "grid grid-cols-[32px_1fr] gap-x-3 gap-y-1 rounded-2xl bg-theme-bg p-4";
 
 const MobileSection = ({ bg, title, meta, text, children }: { bg: 'white' | 'blue'; title: string; meta: string; text?: string; children: ReactNode }) => (
   <section className={mobileSectionClass} style={{ backgroundColor: bg === 'blue' ? INTRO_THEME_BG : 'white' }}>
     <div className={mobileSectionHeaderClass}>
-      <h2 className="m-0 flex-1 break-keep  text-3xl capitalize leading-tight text-grey-title">{title}</h2>
+      <h2 className="m-0 flex-1 break-keep  text-3xl capitalize leading-tight text-theme-text-primary">{title}</h2>
       <span className="whitespace-nowrap text-base font-bold" style={{ color: INTRO_THEME_COLOR }}>{meta}</span>
     </div>
     {text && <p className={mobileSectionTextClass}>{text}</p>}
@@ -37,8 +37,8 @@ const MobileSection = ({ bg, title, meta, text, children }: { bg: 'white' | 'blu
 const InfoCard = ({ icon, title, text }: { icon: ReactNode; title: string; text: string }) => (
   <div className={infoCardClass} style={{ boxShadow: INTRO_CARD_SHADOW }}>
     <span className="row-span-2 inline-flex h-7 w-7 text-2xl" style={{ color: INTRO_THEME_COLOR }}>{icon}</span>
-    <strong className="text-base text-grey-title">{title}</strong>
-    <span className="text-sm leading-normal text-[rgba(var(--greyTitle),0.64)]">{text}</span>
+    <strong className="text-base text-theme-text-primary">{title}</strong>
+    <span className="text-sm leading-normal text-theme-text-tertiary">{text}</span>
   </div>
 );
 
@@ -46,11 +46,11 @@ const MobileIntroView = () => {
   return (
     <div className="min-h-[100dvh] w-full overflow-x-hidden" style={{ backgroundColor: INTRO_PAGE_BG }}>
       <main className="mx-auto flex w-full flex-col pb-12">
-        <section className="flex flex-col items-center gap-7 bg-white px-5 pb-14 pt-12">
+        <section className="flex flex-col items-center gap-7 bg-theme-surface px-5 pb-14 pt-12">
           <Logo size={52} />
           <div className="flex flex-col items-center gap-3 text-center">
-            <h1 className="m-0 break-keep  text-3xl font-title font-bold capitalize leading-tight text-grey-title">툭! 오늘도 하나씩 :)</h1>
-            <p className="m-0 flex flex-col gap-1 break-keep text-lg leading-normal text-grey-title">
+          <h1 className="m-0 break-keep  text-3xl font-title font-bold capitalize leading-tight text-theme-text-primary">툭! 오늘도 하나씩 :)</h1>
+          <p className="m-0 flex flex-col gap-1 break-keep text-lg leading-normal text-theme-text-primary">
               <span>툭, 무심히 습관 발도장을 찍고</span>
               <span>더 나은 나에게 OK를 건네세요.</span>
             </p>
@@ -84,9 +84,9 @@ const MobileIntroView = () => {
           <IntroImageCarousel images={RESPONSIVE_IMAGES} height={340} sizes="86vw" />
         </MobileSection>
 
-        <section className="flex flex-col items-center gap-5 bg-white px-5 py-16">
+        <section className="flex flex-col items-center gap-5 bg-theme-surface px-5 py-16">
           <span className="inline-flex text-2xl" style={{ color: INTRO_THEME_COLOR }}><MdCheckBox /></span>
-          <h2 className="m-0 break-keep text-center  text-xl leading-[1.35] text-grey-title">오늘도 툭, 더 나은 나에게 OK.</h2>
+          <h2 className="m-0 break-keep text-center  text-xl leading-[1.35] text-theme-text-primary">오늘도 툭, 더 나은 나에게 OK.</h2>
           <IntroCtaButtons />
         </section>
       </main>

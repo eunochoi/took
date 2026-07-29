@@ -17,7 +17,7 @@ interface IntroCtaButtonsProps {
 }
 
 const buttonLayoutClass = "inline-flex min-h-[46px] items-center justify-center gap-2 whitespace-nowrap px-4 max-[420px]:flex-[1_1_100%]";
-const buttonThemeClass = "rounded-2xl border border-[rgba(140,173,226,0.26)] text-base font-medium leading-none text-grey-title";
+const buttonThemeClass = "rounded-2xl border border-theme-accent/25 text-base font-medium leading-none text-theme-text-primary";
 const buttonMotionClass = "transition-[transform,border-color,background-color] duration-[180ms] active:translate-y-px";
 const buttonClass = cn(buttonLayoutClass, buttonThemeClass, buttonMotionClass);
 const iconClass = "h-5 w-5 shrink-0";
@@ -40,15 +40,15 @@ const IntroCtaButtons = ({ tone = 'light', className }: IntroCtaButtonsProps) =>
     enqueueSnackbar(
       <div>
         <p>웹에서 계속 진행하시겠습니까?</p>
-        <p className="mt-2 text-base text-[#DC7889]">실행 환경에 따라 레이아웃이 어긋날 수 있습니다.</p>
-        <p className="text-base text-[#DC7889]">원활한 이용을 위해 앱 설치를 권장합니다.</p>
+        <p className="mt-2 text-base text-theme-danger">실행 환경에 따라 레이아웃이 어긋날 수 있습니다.</p>
+        <p className="text-base text-theme-danger">원활한 이용을 위해 앱 설치를 권장합니다.</p>
       </div>,
       { key: 'startInWeb', persist: false, action, autoHideDuration: 3000 }
     );
   };
 
   const buttonStyle = {
-    backgroundColor: tone === 'dark' ? 'rgba(255, 255, 255, 0.78)' : INTRO_THEME_BG,
+    backgroundColor: tone === 'dark' ? 'rgb(var(--theme-surface) / 0.78)' : INTRO_THEME_BG,
     boxShadow: INTRO_CARD_SHADOW,
   };
 

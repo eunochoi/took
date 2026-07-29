@@ -83,7 +83,7 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
             width={77}
             height={77}
           />
-          <span className="text-sm font-semibold text-grey-title">{displayEmotionCounts[index + startIndex]}</span>
+          <span className="text-sm font-semibold text-theme-text-primary">{displayEmotionCounts[index + startIndex]}</span>
         </div>
       ))}
     </div>

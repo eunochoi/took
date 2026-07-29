@@ -27,7 +27,7 @@ export const ThemeColorSelector = () => {
               style={{ backgroundColor: THEME_VALUE[themeName].accent }}
               type="button"
             >
-              {selected && <MdCheck className="text-lg text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.2)]" />}
+              {selected && <MdCheck className="text-lg text-theme-text-on-accent drop-shadow-[0_1px_1px_rgb(var(--theme-shadow-color)/0.2)]" />}
             </button>
           );
         })}

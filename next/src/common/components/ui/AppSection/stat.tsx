@@ -22,7 +22,7 @@ export const AppStatLabel = forwardRef<HTMLParagraphElement, ParagraphProps>(
   ({ className, ...props }, ref) => (
     <p
       ref={ref}
-      className={cn("m-0 text-center text-sm text-[#8a8da3]", className)}
+      className={cn("m-0 text-center text-sm text-theme-text-secondary", className)}
       {...props}
     />
   ),
@@ -55,7 +55,7 @@ export const AppStatUnit = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanEl
   ({ className, ...props }, ref) => (
     <span
       ref={ref}
-      className={cn("text-sm font-bold text-[#8a8da3]", className)}
+      className={cn("text-sm font-bold text-theme-text-secondary", className)}
       {...props}
     />
   ),

@@ -8,7 +8,7 @@ const IntroView = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className="h-[100dvh] w-[100dvw] overflow-y-auto bg-[#f3f7fc]">
+    <div className="h-[100dvh] w-[100dvw] overflow-y-auto bg-theme-bg">
       {isMobile === false ? <DesktopIntroView /> : <MobileIntroView />}
     </div>
   );

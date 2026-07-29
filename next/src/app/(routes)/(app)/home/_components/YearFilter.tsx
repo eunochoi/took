@@ -42,8 +42,8 @@ const YearFilter = ({ isOpen, onClose, years, selectedYear, onApplyYear }: Props
             <button
               key={year}
               className={cn(
-                "rounded-[14px] px-2 py-3.5 text-base transition-all duration-200 ease-in-out hover:brightness-105 shadow-[0_2px_8px_rgba(0,0,0,0.1)]",
-                selected ? "bg-theme-accent font-semibold text-white " : "bg-theme-accent/40 font-normal text-grey-title",
+                "rounded-[14px] px-2 py-3.5 text-base transition-all duration-200 ease-in-out hover:brightness-105 shadow-[0_2px_8px_rgb(var(--theme-shadow-color)/0.1)]",
+                selected ? "bg-theme-accent font-semibold text-theme-text-on-accent " : "bg-theme-accent/40 font-normal text-theme-text-primary",
               )}
               onClick={() => setTempYear(year)}
               type="button"

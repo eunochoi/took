@@ -19,7 +19,7 @@ const HABIT_IMAGES = [INTRO_IMAGES.pc_habit, INTRO_IMAGES.pc_habitinfo1, INTRO_I
 const TRUST_IMAGES = [INTRO_IMAGES.pc_login, INTRO_IMAGES.pc_setting, INTRO_IMAGES.login, INTRO_IMAGES.setting];
 const RESPONSIVE_IMAGES = [INTRO_IMAGES.list, INTRO_IMAGES.pc_list, INTRO_IMAGES.pc_calendar, INTRO_IMAGES.pc_list2];
 const desktopSectionClass = "grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-center gap-14 px-[min(7vw,112px)] py-24";
-const desktopSectionTextClass = "m-0 break-keep text-lg leading-[1.75] text-[rgba(var(--greyTitle),0.72)]";
+const desktopSectionTextClass = "m-0 break-keep text-lg leading-[1.75] text-theme-text-secondary";
 const trustCardClass = "flex min-h-[150px] flex-col gap-2 rounded-2xl px-4 py-5";
 
 interface IntroSectionBlockProps {
@@ -38,7 +38,7 @@ const IntroSectionBlock = ({ bg, reverse, title, meta, text, children }: IntroSe
   >
     <div className={reverse ? "order-2 flex flex-col justify-center gap-[18px]" : "flex flex-col justify-center gap-[18px]"}>
       <div className="flex items-baseline justify-between gap-[18px]">
-        <h2 className="m-0 flex-1 break-keep  text-4xl capitalize leading-tight text-grey-title">{title}</h2>
+      <h2 className="m-0 flex-1 break-keep  text-4xl capitalize leading-tight text-theme-text-primary">{title}</h2>
         <span className="whitespace-nowrap text-base font-bold" style={{ color: INTRO_THEME_COLOR }}>{meta}</span>
       </div>
       <p className={desktopSectionTextClass}>{text}</p>
@@ -50,8 +50,8 @@ const IntroSectionBlock = ({ bg, reverse, title, meta, text, children }: IntroSe
 const TrustCard = ({ icon, title, text }: { icon: ReactNode; title: string; text: string }) => (
   <div className={trustCardClass} style={{ backgroundColor: INTRO_THEME_BG, boxShadow: INTRO_CARD_SHADOW }}>
     <span className="inline-flex h-[30px] w-[30px] text-2xl" style={{ color: INTRO_THEME_COLOR }}>{icon}</span>
-    <strong className="text-lg text-grey-title">{title}</strong>
-    <span className="text-base leading-normal text-[rgba(var(--greyTitle),0.64)]">{text}</span>
+    <strong className="text-lg text-theme-text-primary">{title}</strong>
+    <span className="text-base leading-normal text-theme-text-tertiary">{text}</span>
   </div>
 );
 
@@ -59,13 +59,13 @@ const DesktopIntroView = () => {
   return (
     <div className="min-h-[100dvh] w-full overflow-x-hidden" style={{ backgroundColor: INTRO_PAGE_BG }}>
       <main className="mx-auto flex w-full flex-col">
-        <section className="grid min-h-[100dvh] grid-cols-[minmax(420px,0.9fr)_minmax(0,1.1fr)] items-center gap-14 bg-white px-[min(7vw,112px)] py-[72px]">
+        <section className="grid min-h-[100dvh] grid-cols-[minmax(420px,0.9fr)_minmax(0,1.1fr)] items-center gap-14 bg-theme-surface px-[min(7vw,112px)] py-[72px]">
           <div className="flex flex-col items-start gap-[22px]">
             <div className="mb-1">
               <Logo size={64} />
             </div>
-            <h1 className="m-0 break-keep text-3xl font-title font-bold capitalize leading-[1.18] text-grey-title">툭! 오늘도 하나씩 :)</h1>
-            <p className="m-0 break-keep text-xl leading-[1.7] text-grey-title">
+          <h1 className="m-0 break-keep text-3xl font-title font-bold capitalize leading-[1.18] text-theme-text-primary">툭! 오늘도 하나씩 :)</h1>
+          <p className="m-0 break-keep text-xl leading-[1.7] text-theme-text-primary">
               툭, 무심히 습관 발도장을 찍고 더 나은 나에게 OK를 건네세요.
               TOOK은 가볍게 기록하는 소리인 툭과, 더 좋은 방향으로 나아가자는 TO OK의 의미를 함께 담았습니다.
             </p>
@@ -86,9 +86,9 @@ const DesktopIntroView = () => {
           <IntroImageCarousel images={HABIT_IMAGES} height={460} sizes="46vw" />
         </IntroSectionBlock>
 
-        <section className="flex flex-col items-center gap-[22px] bg-white px-[min(7vw,112px)] py-24">
+        <section className="flex flex-col items-center gap-[22px] bg-theme-surface px-[min(7vw,112px)] py-24">
           <div className="flex items-baseline justify-between gap-[18px]">
-            <h2 className="m-0 flex-1 break-keep  text-4xl capitalize leading-tight text-grey-title">필요한 기본 기능까지</h2>
+          <h2 className="m-0 flex-1 break-keep  text-4xl capitalize leading-tight text-theme-text-primary">필요한 기본 기능까지</h2>
             <span className="whitespace-nowrap text-base font-bold" style={{ color: INTRO_THEME_COLOR }}>로그인, 테마, 보안</span>
           </div>
           <div className="grid w-[min(100%,980px)] grid-cols-3 gap-3">
@@ -103,9 +103,9 @@ const DesktopIntroView = () => {
           <IntroImageCarousel images={RESPONSIVE_IMAGES} height={420} sizes="46vw" />
         </IntroSectionBlock>
 
-        <section className="flex flex-col items-center gap-7 bg-white px-6 py-[82px]">
+        <section className="flex flex-col items-center gap-7 bg-theme-surface px-6 py-[82px]">
           <span className="inline-flex text-4xl" style={{ color: INTRO_THEME_COLOR }}><MdCheckBox /></span>
-          <h2 className="m-0 break-keep text-center  text-4xl leading-[1.3] text-grey-title">오늘도 툭, 더 나은 나에게 OK.</h2>
+          <h2 className="m-0 break-keep text-center  text-4xl leading-[1.3] text-theme-text-primary">오늘도 툭, 더 나은 나에게 OK.</h2>
           <IntroCtaButtons />
         </section>
       </main>

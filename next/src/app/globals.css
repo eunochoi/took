@@ -110,11 +110,26 @@
 
 :root {
   --theme-accent: 140 173 226;
-  --theme-bg: 234 241 249;
+  --theme-bg-light: 234 241 249;
+  --theme-bg: var(--theme-bg-light);
+  --theme-surface: 255 255 255;
+  --theme-surface-muted: 245 245 245;
+  --theme-surface-elevated: 255 255 255;
+  --theme-text-primary: 88 88 88;
+  --theme-text-secondary: 117 117 117;
+  --theme-text-tertiary: 158 158 158;
+  --theme-text-disabled: 190 190 190;
+  --theme-text-on-accent: 255 255 255;
+  --theme-border: 225 225 225;
+  --theme-border-muted: 240 240 240;
+  --theme-overlay: 75 75 75;
+  --theme-danger: 210 67 67;
+  --theme-warning: 220 150 40;
+  --theme-success: 45 150 105;
+  --theme-shadow-color: 0 0 0;
   --app-font-size: 15px;
   --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
 
-  --greyTitle: 88, 88, 88;
 
   --sidebarWidth: 300px;
   --desktopHeader: 72px;
@@ -155,38 +170,94 @@ body {
   padding: 0;
 
   background-color: rgb(var(--theme-bg));
+  color: rgb(var(--theme-text-primary));
+  color-scheme: light;
 }
 
 /* app theme mode */
 /* app accent color */
 html[data-theme-accent='blue'] {
   --theme-accent: 140 173 226;
-  --theme-bg: 234 241 249;
+  --theme-bg-light: 240 247 255;
 }
 
 html[data-theme-accent='green'] {
   --theme-accent: 131 198 182;
-  --theme-bg: 238 250 246;
+  --theme-bg-light: 238 250 246;
 }
 
 html[data-theme-accent='purple'] {
   --theme-accent: 151 159 199;
-  --theme-bg: 237 237 247;
+  --theme-bg-light: 237 237 247;
 }
 
 html[data-theme-accent='pink'] {
   --theme-accent: 237 165 177;
-  --theme-bg: 249 241 242;
+  --theme-bg-light: 249 241 242;
 }
 
 html[data-theme-accent='yellow'] {
   --theme-accent: 249 199 79;
-  --theme-bg: 252 245 231;
+  --theme-bg-light: 255 248 234;
 }
 
 html[data-theme-accent='grey'] {
   --theme-accent: 143 143 143;
-  --theme-bg: 242 242 242;
+  --theme-bg-light: 242 242 242;
+}
+
+html[data-theme-mode='밝게'] {
+  --theme-bg: var(--theme-bg-light);
+  --theme-surface: 255 255 255;
+  --theme-surface-muted: 245 245 245;
+  --theme-surface-elevated: 255 255 255;
+  --theme-text-primary: 88 88 88;
+  --theme-text-secondary: 117 117 117;
+  --theme-text-tertiary: 158 158 158;
+  --theme-text-disabled: 190 190 190;
+  --theme-border: 225 225 225;
+  --theme-border-muted: 240 240 240;
+  --theme-overlay: 75 75 75;
+  --theme-shadow-color: 0 0 0;
+  color-scheme: light;
+}
+
+html[data-theme-mode='어둡게'] {
+  --theme-bg: 38 38 38;
+  --theme-surface: 60 60 60;
+  --theme-surface-muted: 80 80 80;
+  --theme-surface-elevated: 80 80 80;
+  --theme-text-primary: 255 255 255;
+  --theme-text-secondary: 218 218 218;
+  --theme-text-tertiary: 170 170 170;
+  --theme-text-disabled: 110 110 110;
+  --theme-border: 80 80 80;
+  --theme-border-muted: 60 60 60;
+  --theme-overlay: 0 0 0;
+  --theme-shadow-color: 0 0 0;
+  color-scheme: dark;
+}
+
+@layer utilities {
+
+  html[data-theme-mode='어둡게'] .bg-white,
+  html[data-theme-mode='어둡게'] .bg-white\/80,
+  html[data-theme-mode='어둡게'] .bg-white\/90 {
+    background-color: rgb(var(--theme-surface) / 0.95);
+  }
+
+  html[data-theme-mode='어둡게'] .bg-gray-100 {
+    background-color: rgb(var(--theme-surface-muted));
+  }
+
+  html[data-theme-mode='어둡게'] .text-gray-500,
+  html[data-theme-mode='어둡게'] .text-gray-400 {
+    color: rgb(var(--theme-text-secondary));
+  }
+
+  html[data-theme-mode='어둡게'] .text-gray-300 {
+    color: rgb(var(--theme-text-tertiary));
+  }
 }
 
 /* app font type */
@@ -253,10 +324,10 @@ body.font-type3 * {
 .notistack-MuiContent-default {
   box-sizing: border-box !important;
   border-radius: 20px !important;
-  background-color: white !important;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15) !important;
-  color: rgb(var(--greyTitle)) !important;
+  background-color: rgb(var(--theme-surface-elevated)) !important;
+  box-shadow: 0 1px 8px rgb(var(--theme-shadow-color) / 0.15) !important;
+  color: rgb(var(--theme-text-primary)) !important;
   font-size: 16px;
   font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgb(var(--theme-border-muted)) !important;
 }

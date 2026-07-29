@@ -55,8 +55,8 @@ export const SelectionPanel = ({
         )}
         onClick={(e) => e.stopPropagation()}
       >
-        <span className="mb-3 block text-center text-lg font-semibold leading-none text-grey-title">{title}</span>
-        <div className="flex w-full flex-col rounded-[20px] bg-white/90 p-4 shadow-[0_2px_12px_rgba(0,0,0,0.05)]">
+        <span className="mb-3 block text-center text-lg font-semibold leading-none text-theme-text-primary">{title}</span>
+        <div className="flex w-full flex-col rounded-[20px] bg-theme-surface p-4 shadow-theme-floating">
           {children}
         </div>
         {resetLabel && onReset && (
@@ -65,8 +65,8 @@ export const SelectionPanel = ({
           </button>
         )}
         <div className="flex items-center gap-3">
-          <button className={cn(panelActionButtonClass, "bg-white/90 text-grey-title")} onClick={onClose} type="button">취소</button>
-          <button className={cn(panelActionButtonClass, "bg-theme-accent text-white")} onClick={onSubmit} type="button">확인</button>
+          <button className={cn(panelActionButtonClass, "bg-theme-surface text-theme-text-primary")} onClick={onClose} type="button">취소</button>
+          <button className={cn(panelActionButtonClass, "bg-theme-accent text-theme-text-on-accent")} onClick={onSubmit} type="button">확인</button>
         </div>
       </div>
     </BackdropLayer>

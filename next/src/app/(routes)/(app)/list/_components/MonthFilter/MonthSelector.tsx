@@ -17,7 +17,7 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
   const monthsBottomEng = ['jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
   const [touchStartX, setTouchStartX] = useState<number>(0);
-  const yearButtonClass = "px-2 py-[3px] text-base text-grey-title";
+  const yearButtonClass = "px-2 py-[3px] text-base text-theme-text-primary";
 
   const goToNextYear = () => {
     setSelectedYear(c => c + 1);
@@ -50,8 +50,8 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
         onClick={() => selectMonth(month)}
         type="button"
       >
-        <span className={cn("text-sm text-grey-title", selected && "text-white")}>{month}</span>
-        <span className={cn("text-sm capitalize text-gray-400", selected && "text-white")}>{label}</span>
+        <span className={cn("text-sm text-theme-text-primary", selected && "text-theme-text-on-accent")}>{month}</span>
+        <span className={cn("text-sm capitalize text-theme-text-tertiary", selected && "text-theme-text-on-accent")}>{label}</span>
       </button>
     );
   };

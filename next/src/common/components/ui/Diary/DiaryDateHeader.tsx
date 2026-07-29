@@ -33,20 +33,20 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
   return (
     <div className="relative flex w-full items-center justify-between px-3.5 pt-3.5">
       <div className="flex items-center gap-3">
-        <span className="text-base font-semibold text-grey-title">{formattedDate}</span>
+        <span className="text-base font-semibold text-theme-text-primary">{formattedDate}</span>
         {/* <span className="text-base font-semibold text-gray-400">{day}</span> */}
         <span className="text-base font-semibold text-theme-accent">
           {EMOTIONS[diaryData.emotion]?.nameKr}
         </span>
         {diaryData.Images.length > 0 &&
           <div className='flex items-center justify-center gap-1'>
-            <IoMdImage className='flex items-center justify-center text-lg text-gray-400' />
-            <span className='text-base text-gray-400 font-semibold'>{diaryData.Images.length}</span>
+            <IoMdImage className='flex items-center justify-center text-lg text-theme-text-tertiary' />
+            <span className='text-base text-theme-text-tertiary font-semibold'>{diaryData.Images.length}</span>
           </div>}
       </div>
       <button
         ref={menuButtonRef}
-        className="flex cursor-pointer items-center gap-2 text-xl text-[#a5a5a5]"
+        className="flex cursor-pointer items-center gap-2 text-xl text-theme-text-tertiary"
         onClick={handleToggleMenu}
         type="button"
       >

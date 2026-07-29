@@ -44,7 +44,7 @@ export const EmotionSelector = ({ value, onChange }: EmotionSelectorProps) => {
         />
         <span
           className={cn(
-            "text-center text-sm text-gray-500 transition-opacity duration-200 ease-in-out",
+            "text-center text-sm text-theme-text-secondary transition-opacity duration-200 ease-in-out",
             selected ? "font-semibold opacity-100" : "opacity-50",
           )}
         >

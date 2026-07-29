@@ -87,7 +87,7 @@ const HabitInputView = ({ isEdit, habitId }: HabitInputProps) => {
               <HabitRating priority={priority} setPriority={setPriority} />
             </HabitInputCard>
           </section>
-          <span className="flex items-center justify-center text-sm text-grey-title opacity-80">*최대 생성 가능 개수 : 18개, 이름 길이 제한 : 1~10</span>
+          <span className="flex items-center justify-center text-sm text-theme-text-secondary">*최대 생성 가능 개수 : 18개, 이름 길이 제한 : 1~10</span>
         </div>
       </ModalBody>
     </ModalRoot>

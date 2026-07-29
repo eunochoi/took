@@ -40,7 +40,7 @@ const DiaryInList = ({ diaryData }: Props) => {
         )}
         <div
           className={cn(
-            "shrink-0 overflow-hidden whitespace-pre-wrap break-words px-4 text-base leading-[1.8] text-gray-500 [display:-webkit-box] [-webkit-box-orient:vertical]",
+            "shrink-0 overflow-hidden whitespace-pre-wrap break-words px-4 text-base leading-[1.8] text-theme-text-secondary [display:-webkit-box] [-webkit-box-orient:vertical]",
             hasImages ? "[-webkit-line-clamp:4]" : "[-webkit-line-clamp:6]",
           )}
         >

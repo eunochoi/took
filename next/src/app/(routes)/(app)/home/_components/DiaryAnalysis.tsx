@@ -98,14 +98,14 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
                         monthlyBarClass,
                         count > 0
                           ? 'bg-theme-accent'
-                          : 'bg-[rgba(var(--greyTitle),0.15)]',
+                          : 'bg-theme-text-primary/15',
                       )}
                       style={{ height: `${barHeight}px` }}
                     />
                   </div>
                 </div>
 
-                <span className="text-sm text-[#8a8da3]">
+                <span className="text-sm text-theme-text-secondary">
                   {index + 1}
                 </span>
               </div>

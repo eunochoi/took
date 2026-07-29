@@ -29,7 +29,7 @@ export const AppSectionTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTM
   ({ className, ...props }, ref) => (
     <h2
       ref={ref}
-      className={cn("m-0 text-2xl font-bold text-grey-title", className)}
+      className={cn("m-0 text-2xl font-bold text-theme-text-primary", className)}
       {...props}
     />
   ),
@@ -62,7 +62,7 @@ export const AppSubsectionTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={cn("m-0 text-base font-bold text-grey-title", className)}
+      className={cn("m-0 text-base font-bold text-theme-text-primary", className)}
       {...props}
     />
   ),

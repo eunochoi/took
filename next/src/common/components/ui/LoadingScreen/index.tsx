@@ -8,7 +8,7 @@ interface LoadingScreenProps {
 }
 
 const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => (
-  <div className="flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-6 bg-white">
+  <div className="flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-6 bg-theme-bg">
     {showLogo && (
       <div className="flex flex-col items-center gap-6">
         <Logo size={48} />
@@ -19,7 +19,7 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => (
         </div>
       </div>
     )}
-    {message && <span className="text-base text-grey-title">{message}</span>}
+    {message && <span className="text-base text-theme-text-primary">{message}</span>}
   </div>
 );
 

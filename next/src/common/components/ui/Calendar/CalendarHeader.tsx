@@ -47,40 +47,40 @@ const CalendarHeader = ({
     <>
       {headerTitlePosition === 'center' && (
         <header className={cn("flex items-center justify-between", titlePaddingClass[headerSize])}>
-          <button className="flex text-gray-500" onClick={prevMonth} type="button">
+          <button className="flex text-theme-text-secondary" onClick={prevMonth} type="button">
             <MdKeyboardArrowLeft />
           </button>
           <button
-            className={cn("font-title font-bold capitalize text-grey-title", titleTextClass[headerSize])}
+            className={cn("font-title font-bold capitalize text-theme-accent", titleTextClass[headerSize])}
             onClick={goToday}
             type="button"
           >
             {title}
           </button>
-          <button className="flex text-gray-500" onClick={nextMonth} type="button">
+          <button className="flex text-theme-text-secondary" onClick={nextMonth} type="button">
             <MdKeyboardArrowRight />
           </button>
         </header>
       )}
       {headerTitlePosition === 'start' && (
         <header className={cn("flex items-center justify-between", 'pb-4')}>
-          <span className={cn("font-title font-bold capitalize text-grey-title", titleTextClass[headerSize])}>
+          <span className={cn("font-title font-bold capitalize text-theme-accent", titleTextClass[headerSize])}>
             {title}
           </span>
           <div className="flex items-center justify-center gap-3">
-            <button className={cn("flex text-gray-500", arrowButtonClass[headerSize])} onClick={prevMonth} type="button">
+            <button className={cn("flex text-theme-text-secondary", arrowButtonClass[headerSize])} onClick={prevMonth} type="button">
               <MdKeyboardArrowLeft />
             </button>
-            <button className={cn("flex text-gray-500", arrowButtonClass[headerSize])} onClick={goToday} aria-label="오늘로 이동" type="button">
+            <button className={cn("flex text-theme-text-secondary", arrowButtonClass[headerSize])} onClick={goToday} aria-label="오늘로 이동" type="button">
               <MdToday />
             </button>
-            <button className={cn("flex text-gray-500", arrowButtonClass[headerSize])} onClick={nextMonth} type="button">
+            <button className={cn("flex text-theme-text-secondary", arrowButtonClass[headerSize])} onClick={nextMonth} type="button">
               <MdKeyboardArrowRight />
             </button>
           </div>
         </header>
       )}
-      <div className="flex w-full justify-around py-1.5 text-base capitalize text-grey-title">
+      <div className="flex w-full justify-around py-1.5 text-base capitalize text-theme-text-primary">
         {WEEK_TITLE_ENG.map(e => (
           <span className="w-full text-center" key={e}>{e}</span>
         ))}
