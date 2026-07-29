@@ -19,9 +19,8 @@ export const HabitRating = ({ priority, setPriority }: Props) => {
             key={i}
             className={cn(
               "flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl px-2 py-3 transition-colors duration-200",
-              selected && "bg-theme-accent",
+              selected ? "bg-theme-accent" : "bg-theme-bg",
             )}
-            style={selected ? undefined : { backgroundColor: "color-mix(in srgb, var(--theme-accent) 30%, white)" }}
           >
             <input
               className="pointer-events-none absolute opacity-0"

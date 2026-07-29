@@ -10,12 +10,7 @@ interface DiaryDateData {
   emotionType: number;
 }
 
-const badgeClass =
-  "flex h-[24px] w-[24px] items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] text-base font-semibold text-white";
-
-const badgeStyle = {
-  backgroundColor: "color-mix(in srgb, var(--theme-accent) 70%, white)",
-};
+const badgeClass = "bg-theme-accent flex h-[24px] w-[24px] items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] text-base font-semibold text-white";
 
 export const renderCalendarPageContent = ({ date, dateData }: CalendarDateContentProps<DiaryDateData>) => {
   const {
@@ -32,7 +27,7 @@ export const renderCalendarPageContent = ({ date, dateData }: CalendarDateConten
       <div className="relative z-[2] w-full">
         <Image className="h-auto w-[90%]" src={emotion.src} alt={emotion.nameKr} />
         {habitsCount > 0 && (
-          <div className={`${badgeClass} absolute -right-2.5 -top-2.5 z-10`} style={badgeStyle}>
+          <div className={`${badgeClass} absolute -right-2.5 -top-2.5 z-10`}>
             {habitsCount}
           </div>
         )}
@@ -41,7 +36,7 @@ export const renderCalendarPageContent = ({ date, dateData }: CalendarDateConten
   }
   if (!hasDiary && hasHabit) {
     return (
-      <div className={`${badgeClass} scale-[1.3]`} style={badgeStyle}>
+      <div className={`${badgeClass} scale-[1.3]`}>
         {habitsCount}
       </div>
     );

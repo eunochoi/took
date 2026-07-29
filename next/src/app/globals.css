@@ -109,8 +109,8 @@
 
 
 :root {
-  --theme-accent: #8CADE2;
-  --theme-bg: #eaf1f9;
+  --theme-accent: 140 173 226;
+  --theme-bg: 234 241 249;
   --app-font-size: 15px;
   --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
 
@@ -154,39 +154,39 @@ body {
   margin: 0;
   padding: 0;
 
-  background-color: var(--theme-bg);
+  background-color: rgb(var(--theme-bg));
 }
 
 /* app theme mode */
 /* app accent color */
 html[data-theme-accent='blue'] {
-  --theme-accent: #8CADE2;
-  --theme-bg: #eaf1f9;
+  --theme-accent: 140 173 226;
+  --theme-bg: 234 241 249;
 }
 
 html[data-theme-accent='green'] {
-  --theme-accent: #83c6b6;
-  --theme-bg: #eefaf6;
+  --theme-accent: 131 198 182;
+  --theme-bg: 238 250 246;
 }
 
 html[data-theme-accent='purple'] {
-  --theme-accent: #979FC7;
-  --theme-bg: #ededf7;
+  --theme-accent: 151 159 199;
+  --theme-bg: 237 237 247;
 }
 
 html[data-theme-accent='pink'] {
-  --theme-accent: #eda5b1;
-  --theme-bg: #f9f1f2;
+  --theme-accent: 237 165 177;
+  --theme-bg: 249 241 242;
 }
 
 html[data-theme-accent='yellow'] {
-  --theme-accent: #f9c74f;
-  --theme-bg: #fcf5e7;
+  --theme-accent: 249 199 79;
+  --theme-bg: 252 245 231;
 }
 
 html[data-theme-accent='grey'] {
-  --theme-accent: #8f8f8f;
-  --theme-bg: #f2f2f2;
+  --theme-accent: 143 143 143;
+  --theme-bg: 242 242 242;
 }
 
 /* app font type */
@@ -205,15 +205,15 @@ html[data-font-type='type3'] {
 
 /* app font size */
 html[data-font-size='작게'] {
-  --app-font-size: 15px;
+  --app-font-size: 14px;
 }
 
 html[data-font-size='보통'] {
-  --app-font-size: 16px;
+  --app-font-size: 15px;
 }
 
 html[data-font-size='크게'] {
-  --app-font-size: 17px;
+  --app-font-size: 16px;
 }
 
 html {

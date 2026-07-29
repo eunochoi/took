@@ -7,12 +7,13 @@ interface Props {
   visible: boolean;
 }
 
-const gradientStyle = (edge: Props['edge']): CSSProperties => ({
+const bg = "rgb(var(--theme-bg))";
+
+const gradientStyle = (edge: Props["edge"]): CSSProperties => ({
   background: `linear-gradient(
-    to ${edge === 'top' ? 'bottom' : 'top'},
-    var(--theme-bg, #f5f5fa) 0%,
-    color-mix(in srgb, var(--theme-bg, #f5f5fa) 70%, transparent) 40%,
-    color-mix(in srgb, var(--theme-bg, #f5f5fa) 30%, transparent) 70%,
+    to ${edge === "top" ? "bottom" : "top"},
+    ${bg} 0%,
+    rgb(var(--theme-bg) / 0.2) 65%,
     transparent 100%
   )`,
 });

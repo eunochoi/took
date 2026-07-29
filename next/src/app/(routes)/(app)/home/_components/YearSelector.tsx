@@ -42,11 +42,10 @@ const YearSelector = ({ isOpen, onClose, years, selectedYear, onSelectYear }: Pr
             <button
               key={year}
               className={cn(
-                "rounded-[14px] px-2 py-3.5 text-base transition-all duration-200 ease-in-out hover:brightness-105",
-                selected ? "bg-theme-accent font-semibold text-white shadow-[0_2px_8px_rgba(0,0,0,0.1)]" : "font-normal text-grey-title",
+                "rounded-[14px] px-2 py-3.5 text-base transition-all duration-200 ease-in-out hover:brightness-105 shadow-[0_2px_8px_rgba(0,0,0,0.1)]",
+                selected ? "bg-theme-accent font-semibold text-white " : "bg-theme-accent/40 font-normal text-grey-title",
               )}
               onClick={() => setTempYear(year)}
-              style={selected ? undefined : { backgroundColor: "color-mix(in srgb, var(--theme-accent) 40%, white)" }}
               type="button"
             >
               {year}년
