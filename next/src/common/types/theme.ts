@@ -25,6 +25,8 @@ export const THEME_BG_LIST = [
   '242 242 242',
 ] as const;
 
+export const THEME_BG_DARK_MODE = `38 38 38`;
+
 export const THEME_MODE_LIST = ['밝게', '어둡게'] as const;
 
 export type ThemeName = typeof THEME_NAME_LIST[number];

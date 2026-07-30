@@ -1,7 +1,7 @@
 'use client';
 
 import { FontSize, FontType, } from '@/common/types/setting';
-import { THEME_VALUE, ThemeMode, ThemeName } from '@/common/types/theme';
+import { THEME_BG_DARK_MODE, THEME_VALUE, ThemeMode, ThemeName } from '@/common/types/theme';
 import { useEffect } from 'react';
 
 interface useApplySettingsProps {
@@ -24,7 +24,7 @@ export const useApplySettings = ({ accent, mode, fontSize, fontType }: useApplyS
   // apply accent Color
   useEffect(() => {
     document.documentElement.dataset.themeAccent = accent;
-    const bgColor = mode === '어둡게' ? '#000000' : `rgb(${THEME_VALUE[accent].bg})`;
+    const bgColor = mode === '어둡게' ? `rgb(${THEME_BG_DARK_MODE})` : `rgb(${THEME_VALUE[accent].bg})`;
 
     //apply status bar color for web
     let metaThemeColor = document.querySelector('meta[name="theme-color"]');
