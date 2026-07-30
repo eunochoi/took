@@ -20,8 +20,8 @@ export const ThemeColorSelector = () => {
             <button
               key={themeName}
               className={cn(
-                "bg-theme-accent flex h-[32px] w-[32px] items-center justify-center rounded-full transition-transform duration-200 ease-in-out hover:scale-[1.2]",
-                selected ? "scale-[1.15]" : "scale-100",
+                "bg-theme-accent flex h-[24px] w-[24px] items-center justify-center rounded-full transition-transform duration-200 ease-in-out hover:scale-[1.2]",
+                selected ? "scale-[1.3]" : "scale-100",
               )}
               onClick={() => setThemeName(themeName)}
               style={{ backgroundColor: THEME_VALUE[themeName].accent }}
