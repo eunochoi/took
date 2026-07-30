@@ -3,7 +3,7 @@
 import { MdCheck } from 'react-icons/md';
 
 import { useSettingsContext } from "@/common/settings/useSettingsContext";
-import { THEME_NAME_LIST, THEME_VALUE } from '@/common/types/setting';
+import { THEME_NAME_LIST, THEME_VALUE } from '@/common/types/theme';
 import { cn } from "@/common/utils/cn";
 
 export const ThemeColorSelector = () => {
@@ -24,7 +24,7 @@ export const ThemeColorSelector = () => {
                 selected ? "scale-[1.3]" : "scale-100",
               )}
               onClick={() => setThemeName(themeName)}
-              style={{ backgroundColor: THEME_VALUE[themeName].accent }}
+              style={{ backgroundColor: `rgb(${THEME_VALUE[themeName].accent})` }}
               type="button"
             >
               {selected && <MdCheck className="text-lg text-theme-text-on-accent drop-shadow-[0_1px_1px_rgb(var(--theme-shadow-color)/0.2)]" />}

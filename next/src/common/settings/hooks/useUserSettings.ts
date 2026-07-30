@@ -2,7 +2,8 @@
 
 import { useCurrentUser } from '@/common/hooks/useCurrentUser';
 import { useLocalStorage } from '@/common/hooks/useLocalStorage';
-import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontSize, FontType, LocalSettingValue, THEME_MODE_LIST, THEME_NAME_LIST, ThemeMode, ThemeName } from '@/common/types/setting';
+import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontSize, FontType, LocalSettingValue } from '@/common/types/setting';
+import { THEME_MODE_LIST, THEME_NAME_LIST, ThemeMode, ThemeName } from '@/common/types/theme';
 import { useCallback } from 'react';
 
 export const useUserSettings = () => {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useSettingsContext } from "@/common/settings/useSettingsContext";
-import { THEME_MODE_LIST } from "@/common/types/setting";
+import { THEME_MODE_LIST } from "@/common/types/theme";
 import { SettingStepSelector } from "./SettingStepSelector";
 
 export const ThemeModeSelector = () => {

@@ -1,6 +1,7 @@
 'use client';
 
-import { FontSize, FontType, THEME_VALUE, ThemeMode, ThemeName } from '@/common/types/setting';
+import { FontSize, FontType, } from '@/common/types/setting';
+import { THEME_VALUE, ThemeMode, ThemeName } from '@/common/types/theme';
 import { useEffect } from 'react';
 
 interface useApplySettingsProps {
@@ -23,7 +24,8 @@ export const useApplySettings = ({ accent, mode, fontSize, fontType }: useApplyS
   // apply accent Color
   useEffect(() => {
     document.documentElement.dataset.themeAccent = accent;
-    const bgColor = mode === '어둡게' ? '#000000' : THEME_VALUE[accent].bg;
+    const bgColor = mode === '어둡게' ? '#000000' : `rgb(${THEME_VALUE[accent].bg})`;
+
     //apply status bar color for web
     let metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (!metaThemeColor) {
@@ -37,7 +39,7 @@ export const useApplySettings = ({ accent, mode, fontSize, fontType }: useApplyS
       (window as any).ReactNativeWebView.postMessage(JSON.stringify({
         type: 'THEME_CHANGE',
         color: bgColor,
-        style: mode === '어둡게' ? 'dark' : 'light'
+        style: mode === '어둡게' ? 'light' : 'dark'
       }));
     }
   }, [accent, mode]);

@@ -1,0 +1,29 @@
+html[data-theme-accent='blue'] {
+  --theme-accent: 140 173 226;
+  --theme-bg-light: 240 247 255;
+}
+
+html[data-theme-accent='green'] {
+  --theme-accent: 131 198 182;
+  --theme-bg-light: 238 250 246;
+}
+
+html[data-theme-accent='purple'] {
+  --theme-accent: 151 159 199;
+  --theme-bg-light: 237 237 247;
+}
+
+html[data-theme-accent='pink'] {
+  --theme-accent: 237 165 177;
+  --theme-bg-light: 249 241 242;
+}
+
+html[data-theme-accent='yellow'] {
+  --theme-accent: 249 199 79;
+  --theme-bg-light: 255 248 234;
+}
+
+html[data-theme-accent='grey'] {
+  --theme-accent: 143 143 143;
+  --theme-bg-light: 242 242 242;
+}
