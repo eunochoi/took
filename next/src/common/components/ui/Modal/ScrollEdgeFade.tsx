@@ -22,7 +22,7 @@ export const ScrollEdgeFade = ({ className, edge, visible }: Props) => {
   return (
     <div
       className={cn(
-        "pointer-events-none transition-opacity duration-500 ease-in-out",
+        "pointer-events-none transition-opacity duration-200 ease-in-out",
         visible ? "opacity-100" : "opacity-0",
         className,
       )}
