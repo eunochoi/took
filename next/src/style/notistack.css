@@ -1,0 +1,22 @@
+.notistack-SnackbarContainer,
+.app-snackbar-container {
+  z-index: 999999 !important;
+}
+
+.app-snackbar-root,
+.notistack-Snackbar,
+.notistack-CollapseWrapper {
+  width: 100% !important;
+}
+
+.notistack-MuiContent,
+.notistack-MuiContent-default {
+  box-sizing: border-box !important;
+  border-radius: 20px !important;
+  background-color: rgb(var(--theme-surface-elevated)) !important;
+  box-shadow: 0 1px 8px rgb(var(--theme-shadow-color) / 0.15) !important;
+  color: rgb(var(--theme-text-primary)) !important;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid rgb(var(--theme-border-muted)) !important;
+}
