@@ -156,7 +156,7 @@ themeColor는 DB에서 사용하지 않는다는 결정을 반드시 지켜줘.
 
 - Codex는 작업을 시작하기 전에 이 README를 읽습니다.
 - 기본적인 `interface`와 `type` 선언을 넘어서는 TypeScript 문법을 코드에 추가하거나 수정하면 사용자에게 해당 문법을 설명합니다.
-- 설명한 문법은 `typescript-type-basics.md`에 예제와 함께 추가하거나 기존 내용을 갱신합니다.
+- 설명한 문법은 `../../md/typescript-type-basics.md`에 예제와 함께 추가하거나 기존 내용을 갱신합니다.
 - 명령 실행 전 README를 확인하고, 작업 완료 후 필요한 문서 업데이트 여부를 검토합니다.
 
 ## 9. 완료 기준
