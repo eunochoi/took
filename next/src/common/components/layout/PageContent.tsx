@@ -9,8 +9,8 @@ export const PageContent = forwardRef<HTMLDivElement, PageContentProps>(
       ref={ref}
       className={cn(
         "flex h-auto w-full max-w-[650px] flex-col",
-        "max-[479px]:px-[4dvw] max-[479px]:pb-[var(--mobileNav)] max-[479px]:pt-0",
-        "min-[480px]:px-9 min-[480px]:pb-9 min-[480px]:pt-9",
+        "max-tablet:px-[4dvw] max-tablet:pb-[var(--mobileNav)] max-tablet:pt-0",
+        "tablet:px-9 tablet:pb-9 tablet:pt-9",
         className,
       )}
       {...props}

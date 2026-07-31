@@ -7,7 +7,6 @@ import { ReactNode } from "react";
 interface Props {
   isOpen: boolean;
   title: string;
-  minHeightClassName: string;
   children: ReactNode;
   resetLabel?: ReactNode;
   onClose: () => void;
@@ -19,20 +18,19 @@ const panelBaseClass =
   "fixed -top-[3px] flex shrink-0 flex-col items-center justify-start overflow-hidden backdrop-blur-2xl";
 
 const panelMobileClass =
-  "max-[479px]:max-h-[calc(100dvh-var(--mobileHeader))] max-[479px]:w-full max-[479px]:origin-top max-[479px]:gap-5 max-[479px]:overflow-y-auto max-[479px]:overflow-x-hidden max-[479px]:rounded-b-3xl max-[479px]:px-6 max-[479px]:pb-8 max-[479px]:pt-8 max-[479px]:shadow-[0_2px_8px_rgba(0,0,0,0.1)] max-[479px]:transition-transform max-[479px]:duration-200 max-[479px]:ease-in-out";
+  "max-tablet:max-h-[calc(100dvh-var(--mobileHeader))] max-tablet:w-full max-tablet:origin-top max-tablet:gap-5 max-tablet:overflow-y-auto max-tablet:overflow-x-hidden max-tablet:rounded-b-3xl max-tablet:px-6 max-tablet:pb-8 max-tablet:pt-8 max-tablet:shadow-theme-panel-mobile max-tablet:transition-transform max-tablet:duration-200 max-tablet:ease-in-out";
 
 const panelFloatingClass =
-  "min-[480px]:left-1/2 min-[480px]:top-[50dvh] min-[480px]:z-[999] min-[480px]:max-h-[80dvh] min-[480px]:w-[400px] min-[480px]:-translate-x-1/2 min-[480px]:-translate-y-1/2 min-[480px]:gap-5 min-[480px]:rounded-theme min-[480px]:px-7 min-[480px]:py-6 min-[480px]:shadow-[0_4px_24px_rgba(0,0,0,0.1)] min-[480px]:transition-[opacity,visibility] min-[480px]:duration-200 min-[1025px]:w-[450px] min-[1025px]:gap-6 min-[1025px]:px-10 min-[1025px]:py-8";
+  "tablet:left-1/2 tablet:top-[50dvh] tablet:z-[999] tablet:max-h-[80dvh] tablet:w-[400px] tablet:-translate-x-1/2 tablet:-translate-y-1/2 tablet:gap-5 tablet:rounded-theme tablet:px-7 tablet:py-6 tablet:shadow-theme-panel tablet:transition-[opacity,visibility] tablet:duration-200 desktop:w-[450px] desktop:gap-6 desktop:px-10 desktop:py-8";
 
 const panelLandscapeClass =
-  "[@media(orientation:landscape)_and_(max-height:600px)]:max-h-[calc(100dvh-20px)] [@media(orientation:landscape)_and_(max-height:600px)]:justify-start [@media(orientation:landscape)_and_(max-height:600px)]:gap-4 [@media(orientation:landscape)_and_(max-height:600px)]:overflow-y-auto [@media(orientation:landscape)_and_(max-height:600px)]:px-6 [@media(orientation:landscape)_and_(max-height:600px)]:py-5 [@media(orientation:landscape)_and_(max-height:600px)]:pt-[calc(var(--mobileHeader)+20px)]";
+  "landscape-short:max-h-[calc(100dvh-20px)] landscape-short:justify-start landscape-short:gap-4 landscape-short:overflow-y-auto landscape-short:px-6 landscape-short:py-6";
 
 const panelActionButtonClass = "shrink-0 rounded-full px-5 py-1.5 text-base shadow-card";
 
 export const SelectionPanel = ({
   isOpen,
   title,
-  minHeightClassName,
   children,
   resetLabel,
   onClose,
@@ -43,7 +41,7 @@ export const SelectionPanel = ({
     <Overlay
       isOpen={isOpen}
       onClose={onClose}
-      className="max-[479px]:z-[98] min-[480px]:z-[105]"
+      className="max-tablet:z-[98] tablet:z-[105]"
     >
       <div
         className={cn(
@@ -52,10 +50,9 @@ export const SelectionPanel = ({
           panelMobileClass,
           panelFloatingClass,
           panelLandscapeClass,
-          minHeightClassName,
           isOpen
-            ? "max-[479px]:scale-y-100 min-[480px]:visible min-[480px]:opacity-100"
-            : "max-[479px]:scale-y-0 min-[480px]:invisible min-[480px]:opacity-0",
+            ? "max-tablet:scale-y-100 tablet:visible tablet:opacity-100"
+            : "max-tablet:scale-y-0 tablet:invisible tablet:opacity-0",
         )}
         onClick={(e) => e.stopPropagation()}
       >

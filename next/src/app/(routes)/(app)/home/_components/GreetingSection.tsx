@@ -6,13 +6,13 @@ import { MdCalendarMonth, MdCheckBox } from 'react-icons/md';
 
 import emotionsImage from '/public/img/emotion/emotions.png';
 
-const actionLinkClass = "flex items-center gap-2 rounded-xl bg-theme-surface px-4 py-3 shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:bg-theme-surface-elevated hover:shadow-[0_2px_8px_rgb(var(--theme-shadow-color)/0.08)]";
+const actionLinkClass = "flex items-center gap-2 rounded-xl bg-theme-surface px-4 py-3 shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:bg-theme-surface-elevated hover:shadow-theme-soft";
 const actionIconClass = "flex shrink-0 items-center justify-center text-xl text-theme-accent";
 
 const GreetingSection = () => {
   return (
     <section className="m-0 flex flex-col gap-5">
-      <div className="mx-auto mb-6 mt-12 w-3/4 min-[480px]:hidden">
+      <div className="mx-auto mb-6 mt-12 w-3/4 tablet:hidden">
         <Image
           className="h-auto w-full object-contain"
           src={emotionsImage}
@@ -29,7 +29,7 @@ const GreetingSection = () => {
         <span className="block">완벽한 하루가 아니어도 좋습니다.</span>
         <span className="block">습관 발자국 하나만 남겨도 충분해요.</span>
       </p>
-      <div className="flex flex-col gap-2.5 min-[480px]:flex-row min-[480px]:gap-3">
+      <div className="flex flex-col gap-2.5 tablet:flex-row tablet:gap-3">
         <Link
           className={actionLinkClass}
           href="/calendar"

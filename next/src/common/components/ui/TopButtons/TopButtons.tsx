@@ -14,8 +14,8 @@ const TopButtons = ({ children, className, classname }: Props) => {
     <div
       className={cn(
         "sticky left-0 right-0 top-0 z-[91] flex w-full shrink-0 items-center justify-end gap-1.5",
-        "max-[479px]:h-[var(--mobileHeader)] max-[479px]:px-[4dvw]",
-        "min-[480px]:h-[var(--mobileHeader)] min-[480px]:px-5 min-[1025px]:px-12",
+        "max-tablet:h-[var(--mobileHeader)] max-tablet:px-[4dvw]",
+        "tablet:h-[var(--mobileHeader)] tablet:px-5 desktop:px-12",
         className,
         classname,
       )}

@@ -61,7 +61,7 @@ const HomeView = () => {
         </TopButton>
       }
       contentProps={{
-        className: "gap-14 max-[479px]:pb-[calc(var(--mobileNav)+48px)] max-[479px]:pt-2 min-[480px]:pb-12 min-[480px]:pt-2",
+        className: "gap-14 max-tablet:pb-[calc(var(--mobileNav)+48px)] max-tablet:pt-2 tablet:pb-12 tablet:pt-2",
       }}
       afterContent={
         <YearFilter

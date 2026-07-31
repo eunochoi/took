@@ -96,7 +96,7 @@ const MonthInfo = ({ displayDate, habitId, setDisplayDate }: Props) => {
         * 오늘 포함 최근 4일 동안만 습관 체크가 가능하며, 그보다 지난 날짜 중 완료하지 못한 횟수를 놓친 실천으로 계산해요.
       </AppNoteCard>
 
-      <AppSurfaceCard className="min-h-[430px] min-[480px]:min-h-[500px]">
+      <AppSurfaceCard className="min-h-[430px] tablet:min-h-[500px]">
         <Calendar
           isTouchGestureEnabled={false}
           variant="compact"

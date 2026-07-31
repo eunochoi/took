@@ -11,7 +11,7 @@ interface Props {
 }
 
 const modalContentClass = "flex h-full w-full flex-col overflow-hidden rounded-none bg-theme-bg transition-all duration-200 ease-in-out";
-const modalDesktopClass = "min-[1025px]:h-[85dvh] min-[1025px]:max-h-[85%] min-[1025px]:w-[500px] min-[1025px]:rounded-theme min-[1025px]:shadow-theme-modal";
+const modalDesktopClass = "desktop:h-[85dvh] desktop:max-h-[85%] desktop:w-[500px] desktop:rounded-theme desktop:shadow-theme-modal";
 
 export const RouteModal = ({ className, children }: Props) => {
   const router = useRouter();

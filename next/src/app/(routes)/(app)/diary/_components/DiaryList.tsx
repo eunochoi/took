@@ -25,7 +25,7 @@ export const DiaryList = ({ diaries }: DiaryListProps) => {
           if (currentDiaryDate !== previousDiaryDate) {
             return (
               <React.Fragment key={`diary-list-${diary.id}`}>
-                <span className="my-4 flex w-full items-center justify-start text-3xl font-title font-bold capitalize text-theme-accent max-[479px]:w-[90dvw]">
+                <span className="my-4 flex w-full items-center justify-start text-3xl font-title font-bold capitalize text-theme-accent max-tablet:w-[90dvw]">
                   {currentDiaryDate}
                 </span>
                 <div className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
@@ -42,7 +42,7 @@ export const DiaryList = ({ diaries }: DiaryListProps) => {
           );
         })
         :
-        <div className="flex flex-col items-center justify-center gap-8 text-theme-text-primary max-[479px]:pt-[25dvh] max-[479px]:text-lg min-[480px]:max-[1023px]:pt-8 min-[480px]:max-[1023px]:text-lg min-[1024px]:pt-[25dvh] min-[1024px]:text-2xl">
+        <div className="flex flex-col items-center justify-center gap-8 text-theme-text-primary max-tablet:pt-[25dvh] max-tablet:text-lg tablet:max-desktop:pt-8 tablet:max-desktop:text-lg desktop:pt-[25dvh] desktop:text-2xl">
           <Image src={EMOTIONS[1].src} alt={EMOTIONS[1].nameKr} width={128} height={128} />
           <span>작성된 일기가 존재하지 않습니다. :(</span>
         </div>}

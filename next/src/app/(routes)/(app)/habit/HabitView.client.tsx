@@ -74,7 +74,7 @@ const HabitView = () => {
         className="mb-7"
       />
 
-      <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3 pb-2 min-[480px]:max-[1023px]:grid-cols-3 min-[1024px]:grid-cols-3">
+      <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3 tablet:max-desktop:grid-cols-3 desktop:grid-cols-3">
         {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
         {(habits?.length ?? 0) < MAX_HABIT_COUNT && (
           <button

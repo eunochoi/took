@@ -132,7 +132,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
     <RouteModal>
       <ModalHeader title={headerTitle} confirmText={submitText} onConfirm={onSubmit} />
       <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
-        <div className="flex w-full flex-col gap-6 px-[4dvw] py-9 min-[480px]:max-[1023px]:px-6 min-[480px]:max-[1023px]:py-6 min-[1024px]:px-6 min-[1024px]:py-9">
+        <div className="flex w-full flex-col gap-6 px-[4dvw] py-9 tablet:max-desktop:px-6 tablet:max-desktop:py-6 desktop:px-6 desktop:py-9">
           <section className="flex w-full flex-col gap-3">
             <SectionTitle><SectionTitleIcon><MdOutlineEmojiEmotions /></SectionTitleIcon>하루의 감정</SectionTitle>
             <DiaryInputCard>

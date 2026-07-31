@@ -55,7 +55,6 @@ const EmotionFilter = ({
     <SelectionPanel
       isOpen={isOpen}
       title="감정 선택"
-      minHeightClassName="max-[479px]:min-h-[300px]"
       resetLabel={<><MdRefresh />초기화</>}
       onClose={() => onClose()}
       onReset={onInitialize}

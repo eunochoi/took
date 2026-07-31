@@ -10,7 +10,7 @@ const SideBar = () => {
   const current = useSelectedLayoutSegment();
 
   return (
-    <div className="fixed left-0 top-0 z-[100] flex h-[100dvh] w-[var(--sidebarWidth)] flex-col items-center justify-evenly gap-16 overflow-y-scroll bg-theme-surface/80 px-4 shadow-[2px_0_20px_rgb(var(--theme-shadow-color)/0.04)] backdrop-blur-xl">
+    <div className="fixed left-0 top-0 z-[100] flex h-[100dvh] w-[var(--sidebarWidth)] flex-col items-center justify-evenly gap-16 overflow-y-scroll bg-theme-surface/80 px-4 shadow-theme-sidebar backdrop-blur-xl">
       <div className="flex flex-col items-start">
         <Logo size={36} />
       </div>

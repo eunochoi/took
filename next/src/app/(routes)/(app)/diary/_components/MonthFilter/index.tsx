@@ -66,7 +66,6 @@ const MonthFilter = ({
     <SelectionPanel
       isOpen={isOpen}
       title="기간 선택"
-      minHeightClassName="max-[479px]:min-h-[400px]"
       resetLabel={<><MdRefresh />초기화</>}
       onClose={() => onClose()}
       onReset={onInitialize}

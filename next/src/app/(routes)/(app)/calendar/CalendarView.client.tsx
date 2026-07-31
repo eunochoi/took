@@ -73,9 +73,9 @@ const CalendarView = ({ date }: CalendarViewProps) => {
   return (
     <AppPageLayout
       contentProps={{
-        className: "flex-1 gap-3 max-[479px]:gap-5 max-[479px]:pt-6 min-[480px]:gap-6 min-[480px]:pt-6",
+        className: "flex-1 gap-3 max-tablet:gap-5 max-tablet:pt-6 tablet:gap-6 tablet:pt-6",
       }}>
-      <div className="min-h-[520px] flex-[1_1_0] overflow-visible max-[479px]:min-h-[380px]">
+      <div className="min-h-[520px] flex-[1_1_0] overflow-visible max-tablet:min-h-[380px]">
         <Calendar<DiaryDateData>
           isTouchGestureEnabled={true}
           variant="default"

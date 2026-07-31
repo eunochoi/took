@@ -9,7 +9,7 @@ export const AppStatCard = forwardRef<HTMLDivElement, DivProps>(
       ref={ref}
       className={cn(
         appCardClass,
-        "flex min-h-[100px] flex-col justify-between gap-2 px-2 py-4 min-[480px]:min-h-[110px] min-[480px]:p-4",
+        "flex min-h-[100px] flex-col justify-between gap-2 px-2 py-4 tablet:min-h-[110px] tablet:p-4",
         className,
       )}
       {...props}
@@ -44,7 +44,7 @@ export const AppStatValue = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanE
   ({ className, ...props }, ref) => (
     <span
       ref={ref}
-      className={cn("text-2xl font-extrabold leading-none text-theme-accent min-[480px]:text-xl", className)}
+      className={cn("text-2xl font-extrabold leading-none text-theme-accent tablet:text-xl", className)}
       {...props}
     />
   ),

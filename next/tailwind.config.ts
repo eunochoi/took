@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 const config: Config = {
   content: [
@@ -40,13 +41,27 @@ const config: Config = {
       borderRadius: {
         theme: "20px",
       },
+      screens: {
+        tablet: "480px",
+        desktop: "1024px",
+      },
       boxShadow: {
         card: "0 1px 4px rgb(var(--theme-shadow-color) / 0.05)",
+        "theme-soft": "0 2px 8px rgb(var(--theme-shadow-color) / 0.08)",
+        "theme-section": "0 2px 12px rgb(var(--theme-shadow-color) / 0.06)",
+        "theme-action": "0 2px 8px rgb(var(--theme-shadow-color) / 0.1)",
+        "theme-sidebar": "2px 0 20px rgb(var(--theme-shadow-color) / 0.04)",
+        "theme-panel-mobile": "0 2px 8px rgba(0, 0, 0, 0.1)",
+        "theme-panel": "0 4px 24px rgba(0, 0, 0, 0.1)",
         "theme-modal": "0 8px 32px rgb(var(--theme-shadow-color) / 0.12)",
         "theme-floating": "0 2px 12px rgb(var(--theme-shadow-color) / 0.08)",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addVariant }) => {
+      addVariant("landscape-short", "@media (orientation: landscape) and (max-height: 600px)");
+    }),
+  ],
 };
 export default config;

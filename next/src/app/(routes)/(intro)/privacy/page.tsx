@@ -7,7 +7,7 @@ import PrivacyHeader from './_components/PrivacyHeader';
 const PrivacyPage = () => {
   return (
     <div className="h-[100dvh] w-[100dvw] overflow-y-auto" style={{ backgroundColor: INTRO_PAGE_BG }}>
-      <main className="mx-auto flex w-full max-w-[720px] flex-col px-5 py-10 sm:px-8 sm:py-14">
+      <main className="mx-auto flex w-full max-w-[720px] flex-col px-5 py-10 tablet:px-8 tablet:py-14">
         <PrivacyHeader />
         <PrivacyBody />
       </main>

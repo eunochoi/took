@@ -110,7 +110,7 @@ const DiaryInputImages = ({ imageUploadRef, images, setImages, isLoading }: Prop
     <div className="flex h-auto w-full shrink-0 items-stretch gap-4 overflow-x-auto rounded-theme bg-theme-surface px-4 py-4 shadow-card [&::-webkit-scrollbar-thumb]:rounded-sm [&::-webkit-scrollbar-thumb]:bg-theme-overlay/10 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:h-1">
       <div className={imageTileClass}>
         <button
-          className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-theme bg-theme-accent shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:shadow-[0_2px_8px_rgb(var(--theme-shadow-color)/0.08)] disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-theme bg-theme-accent shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:shadow-theme-soft disabled:cursor-not-allowed disabled:opacity-40"
           disabled={isLoading}
           onClick={() => imageUploadRef.current?.click()}
           type="button"

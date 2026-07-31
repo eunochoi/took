@@ -14,7 +14,7 @@ interface Props {
 
 const YearFilter = ({ isOpen, onClose, years, selectedYear, onApplyYear }: Props) => {
   const [tempYear, setTempYear] = useState(selectedYear);
-  const yearGridClass = "grid w-full grid-cols-3 gap-2.5 overflow-y-auto p-1 max-h-[calc(50dvh-120px)] min-[480px]:max-h-[300px]";
+  const yearGridClass = "grid w-full grid-cols-3 gap-2.5 overflow-y-auto p-1 max-h-[calc(50dvh-120px)] tablet:max-h-[300px]";
 
   useEffect(() => {
     if (isOpen) {
@@ -30,7 +30,6 @@ const YearFilter = ({ isOpen, onClose, years, selectedYear, onApplyYear }: Props
     <SelectionPanel
       isOpen={isOpen}
       title="연도 선택"
-      minHeightClassName="max-[479px]:min-h-[300px]"
       onClose={() => onClose()}
       onSubmit={onSubmit}
     >
@@ -42,7 +41,7 @@ const YearFilter = ({ isOpen, onClose, years, selectedYear, onApplyYear }: Props
             <button
               key={year}
               className={cn(
-                "rounded-theme px-2 py-3.5 text-base transition-all duration-200 ease-in-out hover:brightness-105 shadow-[0_2px_8px_rgb(var(--theme-shadow-color)/0.1)]",
+                "rounded-theme px-2 py-3.5 text-base transition-all duration-200 ease-in-out hover:brightness-105 shadow-theme-action",
                 selected ? "bg-theme-accent font-semibold text-theme-text-on-accent " : "bg-theme-accent/40 font-normal text-theme-text-primary",
               )}
               onClick={() => setTempYear(year)}
