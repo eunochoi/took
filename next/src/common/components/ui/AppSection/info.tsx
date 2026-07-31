@@ -1,13 +1,13 @@
 import { cn } from "@/common/utils/cn";
 import { forwardRef } from "react";
-import { APP_CARD_CLASS } from "./constants";
+import { appCardClass } from "./constants";
 import { DivProps, ParagraphProps } from "./types";
 
 export const AppInfoCard = forwardRef<HTMLDivElement, DivProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(APP_CARD_CLASS, "flex flex-col gap-3 px-4 py-5", className)}
+      className={cn(appCardClass, "flex flex-col gap-3 px-4 py-5", className)}
       {...props}
     />
   ),
@@ -44,7 +44,7 @@ export const AppNoteCard = forwardRef<HTMLParagraphElement, ParagraphProps>(
     <p
       ref={ref}
       className={cn(
-        APP_CARD_CLASS,
+        appCardClass,
         "m-0 break-keep px-4 py-5 text-justify text-sm leading-normal text-theme-accent",
         className,
       )}

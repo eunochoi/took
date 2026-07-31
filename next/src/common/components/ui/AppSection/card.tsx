@@ -1,6 +1,6 @@
 import { cn } from "@/common/utils/cn";
 import { forwardRef } from "react";
-import { APP_CARD_CLASS } from "./constants";
+import { appCardClass } from "./constants";
 import { AppCardGridProps, DivProps } from "./types";
 
 export const AppCardGrid = forwardRef<HTMLDivElement, AppCardGridProps>(
@@ -24,7 +24,7 @@ export const AppCard = forwardRef<HTMLDivElement, DivProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(APP_CARD_CLASS, "p-4 min-[480px]:p-5", className)}
+      className={cn(appCardClass, "p-4 min-[480px]:p-5", className)}
       {...props}
     />
   ),
@@ -35,7 +35,7 @@ export const AppSurfaceCard = forwardRef<HTMLDivElement, DivProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(APP_CARD_CLASS, "w-full p-4 min-[480px]:p-5", className)}
+      className={cn(appCardClass, "w-full p-4 min-[480px]:p-5", className)}
       {...props}
     />
   ),

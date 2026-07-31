@@ -8,11 +8,14 @@ interface Props {
   modal?: ReactNode;
 }
 
+const desktopLayoutClass = "flex w-screen justify-center";
+const desktopContentClass = "ml-[var(--sidebarWidth)] flex w-[calc(100vw_-_var(--sidebarWidth))] flex-col items-center justify-start";
+
 const DesktopLayout = ({ modal, children }: Props) => {
   return (
-    <div className="flex w-screen justify-center">
+    <div className={desktopLayoutClass}>
       <SideBar />
-      <div className="ml-[var(--sidebarWidth)] flex w-[calc(100vw_-_var(--sidebarWidth))] flex-col items-center justify-start">
+      <div className={desktopContentClass}>
         {modal}
         {children}
       </div>

@@ -1,6 +1,6 @@
 import { cn } from "@/common/utils/cn";
 import { HTMLAttributes, forwardRef } from "react";
-import { APP_CARD_CLASS } from "./constants";
+import { appCardClass } from "./constants";
 import { DivProps, ParagraphProps } from "./types";
 
 export const AppStatCard = forwardRef<HTMLDivElement, DivProps>(
@@ -8,7 +8,7 @@ export const AppStatCard = forwardRef<HTMLDivElement, DivProps>(
     <div
       ref={ref}
       className={cn(
-        APP_CARD_CLASS,
+        appCardClass,
         "flex min-h-[100px] flex-col justify-between gap-2 px-2 py-4 min-[480px]:min-h-[110px] min-[480px]:p-4",
         className,
       )}

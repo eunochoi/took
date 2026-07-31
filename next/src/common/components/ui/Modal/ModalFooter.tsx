@@ -4,6 +4,7 @@ import { cn } from "@/common/utils/cn";
 import { HTMLAttributes, forwardRef } from "react";
 
 type ModalFooterProps = HTMLAttributes<HTMLDivElement>;
+const modalFooterClass = "flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-center";
 
 export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
   ({ className, ...props }, ref) => {
@@ -11,7 +12,7 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
       <div
         ref={ref}
         className={cn(
-          "flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-center",
+          modalFooterClass,
           className,
         )}
         {...props}

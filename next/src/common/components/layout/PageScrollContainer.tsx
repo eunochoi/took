@@ -9,6 +9,13 @@ interface PageScrollContainerProps {
   className?: string;
 }
 
+const pageScrollContainerClass =
+  "relative flex h-[100dvh] w-full flex-col items-center justify-start overflow-y-scroll border-none outline-none";
+const pageScrollFadeWrapperClass =
+  "pointer-events-none sticky left-0 right-0 z-[90] h-0 w-full shrink-0";
+const pageScrollTopFadeClass = "absolute inset-x-0 top-0 h-[70px]";
+const pageScrollBottomFadeClass = "absolute inset-x-0 bottom-0 h-[70px]";
+
 export const PageScrollContainer = forwardRef<HTMLDivElement, PageScrollContainerProps>(({ children, className }, ref) => {
   const { scrolled } = useScroll();
   const [isScrollable, setIsScrollable] = useState(false);
@@ -47,24 +54,24 @@ export const PageScrollContainer = forwardRef<HTMLDivElement, PageScrollContaine
     <div
       ref={finalRef}
       className={cn(
-        "relative flex h-[100dvh] w-full flex-col items-center justify-start overflow-y-scroll border-none outline-none",
+        pageScrollContainerClass,
         className,
       )}
       data-scroll-container
     >
-      <div className="pointer-events-none sticky left-0 right-0 top-0 z-[90] h-0 w-full shrink-0">
+      <div className={cn(pageScrollFadeWrapperClass, "top-0")}>
         <ScrollEdgeFade
           edge="top"
           visible={isScrollable && scrolled}
-          className="absolute inset-x-0 top-0 h-[70px]"
+          className={pageScrollTopFadeClass}
         />
       </div>
       {children}
-      <div className="pointer-events-none sticky bottom-0 left-0 right-0 z-[90] mt-auto h-0 w-full shrink-0">
+      <div className={cn(pageScrollFadeWrapperClass, "bottom-0 mt-auto")}>
         <ScrollEdgeFade
           edge="bottom"
           visible={isScrollable}
-          className="absolute inset-x-0 bottom-0 h-[70px]"
+          className={pageScrollBottomFadeClass}
         />
       </div>
     </div>

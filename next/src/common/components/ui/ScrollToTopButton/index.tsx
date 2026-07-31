@@ -5,6 +5,8 @@ interface Props {
   contentRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 
+const scrollToTopButtonClass = "fixed right-[4dvw] flex h-10 w-10 items-center justify-center rounded-full bg-theme-surface/80 text-xl text-theme-accent shadow-[0_1px_6px_rgb(var(--theme-shadow-color)/0.06)] backdrop-blur-xl max-[479px]:bottom-[calc(var(--mobileNav)+20px)] min-[480px]:max-[1024px]:bottom-8 min-[1025px]:bottom-12";
+
 const ScrollToTopButton = ({ contentRef }: Props) => {
   const scrollTimeoutRef = useRef<number | null>(null);
   const [buttonVisible, setButtonVisible] = useState<boolean>(false);
@@ -46,7 +48,7 @@ const ScrollToTopButton = ({ contentRef }: Props) => {
 
   return (
     <button
-      className="fixed right-[4dvw] flex h-10 w-10 items-center justify-center rounded-full bg-theme-surface/80 text-xl text-theme-accent shadow-[0_1px_6px_rgb(var(--theme-shadow-color)/0.06)] backdrop-blur-xl max-[479px]:bottom-[calc(var(--mobileNav)+20px)] min-[480px]:max-[1024px]:bottom-8 min-[1025px]:bottom-12"
+      className={scrollToTopButtonClass}
       onClick={goToTop}
       type="button"
     >

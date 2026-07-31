@@ -31,7 +31,7 @@ const DeleteAccountSnackbarContent = forwardRef<HTMLDivElement, CustomContentPro
         ref={ref}
         role="alert"
         style={style}
-        className="box-border w-full max-w-[420px] rounded-[20px] border border-theme-border-muted bg-theme-surface-elevated p-3 text-theme-text-primary shadow-[0_1px_8px_rgb(var(--theme-shadow-color)/0.15)]"
+        className="box-border w-full max-w-[420px] rounded-2xl border border-theme-border-muted bg-theme-surface-elevated p-3 text-theme-text-primary shadow-[0_1px_8px_rgb(var(--theme-shadow-color)/0.15)]"
       >
         <div className="flex w-full min-w-0 flex-col gap-3">
           <div className="flex flex-col">

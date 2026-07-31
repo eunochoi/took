@@ -11,32 +11,35 @@ interface ModalHeaderProps {
   onConfirm?: () => void;
 }
 
+const modalHeaderClass = "relative flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-between px-[4dvw] min-[480px]:px-6";
+const modalHeaderButtonClass = "flex items-center justify-center text-theme-accent";
+const modalHeaderTitleClass = "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-base text-theme-text-primary";
+
 export const ModalHeader = ({ className, title, confirmText = '완료', onConfirm }: ModalHeaderProps) => {
   const router = useRouter();
 
   return (
     <div
       className={cn(
-        "relative flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-between",
-        "px-[4dvw] min-[480px]:px-6",
+        modalHeaderClass,
         className,
       )}
     >
       <button
-        className="flex items-center justify-center text-theme-accent"
+        className={modalHeaderButtonClass}
         onClick={() => router.back()}
         type="button"
       >
         <MdArrowBackIos />
       </button>
       {title ? (
-        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-base text-theme-text-primary">
+        <span className={modalHeaderTitleClass}>
           {title}
         </span>
       ) : null}
       {onConfirm ? (
         <button
-          className="flex items-center justify-center text-theme-accent"
+          className={modalHeaderButtonClass}
           onClick={onConfirm}
           type="button"
         >
