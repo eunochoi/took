@@ -19,7 +19,7 @@ const DiaryInList = ({ diaryData }: Props) => {
   const { navigateToZoom } = useDiaryNavigation(diaryData.id);
 
   return (
-    <DiaryCardShell $type="large">
+    <DiaryCardShell variant="large">
       <DiaryDateHeader diaryData={diaryData} />
       <div className="my-4 flex h-full w-full flex-col justify-center gap-4" onClick={navigateToZoom}>
         {hasImages && (

@@ -10,7 +10,7 @@ interface AccountInfoSectionProps {
 
 export const AccountInfoSection = ({ email, provider, createAt }: AccountInfoSectionProps) => {
   return (
-    <SettingSectionCard gap={24}>
+    <SettingSectionCard>
       <SettingSubsection title="가입 정보">
         <SettingItem settingItemKey="이메일" settingItemValue={<span>{email}</span>} />
         <SettingItem settingItemKey="계정 타입" settingItemValue={<span>{provider}</span>} />

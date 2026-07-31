@@ -43,7 +43,7 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
         <AppSectionMeta>{year}년</AppSectionMeta>
       </AppSectionHeader>
 
-      <AppCardGrid $columns={2}>
+      <AppCardGrid columns={2}>
         <AppStatCard>
           <AppStatLabel>{year}년 완료</AppStatLabel>
           <AppStatValueWrapper>

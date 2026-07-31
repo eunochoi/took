@@ -3,11 +3,10 @@ import { HTMLAttributes, forwardRef } from "react";
 import { AppSectionProps, DivProps } from "./types";
 
 export const AppSection = forwardRef<HTMLElement, AppSectionProps>(
-  ({ $gap, className, style, ...props }, ref) => (
+  ({ className, ...props }, ref) => (
     <section
       ref={ref}
-      className={cn("m-0 flex w-full flex-col", className)}
-      style={{ gap: $gap ?? 16, ...style }}
+      className={cn("m-0 flex w-full flex-col gap-4", className)}
       {...props}
     />
   ),

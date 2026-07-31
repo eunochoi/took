@@ -7,7 +7,7 @@ import { SettingSubsection } from "./SettingSubsection";
 
 export const AccountActionSection = () => {
   return (
-    <SettingSectionCard gap={24}>
+    <SettingSectionCard>
       <SettingSubsection title="계정 관리">
         <SettingItem
           settingItemKey="로그아웃"

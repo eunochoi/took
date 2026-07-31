@@ -66,7 +66,7 @@ const MonthInfo = ({ displayDate, habitId, setDisplayDate }: Props) => {
         <AppSectionMeta>{format(displayDate, 'yyyy년 M월')}</AppSectionMeta>
       </AppSectionHeader>
 
-      <AppCardGrid $columns={3}>
+      <AppCardGrid columns={3}>
         <AppStatCard>
           <AppStatLabel>{format(displayDate, 'M월 완료')}</AppStatLabel>
           <AppStatValueWrapper>

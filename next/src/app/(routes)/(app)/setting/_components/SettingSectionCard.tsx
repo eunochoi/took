@@ -5,13 +5,12 @@ import { AppSection } from "@/common/components/ui/AppSection/section";
 
 interface SettingSectionCardProps {
   children: ReactNode;
-  gap?: number;
 }
 
-export const SettingSectionCard = ({ children, gap }: SettingSectionCardProps) => {
+export const SettingSectionCard = ({ children }: SettingSectionCardProps) => {
   return (
     <AppCard>
-      <AppSection $gap={gap}>
+      <AppSection className="gap-6">
         {children}
       </AppSection>
     </AppCard>

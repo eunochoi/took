@@ -5,15 +5,11 @@ import { cn } from "@/common/utils/cn";
 interface StarRatingProps {
   rating: number;
   className?: string;
-  color?: string;
 }
 
-export const StarRating = ({ rating, className, color }: StarRatingProps) => {
+export const StarRating = ({ rating, className }: StarRatingProps) => {
   return (
-    <div
-      className={cn("flex gap-1 text-base text-theme-accent", className)}
-      style={color ? { color } : undefined}
-    >
+    <div className={cn("flex gap-1 text-base text-theme-accent", className)}>
       {Array.from({ length: rating }, (_, index) => (
         <span className="star" key={index}>★</span>
       ))}

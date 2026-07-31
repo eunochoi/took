@@ -4,14 +4,16 @@ import { APP_CARD_CLASS } from "./constants";
 import { AppCardGridProps, DivProps } from "./types";
 
 export const AppCardGrid = forwardRef<HTMLDivElement, AppCardGridProps>(
-  ({ $columns = 2, className, style, ...props }, ref) => (
+  ({ columns = 2, className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("grid w-full gap-2 min-[480px]:gap-3", className)}
-      style={{
-        gridTemplateColumns: `repeat(${$columns}, minmax(0, 1fr))`,
-        ...style,
-      }}
+      className={cn(
+        "grid w-full gap-2 min-[480px]:gap-3",
+        columns === 1 && "grid-cols-1",
+        columns === 2 && "grid-cols-2",
+        columns === 3 && "grid-cols-3",
+        className,
+      )}
       {...props}
     />
   ),

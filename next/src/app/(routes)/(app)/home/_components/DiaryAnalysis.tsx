@@ -42,7 +42,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         <AppSectionMeta>{totalCount}개의 일기</AppSectionMeta>
       </AppSectionHeader>
 
-      <AppCardGrid $columns={3}>
+      <AppCardGrid columns={3}>
         <AppStatCard>
           <AppStatLabel>{currentStreakLabel}</AppStatLabel>
           <AppStatValueWrapper>

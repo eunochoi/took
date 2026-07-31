@@ -17,7 +17,7 @@ const EmptyCalendarDiary = ({ date, habits = [] }: Props) => {
   const formattedDate = format(dateForDisplay, 'yyyy년 M월 d일');
 
   return (
-    <DiaryCardShell $type="small">
+    <DiaryCardShell variant="small">
       <div className="box-border flex h-full w-full flex-col justify-between">
         <div className="flex w-full items-center justify-between px-3.5 pt-3.5">
           <div className="flex items-center gap-3">

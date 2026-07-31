@@ -17,7 +17,7 @@ const DiaryInCalendar = ({ diaryData }: Props) => {
   const { navigateToZoom } = useDiaryNavigation(diaryData.id);
 
   return (
-    <DiaryCardShell $type="small">
+    <DiaryCardShell variant="small">
       <Carousel resetOnChange showIndicator={false}>
         <div className="box-border flex h-full w-full shrink-0 flex-col justify-between">
           <DiaryDateHeader diaryData={diaryData} />

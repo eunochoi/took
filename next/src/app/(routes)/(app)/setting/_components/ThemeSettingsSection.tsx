@@ -15,7 +15,7 @@ export const ThemeSettingsSection = () => {
   const router = useRouter();
 
   return (
-    <SettingSectionCard gap={24}>
+    <SettingSectionCard>
       <SettingSubsection title="테마">
         <SettingItem
           settingItemKey="강조 색상"

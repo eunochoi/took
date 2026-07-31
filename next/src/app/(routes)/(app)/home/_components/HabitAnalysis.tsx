@@ -45,7 +45,7 @@ const HabitAnalysis = ({ stats }: Props) => {
       />
 
       {habits && habits.length > 0 ?
-        <AppCardGrid $columns={3}>
+        <AppCardGrid columns={3}>
           {habits.slice(0, 3).map((habit) => (
             <AppStatCard
               onClick={() => handleHabitClick(habit.id)}
@@ -60,7 +60,7 @@ const HabitAnalysis = ({ stats }: Props) => {
             </AppStatCard>
           ))}
         </AppCardGrid> :
-        <AppCardGrid $columns={1}>
+        <AppCardGrid columns={1}>
           <AppInfoCard>
             <AppInfoText>* 아직 완료한 습관이 없어요 :(</AppInfoText>
           </AppInfoCard>
