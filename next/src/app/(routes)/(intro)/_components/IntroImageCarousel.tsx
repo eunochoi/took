@@ -2,7 +2,6 @@ import Image from 'next/image';
 
 import Carousel from '@/common/components/ui/Carousel';
 import { IMAGE_ALT_TEXT } from '../_constants/images';
-import { INTRO_THEME_COLOR } from '../_constants/theme';
 
 interface IntroImageCarouselProps {
   images: string[];
@@ -19,7 +18,7 @@ const IntroImageCarousel = ({
 }: IntroImageCarouselProps) => {
   return (
     <div className="w-full overflow-hidden bg-transparent pt-3" style={{ height }}>
-      <Carousel indicatorColor={INTRO_THEME_COLOR}>
+      <Carousel indicatorColor="rgb(var(--theme-accent))">
         {images.map((src, index) => (
           <Image
             className="h-full w-full object-contain"

@@ -15,7 +15,7 @@ const StartButton = ({ provider, email }: StartButtonProps) => {
 
   return <button
     key={LOGIN_PROVIDERS[provider].id + '-start'}
-    className={cn("flex justify-between items-center gap-4 w-auto min-w-60 max-w-[300px] h-12 px-4 rounded-full border-2",
+    className={cn("flex h-12 w-auto min-w-60 max-w-[300px] items-center justify-between gap-4 rounded-full border-2 border-theme-border px-4",
       LOGIN_PROVIDERS[provider].bgColor
     )}
     onClick={() => router.push('/home')}

@@ -7,22 +7,21 @@ import { MdInstallMobile, MdLanguage, MdOpenInNew } from 'react-icons/md';
 import { SnackBarAction } from '@/common/providers/snackbar/SnackBarAction';
 import { cn } from '@/common/utils/cn';
 import { usePwaInstall } from '../_hooks/usePwaInstall';
-import { INTRO_CARD_SHADOW, INTRO_THEME_BG, INTRO_THEME_COLOR } from '../_constants/theme';
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share';
 
-interface IntroCtaButtonsProps {
+interface IntroActionButtonsProps {
   tone?: 'light' | 'dark';
   className?: string;
 }
 
 const buttonLayoutClass = "inline-flex min-h-[46px] items-center justify-center gap-2 whitespace-nowrap px-4 max-[420px]:flex-[1_1_100%]";
-const buttonThemeClass = "rounded-2xl border border-theme-accent/25 text-base font-medium leading-none text-theme-text-primary";
+const buttonThemeClass = "rounded-theme border border-theme-accent/25 text-base font-medium leading-none text-theme-text-primary shadow-card";
 const buttonMotionClass = "transition-[transform,border-color,background-color] duration-[180ms] active:translate-y-px";
 const buttonClass = cn(buttonLayoutClass, buttonThemeClass, buttonMotionClass);
 const iconClass = "h-5 w-5 shrink-0";
 
-const IntroCtaButtons = ({ tone = 'light', className }: IntroCtaButtonsProps) => {
+const IntroActionButtons = ({ tone = 'light', className }: IntroActionButtonsProps) => {
   const router = useRouter();
   const { installPwa } = usePwaInstall();
 
@@ -47,44 +46,34 @@ const IntroCtaButtons = ({ tone = 'light', className }: IntroCtaButtonsProps) =>
     );
   };
 
-  const buttonStyle = {
-    backgroundColor: tone === 'dark' ? 'rgb(var(--theme-surface) / 0.78)' : INTRO_THEME_BG,
-    boxShadow: INTRO_CARD_SHADOW,
-  };
-
-  const iconStyle = { color: INTRO_THEME_COLOR };
-
   return (
     <div className={cn("flex w-full flex-wrap justify-center gap-3", className)}>
       <button
-        className={buttonClass}
+        className={cn(buttonClass, tone === 'dark' ? 'bg-theme-surface/78' : 'bg-theme-bg')}
         type="button"
         onClick={startInWeb}
-        style={buttonStyle}
       >
-        <MdLanguage className={iconClass} style={iconStyle} />
+        <MdLanguage className={cn(iconClass, 'text-theme-accent')} />
         웹에서 실행
       </button>
       <button
-        className={buttonClass}
+        className={cn(buttonClass, tone === 'dark' ? 'bg-theme-surface/78' : 'bg-theme-bg')}
         type="button"
         onClick={installPwa}
-        style={buttonStyle}
       >
-        <MdInstallMobile className={iconClass} style={iconStyle} />
+        <MdInstallMobile className={cn(iconClass, 'text-theme-accent')} />
         PWA 설치
       </button>
       <button
-        className={buttonClass}
+        className={cn(buttonClass, tone === 'dark' ? 'bg-theme-surface/78' : 'bg-theme-bg')}
         type="button"
         onClick={() => router.push(PLAY_STORE_URL)}
-        style={buttonStyle}
       >
-        <MdOpenInNew className={iconClass} style={iconStyle} />
+        <MdOpenInNew className={cn(iconClass, 'text-theme-accent')} />
         Play Store
       </button>
     </div>
   );
 };
 
-export default IntroCtaButtons;
+export default IntroActionButtons;

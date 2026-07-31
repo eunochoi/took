@@ -14,7 +14,7 @@ const LoginButton = ({ provider }: LoginButtonProps) => {
 
   return <button
     key={LOGIN_PROVIDERS[provider].id + 'login'}
-    className={cn("flex justify-between items-center gap-4 w-60 h-12 px-4 rounded-full border-2",
+    className={cn("flex h-12 w-60 items-center justify-between gap-4 rounded-full border-2 border-theme-border px-4",
       LOGIN_PROVIDERS[provider].bgColor
     )}
     onClick={() => signIn(LOGIN_PROVIDERS[provider].id,

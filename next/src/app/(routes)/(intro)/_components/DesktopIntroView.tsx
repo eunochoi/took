@@ -2,14 +2,9 @@ import { ReactNode } from 'react';
 import { MdCheckBox, MdLockOutline, MdLogin, MdPalette } from 'react-icons/md';
 
 import Logo from '@/common/components/ui/Logo';
+import { cn } from '@/common/utils/cn';
 import { INTRO_IMAGES } from '../_constants/images';
-import {
-  INTRO_CARD_SHADOW,
-  INTRO_PAGE_BG,
-  INTRO_THEME_BG,
-  INTRO_THEME_COLOR,
-} from '../_constants/theme';
-import IntroCtaButtons from './IntroCtaButtons';
+import IntroActionButtons from './IntroActionButtons';
 import IntroImageCarousel from './IntroImageCarousel';
 
 const HERO_IMAGES = [INTRO_IMAGES.pc_calendar, INTRO_IMAGES.pc_list, INTRO_IMAGES.pc_habit, INTRO_IMAGES.calendar];
@@ -33,13 +28,12 @@ interface IntroSectionBlockProps {
 
 const IntroSectionBlock = ({ bg, reverse, title, meta, text, children }: IntroSectionBlockProps) => (
   <section
-    className={desktopSectionClass}
-    style={{ backgroundColor: bg === 'blue' ? INTRO_THEME_BG : 'white' }}
+    className={cn(desktopSectionClass, bg === 'blue' ? 'bg-theme-bg' : 'bg-theme-surface')}
   >
     <div className={reverse ? "order-2 flex flex-col justify-center gap-[18px]" : "flex flex-col justify-center gap-[18px]"}>
       <div className="flex items-baseline justify-between gap-[18px]">
       <h2 className="m-0 flex-1 break-keep  text-4xl capitalize leading-tight text-theme-text-primary">{title}</h2>
-        <span className="whitespace-nowrap text-base font-bold" style={{ color: INTRO_THEME_COLOR }}>{meta}</span>
+        <span className="whitespace-nowrap text-base font-bold text-theme-accent">{meta}</span>
       </div>
       <p className={desktopSectionTextClass}>{text}</p>
     </div>
@@ -48,8 +42,8 @@ const IntroSectionBlock = ({ bg, reverse, title, meta, text, children }: IntroSe
 );
 
 const TrustCard = ({ icon, title, text }: { icon: ReactNode; title: string; text: string }) => (
-  <div className={trustCardClass} style={{ backgroundColor: INTRO_THEME_BG, boxShadow: INTRO_CARD_SHADOW }}>
-    <span className="inline-flex h-[30px] w-[30px] text-2xl" style={{ color: INTRO_THEME_COLOR }}>{icon}</span>
+  <div className={cn(trustCardClass, 'bg-theme-bg shadow-card')}>
+    <span className="inline-flex h-[30px] w-[30px] text-2xl text-theme-accent">{icon}</span>
     <strong className="text-lg text-theme-text-primary">{title}</strong>
     <span className="text-base leading-normal text-theme-text-tertiary">{text}</span>
   </div>
@@ -57,7 +51,7 @@ const TrustCard = ({ icon, title, text }: { icon: ReactNode; title: string; text
 
 const DesktopIntroView = () => {
   return (
-    <div className="min-h-[100dvh] w-full overflow-x-hidden" style={{ backgroundColor: INTRO_PAGE_BG }}>
+    <div className="min-h-[100dvh] w-full overflow-x-hidden bg-theme-bg">
       <main className="mx-auto flex w-full flex-col">
         <section className="grid min-h-[100dvh] grid-cols-[minmax(420px,0.9fr)_minmax(0,1.1fr)] items-center gap-14 bg-theme-surface px-[min(7vw,112px)] py-[72px]">
           <div className="flex flex-col items-start gap-[22px]">
@@ -69,7 +63,7 @@ const DesktopIntroView = () => {
               툭, 무심히 습관 발도장을 찍고 더 나은 나에게 OK를 건네세요.
               TOOK은 가볍게 기록하는 소리인 툭과, 더 좋은 방향으로 나아가자는 TO OK의 의미를 함께 담았습니다.
             </p>
-            <IntroCtaButtons className="justify-start" />
+            <IntroActionButtons className="justify-start" />
           </div>
           <IntroImageCarousel images={HERO_IMAGES} height={520} priorityFirst sizes="50vw" />
         </section>
@@ -89,7 +83,7 @@ const DesktopIntroView = () => {
         <section className="flex flex-col items-center gap-[22px] bg-theme-surface px-[min(7vw,112px)] py-24">
           <div className="flex items-baseline justify-between gap-[18px]">
           <h2 className="m-0 flex-1 break-keep  text-4xl capitalize leading-tight text-theme-text-primary">필요한 기본 기능까지</h2>
-            <span className="whitespace-nowrap text-base font-bold" style={{ color: INTRO_THEME_COLOR }}>로그인, 테마, 보안</span>
+            <span className="whitespace-nowrap text-base font-bold text-theme-accent">로그인, 테마, 보안</span>
           </div>
           <div className="grid w-[min(100%,980px)] grid-cols-3 gap-3">
             <TrustCard icon={<MdLogin />} title="소셜 로그인" text="익숙한 계정으로 빠르게 시작합니다." />
@@ -104,9 +98,9 @@ const DesktopIntroView = () => {
         </IntroSectionBlock>
 
         <section className="flex flex-col items-center gap-7 bg-theme-surface px-6 py-[82px]">
-          <span className="inline-flex text-4xl" style={{ color: INTRO_THEME_COLOR }}><MdCheckBox /></span>
+          <span className="inline-flex text-4xl text-theme-accent"><MdCheckBox /></span>
           <h2 className="m-0 break-keep text-center  text-4xl leading-[1.3] text-theme-text-primary">오늘도 툭, 더 나은 나에게 OK.</h2>
-          <IntroCtaButtons />
+          <IntroActionButtons />
         </section>
       </main>
     </div>

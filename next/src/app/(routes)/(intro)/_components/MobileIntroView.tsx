@@ -2,14 +2,9 @@ import { ReactNode } from 'react';
 import { MdCheckBox, MdLockOutline, MdLogin, MdPalette } from 'react-icons/md';
 
 import Logo from '@/common/components/ui/Logo';
+import { cn } from '@/common/utils/cn';
 import { INTRO_IMAGES } from '../_constants/images';
-import {
-  INTRO_CARD_SHADOW,
-  INTRO_PAGE_BG,
-  INTRO_THEME_BG,
-  INTRO_THEME_COLOR,
-} from '../_constants/theme';
-import IntroCtaButtons from './IntroCtaButtons';
+import IntroActionButtons from './IntroActionButtons';
 import IntroImageCarousel from './IntroImageCarousel';
 
 const HERO_IMAGES = [INTRO_IMAGES.calendar, INTRO_IMAGES.list, INTRO_IMAGES.habit];
@@ -24,10 +19,10 @@ const mobileSectionTextClass = "m-0 max-w-[620px] break-keep text-center text-ba
 const infoCardClass = "grid grid-cols-[32px_1fr] gap-x-3 gap-y-1 rounded-2xl bg-theme-bg p-4";
 
 const MobileSection = ({ bg, title, meta, text, children }: { bg: 'white' | 'blue'; title: string; meta: string; text?: string; children: ReactNode }) => (
-  <section className={mobileSectionClass} style={{ backgroundColor: bg === 'blue' ? INTRO_THEME_BG : 'white' }}>
+  <section className={cn(mobileSectionClass, bg === 'blue' ? 'bg-theme-bg' : 'bg-theme-surface')}>
     <div className={mobileSectionHeaderClass}>
       <h2 className="m-0 flex-1 break-keep  text-3xl capitalize leading-tight text-theme-text-primary">{title}</h2>
-      <span className="whitespace-nowrap text-base font-bold" style={{ color: INTRO_THEME_COLOR }}>{meta}</span>
+      <span className="whitespace-nowrap text-base font-bold text-theme-accent">{meta}</span>
     </div>
     {text && <p className={mobileSectionTextClass}>{text}</p>}
     {children}
@@ -35,8 +30,8 @@ const MobileSection = ({ bg, title, meta, text, children }: { bg: 'white' | 'blu
 );
 
 const InfoCard = ({ icon, title, text }: { icon: ReactNode; title: string; text: string }) => (
-  <div className={infoCardClass} style={{ boxShadow: INTRO_CARD_SHADOW }}>
-    <span className="row-span-2 inline-flex h-7 w-7 text-2xl" style={{ color: INTRO_THEME_COLOR }}>{icon}</span>
+  <div className={cn(infoCardClass, 'shadow-card')}>
+    <span className="row-span-2 inline-flex h-7 w-7 text-2xl text-theme-accent">{icon}</span>
     <strong className="text-base text-theme-text-primary">{title}</strong>
     <span className="text-sm leading-normal text-theme-text-tertiary">{text}</span>
   </div>
@@ -44,7 +39,7 @@ const InfoCard = ({ icon, title, text }: { icon: ReactNode; title: string; text:
 
 const MobileIntroView = () => {
   return (
-    <div className="min-h-[100dvh] w-full overflow-x-hidden" style={{ backgroundColor: INTRO_PAGE_BG }}>
+    <div className="min-h-[100dvh] w-full overflow-x-hidden bg-theme-bg">
       <main className="mx-auto flex w-full flex-col pb-12">
         <section className="flex flex-col items-center gap-7 bg-theme-surface px-5 pb-14 pt-12">
           <Logo size={52} />
@@ -56,7 +51,7 @@ const MobileIntroView = () => {
             </p>
           </div>
           <IntroImageCarousel images={HERO_IMAGES} height={420} priorityFirst sizes="90vw" />
-          <IntroCtaButtons />
+          <IntroActionButtons />
         </section>
 
         <MobileSection bg="blue" title="홈에서 나의 흐름 확인" meta="일기와 습관 통계" text="감정 기록과 습관 실천 데이터를 한 화면에서 살펴보며 오늘의 상태를 빠르게 점검할 수 있습니다.">
@@ -85,9 +80,9 @@ const MobileIntroView = () => {
         </MobileSection>
 
         <section className="flex flex-col items-center gap-5 bg-theme-surface px-5 py-16">
-          <span className="inline-flex text-2xl" style={{ color: INTRO_THEME_COLOR }}><MdCheckBox /></span>
+          <span className="inline-flex text-2xl text-theme-accent"><MdCheckBox /></span>
           <h2 className="m-0 break-keep text-center  text-xl leading-[1.35] text-theme-text-primary">오늘도 툭, 더 나은 나에게 OK.</h2>
-          <IntroCtaButtons />
+          <IntroActionButtons />
         </section>
       </main>
     </div>
