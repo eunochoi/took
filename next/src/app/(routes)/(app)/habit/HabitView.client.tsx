@@ -2,7 +2,7 @@
 
 import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
-import AppPage from "@/common/components/layout/AppPage";
+import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import PageTitle from "@/common/components/ui/PageTitle";
 import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -61,7 +61,7 @@ const HabitView = () => {
   };
 
   return (
-    <AppPage
+    <AppPageLayout
       contentVariant="normal"
       pageRef={pageRef}
       topButtons={
@@ -87,7 +87,7 @@ const HabitView = () => {
           </button>
         )}
       </div>
-    </AppPage >
+    </AppPageLayout >
   );
 }
 

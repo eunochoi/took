@@ -8,7 +8,7 @@ import EmotionFilter from "@/app/(routes)/(app)/diary/_components/EmotionFilter"
 import MonthFilter from "@/app/(routes)/(app)/diary/_components/MonthFilter";
 import { getDiaryList } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
-import AppPage from "@/common/components/layout/AppPage";
+import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { EMOTIONS } from "@/common/constants/emotions";
@@ -68,7 +68,7 @@ const DiaryListView = () => {
   }, [sortValue]);
 
   return (
-    <AppPage
+    <AppPageLayout
       pageRef={wrapperRef}
       topButtons={<>
         <TopButton
@@ -106,7 +106,7 @@ const DiaryListView = () => {
       />
       {flatDiaries && <DiaryList diaries={flatDiaries} />}
       <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
-    </AppPage>
+    </AppPageLayout>
   );
 }
 

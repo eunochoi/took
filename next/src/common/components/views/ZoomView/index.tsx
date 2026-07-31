@@ -12,7 +12,7 @@ import Image from "next/image";
 import Carousel from "../../ui/Carousel";
 import { ModalBody } from "../../ui/Modal/ModalBody";
 import { ModalHeader } from "../../ui/Modal/ModalHeader";
-import { ModalRoot } from "../../ui/Modal/ModalRoot";
+import { RouteModal } from "../../ui/Modal/RouteModal";
 
 import { TextSlide } from "./TextSlide";
 import { ZoomViewImage } from "./types";
@@ -48,7 +48,7 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
 
   if (!diaryData) return null;
 
-  return <ModalRoot>
+  return <RouteModal>
     <ModalHeader title={headerTitle} />
     <ModalBody>
       <div className="h-full w-full">
@@ -70,7 +70,7 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
         </Carousel>
       </div>
     </ModalBody>
-  </ModalRoot>;
+  </RouteModal>;
 }
 
 export default ZoomView;

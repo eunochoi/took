@@ -9,7 +9,7 @@ import { useCustomHabitOrder } from '@/app/(routes)/(app)/habit/_hooks/useCustom
 import { ModalBody } from '@/common/components/ui/Modal/ModalBody';
 import { ModalFooter } from '@/common/components/ui/Modal/ModalFooter';
 import { ModalHeader } from '@/common/components/ui/Modal/ModalHeader';
-import { ModalRoot } from '@/common/components/ui/Modal/ModalRoot';
+import { RouteModal } from '@/common/components/ui/Modal/RouteModal';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { Habit } from './_types';
@@ -53,7 +53,7 @@ export const HabitOrderView = () => {
   };
 
   return (
-    <ModalRoot>
+    <RouteModal>
       <ModalHeader title='습관 순서 설정' onConfirm={onSubmit} />
       <ModalBody withScrollFade={true}>
         <HabitList tempHabits={tempHabits} setTempHabits={setTempHabits} />
@@ -61,5 +61,5 @@ export const HabitOrderView = () => {
       <ModalFooter>
         <button className="text-base capitalize text-theme-accent" onClick={onInitialize} type="button">변경사항 취소</button>
       </ModalFooter>
-    </ModalRoot>);
+    </RouteModal>);
 }

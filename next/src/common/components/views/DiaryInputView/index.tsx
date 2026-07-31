@@ -12,7 +12,7 @@ import { MdOutlineEditNote, MdOutlineEmojiEmotions, MdOutlineImage } from "react
 import { EmotionSelector } from "../../ui/EmotionSelector";
 import { ModalBody } from "../../ui/Modal/ModalBody";
 import { ModalHeader } from "../../ui/Modal/ModalHeader";
-import { ModalRoot } from "../../ui/Modal/ModalRoot";
+import { RouteModal } from "../../ui/Modal/RouteModal";
 import { SectionTitle, SectionTitleIcon } from "../../ui/SectionTitle";
 import { DiaryInputCard } from "./DiaryInputCard";
 import DiaryInputImages from "./DiaryInputImages";
@@ -129,7 +129,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
 
 
   return (
-    <ModalRoot>
+    <RouteModal>
       <ModalHeader title={headerTitle} confirmText={submitText} onConfirm={onSubmit} />
       <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
         <div className="flex w-full flex-col gap-6 px-[4dvw] py-9 min-[480px]:max-[1023px]:px-6 min-[480px]:max-[1023px]:py-6 min-[1024px]:px-6 min-[1024px]:py-9">
@@ -155,7 +155,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
           </section>
         </div>
       </ModalBody>
-    </ModalRoot>
+    </RouteModal>
   );
 }
 

@@ -11,7 +11,7 @@ import { authAction } from "@/common/auth/authAction";
 //styledComponent
 
 //component
-import AppPage from "@/common/components/layout/AppPage";
+import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import Calendar from "@/common/components/ui/Calendar";
 import Diary from "@/common/components/ui/Diary";
 import { getTodayString } from "@/common/functions/getTodayString";
@@ -71,7 +71,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
   }, [router]);
 
   return (
-    <AppPage
+    <AppPageLayout
       contentVariant="fill"
       contentProps={{ $gap: 12, $mobileGap: 20, $tabletGap: 24, $paddingTop: 24 }}>
       <div className="min-h-[520px] flex-[1_1_0] overflow-visible max-[479px]:min-h-[380px]">
@@ -96,7 +96,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
           <EmptyCalendarDiary date={date} habits={diaryData?.Habits} />
         )}
       </div>
-    </AppPage>
+    </AppPageLayout>
   );
 };
 

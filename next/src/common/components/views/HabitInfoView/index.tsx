@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 import { ModalBody } from "../../ui/Modal/ModalBody";
 import { ModalHeader } from "../../ui/Modal/ModalHeader";
-import { ModalRoot } from "../../ui/Modal/ModalRoot";
+import { RouteModal } from "../../ui/Modal/RouteModal";
 import { StarRating } from "../../ui/StarRating";
 import MonthInfo from "./MonthInfo";
 import YearInfo from "./YearInfo";
@@ -32,7 +32,7 @@ const HabitInfoView = ({ habitId }: Props) => {
   }, [isError]);
 
   return (
-    <ModalRoot>
+    <RouteModal>
       <ModalHeader title='습관 정보' />
       <ModalBody withScrollFade>
         <div className="flex w-full flex-col gap-12 px-4 py-4 pb-6 min-[480px]:px-6 min-[480px]:py-5 min-[480px]:pb-7">
@@ -55,7 +55,7 @@ const HabitInfoView = ({ habitId }: Props) => {
             setDisplayDate={setChartDate} />
         </div>
       </ModalBody>
-    </ModalRoot>
+    </RouteModal>
   );
 };
 

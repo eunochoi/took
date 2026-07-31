@@ -1,7 +1,7 @@
 'use client';
 
 
-import AppPage from "@/common/components/layout/AppPage";
+import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import PageTitle from "@/common/components/ui/PageTitle";
 import TopButtonLink from "@/common/components/ui/TopButtons/TopButtonLink";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
@@ -28,7 +28,7 @@ const SettingPage = () => {
 
 
   return (
-    <AppPage
+    <AppPageLayout
       contentVariant="normal"
       contentProps={{ $gap: 24 }}
       topButtons={<>
@@ -52,7 +52,7 @@ const SettingPage = () => {
       <ThemeSettingsSection />
       <AccountInfoSection email={email} provider={provider} createAt={createAt} />
       <AccountActionSection />
-    </AppPage >
+    </AppPageLayout >
   );
 };
 

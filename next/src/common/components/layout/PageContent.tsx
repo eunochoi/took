@@ -1,7 +1,7 @@
 import { cn } from "@/common/utils/cn";
 import { CSSProperties, HTMLAttributes, forwardRef } from "react";
 
-export interface ContentWrapperProps extends HTMLAttributes<HTMLDivElement> {
+export interface PageContentProps extends HTMLAttributes<HTMLDivElement> {
   $gap?: number;
   $mobileGap?: number;
   $tabletGap?: number;
@@ -10,7 +10,7 @@ export interface ContentWrapperProps extends HTMLAttributes<HTMLDivElement> {
   $flex?: string;
 }
 
-interface ContentWrapperStyle extends CSSProperties {
+interface PageContentStyle extends CSSProperties {
   "--content-gap": string;
   "--content-mobile-gap": string;
   "--content-tablet-gap": string;
@@ -20,7 +20,7 @@ interface ContentWrapperStyle extends CSSProperties {
   "--content-padding-bottom": string;
 }
 
-export const ContentWrapper = forwardRef<HTMLDivElement, ContentWrapperProps>(
+export const PageContent = forwardRef<HTMLDivElement, PageContentProps>(
   (
     {
       $gap,
@@ -35,7 +35,7 @@ export const ContentWrapper = forwardRef<HTMLDivElement, ContentWrapperProps>(
     },
     ref,
   ) => {
-    const contentStyle: ContentWrapperStyle = {
+    const contentStyle: PageContentStyle = {
       "--content-gap": `${$gap ?? 0}px`,
       "--content-mobile-gap": `${$mobileGap ?? $gap ?? 0}px`,
       "--content-tablet-gap": `${$tabletGap ?? $gap ?? 0}px`,
@@ -65,4 +65,4 @@ export const ContentWrapper = forwardRef<HTMLDivElement, ContentWrapperProps>(
     );
   },
 );
-ContentWrapper.displayName = "ContentWrapper";
+PageContent.displayName = "PageContent";

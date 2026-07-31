@@ -1,6 +1,6 @@
 'use client';
 
-import { BackdropLayer } from "@/common/components/ui/BackdropLayer";
+import { Overlay } from "@/common/components/ui/Overlay";
 import { cn } from "@/common/utils/cn";
 import { ReactNode } from "react";
 
@@ -40,7 +40,11 @@ export const SelectionPanel = ({
   onSubmit,
 }: Props) => {
   return (
-    <BackdropLayer isOpen={isOpen} onClose={onClose}>
+    <Overlay
+      isOpen={isOpen}
+      onClose={onClose}
+      className="max-[479px]:z-[98] min-[480px]:z-[105]"
+    >
       <div
         className={cn(
           "bg-theme-bg",
@@ -69,6 +73,6 @@ export const SelectionPanel = ({
           <button className={cn(panelActionButtonClass, "bg-theme-accent text-theme-text-on-accent")} onClick={onSubmit} type="button">확인</button>
         </div>
       </div>
-    </BackdropLayer>
+    </Overlay>
   );
 };

@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
-import AppPage from "@/common/components/layout/AppPage";
+import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -54,7 +54,7 @@ const HomeView = () => {
   }, [availableYears, currentYear]);
 
   return (
-    <AppPage
+    <AppPageLayout
       contentVariant="normal"
       topButtons={
         <TopButton size="auto" onClick={openYearFilter}>
@@ -94,7 +94,7 @@ const HomeView = () => {
       <HabitAnalysis
         stats={habitStats}
       />
-    </AppPage>
+    </AppPageLayout>
   );
 };
 

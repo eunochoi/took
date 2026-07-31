@@ -1,15 +1,15 @@
 'use client';
-import { ScrollEdgeFade } from "@/common/components/ui/Modal/ScrollEdgeFade";
+import { ScrollEdgeFade } from "@/common/components/ui/ScrollEdgeFade";
 import { useScroll } from "@/common/hooks/useScrollContext";
 import { cn } from "@/common/utils/cn";
 import { forwardRef, useEffect, useRef, useState } from "react";
 
-interface PageWrapperProps {
+interface PageScrollContainerProps {
   children: React.ReactNode;
   className?: string;
 }
 
-export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(({ children, className }, ref) => {
+export const PageScrollContainer = forwardRef<HTMLDivElement, PageScrollContainerProps>(({ children, className }, ref) => {
   const { scrolled } = useScroll();
   const [isScrollable, setIsScrollable] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -71,4 +71,4 @@ export const PageWrapper = forwardRef<HTMLDivElement, PageWrapperProps>(({ child
   );
 });
 
-PageWrapper.displayName = 'PageWrapper';
+PageScrollContainer.displayName = 'PageScrollContainer';

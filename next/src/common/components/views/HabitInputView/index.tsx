@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { MdCheckBox, MdOutlineStar } from "react-icons/md";
 import { ModalBody } from "../../ui/Modal/ModalBody";
 import { ModalHeader } from "../../ui/Modal/ModalHeader";
-import { ModalRoot } from "../../ui/Modal/ModalRoot";
+import { RouteModal } from "../../ui/Modal/RouteModal";
 import { SectionTitle, SectionTitleIcon } from "../../ui/SectionTitle";
 import { HabitInputCard } from "./HabitInputCard";
 import { HabitName } from "./HabitName";
@@ -71,7 +71,7 @@ const HabitInputView = ({ isEdit, habitId }: HabitInputProps) => {
   }, [isError]);
 
   return (
-    <ModalRoot>
+    <RouteModal>
       <ModalHeader title={`목표 습관 ${submitText}`} confirmText={submitText} onConfirm={onSubmit} />
       <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
         <div className="flex w-full flex-col gap-6 px-[4dvw] py-9 min-[480px]:max-[1023px]:px-6 min-[480px]:max-[1023px]:py-6 min-[1024px]:px-6 min-[1024px]:py-9">
@@ -90,7 +90,7 @@ const HabitInputView = ({ isEdit, habitId }: HabitInputProps) => {
           <span className="flex items-center justify-center text-sm text-theme-text-secondary">*최대 생성 가능 개수 : 18개, 이름 길이 제한 : 1~10</span>
         </div>
       </ModalBody>
-    </ModalRoot>
+    </RouteModal>
   );
 };
 
