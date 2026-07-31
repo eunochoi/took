@@ -2,17 +2,17 @@ import { getDiaryList } from "@/common/actions/diary";
 import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getCurrentYearInUserTimezone } from "@/common/utils/date/userTimezone";
-import ListView from "./ListView.client";
+import DiaryListView from "./DiaryListView.client";
 
 export const dynamic = 'force-dynamic';
 
 //page for data prefetch
-const ListPage = async () => {
+const DiaryListPage = async () => {
   const queryClient = new QueryClient();
   const selectedYear = await getCurrentYearInUserTimezone();
   const limit = 10;
 
-  //prefetch list data - all emotion and all sort
+  // Prefetch diary list data for all emotions and sort directions.
   for (let i = 0; i <= 5; i++) {
     await queryClient.prefetchInfiniteQuery({
       queryKey: ['diary', 'list', 'emotion', i, 'sort', 'ASC', 'year', selectedYear, 'month', MONTH_UNSELECTED],
@@ -53,9 +53,9 @@ const ListPage = async () => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <ListView />
+      <DiaryListView />
     </HydrationBoundary>
   );
 }
 
-export default ListPage;
+export default DiaryListPage;

@@ -1,11 +1,11 @@
 'use client';
 
-import { diaryData } from "@/app/(routes)/(app)/list/_types/diaryData";
+import type { DiaryData } from "@/common/types/diary";
 import { EMOTIONS } from "@/common/constants/emotions";
 import Image from "next/image";
 
 interface TextSlideProps {
-  diaryData: diaryData;
+  diaryData: DiaryData;
 }
 
 export const TextSlide = ({ diaryData }: TextSlideProps) => {

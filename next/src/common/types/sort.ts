@@ -4,28 +4,27 @@ export const HABIT_SORT_OPTIONS = ['ASC', 'DESC', 'PRIORITY', 'CUSTOM'] as const
 export type DiarySort = typeof DIARY_SORT_OPTIONS[number];
 export type HabitSort = typeof HABIT_SORT_OPTIONS[number];
 
-export type SortableSortKey = 'list' | 'habit';
+export type SortableSortKey = 'diary' | 'habit';
 
 export type SortValueByKey = {
-  list: DiarySort;
+  diary: DiarySort;
   habit: HabitSort;
 };
 
 export const SORT_OPTIONS_BY_KEY: {
   [K in SortableSortKey]: readonly SortValueByKey[K][];
 } = {
-  list: DIARY_SORT_OPTIONS,
+  diary: DIARY_SORT_OPTIONS,
   habit: HABIT_SORT_OPTIONS,
 } as const;
 
 export const DEFAULT_SORT_BY_KEY = {
-  list: 'DESC',
+  diary: 'DESC',
   habit: 'DESC',
 } as const;
 
-// The storage key and property names are kept for compatibility with existing localStorage data.
 export interface SortPreferences {
-  list?: DiarySort;
+  diary?: DiarySort;
   habit?: HabitSort;
   habitCustom?: number[];
 }

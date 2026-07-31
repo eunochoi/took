@@ -2,39 +2,42 @@
 
 import Diary from "@/common/components/ui/Diary";
 import { EMOTIONS } from "@/common/constants/emotions";
+import type { DiaryData } from "@/common/types/diary";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import Image from "next/image";
 import React from "react";
-import { diaryData } from "../_types/diaryData";
 
-interface DiariesProps {
-  diaries: diaryData[];
+interface DiaryListProps {
+  diaries: DiaryData[];
 }
 
-export const Diaries = ({ diaries }: DiariesProps) => {
+export const DiaryList = ({ diaries }: DiaryListProps) => {
   return (
     <>
       {diaries?.length > 0 ?
-        diaries?.map((data: diaryData, i: number) => {
-          const currentDiaryDate = format(data.date, 'yyyy년 M월', { locale: ko });
-          const previousDiaryDate = i > 0 ? format(diaries[i - 1].date, 'yyyy년 M월', { locale: ko }) : '';
+        diaries.map((diary, index) => {
+          const currentDiaryDate = format(diary.date, 'yyyy년 M월', { locale: ko });
+          const previousDiaryDate = index > 0
+            ? format(diaries[index - 1].date, 'yyyy년 M월', { locale: ko })
+            : '';
 
           if (currentDiaryDate !== previousDiaryDate) {
             return (
-              <React.Fragment key={'listNote' + i}>
+              <React.Fragment key={`diary-list-${diary.id}`}>
                 <span className="my-4 flex w-full items-center justify-start text-3xl font-title font-bold capitalize text-theme-accent max-[479px]:w-[90dvw]">
                   {currentDiaryDate}
                 </span>
                 <div className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
-                  <Diary type="large" diaryData={data} />
+                  <Diary type="large" diaryData={diary} />
                 </div>
               </React.Fragment>
             );
           }
+
           return (
-            <div key={'listNote' + i} className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
-              <Diary type="large" diaryData={data} />
+            <div key={`diary-list-${diary.id}`} className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
+              <Diary type="large" diaryData={diary} />
             </div>
           );
         })

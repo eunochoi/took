@@ -7,7 +7,7 @@ import {
   MONTH_UNSELECTED,
 } from "@/common/constants/filterDefaults";
 
-export const useFilter = () => {
+export const useDiaryListFilter = () => {
   const searchParams = useSearchParams();
 
   const [selectedYear, setSelectedYear] = useState<number>(getDefaultYear());
@@ -25,8 +25,14 @@ export const useFilter = () => {
     else setSelectedMonth(MONTH_UNSELECTED);
     if (queryParamsEmotion != null && queryParamsEmotion !== '') setEmotionToggle(Number(queryParamsEmotion));
     else setEmotionToggle(EMOTION_UNSELECTED);
-  }, [queryParamsYear, queryParamsMonth, queryParamsEmotion])
+  }, [queryParamsYear, queryParamsMonth, queryParamsEmotion]);
 
-
-  return { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle };
-}
+  return {
+    selectedYear,
+    selectedMonth,
+    emotionToggle,
+    setSelectedYear,
+    setSelectedMonth,
+    setEmotionToggle,
+  };
+};

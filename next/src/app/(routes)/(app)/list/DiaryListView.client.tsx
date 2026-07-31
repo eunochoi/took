@@ -18,13 +18,13 @@ import { useModalParam } from "@/common/hooks/useModalParam";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
-import { Diaries } from "./_components/Diaries";
-import { useFilter } from "./_hooks/useFilter";
-import { diaryData } from "./_types/diaryData";
+import { DiaryList } from "./_components/DiaryList";
+import { useDiaryListFilter } from "./_hooks/useDiaryListFilter";
+import type { DiaryData } from "@/common/types/diary";
 
-const DIDARY_FETCH_LIMIT = 10;
+const DIARY_FETCH_LIMIT = 10;
 
-const ListView = () => {
+const DiaryListView = () => {
   usePrefetchPage();
 
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -35,8 +35,8 @@ const ListView = () => {
 
   const { isOpen: isEmotionFilterOpen, open: openEmotionFilter, close: closeEmotionFilter } = useModalParam('emotion-filter');
   const { isOpen: isMonthFilterOpen, open: openMonthFilter, close: closeMonthFilter } = useModalParam('month-filter');
-  const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useFilter();
-  const { sortValue, onToggle } = useSortToggle({ sortKey: 'list' });
+  const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useDiaryListFilter();
+  const { sortValue, onToggle } = useSortToggle({ sortKey: 'diary' });
   const isEmotionSelected = emotionToggle !== EMOTION_UNSELECTED;
   const isPeriodSelected = selectedYear !== getDefaultYear() || selectedMonth !== MONTH_UNSELECTED;
   const selectedEmotionLabel = EMOTIONS[emotionToggle]?.nameKr ?? '';
@@ -49,13 +49,13 @@ const ListView = () => {
         sortType: sortValue,
         search: emotionToggle,
         pageParam,
-        limit: DIDARY_FETCH_LIMIT,
+        limit: DIARY_FETCH_LIMIT,
         selectedYear: selectedYear,
         selectedMonth: selectedMonth
       });
     }),
     initialPageParam: 0,
-    select: (data) => data.pages.flat() as diaryData[],
+    select: (data) => data.pages.flat() as DiaryData[],
     getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
 
@@ -69,7 +69,6 @@ const ListView = () => {
 
   return (
     <AppPage
-      contentVariant="list"
       pageRef={wrapperRef}
       topButtons={<>
         <TopButton
@@ -105,10 +104,11 @@ const ListView = () => {
         setSelectedYear={setSelectedYear}
         setSelectedMonth={setSelectedMonth}
       />
-      {flatDiaries && <Diaries diaries={flatDiaries} />}
+      {flatDiaries && <DiaryList diaries={flatDiaries} />}
       <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
     </AppPage>
   );
 }
 
-export default ListView;
+export default DiaryListView;
+

@@ -9,7 +9,6 @@ import TopButtons from "../ui/TopButtons/TopButtons";
 const CONTENT_VARIANT_PROPS = {
   normal: {},
   fill: { $flex: "1 1 0" },
-  list: {},
 } satisfies Record<string, ContentWrapperProps>;
 
 interface Props {
