@@ -55,13 +55,14 @@ const HomeView = () => {
 
   return (
     <AppPageLayout
-      contentVariant="normal"
       topButtons={
         <TopButton size="auto" onClick={openYearFilter}>
           <span>{selectedYear}년</span>
         </TopButton>
       }
-      contentProps={{ $gap: 56, $paddingTop: 8, $paddingBottom: 48 }}
+      contentProps={{
+        className: "gap-14 max-[479px]:pb-[calc(var(--mobileNav)+48px)] max-[479px]:pt-2 min-[480px]:pb-12 min-[480px]:pt-2",
+      }}
       afterContent={
         <YearFilter
           isOpen={isYearFilterOpen}

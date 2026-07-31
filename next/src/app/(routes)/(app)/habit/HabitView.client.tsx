@@ -62,7 +62,6 @@ const HabitView = () => {
 
   return (
     <AppPageLayout
-      contentVariant="normal"
       pageRef={pageRef}
       topButtons={
         <TopButton onClick={onToggle} size='default' >

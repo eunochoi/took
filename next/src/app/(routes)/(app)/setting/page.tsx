@@ -29,8 +29,7 @@ const SettingPage = () => {
 
   return (
     <AppPageLayout
-      contentVariant="normal"
-      contentProps={{ $gap: 24 }}
+      contentProps={{ className: "gap-6" }}
       topButtons={<>
         <TopButton
           size="auto"
