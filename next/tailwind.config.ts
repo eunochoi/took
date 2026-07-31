@@ -37,6 +37,9 @@ const config: Config = {
       fontSize: {
         app: "var(--app-font-size)",
       },
+      borderRadius: {
+        theme: "20px",
+      },
       boxShadow: {
         card: "0 1px 4px rgb(var(--theme-shadow-color) / 0.05)",
         "theme-modal": "0 8px 32px rgb(var(--theme-shadow-color) / 0.12)",

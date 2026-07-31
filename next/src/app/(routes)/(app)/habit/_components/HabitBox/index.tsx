@@ -78,7 +78,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
   };
 
   return (
-    <div className="flex aspect-[0.8] py-2 w-full flex-col items-center justify-evenly rounded-2xl bg-theme-surface shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.06)] backdrop-blur-xl">
+    <div className="flex aspect-[0.8] py-2 w-full flex-col items-center justify-evenly rounded-theme bg-theme-surface shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.06)] backdrop-blur-xl">
       <div className="flex flex-col gap-1 h-auto w-full items-center justify-center text-center text-base font-medium text-theme-text-primary">
         <StarRating rating={priority + 1} />
         <span className="max-w-[90%] text-base truncate">{name}</span>

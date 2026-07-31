@@ -110,7 +110,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
     ref={menuRef}
     className={cn(menuWrapperPositionClass,
       isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
-      "bg-theme-surface flex h-auto w-auto items-center gap-5 rounded-2xl px-5 py-2.5 shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.18)] transition-opacity duration-200 ease-in-out",
+      "bg-theme-surface flex h-auto w-auto items-center gap-5 rounded-theme px-5 py-2.5 shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.18)] transition-opacity duration-200 ease-in-out",
     )}
   >
     <button className={menuButtonClass} onClick={onClickCopy} type="button">

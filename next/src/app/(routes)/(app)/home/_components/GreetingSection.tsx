@@ -6,7 +6,7 @@ import { MdCalendarMonth, MdCheckBox } from 'react-icons/md';
 
 import emotionsImage from '/public/img/emotion/emotions.png';
 
-const actionLinkClass = "flex items-center gap-2 rounded-2xl bg-theme-surface px-4 py-3 shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:bg-theme-surface-elevated hover:shadow-[0_2px_8px_rgb(var(--theme-shadow-color)/0.08)]";
+const actionLinkClass = "flex items-center gap-2 rounded-xl bg-theme-surface px-4 py-3 shadow-card transition-all duration-200 ease-in-out hover:-translate-y-px hover:bg-theme-surface-elevated hover:shadow-[0_2px_8px_rgb(var(--theme-shadow-color)/0.08)]";
 const actionIconClass = "flex shrink-0 items-center justify-center text-xl text-theme-accent";
 
 const GreetingSection = () => {

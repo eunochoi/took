@@ -26,7 +26,7 @@ export const HabitItem = ({ habit }: HabitItemProps) => {
     <div
       ref={setNodeRef}
       className={cn(
-        "shadow-[0_4px_12px_rgb(var(--theme-shadow-color)/0.08)] bg-theme-surface-muted my-1 flex h-12 w-full max-w-[420px] shrink-0 items-center justify-between rounded-2xl px-[18px] py-1 text-sm text-theme-text-primary",
+        "shadow-[0_4px_12px_rgb(var(--theme-shadow-color)/0.08)] bg-theme-surface-muted my-1 flex h-12 w-full max-w-[420px] shrink-0 items-center justify-between rounded-theme px-[18px] py-1 text-sm text-theme-text-primary",
         isDragging && "border-2 border-solid border-theme-accent",
       )}
       style={style}

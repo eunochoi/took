@@ -1,1 +1,1 @@
-export const appCardClass = "rounded-2xl bg-theme-surface shadow-card";
+export const appCardClass = "rounded-theme bg-theme-surface shadow-card";

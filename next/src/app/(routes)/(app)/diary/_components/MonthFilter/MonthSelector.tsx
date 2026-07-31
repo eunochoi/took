@@ -44,7 +44,7 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
       <button
         className={cn(
           "flex w-[16%] flex-col items-center justify-center",
-          selected && "rounded-2xl bg-theme-accent",
+          selected && "rounded-theme bg-theme-accent",
         )}
         key={'month' + month}
         onClick={() => selectMonth(month)}

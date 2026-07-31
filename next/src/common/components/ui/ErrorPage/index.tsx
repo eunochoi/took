@@ -18,7 +18,7 @@ interface ErrorPageProps {
 export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) => {
   return (
     <div className="flex h-[100dvh] w-[100dvw] items-center justify-center bg-theme-bg p-5 text-theme-text-primary">
-      <div className="flex w-full max-w-[420px] flex-col items-center gap-4 rounded-2xl bg-theme-surface px-6 py-9 text-center shadow-theme-floating backdrop-blur-xl">
+      <div className="flex w-full max-w-[420px] flex-col items-center gap-4 rounded-theme bg-theme-surface px-6 py-9 text-center shadow-theme-floating backdrop-blur-xl">
         <div className="flex items-center justify-center leading-none">
           <Image
             className="h-24 w-24 brightness-110"

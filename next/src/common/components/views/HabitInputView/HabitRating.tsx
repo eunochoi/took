@@ -18,7 +18,7 @@ export const HabitRating = ({ priority, setPriority }: Props) => {
           <label
             key={i}
             className={cn(
-              "flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-2xl px-2 py-3 transition-colors duration-200",
+              "flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-theme px-2 py-3 transition-colors duration-200",
               selected ? "bg-theme-accent" : "bg-theme-bg",
             )}
           >

@@ -19,7 +19,7 @@ const Indicator = ({ slideWrapperRef, page, indicatorLength, color, type }: Indi
           <button
             key={`indicator${i}`}
             className={cn(
-              "m-[3px] h-2 rounded-2xl transition-all duration-200 ease-in-out",
+              "m-[3px] h-2 rounded-theme transition-all duration-200 ease-in-out",
               current ? "bg-theme-accent w-5" : "bg-theme-accent/80 w-2",
               type === "diary" && i === indicatorLength - 1 && "rounded-sm",
             )}

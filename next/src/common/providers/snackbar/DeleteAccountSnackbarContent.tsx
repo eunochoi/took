@@ -31,7 +31,7 @@ const DeleteAccountSnackbarContent = forwardRef<HTMLDivElement, CustomContentPro
         ref={ref}
         role="alert"
         style={style}
-        className="box-border w-full max-w-[420px] rounded-2xl border border-theme-border-muted bg-theme-surface-elevated p-3 text-theme-text-primary shadow-[0_1px_8px_rgb(var(--theme-shadow-color)/0.15)]"
+        className="box-border w-full max-w-[420px] rounded-theme border border-theme-border-muted bg-theme-surface-elevated p-3 text-theme-text-primary shadow-[0_1px_8px_rgb(var(--theme-shadow-color)/0.15)]"
       >
         <div className="flex w-full min-w-0 flex-col gap-3">
           <div className="flex flex-col">
@@ -39,7 +39,7 @@ const DeleteAccountSnackbarContent = forwardRef<HTMLDivElement, CustomContentPro
             <span className="mt-1 text-sm text-theme-text-tertiary">계속하려면 DELETE를 입력해주세요.</span>
           </div>
           <input
-            className="h-9 w-full min-w-0 rounded-2xl bg-theme-surface-muted px-4 text-center text-base font-medium text-theme-text-primary shadow-card placeholder:text-theme-text-tertiary"
+            className="h-9 w-full min-w-0 rounded-theme bg-theme-surface-muted px-4 text-center text-base font-medium text-theme-text-primary shadow-card placeholder:text-theme-text-tertiary"
             onChange={(event) => {
               setConfirmText(event.target.value);
               setErrorMessage("");
@@ -51,7 +51,7 @@ const DeleteAccountSnackbarContent = forwardRef<HTMLDivElement, CustomContentPro
           {errorMessage && <span className="text-center text-sm font-medium text-theme-accent">{errorMessage}</span>}
           <div className="flex justify-end gap-2">
             <button
-              className="rounded-2xl bg-theme-surface-muted px-4 py-1.5 font-medium text-theme-text-secondary shadow-card"
+              className="rounded-theme bg-theme-surface-muted px-4 py-1.5 font-medium text-theme-text-secondary shadow-card"
               onClick={() => {
                 closeSnackbar(id);
               }}
@@ -60,7 +60,7 @@ const DeleteAccountSnackbarContent = forwardRef<HTMLDivElement, CustomContentPro
               취소
             </button>
             <button
-              className="rounded-2xl bg-theme-accent px-4 py-1.5 font-medium text-theme-text-on-accent shadow-card"
+              className="rounded-theme bg-theme-accent px-4 py-1.5 font-medium text-theme-text-on-accent shadow-card"
               onClick={onConfirm}
               type="button"
             >
