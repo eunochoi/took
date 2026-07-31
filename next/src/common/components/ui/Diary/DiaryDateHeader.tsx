@@ -2,7 +2,6 @@ import { EMOTIONS } from '@/common/constants/emotions';
 import type { DiaryData } from '@/common/types/diary';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import { format } from 'date-fns';
-import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
 import { IoMdImage } from "react-icons/io";
 import { MdMoreVert } from 'react-icons/md';
@@ -17,7 +16,6 @@ interface Props {
 const DiaryDateHeader = ({ diaryData }: Props) => {
   const dateForDisplay = parseLocalDate(diaryData.date);
   const formattedDate = format(dateForDisplay, 'yyyy년 M월 d일');
-  const day = format(dateForDisplay, 'eeee', { locale: ko });
 
   const [isMenuOpen, setMenuOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);

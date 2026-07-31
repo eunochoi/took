@@ -18,7 +18,7 @@ const IntroImageCarousel = ({
 }: IntroImageCarouselProps) => {
   return (
     <div className="w-full overflow-hidden bg-transparent pt-3" style={{ height }}>
-      <Carousel indicatorColor="rgb(var(--theme-accent))">
+      <Carousel>
         {images.map((src, index) => (
           <Image
             className="h-full w-full object-contain"

@@ -7,7 +7,6 @@ export const EMOTION_TOTAL_COUNT = EMOTIONS.length;
 export const EMOTION_UNSELECTED = EMOTIONS.length;
 
 // 월 필터 "전체" = 0
-export const MONTH_TOTAL_COUNT = 12;
 export const MONTH_UNSELECTED = 0;
 
 // 연도 기본값. URL에 year 없으면 이 값 씀

@@ -5,11 +5,10 @@ interface IndicatorProps {
   slideWrapperRef: RefObject<HTMLDivElement>;
   page: number;
   indicatorLength: number;
-  color?: string;
   type?: string;
 }
 
-const Indicator = ({ slideWrapperRef, page, indicatorLength, color, type }: IndicatorProps) => {
+const Indicator = ({ slideWrapperRef, page, indicatorLength, type }: IndicatorProps) => {
   return (
     <div className="my-1 flex h-auto w-full justify-center">
       {[...Array(indicatorLength)].map((_: any, i: number) => {

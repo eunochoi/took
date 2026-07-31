@@ -10,7 +10,6 @@ interface CarouselProps {
   gap?: number;
   resetOnChange?: boolean;
   className?: string;
-  indicatorColor?: string;
   onPageChange?: (page: number) => void;
 }
 
@@ -25,7 +24,6 @@ const Carousel = ({
   gap = 0,
   resetOnChange = false,
   className,
-  indicatorColor,
   onPageChange,
 }: CarouselProps) => {
   const childrenArray = React.Children.toArray(children);
@@ -73,7 +71,6 @@ const Carousel = ({
           slideWrapperRef={slideWrapperRef}
           page={page}
           indicatorLength={childrenArray.length}
-          color={indicatorColor}
         />
       )}
     </div>
