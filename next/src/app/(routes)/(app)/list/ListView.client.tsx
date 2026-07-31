@@ -15,11 +15,11 @@ import { EMOTIONS } from "@/common/constants/emotions";
 import { EMOTION_UNSELECTED, getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { useModalParam } from "@/common/hooks/useModalParam";
+import { useSortToggle } from "@/common/hooks/useSortToggle";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
 import { Diaries } from "./_components/Diaries";
 import { useFilter } from "./_hooks/useFilter";
-import { useListToggle } from "./_hooks/useListToggle";
 import { diaryData } from "./_types/diaryData";
 
 const DIDARY_FETCH_LIMIT = 10;
@@ -36,17 +36,17 @@ const ListView = () => {
   const { isOpen: isEmotionFilterOpen, open: openEmotionFilter, close: closeEmotionFilter } = useModalParam('emotion-filter');
   const { isOpen: isMonthFilterOpen, open: openMonthFilter, close: closeMonthFilter } = useModalParam('month-filter');
   const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useFilter();
-  const { toggleValue, sortOrderChange } = useListToggle({ ref: wrapperRef });
+  const { sortValue, onToggle } = useSortToggle({ sortKey: 'list' });
   const isEmotionSelected = emotionToggle !== EMOTION_UNSELECTED;
   const isPeriodSelected = selectedYear !== getDefaultYear() || selectedMonth !== MONTH_UNSELECTED;
   const selectedEmotionLabel = EMOTIONS[emotionToggle]?.nameKr ?? '';
   const selectedPeriodLabel = selectedMonth === MONTH_UNSELECTED ? `${selectedYear}년` : `${selectedYear}년 ${selectedMonth}월`;
 
   const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage } = useInfiniteQuery({
-    queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', toggleValue, 'year', selectedYear, 'month', selectedMonth],
+    queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', sortValue, 'year', selectedYear, 'month', selectedMonth],
     queryFn: ({ pageParam }) => authAction(() => {
       return getDiaryList({
-        sort: toggleValue,
+        sortType: sortValue,
         search: emotionToggle,
         pageParam,
         limit: DIDARY_FETCH_LIMIT,
@@ -62,6 +62,10 @@ const ListView = () => {
   useEffect(() => {
     if (currentUserEmail && !isFetching && hasNextPage && inView) fetchNextPage();
   }, [inView, hasNextPage, isFetching, currentUserEmail, fetchNextPage])
+
+  useEffect(() => {
+    wrapperRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [sortValue]);
 
   return (
     <AppPage
@@ -82,9 +86,9 @@ const ListView = () => {
         </TopButton>
         <TopButton
           size="default"
-          onClick={sortOrderChange}
+          onClick={onToggle}
         >
-          <span>{toggleValue === 'DESC' ? '최신순' : '과거순'}</span>
+          <span>{sortValue === 'DESC' ? '최신순' : '과거순'}</span>
         </TopButton>
       </>}
       afterContent={<ScrollToTopButton contentRef={wrapperRef} />}>

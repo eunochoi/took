@@ -8,11 +8,13 @@ import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { enqueueSnackbar } from "notistack";
 import { MdAdd } from 'react-icons/md';
 import HabitBox from "./_components/HabitBox";
 import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
-import { useHabitToggle } from "./_hooks/useHabitToggle";
+import { useSortToggle } from "@/common/hooks/useSortToggle";
+import type { HabitSort } from "@/common/types/sort";
 import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
 
 interface Habit {
@@ -23,8 +25,7 @@ interface Habit {
 
 const MAX_HABIT_COUNT = 18;
 
-type SORT = 'ASC' | 'DESC' | 'PRIORITY' | 'CUSTOM';
-const SORT_TEXT: Record<SORT, string> = {
+const HABIT_SORT_LABELS: Record<HabitSort, string> = {
   ASC: '과거순',
   DESC: '최신순',
   PRIORITY: '중요도',
@@ -34,13 +35,18 @@ const SORT_TEXT: Record<SORT, string> = {
 const HabitView = () => {
   usePrefetchPage();
   const router = useRouter();
+  const pageRef = useRef<HTMLDivElement | null>(null);
   const { todayDoneHabitCount, todayDoneHabitRate } = useTodayHabitRate();
-  const { toggleValue, onToggle } = useHabitToggle();
-  const { customOrder } = useCustomHabitOrder();
+  const { sortValue, onToggle } = useSortToggle({ sortKey: 'habit' });
+  const { customHabitOrder } = useCustomHabitOrder();
+
+  useEffect(() => {
+    pageRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [sortValue]);
 
   const { data: habits } = useQuery({
-    queryKey: ['habits', 'list', toggleValue],
-    queryFn: () => authAction(() => getHabitList({ sort: toggleValue, customOrder })),
+    queryKey: ['habits', 'list', sortValue],
+    queryFn: () => authAction(() => getHabitList({ sortType: sortValue, customHabitOrder })),
   });
 
   const totalHabitCount = habits?.length ? habits?.length : 0;
@@ -57,9 +63,10 @@ const HabitView = () => {
   return (
     <AppPage
       contentVariant="normal"
+      pageRef={pageRef}
       topButtons={
         <TopButton onClick={onToggle} size='default' >
-          <span>{SORT_TEXT[toggleValue]}</span>
+          <span>{HABIT_SORT_LABELS[sortValue]}</span>
         </TopButton>
       }>
       <PageTitle

@@ -1,22 +1,22 @@
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { useLocalStorage } from "@/common/hooks/useLocalStorage";
-import { Order } from "@/common/types/order";
+import { SortPreferences } from "@/common/types/sort";
 import { useCallback } from "react";
 
 export const useCustomHabitOrder = () => {
   const { data: user } = useCurrentUser();
-  const key = `took:${user?.email}:order`;
+  const storageKey = `took:${user?.email}:sort`;
 
-  const { value: order, setStoredValue: setOrder } = useLocalStorage<Order>(key, {});
+  const { value: sortPreferences, setStoredValue: setSortPreferences } = useLocalStorage<SortPreferences>(storageKey, {});
 
-  const customOrder = order?.habitCustom ?? [];  //기본값 처리
+  const customHabitOrder = sortPreferences.habitCustom ?? [];
 
-  const setCustomOrder = useCallback((value: number[]) => {
-    setOrder((prev) => ({ ...prev, habitCustom: value }));
-  }, [setOrder]);
+  const setCustomHabitOrder = useCallback((value: number[]) => {
+    setSortPreferences((previousPreferences) => ({ ...previousPreferences, habitCustom: value }));
+  }, [setSortPreferences]);
 
   return {
-    customOrder,
-    setCustomOrder,
+    customHabitOrder,
+    setCustomHabitOrder,
   };
 }
