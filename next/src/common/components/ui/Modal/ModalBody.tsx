@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from "@/common/utils/cn";
+import { motion, useReducedMotion } from "framer-motion";
 import { HTMLAttributes, useCallback, useEffect, useRef, useState } from "react";
 import { ScrollEdgeFade } from "../ScrollEdgeFade";
 
@@ -12,6 +13,8 @@ export const ModalBody = ({ children, className, withScrollFade = false, ...prop
   const bodyRef = useRef<HTMLDivElement | null>(null);
   const [isScrollable, setIsScrollable] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const shouldReduceMotion = prefersReducedMotion ?? false;
 
   const checkScroll = useCallback(() => {
     const body = bodyRef.current;
@@ -57,7 +60,14 @@ export const ModalBody = ({ children, className, withScrollFade = false, ...prop
           className="sticky inset-x-0 top-0 z-[90] h-12 w-full shrink-0 -mb-12"
         />
       )}
-      {children}
+      <motion.div
+        className="flex min-h-full w-full flex-col items-center justify-start"
+        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+        transition={{ duration: shouldReduceMotion ? 0.15 : 0.22, ease: 'easeOut' }}
+      >
+        {children}
+      </motion.div>
       {withScrollFade && (
         <ScrollEdgeFade
           edge="bottom"
