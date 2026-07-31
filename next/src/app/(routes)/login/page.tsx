@@ -24,7 +24,7 @@ const Page = () => {
   useEffect(() => {
     router.prefetch('/home');
     router.prefetch('/calendar');
-    router.prefetch('/list');
+    router.prefetch('/diary');
     router.prefetch('/habit');
     router.prefetch('/setting');
   }, [router]);

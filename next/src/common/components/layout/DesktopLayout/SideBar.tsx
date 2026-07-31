@@ -30,11 +30,11 @@ const SideBar = () => {
           <span>calendar</span>
         </Link>
         <Link
-          href="/list"
-          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-theme-text-secondary transition-colors duration-[180ms]", current === 'list' && "text-theme-accent")}
+          href="/diary"
+          className={cn("flex w-full cursor-pointer items-center justify-between text-xl font-medium capitalize text-theme-text-secondary transition-colors duration-[180ms]", current === 'diary' && "text-theme-accent")}
         >
           <MdViewList className="icon" />
-          <span>list</span>
+          <span>diary list</span>
         </Link>
         <Link
           href="/habit"

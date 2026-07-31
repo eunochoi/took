@@ -4,8 +4,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 
-import EmotionFilter from "@/app/(routes)/(app)/list/_components/EmotionFilter";
-import MonthFilter from "@/app/(routes)/(app)/list/_components/MonthFilter";
+import EmotionFilter from "@/app/(routes)/(app)/diary/_components/EmotionFilter";
+import MonthFilter from "@/app/(routes)/(app)/diary/_components/MonthFilter";
 import { getDiaryList } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 import AppPage from "@/common/components/layout/AppPage";

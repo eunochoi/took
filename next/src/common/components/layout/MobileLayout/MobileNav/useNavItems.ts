@@ -10,7 +10,7 @@ export const useNavItems = () => {
   const items = [
     { key: 'home', segment: 'home', icon: MdHome, label: 'home', href: '/home' },
     { key: 'calendar', segment: 'calendar', icon: MdCalendarMonth, label: 'calendar', href: `/calendar?date=${getTodayString()}` },
-    { key: 'diaryList', segment: 'list', icon: MdViewList, label: 'diary list', href: '/list' },
+    { key: 'diaryList', segment: 'diary', icon: MdViewList, label: 'diary list', href: '/diary' },
     { key: 'habit', segment: 'habit', icon: MdCheckBox, label: 'habit', href: '/habit' },
     { key: 'setting', segment: 'setting', icon: MdSettings, label: 'setting', href: '/setting' },
   ];
