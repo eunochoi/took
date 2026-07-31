@@ -78,7 +78,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
   };
 
   return (
-    <div className="flex aspect-[0.8] py-2 w-full flex-col items-center justify-evenly rounded-3xl bg-theme-surface shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.06)] backdrop-blur-xl">
+    <div className="flex aspect-[0.8] py-2 w-full flex-col items-center justify-evenly rounded-2xl bg-theme-surface shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.06)] backdrop-blur-xl">
       <div className="flex flex-col gap-1 h-auto w-full items-center justify-center text-center text-base font-medium text-theme-text-primary">
         <StarRating rating={priority + 1} />
         <span className="max-w-[90%] text-base truncate">{name}</span>
@@ -101,7 +101,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
                     ontoggleHabit(e, format(date, 'yyyy-MM-dd'));
                   }} />
                 <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-theme-bg">
-                  <div className={cn("h-3 w-3 shrink-0 rounded-full transition-all duration-[400ms] ease-in-out", checked && "bg-theme-accent")} />
+                  <div className={cn("h-3 w-3 shrink-0 rounded-full transition-all duration-200 ease-in-out", checked && "bg-theme-accent")} />
                 </div>
               </label>
             </div>

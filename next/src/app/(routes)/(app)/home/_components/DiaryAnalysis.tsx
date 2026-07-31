@@ -14,7 +14,7 @@ interface Props {
   year: number;
 }
 
-const monthlyBarClass = "min-h-1 w-3 max-w-5 rounded-[3px] transition-[height] duration-300 ease-in-out";
+const monthlyBarClass = "min-h-1 w-3 max-w-5 rounded-[3px] transition-[height] duration-200 ease-in-out";
 
 const DiaryAnalysis = ({ stats, year }: Props) => {
   const formatTextLength = (length: number) => {
