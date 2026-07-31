@@ -13,13 +13,13 @@ const SideNav = () => {
       <div className="mb-4">
         <Logo size={24} />
       </div>
-      {items.map(({ key, icon: Icon, label, href }) => (
+      {items.map(({ key, segment, icon: Icon, label, href }) => (
         <Link
           key={key}
           href={href}
           className={cn(
             "flex w-4/5 cursor-pointer items-center gap-3 px-3 py-2 text-sm capitalize",
-            current === key ? "text-theme-accent" : "text-theme-text-tertiary",
+            current === segment ? "text-theme-accent" : "text-theme-text-tertiary",
           )}
         >
           <Icon /> {label}

@@ -43,7 +43,7 @@ const DiaryListView = () => {
   const selectedPeriodLabel = selectedMonth === MONTH_UNSELECTED ? `${selectedYear}년` : `${selectedYear}년 ${selectedMonth}월`;
 
   const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage } = useInfiniteQuery({
-    queryKey: ['diary', 'list', 'emotion', emotionToggle, 'sort', sortValue, 'year', selectedYear, 'month', selectedMonth],
+    queryKey: ['diary', 'diaryList', 'emotion', emotionToggle, 'sort', sortValue, 'year', selectedYear, 'month', selectedMonth],
     queryFn: ({ pageParam }) => authAction(() => {
       return getDiaryList({
         sortType: sortValue,
@@ -111,4 +111,3 @@ const DiaryListView = () => {
 }
 
 export default DiaryListView;
-

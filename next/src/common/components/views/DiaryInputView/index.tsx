@@ -107,7 +107,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
 
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ['diary', 'month'] }),
-        queryClient.invalidateQueries({ queryKey: ['diary', 'list'] }),
+        queryClient.invalidateQueries({ queryKey: ['diary', 'diaryList'] }),
         queryClient.invalidateQueries({ queryKey: ['stats'] }),
       ]);
 

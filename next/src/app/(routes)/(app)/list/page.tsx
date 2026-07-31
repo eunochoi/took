@@ -15,7 +15,7 @@ const DiaryListPage = async () => {
   // Prefetch diary list data for all emotions and sort directions.
   for (let i = 0; i <= 5; i++) {
     await queryClient.prefetchInfiniteQuery({
-      queryKey: ['diary', 'list', 'emotion', i, 'sort', 'ASC', 'year', selectedYear, 'month', MONTH_UNSELECTED],
+      queryKey: ['diary', 'diaryList', 'emotion', i, 'sort', 'ASC', 'year', selectedYear, 'month', MONTH_UNSELECTED],
       queryFn: async ({ pageParam }) => {
         const result = await getDiaryList({
           sortType: 'ASC',
@@ -31,7 +31,7 @@ const DiaryListPage = async () => {
       initialPageParam: 0,
     })
     await queryClient.prefetchInfiniteQuery({
-      queryKey: ['diary', 'list', 'emotion', i, 'sort', 'DESC', 'year', selectedYear, 'month', MONTH_UNSELECTED],
+      queryKey: ['diary', 'diaryList', 'emotion', i, 'sort', 'DESC', 'year', selectedYear, 'month', MONTH_UNSELECTED],
       queryFn: async ({ pageParam }) => {
         const result = await getDiaryList({
           sortType: 'DESC',
