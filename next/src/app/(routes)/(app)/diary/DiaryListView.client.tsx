@@ -12,6 +12,7 @@ import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import ScrollToTopButton from "@/common/components/ui/ScrollToTopButton";
 import TopButton from "@/common/components/ui/TopButtons/TopButton";
 import { EMOTIONS } from "@/common/constants/emotions";
+import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
 import { EMOTION_UNSELECTED, getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { useModalParam } from "@/common/hooks/useModalParam";
@@ -21,8 +22,6 @@ import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
 import { DiaryList } from "./_components/DiaryList";
 import { useDiaryListFilter } from "./_hooks/useDiaryListFilter";
 import type { DiaryData } from "@/common/types/diary";
-
-const DIARY_FETCH_LIMIT = 10;
 
 const DiaryListView = () => {
   usePrefetchPage();
@@ -49,7 +48,7 @@ const DiaryListView = () => {
         sortType: sortValue,
         search: emotionToggle,
         pageParam,
-        limit: DIARY_FETCH_LIMIT,
+        limit: DIARY_LIST_PAGE_SIZE,
         selectedYear: selectedYear,
         selectedMonth: selectedMonth
       });

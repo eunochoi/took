@@ -1,7 +1,8 @@
 import { getDiaryList } from "@/common/actions/diary";
-import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
-import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
+import { EMOTION_TOTAL_COUNT, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { getCurrentYearInUserTimezone } from "@/common/utils/date/userTimezone";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import DiaryListView from "./DiaryListView.client";
 
 export const dynamic = 'force-dynamic';
@@ -10,10 +11,9 @@ export const dynamic = 'force-dynamic';
 const DiaryListPage = async () => {
   const queryClient = new QueryClient();
   const selectedYear = await getCurrentYearInUserTimezone();
-  const limit = 10;
 
   // Prefetch diary list data for all emotions and sort directions.
-  for (let i = 0; i <= 5; i++) {
+  for (let i = 0; i < EMOTION_TOTAL_COUNT; i++) {
     await queryClient.prefetchInfiniteQuery({
       queryKey: ['diary', 'diaryList', 'emotion', i, 'sort', 'ASC', 'year', selectedYear, 'month', MONTH_UNSELECTED],
       queryFn: async ({ pageParam }) => {
@@ -21,7 +21,7 @@ const DiaryListPage = async () => {
           sortType: 'ASC',
           search: i,
           pageParam,
-          limit,
+          limit: DIARY_LIST_PAGE_SIZE,
           selectedYear: selectedYear,
           selectedMonth: MONTH_UNSELECTED
         });
@@ -37,7 +37,7 @@ const DiaryListPage = async () => {
           sortType: 'DESC',
           search: i,
           pageParam,
-          limit,
+          limit: DIARY_LIST_PAGE_SIZE,
           selectedYear: selectedYear,
           selectedMonth: MONTH_UNSELECTED
         });
