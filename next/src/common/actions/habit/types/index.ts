@@ -1,12 +1,13 @@
 import type { Habit } from '@prisma/client';
+import type { HabitSort } from '../../../types/sort';
 
 export type IdParams = {
   id: string | number | null | undefined;
 };
 
-export type ListParams = {
-  sort: string;
-  customOrder?: number[];
+export type HabitListParams = {
+  sortType: HabitSort;
+  customHabitOrder?: number[];
 };
 
 export type HabitDateParams = {

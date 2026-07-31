@@ -1,4 +1,5 @@
 import type { Prisma } from '@prisma/client';
+import type { DiarySort } from '../../../types/sort';
 
 export type DiaryData = {
   email: string;
@@ -58,8 +59,8 @@ export type MonthParams = {
   month: string;
 };
 
-export type ListParams = {
-  sort: string;
+export type DiaryListParams = {
+  sortType: DiarySort;
   search: number;
   limit: number;
   pageParam: number;

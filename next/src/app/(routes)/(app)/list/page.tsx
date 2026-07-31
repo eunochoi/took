@@ -18,7 +18,7 @@ const ListPage = async () => {
       queryKey: ['diary', 'list', 'emotion', i, 'sort', 'ASC', 'year', selectedYear, 'month', MONTH_UNSELECTED],
       queryFn: async ({ pageParam }) => {
         const result = await getDiaryList({
-          sort: 'ASC',
+          sortType: 'ASC',
           search: i,
           pageParam,
           limit,
@@ -34,7 +34,7 @@ const ListPage = async () => {
       queryKey: ['diary', 'list', 'emotion', i, 'sort', 'DESC', 'year', selectedYear, 'month', MONTH_UNSELECTED],
       queryFn: async ({ pageParam }) => {
         const result = await getDiaryList({
-          sort: 'DESC',
+          sortType: 'DESC',
           search: i,
           pageParam,
           limit,

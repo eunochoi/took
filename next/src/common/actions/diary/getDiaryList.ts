@@ -3,22 +3,21 @@
 import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
 import type { ActionResult } from '../types';
-import type { DiaryData, ListParams } from './types';
+import type { DiaryData, DiaryListParams } from './types';
 import { createAuthErrorResult, createServerErrorResult, formatDiaryData } from './utils';
 
 export const getDiaryList = async ({
-  sort,
+  sortType,
   search,
   pageParam,
   limit,
   selectedYear,
   selectedMonth,
-}: ListParams): Promise<ActionResult<DiaryData[]>> => {
+}: DiaryListParams): Promise<ActionResult<DiaryData[]>> => {
   try {
     const auth = await getAuth();
     if (!auth.ok) return createAuthErrorResult(auth);
 
-    const sortVal = sort === 'ASC' || sort === 'DESC' ? sort : 'DESC';
     const page = Math.max(0, Number(pageParam) || 0);
     const limitNum = Math.min(100, Math.max(1, Number(limit) || 10));
     const offset = page * limitNum;
@@ -58,7 +57,7 @@ export const getDiaryList = async ({
         },
       },
       orderBy: [
-        { date: sortVal.toLowerCase() as 'asc' | 'desc' },
+        { date: sortType.toLowerCase() as 'asc' | 'desc' },
       ],
     });
 

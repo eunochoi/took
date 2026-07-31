@@ -19,12 +19,12 @@ import { HabitList } from './HabitList';
 
 export const HabitOrderView = () => {
   const router = useRouter();
-  const { customOrder, setCustomOrder } = useCustomHabitOrder();
+  const { customHabitOrder, setCustomHabitOrder } = useCustomHabitOrder();
 
   //custom habits data load
   const { data: customHabits } = useQuery({
     queryKey: ['habits', 'list', 'CUSTOM'],
-    queryFn: () => authAction(() => getHabitList({ sort: 'CUSTOM', customOrder })),
+      queryFn: () => authAction(() => getHabitList({ sortType: 'CUSTOM', customHabitOrder })),
   });
 
   const [tempHabits, setTempHabits] = useState<Habit[]>([]);
@@ -42,7 +42,7 @@ export const HabitOrderView = () => {
   const onSubmit = () => {
     try {
       const tempHabitsIdArray = tempHabits.map(e => e.id);
-      setCustomOrder(tempHabitsIdArray);
+      setCustomHabitOrder(tempHabitsIdArray);
       router.back();
       setTimeout(() => {
         enqueueSnackbar('변경 완료');

@@ -11,7 +11,7 @@ const HabitPage = async () => {
   await queryClient.prefetchQuery({
     queryKey: ['habits', 'list', 'ASC'],
     queryFn: async () => {
-      const result = await getHabitList({ sort: 'ASC' });
+      const result = await getHabitList({ sortType: 'ASC' });
       if (!result.ok) throw new Error(result.message);
       return result.data;
     },
@@ -19,7 +19,7 @@ const HabitPage = async () => {
   await queryClient.prefetchQuery({
     queryKey: ['habits', 'list', 'DESC'],
     queryFn: async () => {
-      const result = await getHabitList({ sort: 'DESC' });
+      const result = await getHabitList({ sortType: 'DESC' });
       if (!result.ok) throw new Error(result.message);
       return result.data;
     },

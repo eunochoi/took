@@ -3,26 +3,26 @@
 import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
 import type { ActionResult } from '../types';
-import type { HabitData, ListParams } from './types';
+import type { HabitData, HabitListParams } from './types';
 import { createAuthErrorResult, createServerErrorResult, formatHabitData } from './utils';
 
-export const getHabitList = async ({ sort, customOrder = [] }: ListParams): Promise<ActionResult<HabitData[]>> => {
+export const getHabitList = async ({ sortType, customHabitOrder = [] }: HabitListParams): Promise<ActionResult<HabitData[]>> => {
   try {
     const auth = await getAuth();
     if (!auth.ok) return createAuthErrorResult(auth);
 
-    const orderIds = customOrder.map((id) => Number(id)).filter((id) => Number.isFinite(id));
+    const orderIds = customHabitOrder.map((id) => Number(id)).filter((id) => Number.isFinite(id));
 
     const habits = await prisma.habit.findMany({
       where: { email: auth.email },
-      orderBy: sort === 'DESC'
+      orderBy: sortType === 'DESC'
         ? { createdAt: 'desc' }
-        : sort === 'PRIORITY'
+        : sortType === 'PRIORITY'
           ? [{ priority: 'desc' }, { createdAt: 'asc' }]
           : { createdAt: 'asc' },
     });
 
-    if (sort === 'CUSTOM' && orderIds.length > 0) {
+    if (sortType === 'CUSTOM' && orderIds.length > 0) {
       const orderMap = new Map(orderIds.map((id, index) => [id, index]));
       habits.sort((a, b) => {
         const aOrder = orderMap.get(a.id);
