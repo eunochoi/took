@@ -15,6 +15,7 @@ const TRUST_IMAGES = [INTRO_IMAGES.pc_login, INTRO_IMAGES.pc_setting, INTRO_IMAG
 const RESPONSIVE_IMAGES = [INTRO_IMAGES.list, INTRO_IMAGES.pc_list, INTRO_IMAGES.pc_calendar, INTRO_IMAGES.pc_list2];
 const desktopSectionClass = "grid grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-center gap-14 px-[min(7vw,112px)] py-24";
 const desktopSectionTextClass = "m-0 break-keep text-lg leading-[1.75] text-theme-text-secondary";
+const desktopSectionTitleClass = "m-0 flex-1 break-keep text-4xl capitalize leading-tight text-theme-text-primary";
 const trustCardClass = "flex min-h-[150px] flex-col gap-2 rounded-2xl px-4 py-5";
 
 interface IntroSectionBlockProps {
@@ -32,7 +33,7 @@ const IntroSectionBlock = ({ bg, reverse, title, meta, text, children }: IntroSe
   >
     <div className={reverse ? "order-2 flex flex-col justify-center gap-[18px]" : "flex flex-col justify-center gap-[18px]"}>
       <div className="flex items-baseline justify-between gap-[18px]">
-      <h2 className="m-0 flex-1 break-keep  text-4xl capitalize leading-tight text-theme-text-primary">{title}</h2>
+      <h2 className={desktopSectionTitleClass}>{title}</h2>
         <span className="whitespace-nowrap text-base font-bold text-theme-accent">{meta}</span>
       </div>
       <p className={desktopSectionTextClass}>{text}</p>
@@ -82,7 +83,7 @@ const DesktopIntroView = () => {
 
         <section className="flex flex-col items-center gap-[22px] bg-theme-surface px-[min(7vw,112px)] py-24">
           <div className="flex items-baseline justify-between gap-[18px]">
-          <h2 className="m-0 flex-1 break-keep  text-4xl capitalize leading-tight text-theme-text-primary">필요한 기본 기능까지</h2>
+          <h2 className={desktopSectionTitleClass}>필요한 기본 기능까지</h2>
             <span className="whitespace-nowrap text-base font-bold text-theme-accent">로그인, 테마, 보안</span>
           </div>
           <div className="grid w-[min(100%,980px)] grid-cols-3 gap-3">

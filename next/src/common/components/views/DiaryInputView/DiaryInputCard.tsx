@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from "react";
+import { inputCardClass } from "../constants";
 
 interface DiaryInputCardProps {
   children: ReactNode;
@@ -8,7 +9,7 @@ interface DiaryInputCardProps {
 
 export const DiaryInputCard = ({ children }: DiaryInputCardProps) => {
   return (
-    <div className="flex w-full shrink-0 flex-col items-stretch gap-4 rounded-theme bg-theme-surface p-4 shadow-card">
+    <div className={inputCardClass}>
       {children}
     </div>
   );

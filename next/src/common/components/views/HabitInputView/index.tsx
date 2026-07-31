@@ -14,6 +14,7 @@ import { SectionTitle, SectionTitleIcon } from "../../ui/SectionTitle";
 import { HabitInputCard } from "./HabitInputCard";
 import { HabitName } from "./HabitName";
 import { HabitRating } from "./HabitRating";
+import { inputViewContentClass } from "../constants";
 
 interface HabitInputProps {
   isEdit: boolean;
@@ -74,7 +75,7 @@ const HabitInputView = ({ isEdit, habitId }: HabitInputProps) => {
     <RouteModal>
       <ModalHeader title={`목표 습관 ${submitText}`} confirmText={submitText} onConfirm={onSubmit} />
       <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
-        <div className="flex w-full flex-col gap-6 px-[4dvw] py-9 tablet:max-desktop:px-6 tablet:max-desktop:py-6 desktop:px-6 desktop:py-9">
+        <div className={inputViewContentClass}>
           <section className="flex w-full flex-col gap-3">
             <SectionTitle><SectionTitleIcon><MdCheckBox /></SectionTitleIcon>습관 이름</SectionTitle>
             <HabitInputCard>

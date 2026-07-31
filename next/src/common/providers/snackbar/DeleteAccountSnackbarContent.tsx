@@ -5,6 +5,7 @@ import { authAction } from "@/common/auth/authAction";
 import { signOut } from "next-auth/react";
 import { closeSnackbar, CustomContentProps, SnackbarContent } from "notistack";
 import { forwardRef, useState } from "react";
+import { snackbarPrimaryActionClass, snackbarSecondaryActionClass } from "./constants";
 
 const DELETE_CONFIRM_TEXT = "DELETE";
 
@@ -51,7 +52,7 @@ const DeleteAccountSnackbarContent = forwardRef<HTMLDivElement, CustomContentPro
           {errorMessage && <span className="text-center text-sm font-medium text-theme-accent">{errorMessage}</span>}
           <div className="flex justify-end gap-2">
             <button
-              className="rounded-theme bg-theme-surface-muted px-4 py-1.5 font-medium text-theme-text-secondary shadow-card"
+              className={snackbarSecondaryActionClass}
               onClick={() => {
                 closeSnackbar(id);
               }}
@@ -60,7 +61,7 @@ const DeleteAccountSnackbarContent = forwardRef<HTMLDivElement, CustomContentPro
               취소
             </button>
             <button
-              className="rounded-theme bg-theme-accent px-4 py-1.5 font-medium text-theme-text-on-accent shadow-card"
+              className={snackbarPrimaryActionClass}
               onClick={onConfirm}
               type="button"
             >

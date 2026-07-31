@@ -17,6 +17,7 @@ import { SectionTitle, SectionTitleIcon } from "../../ui/SectionTitle";
 import { DiaryInputCard } from "./DiaryInputCard";
 import DiaryInputImages from "./DiaryInputImages";
 import DiaryInputTextArea from "./DiaryInputTextarea";
+import { inputViewContentClass } from "../constants";
 
 interface DiaryInputProps {
   isEdit: boolean;
@@ -132,7 +133,7 @@ const DiaryInputView = ({ isEdit, diaryId }: DiaryInputProps) => {
     <RouteModal>
       <ModalHeader title={headerTitle} confirmText={submitText} onConfirm={onSubmit} />
       <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
-        <div className="flex w-full flex-col gap-6 px-[4dvw] py-9 tablet:max-desktop:px-6 tablet:max-desktop:py-6 desktop:px-6 desktop:py-9">
+        <div className={inputViewContentClass}>
           <section className="flex w-full flex-col gap-3">
             <SectionTitle><SectionTitleIcon><MdOutlineEmojiEmotions /></SectionTitleIcon>하루의 감정</SectionTitle>
             <DiaryInputCard>
