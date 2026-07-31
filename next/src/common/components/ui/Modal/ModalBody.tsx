@@ -62,9 +62,9 @@ export const ModalBody = ({ children, className, withScrollFade = false, ...prop
       )}
       <motion.div
         className="flex min-h-full w-full flex-col items-center justify-start"
-        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
         animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-        transition={{ duration: shouldReduceMotion ? 0.15 : 0.22, ease: 'easeOut' }}
+        transition={{ duration: shouldReduceMotion ? 0.2 : 0.3, ease: 'easeOut' }}
       >
         {children}
       </motion.div>
