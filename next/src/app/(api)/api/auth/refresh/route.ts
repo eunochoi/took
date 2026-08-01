@@ -26,8 +26,8 @@ export const POST = async () => {
       return NextResponse.json({ error: "유효하지 않은 토큰입니다." }, { status: 401 });
     }
 
-    const accessToken = await refreshAccessToken({ email, provider });
-    return NextResponse.json({ result: true, accessToken });
+    await refreshAccessToken({ email, provider });
+    return NextResponse.json({ result: true });
 
   } catch (e: any) {
     console.error("refresh error:", e);
