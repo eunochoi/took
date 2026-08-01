@@ -27,7 +27,7 @@ const LoginButton = ({ provider }: LoginButtonProps) => {
       height={24}
       alt={LOGIN_PROVIDERS[provider].id}
     />
-    <span className={cn('text-base font-semibold mr-1', LOGIN_PROVIDERS[provider].textColor)}>
+    <span className={cn('text-base mr-1', LOGIN_PROVIDERS[provider].textColor)}>
       {LOGIN_PROVIDERS[provider].content}
     </span>
     <span></span>

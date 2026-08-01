@@ -26,7 +26,7 @@ const StartButton = ({ provider, email }: StartButtonProps) => {
       height={24}
       alt={LOGIN_PROVIDERS[provider].id}
     />
-    <span className={cn('text-base font-semibold mr-1 w-full truncate', LOGIN_PROVIDERS[provider].textColor)}>
+    <span className={cn('text-base mr-1 w-full truncate', LOGIN_PROVIDERS[provider].textColor)}>
       {email}
     </span>
     <span></span>
