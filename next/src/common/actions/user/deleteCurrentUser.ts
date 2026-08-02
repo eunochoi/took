@@ -42,6 +42,9 @@ export const deleteCurrentUser = async (): Promise<ActionResult<string>> => {
       await tx.habit.deleteMany({
         where: { userId: user.id },
       });
+
+      // User 삭제 시 RefreshSession의 userId 외래키 onDelete: Cascade가
+      // 해당 계정의 모든 서버 세션을 함께 삭제한다.
       await tx.user.delete({
         where: { id: user.id },
       });
