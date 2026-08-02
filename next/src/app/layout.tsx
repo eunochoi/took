@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 import { GlobalProviders } from "@/common/providers/GlobalProviders";
+import { THEME_BG_DARK_MODE, THEME_LOCAL_STORAGE_KEY, THEME_VALUE } from "@/common/types/theme";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { headers } from 'next/headers';
 
@@ -39,10 +40,32 @@ export default async function RootLayout({
   const queryClient = new QueryClient();
 
   const dehydratedState = dehydrate(queryClient)
+  const localThemeInitScript = `
+    (function () {
+      try {
+        var storedValue = window.localStorage.getItem(${JSON.stringify(THEME_LOCAL_STORAGE_KEY)});
+        var preference = storedValue ? JSON.parse(storedValue) : null;
+        var themeValues = ${JSON.stringify(THEME_VALUE)};
+        var accent = preference && themeValues[preference.theme]
+          ? themeValues[preference.theme]
+          : themeValues.blue;
+        var background = preference && preference.mode === '어둡게'
+          ? '${THEME_BG_DARK_MODE}'
+          : accent.bg;
+
+        document.documentElement.style.setProperty('--loading-background', 'rgb(' + background + ')');
+        document.documentElement.style.setProperty('--loading-indicator', 'rgb(' + accent.accent + ')');
+      } catch (error) {
+        document.documentElement.style.setProperty('--loading-background', 'rgb(240 247 255)');
+        document.documentElement.style.setProperty('--loading-indicator', 'rgb(140 173 226)');
+      }
+    })();
+  `;
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: localThemeInitScript }} />
         <meta name="google-site-verification" content="MSSWdnca2PMfsNV3MPmssa5cjQqycFJmdrj04DFx5fU" />
         {/* <link rel="manifest" href="/manifest.json" /> */}
 

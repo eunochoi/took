@@ -29,10 +29,18 @@ export const THEME_BG_DARK_MODE = `38 38 38`;
 
 export const THEME_MODE_LIST = ['밝게', '어둡게'] as const;
 
+// 이메일 없이 로딩 화면에서 접근하는 로컬 테마 설정
+export const THEME_LOCAL_STORAGE_KEY = 'took:local:theme';
+
 export type ThemeName = typeof THEME_NAME_LIST[number];
 export type ThemeAccent = typeof THEME_ACCENT_LIST[number];
 export type ThemeBG = typeof THEME_BG_LIST[number];
 export type ThemeMode = typeof THEME_MODE_LIST[number];
+
+export interface ThemePreference {
+  mode: ThemeMode;
+  theme: ThemeName;
+}
 
 export const THEME_VALUE: Record<
   ThemeName,

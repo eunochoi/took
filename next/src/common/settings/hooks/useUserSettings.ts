@@ -3,14 +3,18 @@
 import { useCurrentUser } from '@/common/hooks/useCurrentUser';
 import { useLocalStorage } from '@/common/hooks/useLocalStorage';
 import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontSize, FontType, LocalSettingValue } from '@/common/types/setting';
-import { THEME_MODE_LIST, THEME_NAME_LIST, ThemeMode, ThemeName } from '@/common/types/theme';
-import { useCallback } from 'react';
+import { THEME_LOCAL_STORAGE_KEY, THEME_MODE_LIST, THEME_NAME_LIST, ThemeMode, ThemeName, ThemePreference } from '@/common/types/theme';
+import { useCallback, useEffect } from 'react';
 
 export const useUserSettings = () => {
   const { data: user } = useCurrentUser();
   const key = `took:${user?.email}:setting`;
 
-  const { value: setting, setStoredValue: setSetting } = useLocalStorage<LocalSettingValue>(key, {
+  const {
+    value: setting,
+    setStoredValue: setSetting,
+    isStorageReady: isUserSettingStorageReady,
+  } = useLocalStorage<LocalSettingValue>(key, {
     font: {
       size: '보통',
       type: '타입1',
@@ -20,10 +24,25 @@ export const useUserSettings = () => {
       mode: '밝게',
     }
   });
+  const { setStoredValue: setLocalTheme } = useLocalStorage<ThemePreference>(
+    THEME_LOCAL_STORAGE_KEY,
+    {
+      mode: '밝게',
+      theme: 'blue',
+    },
+  );
   const fontSize = setting?.font?.size;
   const fontType = setting?.font?.type;
   const accent = setting?.theme?.accent;
   const mode = setting?.theme?.mode;
+
+  useEffect(() => {
+    if (!user?.email || !isUserSettingStorageReady || !mode || !accent) {
+      return;
+    }
+
+    setLocalTheme({ mode, theme: accent });
+  }, [accent, isUserSettingStorageReady, mode, setLocalTheme, user?.email]);
 
   const setFontSize = useCallback((size: FontSize) => {
     if (FONT_SIZE_LIST.includes(size)) {
@@ -58,8 +77,12 @@ export const useUserSettings = () => {
           accent: themeName,
         }
       }));
+      setLocalTheme((prev) => ({
+        ...prev,
+        theme: themeName,
+      }));
     }
-  }, [setSetting]);
+  }, [setLocalTheme, setSetting]);
   const setMode = useCallback((themeMode: ThemeMode) => {
     if (THEME_MODE_LIST.includes(themeMode)) {
       setSetting((prev) => ({
@@ -69,8 +92,12 @@ export const useUserSettings = () => {
           mode: themeMode
         }
       }));
+      setLocalTheme((prev) => ({
+        ...prev,
+        mode: themeMode,
+      }));
     }
-  }, [setSetting]);
+  }, [setLocalTheme, setSetting]);
 
   return {
     fontSize,
