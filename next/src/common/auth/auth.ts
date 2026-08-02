@@ -25,9 +25,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       try {
-        const foundUser = await prisma.user.findUnique({
+        let foundUser = await prisma.user.findUnique({
           where: { email },
-          select: { provider: true },
+          select: { id: true, provider: true },
         });
 
         if (foundUser && foundUser.provider !== provider) {
@@ -35,15 +35,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         if (!foundUser) {
-          await prisma.user.create({
+          foundUser = await prisma.user.create({
             data: {
               email,
               provider,
             },
+            select: { id: true, provider: true },
           });
         }
-
-        await setAccessRefreshToken({ email, provider });
+        //crate access, refresh token and refreshSession at db
+        await setAccessRefreshToken({
+          userId: foundUser.id,
+          email,
+          provider,
+        });
         return true;
       } catch (e) {
         console.error(e);

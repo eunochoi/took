@@ -9,6 +9,8 @@ interface AuthActionOptions {
   redirectOnAuthError?: boolean;
 }
 
+let accessTokenRefreshPromise: Promise<boolean> | null = null;
+
 // 로그인 화면으로 이동
 const goToLogin = () => {
   if (!navigator.onLine) return;
@@ -30,6 +32,17 @@ const requestAccessTokenRefresh = async () => {
   return response.ok;
 };
 
+// 같은 브라우저 탭에서 동시에 발생한 refresh 요청을 하나로 합침
+const requestAccessTokenRefreshWithLock = async () => {
+  if (!accessTokenRefreshPromise) {
+    accessTokenRefreshPromise = requestAccessTokenRefresh().finally(() => {
+      accessTokenRefreshPromise = null;
+    });
+  }
+
+  return accessTokenRefreshPromise;
+};
+
 // 클라이언트단에서 로그인 여부 확인후 엑세스 토큰 리프레시 관리
 export const authAction = async <T,>(
   action: () => Promise<ActionResult<T>>,
@@ -44,10 +57,10 @@ export const authAction = async <T,>(
 
   const needLogin = result.code === AUTH_ERROR_CODE.needLogin;
   const accessTokenExpired = result.code === AUTH_ERROR_CODE.expiredAccessToken;
-  const canRefreshAccessToken = needLogin || accessTokenExpired;
+  const shouldAttemptAccessTokenRefresh = needLogin || accessTokenExpired;
 
-  if (canRefreshAccessToken) {
-    const refreshed = await requestAccessTokenRefresh();
+  if (shouldAttemptAccessTokenRefresh) {
+    const refreshed = await requestAccessTokenRefreshWithLock();
 
     if (refreshed) {
       const retryResult = await action();
