@@ -29,7 +29,7 @@ export const DiaryList = ({ diaries }: DiaryListProps) => {
                   {currentDiaryDate}
                 </span>
                 <div className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
-                  <Diary type="large" diaryData={diary} />
+                  <Diary diaryData={diary} />
                 </div>
               </React.Fragment>
             );
@@ -37,7 +37,7 @@ export const DiaryList = ({ diaries }: DiaryListProps) => {
 
           return (
             <div key={`diary-list-${diary.id}`} className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
-              <Diary type="large" diaryData={diary} />
+              <Diary diaryData={diary} />
             </div>
           );
         })
