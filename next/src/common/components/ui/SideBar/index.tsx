@@ -20,7 +20,7 @@ const linkBaseClass = "flex w-full cursor-pointer justify-between whitespace-now
 const linkTabletClass = "gap-2 text-base";
 const linkDesktopClass = "desktop:justify-between desktop:gap-4 desktop:text-xl";
 
-const contactBaseClass = "w-full text-center text-sm text-theme-accent";
+const contactBaseClass = "w-full text-center text-xs text-theme-accent";
 
 const SideBar = () => {
   const { items, current } = useNavItems();
