@@ -22,6 +22,7 @@ const CALENDAR_HEADER_VARIANTS = {
 
 interface CalendarProps<T> {
   className?: string;
+  headerDescription?: string;
   variant?: keyof typeof CALENDAR_HEADER_VARIANTS;
 
   visibleMonth: Date;
@@ -37,6 +38,7 @@ interface CalendarProps<T> {
 
 const Calendar = <T,>({
   className,
+  headerDescription,
   variant = 'default',
   dateDataMap,
   visibleMonth,
@@ -65,8 +67,9 @@ const Calendar = <T,>({
   const { handleTouchStart, handleTouchEnd } = useSwipe({ isTouchGestureEnabled, prevMonth, nextMonth });
 
   return (
-    <div className={cn("flex h-full w-full flex-col overflow-visible", className)}>
+    <div className={cn("flex h-auto w-full flex-col overflow-visible", className)}>
       <CalendarHeader
+        description={headerDescription}
         headerSize={headerSize}
         headerTitlePosition={headerTitlePosition}
         visibleMonth={visibleMonth}

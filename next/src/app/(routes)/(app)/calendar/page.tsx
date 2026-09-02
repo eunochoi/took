@@ -2,6 +2,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 
 //function
 import { getDiaryByDate, getMonthlyDiaryData } from "@/common/actions/diary";
+import { getHabitsByDate } from "@/common/actions/habit";
 import { getTodayStringInUserTimezone } from "@/common/utils/date/userTimezone";
 import CalendarView from "./CalendarView.client";
 
@@ -28,7 +29,15 @@ const CalendarPage = async ({ searchParams }: Props) => {
       if (!result.ok) throw new Error(result.message);
       return result.data;
     },
-  })
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ['habit', 'date', date],
+    queryFn: async () => {
+      const result = await getHabitsByDate({ date });
+      if (!result.ok) throw new Error(result.message);
+      return result.data;
+    },
+  });
   await queryClient.prefetchQuery({
     queryKey: ['diary', 'month', date.slice(0, 7)], // 'yyyy-MM-dd'에서 'yyyy-MM' 추출
     queryFn: async () => {
@@ -36,10 +45,10 @@ const CalendarPage = async ({ searchParams }: Props) => {
       if (!result.ok) throw new Error(result.message);
       return result.data;
     },
-  })
+  });
 
 
-  const dehydratedState = dehydrate(queryClient)
+  const dehydratedState = dehydrate(queryClient);
 
   return (
     <HydrationBoundary state={dehydratedState}>

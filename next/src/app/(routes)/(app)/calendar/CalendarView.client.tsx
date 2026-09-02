@@ -1,25 +1,28 @@
 'use client';
 
 import { useQuery } from "@tanstack/react-query";
-import { format, startOfMonth } from "date-fns";
+import { addMonths, format, startOfMonth, subMonths } from "date-fns";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 //function
-import { getDiaryByDate, getMonthlyDiaryData } from "@/common/actions/diary";
+import { getMonthlyDiaryData } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 
-//styledComponent
 
 //component
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import Calendar from "@/common/components/ui/Calendar";
-import Diary from "@/common/components/ui/Diary";
+import TopButton from "@/common/components/ui/TopButton";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { useRouter } from "next/navigation";
-import EmptyCalendarDiary from "./_components/EmptyCalendarDiary";
+import SelectedDayInfo from "./_components/SelectedDayInfo";
 import { renderCalendarPageContent } from "./_utils/renderCalendarPageContent";
+
+
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+
 
 
 interface CalendarViewProps {
@@ -45,38 +48,69 @@ const CalendarView = ({ date }: CalendarViewProps) => {
     setVisibleMonth(startOfMonth(selectedDate));
   }, [selectedDate]);
 
-  //get date diary data
-  const { data: diaryData } = useQuery({
-    queryKey: ['diary', 'date', date],
-    queryFn: () => authAction(() => getDiaryByDate({ date })),
-  });
-
   const { data: diaryDateDataMap } = useQuery({
     queryKey: ['diary', 'month', format(visibleMonth, 'yyyy-MM')],
     queryFn: () => authAction(() => getMonthlyDiaryData({ month: format(visibleMonth, 'yyyy-MM') })),
     select: (data) => { //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
       const diaryDateDataMap: DiaryDateDataMap = {};
       data.forEach((e: any) => {
-        diaryDateDataMap[format(e.date, 'yyMMdd')] = { habitsCount: e?.Habits?.length, isVisible: e?.visible, emotionType: e?.emotion };
+        diaryDateDataMap[format(e.date, 'yyMMdd')] = { habitsCount: e?.Habits?.length ?? 0, isVisible: e?.visible, emotionType: e?.emotion };
       });
       return diaryDateDataMap;
     }
   });
 
+  const headerDescription = useMemo(() => {
+    const monthlyRecords = Object.values(diaryDateDataMap ?? {});
+    const diaryCount = monthlyRecords.filter((record) => record.isVisible).length;
+    const completedHabitCount = monthlyRecords.reduce((count, record) => count + record.habitsCount, 0);
+
+    return `이번 달 일기 ${diaryCount}개 · 습관 완료 ${completedHabitCount}회`;
+  }, [diaryDateDataMap]);
+
   const onClickDate = useCallback((selectedDate: Date) => {
     router.push(`/calendar?date=${format(selectedDate, 'yyyy-MM-dd')}`);
   }, [router]);
+
+  const onGoPrevMonth = useCallback(() => {
+    const prevMonth = subMonths(visibleMonth, 1);
+    setVisibleMonth(prevMonth);
+  }, [visibleMonth])
+  const onGoNextMonth = useCallback(() => {
+    const nextMonth = addMonths(visibleMonth, 1);
+    setVisibleMonth(nextMonth);
+  }, [visibleMonth])
   const onGoToday = useCallback(() => {
+    setVisibleMonth(new Date());
     router.push(`/calendar?date=${getTodayString()}`);
   }, [router]);
 
   return (
     <AppPageLayout
+      topButton={
+        <>
+          <TopButton
+            size="auto"
+            onClick={onGoPrevMonth}>
+            <FaArrowLeft size={16} />
+          </TopButton>
+          <TopButton
+            onClick={onGoToday}>
+            <span>오늘</span>
+          </TopButton>
+          <TopButton
+            size="auto"
+            onClick={onGoNextMonth}>
+            <FaArrowRight size={16} />
+          </TopButton>
+        </>
+      }
       contentProps={{
         className: "flex-1 gap-3 max-tablet:gap-5 max-tablet:pt-6 tablet:gap-6 tablet:pt-6",
       }}>
-      <div className="min-h-[520px] flex-[1_1_0] overflow-visible max-tablet:min-h-[380px]">
+      <div className="w-full shrink-0 overflow-visible">
         <Calendar<DiaryDateData>
+          headerDescription={headerDescription}
           isTouchGestureEnabled={true}
           variant="default"
 
@@ -87,15 +121,10 @@ const CalendarView = ({ date }: CalendarViewProps) => {
           renderDateContent={renderCalendarPageContent}
 
           onClickDate={onClickDate}
-          onGoToday={onGoToday}
         />
       </div>
       <div key={date} className="shrink-0">
-        {diaryData?.visible ? (
-          <Diary type="small" diaryData={diaryData} />
-        ) : (
-          <EmptyCalendarDiary date={date} habits={diaryData?.Habits} />
-        )}
+        <SelectedDayInfo />
       </div>
     </AppPageLayout>
   );

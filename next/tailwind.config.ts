@@ -27,6 +27,8 @@ const config: Config = {
         "theme-danger": "rgb(var(--theme-danger) / <alpha-value>)",
         "theme-warning": "rgb(var(--theme-warning) / <alpha-value>)",
         "theme-success": "rgb(var(--theme-success) / <alpha-value>)",
+        "theme-calendar-saturday": "rgb(var(--theme-calendar-saturday) / <alpha-value>)",
+        "theme-calendar-sunday": "rgb(var(--theme-calendar-sunday) / <alpha-value>)",
         "brand-google": "#ffffff",
         "brand-naver": "#02c73c",
         "brand-kakao": "#fae100",

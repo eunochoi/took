@@ -25,6 +25,8 @@
   --theme-danger: 210 67 67;
   --theme-warning: 220 150 40;
   --theme-success: 45 150 105;
+  --theme-calendar-saturday: 124 143 204;
+  --theme-calendar-sunday: 232 118 109;
   --theme-shadow-color: 0 0 0;
   --app-font-size: 15px;
   --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
@@ -85,6 +87,8 @@ html[data-theme-mode='밝게'] {
   --theme-border: 225 225 225;
   --theme-border-muted: 240 240 240;
   --theme-overlay: 75 75 75;
+  --theme-calendar-saturday: 124 143 204;
+  --theme-calendar-sunday: 232 118 109;
   --theme-shadow-color: 0 0 0;
   color-scheme: light;
 }
@@ -101,6 +105,8 @@ html[data-theme-mode='어둡게'] {
   --theme-border: 80 80 80;
   --theme-border-muted: 60 60 60;
   --theme-overlay: 0 0 0;
+  --theme-calendar-saturday: 153 171 230;
+  --theme-calendar-sunday: 244 151 143;
   --theme-shadow-color: 0 0 0;
   color-scheme: dark;
 }

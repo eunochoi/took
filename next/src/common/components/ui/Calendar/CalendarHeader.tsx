@@ -2,9 +2,10 @@ import { cn } from "@/common/utils/cn";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdToday } from 'react-icons/md';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 interface CalendarHeaderProps {
+  description?: string;
   headerSize: 'small' | 'middle' | 'large';
   headerTitlePosition: 'center' | 'start';
   visibleMonth: Date;
@@ -12,8 +13,6 @@ interface CalendarHeaderProps {
   nextMonth: () => void;
   goToday: () => void;
 }
-
-const WEEK_TITLE_ENG = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
 const titlePaddingClass = {
   small: "py-1.5",
@@ -27,13 +26,8 @@ const titleTextClass = {
   large: "text-3xl",
 } as const;
 
-const arrowButtonClass = {
-  small: "p-[3px]",
-  middle: "p-1",
-  large: "p-1.5",
-} as const;
-
 const CalendarHeader = ({
+  description,
   headerSize,
   headerTitlePosition,
   visibleMonth,
@@ -63,28 +57,17 @@ const CalendarHeader = ({
         </header>
       )}
       {headerTitlePosition === 'start' && (
-        <header className={cn("flex items-center justify-between", 'pb-4')}>
-          <span className={cn("font-title font-bold capitalize text-theme-accent", titleTextClass[headerSize])}>
-            {title}
-          </span>
-          <div className="flex items-center justify-center gap-3">
-            <button className={cn("flex text-theme-text-secondary", arrowButtonClass[headerSize])} onClick={prevMonth} type="button">
-              <MdKeyboardArrowLeft />
-            </button>
-            <button className={cn("flex text-theme-text-secondary", arrowButtonClass[headerSize])} onClick={goToday} aria-label="오늘로 이동" type="button">
-              <MdToday />
-            </button>
-            <button className={cn("flex text-theme-text-secondary", arrowButtonClass[headerSize])} onClick={nextMonth} type="button">
-              <MdKeyboardArrowRight />
-            </button>
+        <header className="pb-4">
+          <div className="min-w-0">
+            <span className={cn("font-title font-bold capitalize text-theme-accent", titleTextClass[headerSize])}>
+              {title}
+            </span>
+            {description && (
+              <p className="mt-1 text-sm text-theme-text-tertiary">{description}</p>
+            )}
           </div>
         </header>
       )}
-      <div className="flex w-full justify-around py-1.5 text-base capitalize text-theme-text-primary">
-        {WEEK_TITLE_ENG.map(e => (
-          <span className="w-full text-center" key={e}>{e}</span>
-        ))}
-      </div>
     </>
   );
 };

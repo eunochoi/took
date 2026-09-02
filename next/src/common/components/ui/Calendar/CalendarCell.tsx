@@ -33,6 +33,8 @@ const CalendarCellComponent = <T,>({
   const isSelectedDate = selectedDate ? isSameDay(date, selectedDate) : false;
   const isPrevMonth = isBefore(date, startOfMonth(visibleMonth));
   const isNextMonth = isAfter(date, endOfMonth(visibleMonth));
+  const isSaturday = date.getDay() === 6;
+  const isSunday = date.getDay() === 0;
 
   const handleClick = () => {
     if (onClickDate) {
@@ -49,19 +51,21 @@ const CalendarCellComponent = <T,>({
   return (
     <div
       className={cn(
-        "relative flex h-[98%] w-[14%] flex-col items-center justify-center overflow-visible rounded-theme border-[3px] border-transparent text-sm text-theme-text-secondary transition-opacity duration-200 ease-in-out",
+        "relative flex aspect-[5/6] min-w-0 flex-col items-center justify-center overflow-visible text-sm transition-colors duration-200 ease-in-out",
+        isToday
+          ? "text-theme-accent"
+          : isSaturday
+          ? "text-theme-calendar-saturday"
+          : isSunday
+            ? "text-theme-calendar-sunday"
+            : "text-theme-text-secondary",
         !isCurrentMonth && "opacity-30",
+        isCurrentMonth && isSelectedDate && "bg-theme-accent/10",
+        isToday && "border-2 border-theme-accent bg-theme-accent/5",
         isCurrentMonth && isSelectedDate && "animate-[calendar-selected-pop_0.35s_ease-out]",
       )}
       onClick={handleClick}
     >
-      <div
-        className={cn(
-          "absolute top-0 z-[99] h-2.5 w-2.5 rounded-full bg-theme-accent/50",
-          isSelectedDate || isToday ? "block" : "hidden",
-          isToday && "!bg-theme-accent",
-        )}
-      />
       {renderDateContent ?
         renderDateContent({
           date,

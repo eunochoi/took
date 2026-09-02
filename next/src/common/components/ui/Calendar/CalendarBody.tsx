@@ -2,6 +2,9 @@
 
 import { CalendarCell } from "./CalendarCell";
 import { CalendarDateContentRenderer, CalendarDateDataMap } from "./types";
+import { cn } from "@/common/utils/cn";
+
+const WEEK_TITLES = ['월', '화', '수', '목', '금', '토', '일'];
 
 interface CalendarBodyProps<T> {
   calendarWeeks: Date[][];
@@ -30,13 +33,27 @@ const CalendarBody = <T,>({
 }: CalendarBodyProps<T>) => {
   return (
     <div
-      className="flex grow flex-col justify-around overflow-visible"
+      className="w-full overflow-visible rounded-theme bg-theme-surface p-2 shadow-theme-section backdrop-blur-xl tablet:p-3"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {calendarWeeks.map((weekRow, i) =>
-        <div key={'weeks' + i} className="cal_week_row flex h-full items-center justify-around overflow-visible">
-          {weekRow.map(date => (
+      <div className="grid grid-cols-7 py-1.5 text-base text-theme-text-primary">
+        {WEEK_TITLES.map((title, index) => (
+          <span
+            className={cn(
+              "text-center",
+              index === 5 && "text-theme-calendar-saturday",
+              index === 6 && "text-theme-calendar-sunday",
+            )}
+            key={title}
+          >
+            {title}
+          </span>
+        ))}
+      </div>
+      <div className="grid w-full grid-cols-7 overflow-visible">
+        {calendarWeeks.map((weekRow) =>
+          weekRow.map(date => (
             <CalendarCell
               key={date.toString()}
               date={date}
@@ -48,9 +65,9 @@ const CalendarBody = <T,>({
               prevMonth={prevMonth}
               nextMonth={nextMonth}
             />
-          ))}
-        </div>)
-      }
+          ))
+        )}
+      </div>
     </div>
   );
 };
