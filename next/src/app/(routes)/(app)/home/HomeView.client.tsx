@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo } from "react";
-import { MdSettings } from "react-icons/md";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
@@ -62,13 +61,6 @@ const HomeView = () => {
         <>
           <TopButton size="auto" onClick={openYearFilter}>
             {selectedYear}년
-          </TopButton>
-          <TopButton
-            size="auto"
-            aria-label="설정"
-            onClick={() => router.push('/setting')}
-          >
-            <MdSettings size={18} />
           </TopButton>
         </>
       }

@@ -6,21 +6,36 @@ import Link from "next/link";
 
 const BottomNav = () => {
   const { items, current } = useNavItems();
+  const mainItems = items.slice(0, -1);
+  const lastItem = items.at(-1)!;
+
+  const navItemsWrapperClass = 'pointer-events-auto flex items-center gap-1.5 rounded-full bg-theme-surface/75 shadow-theme-floating backdrop-blur-2xl';
+  const navItemClass = 'flex cursor-pointer items-center justify-center rounded-full text-xl transition-colors duration-200';
 
   return (
-    <nav className="pointer-events-auto flex items-center gap-1.5 rounded-full bg-theme-surface/75 px-1.5 py-1.5 shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.1)] backdrop-blur-2xl">
-      {items.map(({ key, segment, icon: Icon, href }) => (
+    <nav className="flex gap-4 items-center">
+      <div className={cn(navItemsWrapperClass, 'px-1.5 py-1.5')}>
+        {mainItems.map(({ key, segment, icon: Icon, href }) => (
+          <Link
+            key={key}
+            href={href}
+            className={cn(navItemClass, 'h-[42px] w-[42px]', current === segment ? "bg-theme-accent text-theme-text-on-accent" : "bg-transparent text-theme-text-tertiary",
+            )}
+          >
+            <Icon />
+          </Link>
+        ))}
+      </div>
+      <div className={cn('h-[50px] w-[50px]', navItemsWrapperClass)}>
         <Link
-          key={key}
-          href={href}
-          className={cn(
-            "flex h-[44px] w-[44px] cursor-pointer items-center justify-center rounded-full text-xl transition-colors duration-200",
-            current === segment ? "bg-theme-accent text-theme-text-on-accent" : "bg-transparent text-theme-text-tertiary",
+          key={lastItem?.key}
+          href={lastItem?.href}
+          className={cn(navItemClass, 'h-full w-full', current === lastItem.segment ? "bg-theme-accent text-theme-text-on-accent" : "bg-transparent text-theme-text-tertiary",
           )}
         >
-          <Icon />
+          <lastItem.icon />
         </Link>
-      ))}
+      </div>
     </nav>
   );
 };
