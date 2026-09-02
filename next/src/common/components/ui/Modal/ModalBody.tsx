@@ -7,23 +7,41 @@ import { HTMLAttributes } from "react";
 
 interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
   withScrollFade?: boolean;
+  contentMode?: 'scroll' | 'fill';
 }
 
-export const ModalBody = ({ children, className, withScrollFade = false, ...props }: ModalBodyProps) => {
+export const ModalBody = ({
+  children,
+  className,
+  withScrollFade = false,
+  contentMode = 'scroll',
+  ...props
+}: ModalBodyProps) => {
   const prefersReducedMotion = useReducedMotion();
   const shouldReduceMotion = prefersReducedMotion ?? false;
+  const isFillMode = contentMode === 'fill';
 
   return (
     <ScrollContainer
       className="flex min-h-0 flex-1"
-      contentClassName="flex min-h-full flex-col items-center justify-start"
-      scrollAreaClassName={cn("flex h-full w-full flex-col items-center justify-start", className)}
-      showScrollFade={withScrollFade}
-      showScrollToTop
+      contentClassName={cn(
+        "flex flex-col items-center justify-start",
+        isFillMode ? "h-full !min-h-0" : "min-h-full",
+      )}
+      scrollAreaClassName={cn(
+        "flex h-full w-full flex-col items-center justify-start",
+        isFillMode && "!overflow-y-hidden",
+        className,
+      )}
+      showScrollFade={!isFillMode && withScrollFade}
+      showScrollToTop={!isFillMode}
       {...props}
     >
       <motion.div
-        className="flex min-h-full w-full flex-col items-center justify-start"
+        className={cn(
+          "flex w-full flex-col items-center justify-start",
+          isFillMode ? "h-full min-h-0" : "min-h-full",
+        )}
         initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
         animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
         transition={{ duration: shouldReduceMotion ? 0.2 : 0.3, ease: 'easeOut' }}

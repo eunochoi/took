@@ -75,13 +75,11 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
   >
     <div className="flex min-h-0 flex-1 flex-col desktop:hidden">
       <ModalHeader title={headerTitle} onBack={() => router.back()} />
-      <ModalBody className="overflow-hidden">
-        <div className="h-full w-full">
-          <Carousel>
-            <TextSlide diaryData={diaryData} />
-            {imageSlides}
-          </Carousel>
-        </div>
+      <ModalBody contentMode="fill">
+        <Carousel>
+          <TextSlide diaryData={diaryData} />
+          {imageSlides}
+        </Carousel>
       </ModalBody>
     </div>
     <div className="hidden h-full min-h-0 w-full desktop:flex">

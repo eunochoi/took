@@ -53,7 +53,7 @@ const Carousel = ({
     <div className={cn("relative flex h-full w-full flex-col overflow-hidden", className)}>
       <div
         ref={slideWrapperRef}
-        className="flex h-full w-full snap-x snap-mandatory gap-[var(--carousel-gap)] overflow-x-scroll overflow-y-hidden scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="flex min-h-0 w-full flex-1 snap-x snap-mandatory gap-[var(--carousel-gap)] overflow-x-scroll overflow-y-hidden scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         onScroll={handleScroll}
         style={carouselStyle}
       >

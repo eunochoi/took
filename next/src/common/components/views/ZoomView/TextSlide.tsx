@@ -1,7 +1,7 @@
 'use client';
 
-import type { DiaryData } from "@/common/types/diary";
 import { EMOTIONS } from "@/common/constants/emotions";
+import type { DiaryData } from "@/common/types/diary";
 import Image from "next/image";
 
 interface TextSlideProps {
@@ -14,7 +14,7 @@ export const TextSlide = ({ diaryData, showEmotion = true }: TextSlideProps) => 
   const emotion = EMOTIONS[diaryData?.emotion];
 
   return (
-    <div className="slideChild flex h-full w-full shrink-0 flex-col justify-center gap-8 p-6">
+    <div className="slideChild overflow-y-scroll flex h-full w-full shrink-0 flex-col justify-start gap-8 p-6">
       {showEmotion && (
         <div className="flex justify-center">
           <Image
@@ -33,7 +33,7 @@ export const TextSlide = ({ diaryData, showEmotion = true }: TextSlideProps) => 
             </span>
           ))}
         </div>}
-      <div className="h-full w-full overflow-y-scroll whitespace-pre-wrap break-words text-base leading-[1.8] text-theme-text-primary">{text}</div>
+      <div className="h-auto w-full whitespace-pre-wrap break-words text-base leading-[1.8] text-theme-text-primary">{text}</div>
     </div>
   );
 };
