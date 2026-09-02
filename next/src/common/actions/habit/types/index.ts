@@ -15,6 +15,10 @@ export type HabitDateParams = {
   date: string;
 };
 
+export type HabitsByDateParams = {
+  date: string;
+};
+
 export type HabitMonthParams = {
   id: string | null;
   month: string;
@@ -49,6 +53,19 @@ export type HabitData = Omit<Habit, 'userId' | 'createdAt' | 'updatedAt'> & {
 export type TodayHabitStat = {
   createdHabits: number;
   todayDoneHabits: number;
+};
+
+export type HabitByDate = {
+  id: number;
+  name: string;
+  priority: number;
+  completed: boolean;
+};
+
+export type HabitsByDate = {
+  habits: HabitByDate[];
+  canEdit: boolean;
+  isFuture: boolean;
 };
 
 export type HabitMonthlyStatus = {

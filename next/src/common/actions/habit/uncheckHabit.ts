@@ -5,6 +5,7 @@ import { getAuth } from '../../auth/getAuth';
 import type { ActionResult } from '../types';
 import type { CheckHabitParams } from './types';
 import { createAuthErrorResult, createServerErrorResult, validateDateFormat } from './utils';
+import { getHabitDateAccess } from './utils/datePolicy';
 
 export const uncheckHabit = async ({ habitId, date }: CheckHabitParams): Promise<ActionResult<string>> => {
   try {
@@ -16,6 +17,16 @@ export const uncheckHabit = async ({ habitId, date }: CheckHabitParams): Promise
     }
     if (!validateDateFormat(date)) {
       return { ok: false, code: 'INVALID_DATE', message: '날짜 형식이 올바르지 않습니다. (yyyy-MM-dd)' };
+    }
+    const { canEdit, isFuture } = await getHabitDateAccess(date);
+    if (!canEdit) {
+      return {
+        ok: false,
+        code: isFuture ? 'FUTURE_HABIT_DATE' : 'HABIT_DATE_NOT_EDITABLE',
+        message: isFuture
+          ? '미래 날짜의 습관은 체크할 수 없습니다.'
+          : '습관은 오늘을 포함한 최근 4일만 변경할 수 있습니다.',
+      };
     }
 
     await prisma.$transaction(async (tx) => {
