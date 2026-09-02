@@ -36,8 +36,7 @@
   --mobileNav: 81px;
 }
 
-input,
-textarea {
+*:focus {
   outline: none;
 }
 
