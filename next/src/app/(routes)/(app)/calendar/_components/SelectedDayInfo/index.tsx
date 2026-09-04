@@ -12,6 +12,7 @@ import { useState } from 'react';
 import SelectedDayDiarySection from './SelectedDayDiarySection';
 import SelectedDayHabitSection from './SelectedDayHabitSection';
 import SelectedDayInfoHeader from './SelectedDayInfoHeader';
+import { selectedDayInfoStyles } from './selectedDayInfoStyles';
 
 const SelectedDayInfo = () => {
   const router = useRouter();
@@ -65,13 +66,11 @@ const SelectedDayInfo = () => {
   };
 
   return (
-    <section className="box-border flex w-full flex-col gap-4 rounded-theme bg-theme-surface p-4 shadow-theme-section backdrop-blur-xl tablet:p-5">
+    <section className={selectedDayInfoStyles.card}>
       <SelectedDayInfoHeader date={date} emotion={emotion} />
 
       {isPending ? (
-        <div className="flex min-h-[180px] items-center justify-center text-sm text-theme-text-tertiary">
-          선택한 날짜의 기록을 불러오는 중이에요.
-        </div>
+        <div className={selectedDayInfoStyles.loading}>선택한 날짜의 기록을 불러오는 중이에요.</div>
       ) : (
         <>
           <SelectedDayHabitSection
@@ -81,7 +80,6 @@ const SelectedDayInfo = () => {
           />
           <SelectedDayDiarySection
             diaryData={diaryData}
-            emotion={emotion}
             isFuture={habitData?.isFuture === true}
             onAddDiary={onAddDiary}
             onOpenDiary={onOpenDiary}
