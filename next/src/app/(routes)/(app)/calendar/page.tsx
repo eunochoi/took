@@ -18,7 +18,8 @@ const CalendarPage = async ({ searchParams }: Props) => {
 
   const params = searchParams;
   // date는 'yyyy-MM-dd' string
-  const date = params?.date || await getTodayStringInUserTimezone();
+  const today = await getTodayStringInUserTimezone();
+  const date = params?.date || today;
 
   //server prefetch
   const queryClient = new QueryClient();
@@ -30,6 +31,16 @@ const CalendarPage = async ({ searchParams }: Props) => {
       return result.data;
     },
   });
+  if (date !== today) {
+    await queryClient.prefetchQuery({
+      queryKey: ['diary', 'date', today],
+      queryFn: async () => {
+        const result = await getDiaryByDate({ date: today });
+        if (!result.ok) throw new Error(result.message);
+        return result.data;
+      },
+    });
+  }
   await queryClient.prefetchQuery({
     queryKey: ['habit', 'date', date],
     queryFn: async () => {
@@ -52,7 +63,7 @@ const CalendarPage = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <CalendarView date={date} />
+      <CalendarView date={date} today={today} />
     </HydrationBoundary>
   );
 }

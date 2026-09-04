@@ -1,11 +1,11 @@
 'use client';
 
 import { useQuery } from "@tanstack/react-query";
-import { addMonths, format, startOfMonth, subMonths } from "date-fns";
+import { format, startOfMonth } from "date-fns";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 //function
-import { getMonthlyDiaryData } from "@/common/actions/diary";
+import { getDiaryByDate, getMonthlyDiaryData } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 
 
@@ -13,7 +13,6 @@ import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import Calendar from "@/common/components/ui/Calendar";
 import TopButton from "@/common/components/ui/TopButton";
-import { getTodayString } from "@/common/functions/getTodayString";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { useRouter } from "next/navigation";
@@ -21,12 +20,9 @@ import SelectedDayInfo from "./_components/SelectedDayInfo";
 import { renderCalendarPageContent } from "./_utils/renderCalendarPageContent";
 
 
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-
-
-
 interface CalendarViewProps {
   date: string; // 'yyyy-MM-dd'
+  today: string;
 }
 interface DiaryDateData {
   habitsCount: number;
@@ -37,7 +33,7 @@ interface DiaryDateDataMap {
   [key: string]: DiaryDateData;
 }
 
-const CalendarView = ({ date }: CalendarViewProps) => {
+const CalendarView = ({ date, today }: CalendarViewProps) => {
   usePrefetchPage();
   const router = useRouter();
 
@@ -59,6 +55,10 @@ const CalendarView = ({ date }: CalendarViewProps) => {
       return diaryDateDataMap;
     }
   });
+  const { data: todayDiary } = useQuery({
+    queryKey: ['diary', 'date', today],
+    queryFn: () => authAction(() => getDiaryByDate({ date: today })),
+  });
 
   const headerDescription = useMemo(() => {
     const monthlyRecords = Object.values(diaryDateDataMap ?? {});
@@ -72,38 +72,26 @@ const CalendarView = ({ date }: CalendarViewProps) => {
     router.push(`/calendar?date=${format(selectedDate, 'yyyy-MM-dd')}`);
   }, [router]);
 
-  const onGoPrevMonth = useCallback(() => {
-    const prevMonth = subMonths(visibleMonth, 1);
-    setVisibleMonth(prevMonth);
-  }, [visibleMonth])
-  const onGoNextMonth = useCallback(() => {
-    const nextMonth = addMonths(visibleMonth, 1);
-    setVisibleMonth(nextMonth);
-  }, [visibleMonth])
   const onGoToday = useCallback(() => {
     setVisibleMonth(new Date());
-    router.push(`/calendar?date=${getTodayString()}`);
-  }, [router]);
+    router.push(`/calendar?date=${today}`);
+  }, [router, today]);
+
+  const onOpenTodayDiary = useCallback(() => {
+    if (todayDiary?.visible) {
+      router.push(`/inter/input/editDiary?id=${todayDiary.id}`, { scroll: false });
+      return;
+    }
+
+    router.push(`/inter/input/addDiary?date=${today}`, { scroll: false });
+  }, [router, today, todayDiary]);
 
   return (
     <AppPageLayout
       topButton={
-        <>
-          <TopButton
-            size="auto"
-            onClick={onGoPrevMonth}>
-            <FaArrowLeft size={16} />
-          </TopButton>
-          <TopButton
-            onClick={onGoToday}>
-            <span>오늘</span>
-          </TopButton>
-          <TopButton
-            size="auto"
-            onClick={onGoNextMonth}>
-            <FaArrowRight size={16} />
-          </TopButton>
-        </>
+        <TopButton size="auto" onClick={onOpenTodayDiary}>
+          <span>오늘 일기</span>
+        </TopButton>
       }
       contentProps={{
         className: "flex-1 gap-3 max-tablet:gap-5 max-tablet:pt-6 tablet:gap-6 tablet:pt-6",
@@ -121,6 +109,7 @@ const CalendarView = ({ date }: CalendarViewProps) => {
           renderDateContent={renderCalendarPageContent}
 
           onClickDate={onClickDate}
+          onGoToday={onGoToday}
         />
       </div>
       <div key={date} className="shrink-0">
