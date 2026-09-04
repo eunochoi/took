@@ -51,7 +51,7 @@ const CalendarCellComponent = <T,>({
   return (
     <div
       className={cn(
-        "relative flex aspect-[5/6] min-w-0 flex-col items-center justify-center overflow-visible text-sm transition-colors duration-200 ease-in-out",
+        "relative flex aspect-[5/6] min-w-0 flex-col items-center justify-center overflow-visible rounded-lg text-xs transition-colors duration-200 ease-in-out",
         isToday
           ? "text-theme-accent"
           : isSaturday
@@ -60,8 +60,8 @@ const CalendarCellComponent = <T,>({
             ? "text-theme-calendar-sunday"
             : "text-theme-text-secondary",
         !isCurrentMonth && "opacity-30",
-        isCurrentMonth && isSelectedDate && "bg-theme-accent/10",
-        isToday && "border-2 border-theme-accent bg-theme-accent/5",
+        isCurrentMonth && isSelectedDate && !isToday && "bg-theme-accent/10",
+        isToday && "bg-theme-accent/20",
         isCurrentMonth && isSelectedDate && "animate-[calendar-selected-pop_0.35s_ease-out]",
       )}
       onClick={handleClick}

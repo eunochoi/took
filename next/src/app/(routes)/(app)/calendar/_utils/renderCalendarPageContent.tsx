@@ -10,7 +10,7 @@ interface DiaryDateData {
   emotionType: number;
 }
 
-const badgeClass = "bg-theme-accent flex h-[24px] w-[24px] items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] text-base font-semibold text-theme-text-on-accent";
+const badgeClass = "bg-theme-accent flex h-[20px] w-[20px] items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] text-xs font-semibold text-theme-text-on-accent";
 
 export const renderCalendarPageContent = ({ date, dateData }: CalendarDateContentProps<DiaryDateData>) => {
   const {
@@ -24,10 +24,10 @@ export const renderCalendarPageContent = ({ date, dateData }: CalendarDateConten
 
   if (hasDiary && emotion) {
     return (
-      <div className="relative z-[2] w-full">
+      <div className="relative z-[2] w-full h-full flex justify-center items-end pb-[2px]">
         <Image className="h-auto w-[90%]" src={emotion.src} alt={emotion.nameKr} />
         {habitsCount > 0 && (
-          <div className={`${badgeClass} absolute -right-2.5 -top-2.5 z-10`}>
+          <div className={`${badgeClass} absolute right-[2px] top-[2px] z-10`}>
             {habitsCount}
           </div>
         )}

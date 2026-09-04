@@ -1,8 +1,8 @@
 'use client';
 
+import { cn } from "@/common/utils/cn";
 import { CalendarCell } from "./CalendarCell";
 import { CalendarDateContentRenderer, CalendarDateDataMap } from "./types";
-import { cn } from "@/common/utils/cn";
 
 const WEEK_TITLES = ['월', '화', '수', '목', '금', '토', '일'];
 
@@ -37,7 +37,7 @@ const CalendarBody = <T,>({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="grid grid-cols-7 py-1.5 text-base text-theme-text-primary">
+      <div className="grid grid-cols-7 py-1.5 text-sm text-theme-text-primary">
         {WEEK_TITLES.map((title, index) => (
           <span
             className={cn(
@@ -51,7 +51,7 @@ const CalendarBody = <T,>({
           </span>
         ))}
       </div>
-      <div className="grid w-full grid-cols-7 overflow-visible">
+      <div className="grid w-full grid-cols-7 gap-1 overflow-visible">
         {calendarWeeks.map((weekRow) =>
           weekRow.map(date => (
             <CalendarCell
