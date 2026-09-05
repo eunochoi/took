@@ -2,6 +2,7 @@
 
 import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
+import { formatDateInTimezone, getUserTimezone } from '../../utils/date/userTimezone';
 import type { ActionResult } from '../types';
 import type { CheckHabitParams } from './types';
 import { createAuthErrorResult, createServerErrorResult, validateDateFormat } from './utils';
@@ -12,13 +13,15 @@ export const checkHabit = async ({ habitId, date }: CheckHabitParams): Promise<A
     const auth = await getAuth();
     if (!auth.ok) return createAuthErrorResult(auth);
 
-    if (habitId == null || date == null) {
+    if (!Number.isSafeInteger(habitId) || habitId <= 0 || date == null) {
       return { ok: false, code: 'INVALID_HABIT_CHECK_INPUT', message: 'habitId와 date는 필수입니다.' };
     }
     if (!validateDateFormat(date)) {
       return { ok: false, code: 'INVALID_DATE', message: '날짜 형식이 올바르지 않습니다. (yyyy-MM-dd)' };
     }
-    const { canEdit, isFuture } = await getHabitDateAccess(date);
+    const timezone = await getUserTimezone();
+    const today = formatDateInTimezone(new Date(), timezone);
+    const { canEdit, isFuture } = await getHabitDateAccess(date, { today });
     if (!canEdit) {
       return {
         ok: false,
@@ -37,10 +40,13 @@ export const checkHabit = async ({ habitId, date }: CheckHabitParams): Promise<A
       if (!user) throw new Error('USER_NOT_FOUND');
 
       const habit = await tx.habit.findFirst({
-        where: { email: auth.email, id: habitId },
-        select: { id: true },
+        where: { userId: auth.userId, id: habitId },
+        select: { id: true, createdAt: true },
       });
       if (!habit) throw new Error('HABIT_NOT_FOUND');
+      if (date < formatDateInTimezone(habit.createdAt, timezone)) {
+        throw new Error('HABIT_DATE_BEFORE_CREATION');
+      }
 
       const diary = await tx.diary.upsert({
         where: {
@@ -75,6 +81,9 @@ export const checkHabit = async ({ habitId, date }: CheckHabitParams): Promise<A
 
     return { ok: true, data: 'checked' };
   } catch (error) {
+    if (error instanceof Error && error.message === 'HABIT_DATE_BEFORE_CREATION') {
+      return { ok: false, code: 'HABIT_DATE_BEFORE_CREATION', message: '습관을 만든 날짜 이전에는 완료를 기록할 수 없습니다.' };
+    }
     if (error instanceof Error && error.message === 'USER_NOT_FOUND') {
       return { ok: false, code: 'USER_NOT_FOUND', message: '유저 정보가 존재하지 않습니다.' };
     }
