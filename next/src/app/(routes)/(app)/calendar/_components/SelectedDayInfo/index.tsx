@@ -1,12 +1,11 @@
 'use client';
 
-import { getDiaryByDate } from '@/common/actions/diary';
+import type { DiaryData } from '@/common/actions/diary';
 import { checkHabit, getHabitsByDate, uncheckHabit } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
 import { EMOTIONS } from '@/common/constants/emotions';
-import { getTodayString } from '@/common/functions/getTodayString';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import SelectedDayDiarySection from './SelectedDayDiarySection';
@@ -14,20 +13,23 @@ import SelectedDayHabitSection from './SelectedDayHabitSection';
 import SelectedDayInfoHeader from './SelectedDayInfoHeader';
 import { selectedDayInfoStyles } from './selectedDayInfoStyles';
 
-const SelectedDayInfo = () => {
+interface Props {
+  date: string;
+  diaryData?: DiaryData | null;
+  isDiaryPending: boolean;
+  isDiaryError: boolean;
+  onRetryDiary: () => void;
+}
+
+const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryError, onRetryDiary }: Props) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const queryClient = useQueryClient();
   const [pendingHabitId, setPendingHabitId] = useState<number | null>(null);
 
-  const date = searchParams.get('date') ?? getTodayString();
-  const { data: diaryData, isPending: isDiaryPending } = useQuery({
-    queryKey: ['diary', 'date', date],
-    queryFn: () => authAction(() => getDiaryByDate({ date })),
-  });
-  const { data: habitData, isPending: isHabitPending } = useQuery({
+  const { data: habitData, isPending: isHabitPending, isError: isHabitError, refetch: refetchHabits } = useQuery({
     queryKey: ['habit', 'date', date],
     queryFn: () => authAction(() => getHabitsByDate({ date })),
+    staleTime: 60_000,
   });
   const isPending = isDiaryPending || isHabitPending;
   const emotion = diaryData?.visible ? EMOTIONS[diaryData.emotion] : undefined;
@@ -46,6 +48,7 @@ const SelectedDayInfo = () => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ['habit'] }),
         queryClient.invalidateQueries({ queryKey: ['diary'] }),
+        queryClient.invalidateQueries({ queryKey: ['diary-habit', 'month'] }),
         queryClient.invalidateQueries({ queryKey: ['stats'] }),
       ]);
     } catch (error) {
@@ -71,6 +74,14 @@ const SelectedDayInfo = () => {
 
       {isPending ? (
         <div className={selectedDayInfoStyles.loading}>선택한 날짜의 기록을 불러오는 중이에요.</div>
+      ) : isDiaryError || isHabitError ? (
+        <p role="alert" className="text-sm text-theme-danger">
+          선택한 날짜의 기록을 불러오지 못했어요.{' '}
+          <button type="button" className="underline" onClick={() => {
+            if (isDiaryError) onRetryDiary();
+            if (isHabitError) void refetchHabits();
+          }}>다시 시도</button>
+        </p>
       ) : (
         <>
           <SelectedDayHabitSection

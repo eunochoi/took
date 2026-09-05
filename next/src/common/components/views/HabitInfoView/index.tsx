@@ -10,16 +10,16 @@ import { Modal } from "../../ui/Modal";
 import { ModalBody } from "../../ui/Modal/ModalBody";
 import { ModalHeader } from "../../ui/Modal/ModalHeader";
 import { StarRating } from "../../ui/StarRating";
-import MonthInfo from "./MonthInfo";
+import HabitMonthCalendar from "./HabitMonthCalendar";
 import YearInfo from "./YearInfo";
 
 interface Props {
   habitId: string;
+  today: string;
 }
 
-const HabitInfoView = ({ habitId }: Props) => {
+const HabitInfoView = ({ habitId, today }: Props) => {
   const router = useRouter();
-  const [calendarDate, setCalendarDate] = useState<Date>(new Date());
   const [chartDate, setChartDate] = useState<Date>(new Date());
 
   const { data: habitDataById, isError } = useQuery({
@@ -50,10 +50,10 @@ const HabitInfoView = ({ habitId }: Props) => {
             </div>
           </section>
 
-          <MonthInfo
-            displayDate={calendarDate}
+          <HabitMonthCalendar
+            key={habitId}
             habitId={habitId}
-            setDisplayDate={setCalendarDate}
+            today={today}
           />
 
           <YearInfo

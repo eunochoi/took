@@ -37,20 +37,6 @@ export const isValidDiaryText = (text: unknown): text is string => {
     && text.length <= DIARY_TEXT_MAX_LENGTH;
 };
 
-export const getMonthRange = (monthString: string) => {
-  if (!monthString || !/^\d{4}-\d{2}$/.test(monthString)) {
-    throw new Error('Invalid month format. Expected yyyy-MM');
-  }
-
-  const [year, month] = monthString.split('-').map(Number);
-  const lastDay = new Date(year, month, 0).getDate();
-
-  return {
-    startDate: `${year}-${String(month).padStart(2, '0')}-01`,
-    endDate: `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`,
-  };
-};
-
 export const encryptDiaryText = (text: string) => {
   return CryptoJS.AES.encrypt(text, getEnvValue('DATA_SECRET_KEY')).toString();
 };

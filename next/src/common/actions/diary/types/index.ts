@@ -23,13 +23,6 @@ export type DiaryData = {
   visible: boolean;
 };
 
-export type MonthlyDiaryData = {
-  date: string;
-  visible: boolean;
-  emotion: number;
-  Habits: { name: string }[];
-};
-
 export type CreateDiaryParams = {
   date?: string;
   text: string;
@@ -54,10 +47,6 @@ export type IdParams = {
 
 export type DateParams = {
   date: string;
-};
-
-export type MonthParams = {
-  month: string;
 };
 
 export type DiaryListParams = {

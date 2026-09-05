@@ -39,6 +39,7 @@ export const TimezoneSync = () => {
 
     if (browserTimezone !== DEFAULT_TIMEZONE) {
       queryClient.invalidateQueries({ queryKey: ['diary'] });
+      queryClient.invalidateQueries({ queryKey: ['diary-habit', 'month'] });
       queryClient.invalidateQueries({ queryKey: ['habit'] });
       queryClient.invalidateQueries({ queryKey: ['habits'] });
       queryClient.invalidateQueries({ queryKey: ['stats'] });

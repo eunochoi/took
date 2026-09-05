@@ -1,119 +1,92 @@
 'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { format, startOfMonth } from "date-fns";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useQuery } from '@tanstack/react-query';
+import { format } from 'date-fns';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-//function
-import { getDiaryByDate, getMonthlyDiaryData } from "@/common/actions/diary";
-import { authAction } from "@/common/auth/authAction";
+import { getDiaryByDate } from '@/common/actions/diary';
+import { authAction } from '@/common/auth/authAction';
+import AppPageLayout from '@/common/components/layout/AppPageLayout';
+import TopButton from '@/common/components/ui/TopButton';
+import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
+import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
+import DiaryHabitMonthCalendar from './_components/DiaryHabitMonthCalendar';
+import SelectedDayInfo from './_components/SelectedDayInfo';
 
-
-//component
-import AppPageLayout from "@/common/components/layout/AppPageLayout";
-import Calendar from "@/common/components/ui/Calendar";
-import TopButton from "@/common/components/ui/TopButton";
-import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
-import { useRouter } from "next/navigation";
-import SelectedDayInfo from "./_components/SelectedDayInfo";
-import { renderCalendarPageContent } from "./_utils/renderCalendarPageContent";
-
-
-interface CalendarViewProps {
-  date: string; // 'yyyy-MM-dd'
-  today: string;
-}
-interface DiaryDateData {
-  habitsCount: number;
-  isVisible: boolean;
-  emotionType: number;
-}
-interface DiaryDateDataMap {
-  [key: string]: DiaryDateData;
+interface Props {
+  initialDate: string;
 }
 
-const CalendarView = ({ date, today }: CalendarViewProps) => {
+const CalendarView = ({ initialDate }: Props) => {
   usePrefetchPage();
   const router = useRouter();
-
-  const selectedDate = useMemo(() => parseLocalDate(date), [date]);
-  const [visibleMonth, setVisibleMonth] = useState(() => startOfMonth(selectedDate));
+  const [today, setToday] = useState(() => initialDate);
+  // 상단 버튼, 달력, 상세 정보가 함께 쓰는 선택 날짜. URL에는 저장하지 않는다.
+  const [selectedDate, setSelectedDate] = useState(initialDate);
 
   useEffect(() => {
-    setVisibleMonth(startOfMonth(selectedDate));
-  }, [selectedDate]);
+    // 자정 경과나 백그라운드 복귀 시 오늘만 갱신하고 선택 날짜는 유지한다.
+    const updateToday = () => setToday(format(new Date(), 'yyyy-MM-dd'));
+    updateToday();
+    const intervalId = window.setInterval(updateToday, 60_000);
+    window.addEventListener('focus', updateToday);
 
-  const { data: diaryDateDataMap } = useQuery({
-    queryKey: ['diary', 'month', format(visibleMonth, 'yyyy-MM')],
-    queryFn: () => authAction(() => getMonthlyDiaryData({ month: format(visibleMonth, 'yyyy-MM') })),
-    select: (data) => { //select 옵션 덕분에 가공한 데이터도 캐시에 저장된다., 데이터를 가져올때마다 매번 가공 x
-      const diaryDateDataMap: DiaryDateDataMap = {};
-      data.forEach((e: any) => {
-        diaryDateDataMap[format(e.date, 'yyMMdd')] = { habitsCount: e?.Habits?.length ?? 0, isVisible: e?.visible, emotionType: e?.emotion };
-      });
-      return diaryDateDataMap;
-    }
+    return () => {
+      window.clearInterval(intervalId);
+      window.removeEventListener('focus', updateToday);
+    };
+  }, []);
+
+  const diaryQuery = useQuery({
+    queryKey: ['diary', 'date', selectedDate],
+    queryFn: () => authAction(() => getDiaryByDate({ date: selectedDate })),
+    staleTime: 60_000,
   });
-  const { data: todayDiary } = useQuery({
-    queryKey: ['diary', 'date', today],
-    queryFn: () => authAction(() => getDiaryByDate({ date: today })),
-  });
+  const dateLabel = format(parseLocalDate(selectedDate), 'yyyy.M.d');
+  const isFuture = selectedDate > today;
 
-  const headerDescription = useMemo(() => {
-    const monthlyRecords = Object.values(diaryDateDataMap ?? {});
-    const diaryCount = monthlyRecords.filter((record) => record.isVisible).length;
-    const completedHabitCount = monthlyRecords.reduce((count, record) => count + record.habitsCount, 0);
-
-    return `이번 달 일기 ${diaryCount}개 · 습관 완료 ${completedHabitCount}회`;
-  }, [diaryDateDataMap]);
-
-  const onClickDate = useCallback((selectedDate: Date) => {
-    router.push(`/calendar?date=${format(selectedDate, 'yyyy-MM-dd')}`);
-  }, [router]);
-
-  const onGoToday = useCallback(() => {
-    setVisibleMonth(new Date());
-    router.push(`/calendar?date=${today}`);
-  }, [router, today]);
-
-  const onOpenTodayDiary = useCallback(() => {
-    if (todayDiary?.visible) {
-      router.push(`/inter/input/editDiary?id=${todayDiary.id}`, { scroll: false });
+  const openSelectedDiary = () => {
+    if (diaryQuery.isPending || isFuture) return;
+    if (diaryQuery.isError) {
+      void diaryQuery.refetch();
       return;
     }
 
-    router.push(`/inter/input/addDiary?date=${today}`, { scroll: false });
-  }, [router, today, todayDiary]);
+    const diary = diaryQuery.data;
+    const href = diary?.visible
+      ? `/inter/input/editDiary?id=${diary.id}`
+      : `/inter/input/addDiary?date=${selectedDate}`;
+    router.push(href, { scroll: false });
+  };
 
   return (
     <AppPageLayout
       topButton={
-        <TopButton size="auto" onClick={onOpenTodayDiary}>
-          <span>오늘 일기</span>
+        <TopButton
+          size="auto"
+          onClick={openSelectedDiary}
+          disabled={diaryQuery.isPending || isFuture}
+          title={isFuture ? '미래 날짜에는 일기를 작성할 수 없어요.' : undefined}
+        >
+          <span>{dateLabel}</span>
         </TopButton>
       }
       contentProps={{
-        className: "flex-1 gap-3 max-tablet:gap-5 max-tablet:pt-6 tablet:gap-6 tablet:pt-6",
-      }}>
-      <div className="w-full shrink-0 overflow-visible">
-        <Calendar<DiaryDateData>
-          headerDescription={headerDescription}
-          isTouchGestureEnabled={true}
-          variant="default"
-
-          visibleMonth={visibleMonth}
-          setVisibleMonth={setVisibleMonth}
-          selectedDate={selectedDate}
-          dateDataMap={diaryDateDataMap}
-          renderDateContent={renderCalendarPageContent}
-
-          onClickDate={onClickDate}
-          onGoToday={onGoToday}
-        />
-      </div>
-      <div key={date} className="shrink-0">
-        <SelectedDayInfo />
+        className: 'flex-1 gap-3 max-tablet:gap-5 max-tablet:pt-6 tablet:gap-6 tablet:pt-6',
+      }}
+    >
+      <div className="flex w-full min-w-0 flex-col gap-5 tablet:gap-6">
+        <DiaryHabitMonthCalendar today={today} selectedDate={selectedDate} onSelectDate={setSelectedDate} />
+        <div key={selectedDate} className="min-w-0">
+          <SelectedDayInfo
+            date={selectedDate}
+            diaryData={diaryQuery.data}
+            isDiaryPending={diaryQuery.isPending}
+            isDiaryError={diaryQuery.isError}
+            onRetryDiary={() => void diaryQuery.refetch()}
+          />
+        </div>
       </div>
     </AppPageLayout>
   );

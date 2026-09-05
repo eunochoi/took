@@ -19,11 +19,6 @@ export type HabitsByDateParams = {
   date: string;
 };
 
-export type HabitMonthParams = {
-  id: string | null;
-  month: string;
-};
-
 export type HabitYearParams = {
   id: string | null;
   year: string;
@@ -66,9 +61,4 @@ export type HabitsByDate = {
   habits: HabitByDate[];
   canEdit: boolean;
   isFuture: boolean;
-};
-
-export type HabitMonthlyStatus = {
-  date: string;
-  Habits: { name: string }[];
 };

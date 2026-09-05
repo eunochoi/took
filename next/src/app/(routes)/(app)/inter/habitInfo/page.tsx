@@ -1,6 +1,7 @@
 import HabitInfoView from "@/common/components/views/HabitInfoView";
 import { getHabitById } from "@/common/actions/habit";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+import { getTodayStringInUserTimezone } from '@/common/utils/date/userTimezone';
 
 interface Props {
   searchParams: {
@@ -10,6 +11,7 @@ interface Props {
 
 const HabitInfoPage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();
+  const today = await getTodayStringInUserTimezone();
 
   const params = searchParams;
   let habitId = params.id;
@@ -26,7 +28,7 @@ const HabitInfoPage = async ({ searchParams }: Props) => {
   const dehydratedState = dehydrate(queryClient)
   return (
     <HydrationBoundary state={dehydratedState}>
-      <HabitInfoView habitId={habitId} />
+      <HabitInfoView habitId={habitId} today={today} />
     </HydrationBoundary>
   );
 }

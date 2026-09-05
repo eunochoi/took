@@ -55,7 +55,7 @@ export const useDiarySubmission = ({
       queryClient.setQueryData(['diary', 'date', savedDiary.date], savedDiary);
       queryClient.setQueryData(['diary', 'id', String(savedDiary.id)], savedDiary);
       await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['diary', 'month'] }),
+        queryClient.invalidateQueries({ queryKey: ['diary-habit', 'month'] }),
         queryClient.invalidateQueries({ queryKey: ['diary', 'diaryList'] }),
         queryClient.invalidateQueries({ queryKey: ['stats'] }),
       ]);

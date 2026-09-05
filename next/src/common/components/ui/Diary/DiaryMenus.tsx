@@ -82,6 +82,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
           try {
             await authAction(() => deleteDiary({ id: diaryData.id }));
             queryClient.invalidateQueries({ queryKey: ['diary'] });
+            queryClient.invalidateQueries({ queryKey: ['diary-habit', 'month'] });
             queryClient.invalidateQueries({ queryKey: ['stats'] });
             enqueueSnackbar('일기 삭제 완료');
           } catch (error) {

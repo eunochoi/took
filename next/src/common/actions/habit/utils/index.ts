@@ -40,20 +40,6 @@ export const validateDateFormat = (dateString: string | undefined) => {
     date.getDate() === day;
 };
 
-export const getMonthRange = (monthString: string) => {
-  if (!monthString || !/^\d{4}-\d{2}$/.test(monthString)) {
-    throw new Error('INVALID_MONTH');
-  }
-
-  const [year, month] = monthString.split('-').map(Number);
-  const lastDay = new Date(year, month, 0).getDate();
-
-  return {
-    startDate: `${year}-${String(month).padStart(2, '0')}-01`,
-    endDate: `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`,
-  };
-};
-
 export const getYearRange = (year: string | number | null | undefined) => {
   const parsedYear = typeof year === 'string' ? parseInt(year, 10) : year;
 
