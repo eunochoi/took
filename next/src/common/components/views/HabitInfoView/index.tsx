@@ -3,6 +3,7 @@
 import { getHabitById } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -10,7 +11,7 @@ import { Modal } from "../../ui/Modal";
 import { ModalBody } from "../../ui/Modal/ModalBody";
 import { ModalHeader } from "../../ui/Modal/ModalHeader";
 import { StarRating } from "../../ui/StarRating";
-import HabitMonthCalendar from "./HabitMonthCalendar";
+import MonthInfo from "./MonthInfo";
 import YearInfo from "./YearInfo";
 
 interface Props {
@@ -48,9 +49,14 @@ const HabitInfoView = ({ habitId, today }: Props) => {
             <div className="break-words text-center text-2xl font-semibold uppercase text-theme-text-primary">
               {habitDataById?.name ?? '-'}
             </div>
+            {habitDataById && (
+              <p className="text-center text-xs text-theme-text-secondary">
+                생성일 : {format(new Date(habitDataById.createdAt), 'yyyy년 M월 d일')}
+              </p>
+            )}
           </section>
 
-          <HabitMonthCalendar
+          <MonthInfo
             key={habitId}
             habitId={habitId}
             today={today}
