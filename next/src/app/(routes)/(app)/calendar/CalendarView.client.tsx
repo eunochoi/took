@@ -1,6 +1,6 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -27,6 +27,7 @@ const CalendarView = ({ initialDate }: Props) => {
     queryKey: ['diary', 'date', selectedDate],
     queryFn: () => authAction(() => getDiaryByDate({ date: selectedDate })),
     staleTime: 60_000,
+    placeholderData: keepPreviousData,
   });
   const todayDiaryQuery = useQuery({
     queryKey: ['diary', 'date', today],
@@ -65,11 +66,12 @@ const CalendarView = ({ initialDate }: Props) => {
     >
       <div className="grid w-full min-w-0 grid-cols-1 items-start gap-5 tablet:gap-6 desktop:grid-cols-2 desktop:grid-rows-[auto_1fr] desktop:gap-x-8 desktop:gap-y-3">
         <DiaryHabitMonthCalendar today={today} selectedDate={selectedDate} onSelectDate={setSelectedDate} />
-        <div key={selectedDate} className="min-w-0 desktop:col-start-2 desktop:row-start-2">
+        <div className="min-w-0 desktop:col-start-2 desktop:row-start-2">
           <SelectedDayInfo
             date={selectedDate}
             diaryData={selectedDiaryQuery.data}
             isDiaryPending={selectedDiaryQuery.isPending}
+            isDiaryPlaceholder={selectedDiaryQuery.isPlaceholderData}
             isDiaryError={selectedDiaryQuery.isError}
             onRetryDiary={() => void selectedDiaryQuery.refetch()}
           />

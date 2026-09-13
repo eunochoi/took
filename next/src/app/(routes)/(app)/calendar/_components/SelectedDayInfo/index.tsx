@@ -4,7 +4,7 @@ import type { DiaryData } from '@/common/actions/diary';
 import { checkHabit, getHabitsByDate, uncheckHabit } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
 import { EMOTIONS } from '@/common/constants/emotions';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { keepPreviousData, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
@@ -17,25 +17,28 @@ interface Props {
   date: string;
   diaryData?: DiaryData | null;
   isDiaryPending: boolean;
+  isDiaryPlaceholder: boolean;
   isDiaryError: boolean;
   onRetryDiary: () => void;
 }
 
-const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryError, onRetryDiary }: Props) => {
+const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryPlaceholder, isDiaryError, onRetryDiary }: Props) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const [pendingHabitId, setPendingHabitId] = useState<number | null>(null);
 
-  const { data: habitData, isPending: isHabitPending, isError: isHabitError, refetch: refetchHabits } = useQuery({
+  const { data: habitData, isPending: isHabitPending, isPlaceholderData: isHabitPlaceholder, isError: isHabitError, refetch: refetchHabits } = useQuery({
     queryKey: ['habit', 'date', date],
     queryFn: () => authAction(() => getHabitsByDate({ date })),
     staleTime: 60_000,
+    placeholderData: keepPreviousData,
   });
   const isPending = isDiaryPending || isHabitPending;
+  const isTransitioning = isPending || isDiaryPlaceholder || isHabitPlaceholder;
   const emotion = diaryData?.visible ? EMOTIONS[diaryData.emotion] : undefined;
 
   const onToggleHabit = async (habitId: number, completed: boolean) => {
-    if (!habitData?.canEdit || pendingHabitId !== null) return;
+    if (isTransitioning || !habitData?.canEdit || pendingHabitId !== null) return;
 
     setPendingHabitId(habitId);
     try {
@@ -72,9 +75,7 @@ const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryError, onRetr
     <section className={selectedDayInfoStyles.card}>
       <SelectedDayInfoHeader date={date} emotion={emotion} />
 
-      {isPending ? (
-        <div className={selectedDayInfoStyles.loading}>선택한 날짜의 기록을 불러오는 중이에요.</div>
-      ) : isDiaryError || isHabitError ? (
+      {isDiaryError || isHabitError ? (
         <p role="alert" className="text-sm text-theme-danger">
           선택한 날짜의 기록을 불러오지 못했어요.{' '}
           <button type="button" className="underline" onClick={() => {
@@ -82,8 +83,8 @@ const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryError, onRetr
             if (isHabitError) void refetchHabits();
           }}>다시 시도</button>
         </p>
-      ) : (
-        <>
+      ) : !isPending ? (
+        <fieldset disabled={isTransitioning} aria-busy={isTransitioning} className="m-0 flex min-w-0 flex-col gap-3 border-0 p-0">
           <SelectedDayHabitSection
             habitData={habitData}
             pendingHabitId={pendingHabitId}
@@ -95,8 +96,8 @@ const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryError, onRetr
             onAddDiary={onAddDiary}
             onOpenDiary={onOpenDiary}
           />
-        </>
-      )}
+        </fieldset>
+      ) : <div aria-busy="true" className="min-h-[180px]" />}
     </section>
   );
 };
