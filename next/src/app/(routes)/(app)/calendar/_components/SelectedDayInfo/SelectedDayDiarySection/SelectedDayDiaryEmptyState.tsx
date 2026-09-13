@@ -1,5 +1,5 @@
-import { MdAdd } from 'react-icons/md';
 import { cn } from '@/common/utils/cn';
+import { MdAdd } from 'react-icons/md';
 import { selectedDayInfoStyles } from '../selectedDayInfoStyles';
 
 interface Props {
@@ -16,7 +16,7 @@ const SelectedDayDiaryEmptyState = ({ isFuture, onAddDiary }: Props) => (
     ) : (
       <>
         <p className={selectedDayInfoStyles.diary.emptyTitle}>아직 작성한 일기가 없어요.</p>
-        <p className={selectedDayInfoStyles.diary.emptyDescription}>오늘 하루의 이야기를 남겨보세요.</p>
+        <p className={selectedDayInfoStyles.diary.emptyDescription}>하루의 이야기를 남겨보세요.</p>
         <button className={selectedDayInfoStyles.diary.writeButton} onClick={onAddDiary} type="button">
           <MdAdd className="text-lg" /> 일기 쓰기
         </button>
