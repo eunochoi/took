@@ -114,7 +114,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
           exit={{ opacity: 0, y: reduceMotion ? 0 : -4, pointerEvents: "none" }}
           transition={{ duration: reduceMotion ? 0 : 0.16, ease: "easeOut" }}
           className={cn(menuWrapperPositionClass,
-            "bg-theme-surface flex h-auto w-auto items-center gap-5 rounded-theme px-5 py-2.5 shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.18)]",
+            "bg-theme-surface flex h-auto w-auto items-center gap-5 rounded-theme px-5 py-2.5 shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.1)]",
           )}
         >
           <button className={menuButtonClass} onClick={onClickEdit} type="button">
