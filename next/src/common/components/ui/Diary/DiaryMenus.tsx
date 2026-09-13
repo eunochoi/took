@@ -5,10 +5,11 @@ import { cn } from "@/common/utils/cn";
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
 import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useRef } from "react";
-import { MdContentCopy, MdOutlineDeleteForever, MdOutlineEdit } from 'react-icons/md';
+import { MdOutlineDeleteForever, MdOutlineEdit } from 'react-icons/md';
 import { SnackBarAction } from "../../../providers/snackbar/SnackBarAction";
 
 interface Props {
@@ -26,6 +27,7 @@ const menuTextClass = "text-sm";
 const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const reduceMotion = useReducedMotion();
 
   const timer = useRef<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -96,37 +98,37 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
     enqueueSnackbar(`${format(parseLocalDate(diaryData.date), 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: false, action, autoHideDuration: 3000 });
     closeMenu();
   };
-  const onClickCopy = () => {
-    navigator.clipboard.writeText(diaryData.text).then(() => {
-      enqueueSnackbar('텍스트가 클립보드에 복사되었습니다.');
-    });
-    closeMenu();
-  };
   const onClickEdit = () => {
     router.push(`/inter/input/editDiary?id=${diaryData.id}`, { scroll: false });
     closeMenu();
   };
 
-  return (<div
-    ref={menuRef}
-    className={cn(menuWrapperPositionClass,
-      isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
-      "bg-theme-surface flex h-auto w-auto items-center gap-5 rounded-theme px-5 py-2.5 shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.18)] transition-opacity duration-200 ease-in-out",
-    )}
-  >
-    <button className={menuButtonClass} onClick={onClickCopy} type="button">
-      <MdContentCopy className={menuIconClass} />
-      <span className={menuTextClass}>텍스트 복사</span>
-    </button>
-    <button className={menuButtonClass} onClick={onClickEdit} type="button">
-      <MdOutlineEdit className={menuIconClass} />
-      <span className={menuTextClass}>수정</span>
-    </button>
-    <button className={cn(menuButtonClass, "text-theme-danger")} onClick={onClickDeleteButton} type="button">
-      <MdOutlineDeleteForever className={menuIconClass} />
-      <span className={menuTextClass}>삭제</span>
-    </button>
-  </div>);
+  return (
+    <AnimatePresence>
+      {isMenuOpen && (
+        <motion.div
+          key="diary-menu"
+          ref={menuRef}
+          initial={{ opacity: 0, y: reduceMotion ? 0 : -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: reduceMotion ? 0 : -4, pointerEvents: "none" }}
+          transition={{ duration: reduceMotion ? 0 : 0.16, ease: "easeOut" }}
+          className={cn(menuWrapperPositionClass,
+            "bg-theme-surface flex h-auto w-auto items-center gap-5 rounded-theme px-5 py-2.5 shadow-[0_2px_12px_rgb(var(--theme-shadow-color)/0.18)]",
+          )}
+        >
+          <button className={menuButtonClass} onClick={onClickEdit} type="button">
+            <MdOutlineEdit className={menuIconClass} />
+            <span className={menuTextClass}>수정</span>
+          </button>
+          <button className={cn(menuButtonClass, "text-theme-danger")} onClick={onClickDeleteButton} type="button">
+            <MdOutlineDeleteForever className={menuIconClass} />
+            <span className={menuTextClass}>삭제</span>
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 };
 
 export default DiaryMenus;
