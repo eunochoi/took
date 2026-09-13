@@ -1,10 +1,10 @@
 'use client';
 
-import Diary from "@/common/components/ui/Diary";
+import DiaryCard from './DiaryCard';
 import { EMOTIONS } from "@/common/constants/emotions";
 import type { DiaryData } from "@/common/types/diary";
+import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import { format } from "date-fns";
-import { ko } from "date-fns/locale";
 import Image from "next/image";
 import React from "react";
 
@@ -15,30 +15,21 @@ interface DiaryListProps {
 export const DiaryList = ({ diaries }: DiaryListProps) => {
   return (
     <>
-      {diaries?.length > 0 ?
+      {diaries.length > 0 ?
         diaries.map((diary, index) => {
-          const currentDiaryDate = format(diary.date, 'yyyy년 M월', { locale: ko });
-          const previousDiaryDate = index > 0
-            ? format(diaries[index - 1].date, 'yyyy년 M월', { locale: ko })
-            : '';
-
-          if (currentDiaryDate !== previousDiaryDate) {
-            return (
-              <React.Fragment key={`diary-list-${diary.id}`}>
-                <span className="my-4 flex w-full items-center justify-start text-3xl font-title font-bold capitalize text-theme-accent max-tablet:w-[90dvw]">
-                  {currentDiaryDate}
-                </span>
-                <div className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
-                  <Diary diaryData={diary} />
-                </div>
-              </React.Fragment>
-            );
-          }
+          const startsMonth = index === 0 || diary.date.slice(0, 7) !== diaries[index - 1].date.slice(0, 7);
 
           return (
-            <div key={`diary-list-${diary.id}`} className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
-              <Diary diaryData={diary} />
-            </div>
+            <React.Fragment key={diary.id}>
+              {startsMonth && (
+                <span className="my-4 flex w-full items-center justify-start text-3xl font-title font-bold capitalize text-theme-accent max-tablet:w-[90dvw]">
+                  {format(parseLocalDate(diary.date), 'yyyy년 M월')}
+                </span>
+              )}
+              <div className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
+                <DiaryCard diaryData={diary} />
+              </div>
+            </React.Fragment>
           );
         })
         :
