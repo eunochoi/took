@@ -21,7 +21,7 @@ export const DiaryList = ({ diaries }: DiaryListProps) => {
           return (
             <React.Fragment key={diary.id}>
               {isFirstDiaryOfMonth && <DiaryMonthHeader month={diary.date.slice(0, 7)} />}
-              <div className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
+              <div className="flex w-full items-center justify-center">
                 <DiaryCard diaryData={diary} />
               </div>
             </React.Fragment>

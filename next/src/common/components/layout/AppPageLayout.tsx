@@ -2,6 +2,7 @@
 
 import { ReactNode, RefObject } from "react";
 
+import { cn } from "@/common/utils/cn";
 import { ScrollContainer } from "../ui/ScrollContainer";
 import { PageContent, PageContentProps } from "./PageContent";
 
@@ -31,7 +32,7 @@ const AppPageLayout = ({ afterContent, children, contentProps, pageRef, showScro
         </div>
       )}
 
-      <PageContent {...contentProps}>
+      <PageContent {...contentProps} className={cn("desktop:max-w-[1200px]", contentProps?.className)}>
         {children}
       </PageContent>
 

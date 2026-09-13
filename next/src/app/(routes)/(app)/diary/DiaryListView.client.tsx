@@ -1,7 +1,7 @@
 'use client';
 
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 import EmotionFilter from "@/app/(routes)/(app)/diary/_components/EmotionFilter";
@@ -20,6 +20,7 @@ import { useSortToggle } from "@/common/hooks/useSortToggle";
 import type { DiaryData } from "@/common/types/diary";
 import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
 import { DiaryList } from "./_components/DiaryList";
+import DiaryStatsPanel from "./_components/DiaryStatsPanel";
 import { useDiaryListFilter } from "./_hooks/useDiaryListFilter";
 
 const DiaryListView = () => {
@@ -35,6 +36,7 @@ const DiaryListView = () => {
   const { isOpen: isMonthFilterOpen, open: openMonthFilter, close: closeMonthFilter } = useModalParam('month-filter');
   const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useDiaryListFilter();
   const { sortValue, onToggle } = useSortToggle({ sortKey: 'diary' });
+  const [statsYear, setStatsYear] = useState(new Date().getFullYear());
   const isEmotionSelected = emotionToggle !== EMOTION_UNSELECTED;
   const isPeriodSelected = selectedYear !== getDefaultYear() || selectedMonth !== MONTH_UNSELECTED;
   const selectedEmotionLabel = EMOTIONS[emotionToggle]?.nameKr ?? '';
@@ -69,6 +71,9 @@ const DiaryListView = () => {
     <AppPageLayout
       pageRef={wrapperRef}
       showScrollToTop
+      contentProps={{
+        className: 'flex-1 gap-3 max-tablet:gap-5 max-tablet:pt-6 tablet:gap-6 tablet:pt-6 desktop:max-w-[1200px] desktop:px-12',
+      }}
       topButton={<>
         <TopButton
           onClick={onToggle}
@@ -104,8 +109,13 @@ const DiaryListView = () => {
         setSelectedYear={setSelectedYear}
         setSelectedMonth={setSelectedMonth}
       />
-      {flatDiaries && <DiaryList diaries={flatDiaries} />}
-      <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
+      <div className="grid w-full gap-6 desktop:grid-cols-2 desktop:items-start desktop:gap-x-8">
+        <div className="flex min-w-0 flex-col gap-4">
+          {flatDiaries && <DiaryList diaries={flatDiaries} />}
+          <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
+        </div>
+        <DiaryStatsPanel year={statsYear} onChangeYear={setStatsYear} />
+      </div>
     </AppPageLayout>
   );
 }
