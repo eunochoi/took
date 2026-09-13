@@ -1,6 +1,6 @@
 import type { HabitByDate } from '@/common/actions/habit';
 import { cn } from '@/common/utils/cn';
-import { MdChevronRight } from 'react-icons/md';
+import { MdCheck, MdChevronRight } from 'react-icons/md';
 import { selectedDayInfoStyles } from '../selectedDayInfoStyles';
 
 interface Props {
@@ -24,11 +24,16 @@ const SelectedDayHabitItem = ({ habit, canEdit, pendingHabitId, onOpenHabitInfo,
         aria-pressed={habit.completed}
       >
         <span
+          aria-hidden="true"
           className={cn(
             selectedDayInfoStyles.habit.selector,
-            habit.completed && 'bg-theme-accent',
+            habit.completed
+              ? 'border-theme-accent bg-theme-accent text-theme-text-on-accent'
+              : 'border-theme-text-disabled/60 bg-theme-surface',
           )}
-        />
+        >
+          <MdCheck className={cn('h-3.5 w-3.5 transition-opacity motion-reduce:transition-none', habit.completed ? 'opacity-100' : 'opacity-0')} />
+        </span>
         <span className={selectedDayInfoStyles.habit.name}>{habit.name}</span>
       </button>
       <button

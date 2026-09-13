@@ -19,9 +19,9 @@ export const selectedDayInfoStyles = {
     list: 'flex flex-col gap-2',
     item:
       'flex w-full items-center justify-between transition-opacity',
-    toggleButton: 'flex min-w-0 items-center gap-2 text-left',
+    toggleButton: 'flex min-h-9 min-w-0 items-center gap-2.5 rounded-lg text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
     selector:
-      'h-[16px] w-[16px] shrink-0 rounded-full border-[3px] border-theme-accent transition-colors',
+      'flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-[1.5px] transition-colors duration-150 motion-reduce:transition-none',
     name: 'min-w-0 truncate text-sm',
     infoButton: 'flex h-6 w-6 shrink-0 items-center justify-center text-theme-text-disabled',
     expandButton: 'flex min-h-8 w-full items-center justify-center gap-1 text-xs font-semibold text-theme-accent',
