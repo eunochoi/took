@@ -1,4 +1,3 @@
-import { cn } from '@/common/utils/cn';
 import { selectedDayInfoStyles } from '../selectedDayInfoStyles';
 
 interface Props {
@@ -6,9 +5,7 @@ interface Props {
 }
 
 const SelectedDayHabitEmptyState = ({ message }: Props) => (
-  <div className={cn(selectedDayInfoStyles.section.mutedPanel, selectedDayInfoStyles.habit.emptyState)}>
-    {message}
-  </div>
+  <p className={selectedDayInfoStyles.habit.emptyMessage}>{message}</p>
 );
 
 export default SelectedDayHabitEmptyState;

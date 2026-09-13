@@ -68,11 +68,11 @@ const SelectedDayHabitSection = ({ habitData, pendingHabitId, onToggleHabit }: P
               >
                 {isExpanded ? (
                   <>
-                    접기 <MdExpandLess className="text-lg" />
+                    <span>접기</span><MdExpandLess className="text-lg" />
                   </>
                 ) : (
                   <>
-                    전체 보기 <MdExpandMore className="text-lg" />
+                    <span>모두 보기{` (${habits.length})`}</span><MdExpandMore className="text-lg" />
                   </>
                 )}
               </button>
@@ -82,12 +82,6 @@ const SelectedDayHabitSection = ({ habitData, pendingHabitId, onToggleHabit }: P
           <SelectedDayHabitEmptyState
             message={habitData?.canEdit ? '이 날짜에 등록된 습관이 없어요.' : '완료한 습관 기록이 없어요.'}
           />
-        )}
-
-        {!habitData?.isFuture && !habitData?.canEdit && (
-          <p className={selectedDayInfoStyles.habit.footnote}>
-            이전 날짜는 완료한 습관만 확인할 수 있어요.
-          </p>
         )}
       </div>
     </div>

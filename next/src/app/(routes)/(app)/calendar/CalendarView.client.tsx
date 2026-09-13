@@ -73,12 +73,12 @@ const CalendarView = ({ initialDate }: Props) => {
         </TopButton>
       }
       contentProps={{
-        className: 'flex-1 gap-3 max-tablet:gap-5 max-tablet:pt-6 tablet:gap-6 tablet:pt-6',
+        className: 'flex-1 gap-3 max-tablet:gap-5 max-tablet:pt-6 tablet:gap-6 tablet:pt-6 desktop:max-w-[1200px] desktop:px-12',
       }}
     >
-      <div className="flex w-full min-w-0 flex-col gap-5 tablet:gap-6">
+      <div className="grid w-full min-w-0 grid-cols-1 items-start gap-5 tablet:gap-6 desktop:grid-cols-2 desktop:grid-rows-[auto_1fr] desktop:gap-x-8 desktop:gap-y-3">
         <DiaryHabitMonthCalendar today={today} selectedDate={selectedDate} onSelectDate={setSelectedDate} />
-        <div key={selectedDate} className="min-w-0">
+        <div key={selectedDate} className="min-w-0 desktop:col-start-2 desktop:row-start-2">
           <SelectedDayInfo
             date={selectedDate}
             diaryData={diaryQuery.data}

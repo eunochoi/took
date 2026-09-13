@@ -13,10 +13,9 @@ import { CalendarDayModel, useMonthCalendar } from '@/common/components/ui/Calen
 import { useMonthSwipe } from '@/common/components/ui/Calendar/useMonthSwipe';
 import { Emotion, EMOTIONS } from '@/common/constants/emotions';
 import type { DateKey, DiaryHabitDayData } from '@/common/types/calendar';
+import { cn } from '@/common/utils/cn';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import DiaryHabitMonthCalendarHeader from './DiaryHabitMonthCalendarHeader';
-
-const badgeClass = "bg-theme-accent flex h-[20px] w-[20px] items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] text-xs font-semibold text-theme-text-on-accent";
 
 interface Props {
   today: DateKey;
@@ -59,7 +58,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
   };
 
   return (
-    <section className="flex w-full min-w-0 shrink-0 flex-col gap-3">
+    <section className="flex w-full min-w-0 shrink-0 flex-col gap-3 desktop:row-span-2 desktop:grid desktop:grid-rows-subgrid desktop:self-stretch">
       <div className="flex min-w-0 flex-col gap-3">
         <DiaryHabitMonthCalendarHeader
           monthLabel={calendar.monthLabel}
@@ -78,12 +77,13 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
         )}
       </div>
 
-      <div className="rounded-theme bg-theme-surface p-2 shadow-theme-section backdrop-blur-xl tablet:p-3">
+      <div className="rounded-theme bg-theme-surface p-2 shadow-theme-section backdrop-blur-xl tablet:p-3 desktop:self-start">
         <CalendarGrid {...swipeProps} aria-label={`${calendar.monthLabel} 일기와 습관 달력`} aria-busy={monthQuery.isFetching}>
           {calendar.days.map((day: CalendarDayModel) => {
             const record: DiaryHabitDayData | undefined = day.isOutsideMonth ? undefined : diaryHabitMonthData?.daysByDate[day.dateKey];
             const emotion: Emotion | undefined = record?.emotion == null ? undefined : EMOTIONS[record.emotion];
             const habitCount = record?.completedHabitCount ?? 0;
+            const hasDecoration = Boolean(record?.hasDiary && emotion) || habitCount > 0;
 
             return (
               <CalendarDay
@@ -99,20 +99,22 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
                   habitCount > 0 ? `습관 ${habitCount}개 완료` : '',
                 ].filter(Boolean).join(', ')}
               >
-                {record?.hasDiary && emotion ? (
-                  <div className="relative z-[2] w-full h-full flex justify-center items-end pb-[2px]">
-                    <Image className="h-auto w-[90%]" src={emotion.src} alt={emotion.nameKr} />
-                    {habitCount > 0 && (
-                      <div className={`${badgeClass} absolute right-[2px] top-[2px] z-10`}>
-                        {habitCount}
-                      </div>
-                    )}
-                  </div>
-                ) : habitCount > 0 ? (
-                  <div className={`${badgeClass} scale-[1.3]`}>{habitCount}</div>
-                ) : (
-                  <span className="date">{day.dayNumber}</span>
-                )}
+                <span>{!hasDecoration && day.dayNumber}</span>
+                <span className="relative w-[90%] tablet:w-[75%] h-[auto] flex items-center justify-center">
+                  {record?.hasDiary && emotion && (
+                    <Image
+                      src={emotion.src}
+                      alt={`${day.dateKey}[${emotion.name}]`}
+                      className="object-contain" />
+                  )}
+                  {habitCount > 0 && (
+                    <span className={cn("flex items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent h-[24px] w-[24px] text-[12px] font-semibold text-theme-text-on-accent",
+                      emotion ? "absolute -top-1 -right-1" : "scale-[1.3]"
+                    )}>
+                      {habitCount}
+                    </span>
+                  )}
+                </span>
               </CalendarDay>
             );
           })}
