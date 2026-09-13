@@ -3,10 +3,9 @@
 import DiaryCard from './DiaryCard';
 import { EMOTIONS } from "@/common/constants/emotions";
 import type { DiaryData } from "@/common/types/diary";
-import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
-import { format } from "date-fns";
 import Image from "next/image";
 import React from "react";
+import DiaryMonthHeader from "./DiaryMonthHeader";
 
 interface DiaryListProps {
   diaries: DiaryData[];
@@ -17,15 +16,11 @@ export const DiaryList = ({ diaries }: DiaryListProps) => {
     <>
       {diaries.length > 0 ?
         diaries.map((diary, index) => {
-          const startsMonth = index === 0 || diary.date.slice(0, 7) !== diaries[index - 1].date.slice(0, 7);
+          const isFirstDiaryOfMonth = index === 0 || diary.date.slice(0, 7) !== diaries[index - 1].date.slice(0, 7);
 
           return (
             <React.Fragment key={diary.id}>
-              {startsMonth && (
-                <span className="my-4 flex w-full items-center justify-start text-3xl font-title font-bold capitalize text-theme-accent max-tablet:w-[90dvw]">
-                  {format(parseLocalDate(diary.date), 'yyyy년 M월')}
-                </span>
-              )}
+              {isFirstDiaryOfMonth && <DiaryMonthHeader month={diary.date.slice(0, 7)} />}
               <div className="my-2 flex w-full items-center justify-center first:mt-0 last:mb-2">
                 <DiaryCard diaryData={diary} />
               </div>
