@@ -16,7 +16,7 @@ export const DiaryList = ({ diaries }: DiaryListProps) => {
     <>
       {diaries.length > 0 ?
         diaries.map((diary, index) => {
-          const isFirstDiaryOfMonth = index === 0 || diary.date.slice(0, 7) !== diaries[index - 1].date.slice(0, 7);
+          const isFirstDiaryOfMonth = index > 0 && diary.date.slice(0, 7) !== diaries[index - 1].date.slice(0, 7);
 
           return (
             <React.Fragment key={diary.id}>

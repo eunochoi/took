@@ -4,15 +4,17 @@ import { getDiaryStats } from '@/common/actions/stats';
 import { authAction } from '@/common/auth/authAction';
 import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
 import MonthlyBarChart from '@/common/components/views/HabitInfoView/MonthlyBarChart';
+import { cn } from '@/common/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 interface Props {
+  className?: string;
   year: number;
   onChangeYear: (year: number) => void;
 }
 
-const DiaryStatsPanel = ({ year, onChangeYear }: Props) => {
+const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
   const { data, isPending } = useQuery({
     queryKey: ['stats', 'diary', year],
     queryFn: () => authAction(() => getDiaryStats({ year })),
@@ -23,7 +25,7 @@ const DiaryStatsPanel = ({ year, onChangeYear }: Props) => {
     : `${((data?.totalTextLength ?? 0) / 1000).toFixed(1)}천자`;
 
   return (
-    <aside className="hidden w-full flex-col gap-3 desktop:flex desktop:sticky desktop:top-[calc(var(--mobileHeader)+2.25rem)] desktop:self-start">
+    <aside className={cn("hidden w-full flex-col gap-3 desktop:flex desktop:sticky desktop:top-[var(--mobileHeader)] desktop:self-start", className)}>
       <AppSurfaceCard className="flex flex-col gap-4">
         <header className="flex items-center justify-between">
           <button

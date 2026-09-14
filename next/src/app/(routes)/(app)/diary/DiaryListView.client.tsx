@@ -18,8 +18,10 @@ import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
 import type { DiaryData } from "@/common/types/diary";
+import { cn } from "@/common/utils/cn";
 import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
 import { DiaryList } from "./_components/DiaryList";
+import DiaryMonthHeader from "./_components/DiaryMonthHeader";
 import DiaryStatsPanel from "./_components/DiaryStatsPanel";
 import { useDiaryListFilter } from "./_hooks/useDiaryListFilter";
 
@@ -58,6 +60,8 @@ const DiaryListView = () => {
     select: (data) => data.pages.flat() as DiaryData[],
     getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
+
+  const firstDiaryMonth = flatDiaries?.[0]?.date.slice(0, 7);
 
   useEffect(() => {
     if (currentUserEmail && !isFetching && hasNextPage && inView) fetchNextPage();
@@ -109,12 +113,25 @@ const DiaryListView = () => {
         setSelectedYear={setSelectedYear}
         setSelectedMonth={setSelectedMonth}
       />
-      <div className="grid w-full gap-6 desktop:grid-cols-2 desktop:items-start desktop:gap-x-8">
-        <div className="flex min-w-0 flex-col gap-4">
-          {flatDiaries && <DiaryList diaries={flatDiaries} />}
-          <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
+      <div className={cn(
+        "grid w-full gap-6 desktop:grid-cols-2 desktop:items-start desktop:gap-x-8",
+        firstDiaryMonth && "desktop:grid-rows-[auto_1fr] desktop:gap-y-4",
+      )}>
+        <div className={cn(
+          "flex min-w-0 flex-col gap-4",
+          firstDiaryMonth && "desktop:row-span-2 desktop:grid desktop:grid-rows-subgrid desktop:self-stretch",
+        )}>
+          {firstDiaryMonth && <DiaryMonthHeader month={firstDiaryMonth} />}
+          <div className="flex min-w-0 flex-col gap-4 desktop:self-start">
+            {flatDiaries && <DiaryList diaries={flatDiaries} />}
+            <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
+          </div>
         </div>
-        <DiaryStatsPanel year={statsYear} onChangeYear={setStatsYear} />
+        <DiaryStatsPanel
+          year={statsYear}
+          onChangeYear={setStatsYear}
+          className={cn("desktop:col-start-2", firstDiaryMonth && "desktop:row-start-2")}
+        />
       </div>
     </AppPageLayout>
   );
