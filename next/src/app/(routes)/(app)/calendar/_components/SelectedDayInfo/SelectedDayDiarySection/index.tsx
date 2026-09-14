@@ -4,7 +4,7 @@ import type { DiaryData } from '@/common/types/diary';
 import { cn } from '@/common/utils/cn';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { MdChevronRight, MdMoreVert } from 'react-icons/md';
+import { MdChevronRight, MdMenuBook, MdMoreVert } from 'react-icons/md';
 import SelectedDaySectionHeader from '../SelectedDaySectionHeader';
 import { selectedDayInfoStyles } from '../selectedDayInfoStyles';
 import SelectedDayDiaryEmptyState from './SelectedDayDiaryEmptyState';
@@ -28,7 +28,7 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
 
   return (
     <div className={cn('relative', selectedDayInfoStyles.section.frame)}>
-      <SelectedDaySectionHeader title="감정 일기">
+      <SelectedDaySectionHeader title="감정 일기" icon={<MdMenuBook className={selectedDayInfoStyles.section.icon} aria-hidden="true" />}>
         {hasDiary && (
           <button
             ref={menuButtonRef}

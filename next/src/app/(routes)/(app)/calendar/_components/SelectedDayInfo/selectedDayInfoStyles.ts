@@ -9,7 +9,8 @@ export const selectedDayInfoStyles = {
   section: {
     frame: 'overflow-hidden rounded-theme border border-theme-text-disabled/40',
     header: 'flex items-center justify-between gap-2 px-4 py-4',
-    title: 'text-sm font-semibold text-theme-text-primary',
+    title: 'flex items-center gap-2 text-base font-semibold text-theme-text-primary',
+    icon: 'shrink-0 text-xl text-theme-accent',
     contentInset: 'px-4 pb-4',
   },
   habit: {
