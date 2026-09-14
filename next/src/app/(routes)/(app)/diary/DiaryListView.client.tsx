@@ -76,7 +76,7 @@ const DiaryListView = () => {
       pageRef={wrapperRef}
       showScrollToTop
       contentProps={{
-        className: 'flex-1 gap-3 max-tablet:gap-5 max-tablet:pt-6 tablet:gap-6 tablet:pt-6 desktop:max-w-[1200px] desktop:px-12',
+        className: 'flex-1 gap-3 max-tablet:gap-5 pt-6 tablet:gap-6 desktop:px-14',
       }}
       topButton={<>
         <TopButton
@@ -114,7 +114,7 @@ const DiaryListView = () => {
         setSelectedMonth={setSelectedMonth}
       />
       <div className={cn(
-        "grid w-full gap-6 desktop:grid-cols-2 desktop:items-start desktop:gap-x-8",
+        "grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8",
         firstDiaryMonth && "desktop:grid-rows-[auto_1fr] desktop:gap-y-4",
       )}>
         <div className={cn(

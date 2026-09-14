@@ -24,7 +24,7 @@ const DiaryMonthHeader = ({ month }: Props) => {
   });
 
   return (
-    <header className="mb-3 mt-5 w-full first:mt-2 max-tablet:w-[90dvw]">
+    <header data-component='DiaryMonthHeader' className="mb-3 mt-5 w-full first:mt-2 max-tablet:w-[90dvw]">
       <div className='flex flex-between items-center'>
         <h2 className="text-3xl font-title font-bold text-theme-accent">
           {format(parseLocalDate(`${month}-01`), 'yyyy년 M월')}
@@ -34,7 +34,7 @@ const DiaryMonthHeader = ({ month }: Props) => {
       <div className="mt-2 flex flex-col items-start gap-1.5 text-sm text-theme-text-tertiary">
         {!isPending && data && (
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span>{`작성된 일기 ${data?.summary.diaryCount ?? 0}개,`}</span>
+            <span>{`감정 일기 ${data?.summary.diaryCount ?? 0}개,`}</span>
             {EMOTIONS.map((emotion) => {
               const count = emotionCounts[emotion.id];
               if (count === 0) return null;

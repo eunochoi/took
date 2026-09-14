@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
@@ -18,11 +18,10 @@ import GreetingSection from "./_components/GreetingSection";
 import HabitAnalysis from "./_components/HabitAnalysis";
 import YearFilter from "./_components/YearFilter";
 
-const HomeView = () => {
+const HomeView = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
 
   const currentYear = getYear(new Date());
-  const router = useRouter();
   const searchParams = useSearchParams();
   const queryYear = Number(searchParams.get('year'));
   const selectedYear = Number.isInteger(queryYear) && queryYear > 0 ? queryYear : currentYear;
@@ -65,7 +64,7 @@ const HomeView = () => {
         </>
       }
       contentProps={{
-        className: "gap-14 max-tablet:pt-2 tablet:pt-2",
+        className: "flex-1 gap-3 max-tablet:gap-5 pt-6 tablet:gap-6 desktop:px-14",
       }}
       afterContent={
         <YearFilter
@@ -84,21 +83,29 @@ const HomeView = () => {
           }}
         />
       }>
-      <GreetingSection />
+      <div className="grid w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6">
+        <div className="min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--mobileHeader)+2.25rem)] desktop:self-start">
+          <GreetingSection initialDate={initialDate} />
+        </div>
 
-      <DiaryAnalysis
-        stats={diaryStats}
-        year={selectedYear}
-      />
+        <div className="flex min-w-0 flex-col gap-14 desktop:col-start-1 desktop:row-start-1">
+          <DiaryAnalysis
+            stats={diaryStats}
+            year={selectedYear}
+          />
 
-      <EmotionStats
-        emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-        monthlyEmotionCounts={diaryStats?.monthlyEmotionCounts ?? Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
-      />
+          <div className="min-w-0 desktop:order-last">
+            <EmotionStats
+              emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+              monthlyEmotionCounts={diaryStats?.monthlyEmotionCounts ?? Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+            />
+          </div>
 
-      <HabitAnalysis
-        stats={habitStats}
-      />
+          <HabitAnalysis
+            stats={habitStats}
+          />
+        </div>
+      </div>
     </AppPageLayout>
   );
 };

@@ -25,7 +25,7 @@ const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
     : `${((data?.totalTextLength ?? 0) / 1000).toFixed(1)}천자`;
 
   return (
-    <aside className={cn("hidden w-full flex-col gap-3 desktop:flex desktop:sticky desktop:top-[var(--mobileHeader)] desktop:self-start", className)}>
+    <aside className={cn("hidden w-full flex-col gap-3 desktop:flex desktop:sticky desktop:top-[calc(var(--mobileHeader)+2.25rem)] desktop:self-start", className)}>
       <AppSurfaceCard className="flex flex-col gap-4">
         <header className="flex items-center justify-between">
           <button
