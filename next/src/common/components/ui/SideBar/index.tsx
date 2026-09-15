@@ -1,52 +1,54 @@
 'use client';
 
-import Logo from '@/common/components/ui/Logo';
 import { useNavItems } from '@/common/hooks/useNavItems';
 import { cn } from '@/common/utils/cn';
 import Link from 'next/link';
+import Logo from '../Logo';
 
-const sideBarBaseClass = "flex h-full w-full flex-col items-center justify-evenly overflow-y-auto bg-theme-surface/80 shadow-theme-sidebar backdrop-blur-xl";
-const sideBarTabletClass = "gap-2 px-2";
-const sideBarDesktopClass = "desktop:gap-16 desktop:px-4";
+const sideBarWrapperClass = "flex h-full w-full flex-col items-center justify-start gap-16 landscape-short:gap-4 py-8 overflow-y-auto";
 
-const navBaseClass = "flex h-auto flex-col items-start justify-center";
-const navTabletClass = "w-[80%] gap-4";
-const navDesktopClass = "desktop:w-[70%] desktop:gap-6";
-
-const linkBaseClass = "flex w-full cursor-pointer justify-between whitespace-nowrap font-medium capitalize transition-colors duration-200";
-const linkTabletClass = "gap-2 text-base";
-const linkDesktopClass = "desktop:justify-between desktop:gap-4 desktop:text-xl";
-
-const contactBaseClass = "w-full text-center text-xs text-theme-accent";
+const commonNavWrapperClass = 'shrink-0 flex flex-col justify-center items-center w-16 rounded-full overflow-hidden bg-theme-surface/75 shadow-theme-floating backdrop-blur-2xl';
+const commonNavItemClass = "transition duration-500 ease-out flex justify-center items-center w-full h-auto aspect-square text-xl rounded-full";
+const activNavItemClass = 'bg-theme-accent text-theme-text-on-accent';
+const inActiveNavItemCalss = 'text-theme-text-tertiary';
 
 const SideBar = () => {
   const { items, current } = useNavItems();
+  const mainItems = items.slice(0, -1);
+  const lastItem = items.at(-1)!;
 
   return (
-    <aside className={cn(sideBarBaseClass, sideBarTabletClass, sideBarDesktopClass)}>
+    <aside className={cn(sideBarWrapperClass)}>
       <div
         data-component='logo'
-        className='flex flex-col justify-center items-center gap-2'>
-        <Logo withText logoClassName='w-16 h-auto' textClassName='text-lg font-bold' />
+        className='flex flex-col justify-center items-start gap-2 landscape-short:hidden'>
+        <Logo
+          withText
+          logoClassName='w-16 h-auto'
+          textClassName='text-xl font-bold' />
       </div>
-      <nav className={cn(navBaseClass, navTabletClass, navDesktopClass)}>
-        {items.map(({ key, segment, icon: Icon, label, href }) => (
-          <Link
-            key={key}
-            href={href}
+      <nav className={cn(commonNavWrapperClass, 'p-2 gap-4')} aria-label="주요 메뉴">
+        {mainItems.map(({ key, segment, icon: Icon, href }) => (
+          <Link key={key} href={href} aria-label={segment}
             className={cn(
-              linkBaseClass,
-              linkTabletClass,
-              linkDesktopClass,
-              current === segment ? "text-theme-accent" : "text-theme-text-secondary",
-            )}
-          >
-            <Icon className="shrink-0" />
-            <span>{label}</span>
+              commonNavItemClass,
+              current === segment
+                ? activNavItemClass : inActiveNavItemCalss,
+            )}>
+            <Icon />
           </Link>
         ))}
       </nav>
-      <span className={cn(contactBaseClass)}>eooooostudio@gmail.com</span>
+      <div className={cn(commonNavWrapperClass)}>
+        <Link href={lastItem.href} aria-label={lastItem.segment}
+          className={cn(
+            commonNavItemClass,
+            current === lastItem.segment
+              ? activNavItemClass : inActiveNavItemCalss,
+          )}>
+          <lastItem.icon />
+        </Link>
+      </div>
     </aside>
   );
 };

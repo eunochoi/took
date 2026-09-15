@@ -6,14 +6,14 @@ import logoImage from '/public/img/emotion/sad.png';
 
 interface LogoProps {
   withText?: boolean;
-  wrapperClassName?: string;
+  rootClassName?: string;
   logoClassName?: string;
   textClassName?: string;
 }
 
-const Logo = ({ withText = false, wrapperClassName, logoClassName, textClassName }: LogoProps) => {
+const Logo = ({ withText = false, rootClassName, logoClassName, textClassName }: LogoProps) => {
   return (
-    <div className={cn("flex flex-col items-center justify-center gap-2", wrapperClassName)}>
+    <div className={cn("flex flex-col items-center justify-center gap-2", rootClassName)}>
       <div className="flex items-center justify-center">
         <Image src={logoImage} className={logoClassName} alt="TOOK Logo" priority />
       </div>

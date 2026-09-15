@@ -13,8 +13,8 @@ interface Props {
 const layoutClass = "flex w-screen justify-center";
 
 const sideBarBaseClass = "hidden h-[100dvh] shrink-0";
-const sideBarTabletClass = "tablet:block tablet:w-[25dvw]";
-const sideBarDesktopClass = "desktop:w-[var(--sidebarWidth)]";
+const sideBarTabletClass = "tablet:block tablet:w-32";
+const sideBarDesktopClass = "";
 
 const contentClass = "flex min-w-0 flex-1 flex-col items-center justify-start";
 
