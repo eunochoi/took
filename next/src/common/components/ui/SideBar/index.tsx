@@ -8,9 +8,9 @@ import Logo from '../Logo';
 const sideBarWrapperClass = "flex h-full w-full flex-col items-center justify-start gap-16 landscape-short:gap-4 py-8 overflow-y-auto";
 
 const commonNavWrapperClass = 'shrink-0 flex flex-col justify-center items-center w-16 rounded-full overflow-hidden bg-theme-surface/75 shadow-theme-floating backdrop-blur-2xl';
-const commonNavItemClass = "transition duration-500 ease-out flex justify-center items-center w-full h-auto aspect-square text-xl rounded-full";
+const commonNavItemClass = "transition-colors duration-500 flex justify-center items-center w-full h-auto aspect-square text-xl rounded-full";
 const activNavItemClass = 'bg-theme-accent text-theme-text-on-accent';
-const inActiveNavItemCalss = 'text-theme-text-tertiary';
+const inActiveNavItemCalss = 'bg-transparent text-theme-text-tertiary';
 
 const SideBar = () => {
   const { items, current } = useNavItems();
@@ -32,8 +32,7 @@ const SideBar = () => {
           <Link key={key} href={href} aria-label={segment}
             className={cn(
               commonNavItemClass,
-              current === segment
-                ? activNavItemClass : inActiveNavItemCalss,
+              current === segment ? activNavItemClass : inActiveNavItemCalss,
             )}>
             <Icon />
           </Link>

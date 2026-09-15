@@ -10,7 +10,9 @@ const BottomNav = () => {
   const lastItem = items.at(-1)!;
 
   const navItemsWrapperClass = 'pointer-events-auto flex items-center gap-1.5 rounded-full bg-theme-surface/75 shadow-theme-floating backdrop-blur-2xl';
-  const navItemClass = 'flex cursor-pointer items-center justify-center rounded-full text-xl transition-colors duration-200';
+  const navItemClass = 'flex cursor-pointer items-center justify-center rounded-full text-xl transition-colors duration-500';
+  const activNavItemClass = 'bg-theme-accent text-theme-text-on-accent';
+  const inActivNavItemClass = "bg-transparent text-theme-text-tertiary";
 
   return (
     <nav className="flex gap-4 items-center">
@@ -19,7 +21,7 @@ const BottomNav = () => {
           <Link
             key={key}
             href={href}
-            className={cn(navItemClass, 'h-[42px] w-[42px]', current === segment ? "bg-theme-accent text-theme-text-on-accent" : "bg-transparent text-theme-text-tertiary",
+            className={cn(navItemClass, 'h-[42px] w-[42px]', current === segment ? activNavItemClass : inActivNavItemClass,
             )}
           >
             <Icon />
@@ -30,7 +32,7 @@ const BottomNav = () => {
         <Link
           key={lastItem?.key}
           href={lastItem?.href}
-          className={cn(navItemClass, 'h-full w-full', current === lastItem.segment ? "bg-theme-accent text-theme-text-on-accent" : "bg-transparent text-theme-text-tertiary",
+          className={cn(navItemClass, 'h-full w-full', current === lastItem.segment ? activNavItemClass : inActivNavItemClass,
           )}
         >
           <lastItem.icon />
