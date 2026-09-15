@@ -24,7 +24,7 @@ const DiaryMonthHeader = ({ month }: Props) => {
   });
 
   return (
-    <header data-component='DiaryMonthHeader' className="mb-3 mt-5 w-full first:mt-2 max-tablet:w-[90dvw]">
+    <header data-component='DiaryMonthHeader' className="mt-8 mb-2 w-full first:mt-0 max-tablet:w-[90dvw]">
       <div className='flex flex-between items-center'>
         <h2 className="text-3xl font-title font-bold text-theme-accent">
           {format(parseLocalDate(`${month}-01`), 'yyyy년 M월')}
