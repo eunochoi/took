@@ -15,7 +15,7 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => {
     >
       {showLogo && (
         <div className="flex flex-col items-center gap-6">
-          <Logo size={48} />
+          <Logo logoClassName="w-60 h-auto" />
           <div className="flex gap-2">
             <div className="h-4 w-4 animate-pulse rounded-full" style={{ backgroundColor: 'var(--loading-indicator)' }} />
             <div className="h-4 w-4 animate-pulse rounded-full [animation-delay:0.2s]" style={{ backgroundColor: 'var(--loading-indicator)' }} />

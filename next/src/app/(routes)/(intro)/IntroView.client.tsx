@@ -83,8 +83,8 @@ const IntroView = () => {
 
       <section className="flex flex-col items-center gap-8 bg-theme-surface px-5 py-16 desktop:gap-7 desktop:px-6 desktop:py-[82px]">
         <Logo
-          className="desktop:origin-center desktop:scale-125"
-          size={52}
+          wrapperClassName="desktop:origin-center desktop:scale-125"
+          logoClassName="w-64 h-auto"
         />
         <h1 className="m-0 break-keep text-3xl font-bold capitalize leading-tight text-theme-text-primary desktop:text-4xl desktop:leading-[1.18]">
           툭! 오늘도 하나씩 :)

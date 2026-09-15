@@ -18,7 +18,7 @@ const IntroHero = ({ images }: Props) => {
       <div className={heroContentColumnClass}>
         <div className={heroContentClass}>
           <div className="flex flex-col items-center gap-2 desktop:items-start">
-            <Logo className="desktop:origin-left pb-2" size={48} />
+            <Logo wrapperClassName="desktop:origin-left pb-2" logoClassName="w-60 h-auto" />
             <span className="rounded-full bg-theme-bg px-3 py-1 text-sm font-semibold tracking-[0.08em] text-theme-accent">
               EMOTION DIARY & HABIT TRACKER
             </span>

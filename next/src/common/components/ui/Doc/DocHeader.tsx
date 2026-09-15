@@ -26,7 +26,7 @@ const DocHeader = ({ description, subtitle, title }: Props) => {
       >
         <MdArrowBackIos />
       </button>
-      <Logo size={48} />
+      <Logo logoClassName="w-60 h-auto" />
       <div className="flex flex-col gap-3">
         <h1 className="m-0 break-keep text-3xl leading-tight text-theme-text-primary tablet:text-4xl">{title}</h1>
         <p className="m-0 text-base font-bold text-theme-accent">{subtitle}</p>

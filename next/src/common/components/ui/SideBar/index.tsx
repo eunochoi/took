@@ -9,9 +9,6 @@ const sideBarBaseClass = "flex h-full w-full flex-col items-center justify-evenl
 const sideBarTabletClass = "gap-2 px-2";
 const sideBarDesktopClass = "desktop:gap-16 desktop:px-4";
 
-const logoTabletClass = "scale-100";
-const logoDesktopClass = "desktop:scale-100";
-
 const navBaseClass = "flex h-auto flex-col items-start justify-center";
 const navTabletClass = "w-[80%] gap-4";
 const navDesktopClass = "desktop:w-[70%] desktop:gap-6";
@@ -27,7 +24,11 @@ const SideBar = () => {
 
   return (
     <aside className={cn(sideBarBaseClass, sideBarTabletClass, sideBarDesktopClass)}>
-      <Logo className={cn(logoTabletClass, logoDesktopClass)} size={32} />
+      <div
+        data-component='logo'
+        className='flex flex-col justify-center items-center gap-2'>
+        <Logo withText logoClassName='w-16 h-auto' textClassName='text-lg font-bold' />
+      </div>
       <nav className={cn(navBaseClass, navTabletClass, navDesktopClass)}>
         {items.map(({ key, segment, icon: Icon, label, href }) => (
           <Link

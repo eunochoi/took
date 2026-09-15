@@ -32,7 +32,7 @@ const Page = () => {
   return (
     <div className="flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-12 bg-theme-bg p-5 [@media(max-height:600px)]:flex-row [@media(max-height:600px)]:p-10">
       <div className="flex animate-[login-fade-in_1000ms_ease-in-out] flex-col items-center gap-8 [@media(max-height:600px)]:shrink-0 [@media(max-height:600px)]:justify-center [@media(max-height:600px)]:gap-4">
-        <Logo size={48} />
+        <Logo logoClassName="w-60 h-auto" />
       </div>
       <div className="flex animate-[login-fade-in_1000ms_ease-in-out] flex-col items-center gap-8 [@media(max-height:600px)]:shrink-0 [@media(max-height:600px)]:justify-center [@media(max-height:600px)]:gap-6">
         <div className="flex flex-col items-center gap-4 text-center [@media(max-height:600px)]:w-full [@media(max-height:600px)]:gap-3">
