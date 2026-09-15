@@ -2,7 +2,6 @@
 
 
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
-import PageTitle from "@/common/components/ui/PageTitle";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { format } from "date-fns";
@@ -14,6 +13,7 @@ import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
 
 import { MdPrivacyTip } from "react-icons/md";
 import { AccountActionSection } from "./_components/AccountActionSection";
+import SettingPageTitle from "./_components/SettingPageTitle";
 
 
 const SettingPage = () => {
@@ -45,7 +45,7 @@ const SettingPage = () => {
         </TopButton>
       </>}>
 
-      <PageTitle title="앱 설정" />
+      <SettingPageTitle />
 
       <div className="grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:grid-rows-[auto_1fr] desktop:items-start desktop:gap-x-8 desktop:gap-y-4">
         <div className="flex min-w-0 flex-col gap-6 desktop:row-span-2 desktop:grid desktop:grid-rows-subgrid desktop:self-stretch">
