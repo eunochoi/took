@@ -17,14 +17,13 @@ interface Props {
   showMobileLogo?: boolean;
   title?: string;
   description?: string;
-  toolbarStart?: ReactNode;
   topButton?: ReactNode;
 }
 
-const AppPageLayout = ({ afterContent, children, contentProps, pageRef, showScrollToTop = false, showMobileLogo = false, title, description, toolbarStart, topButton }: Props) => {
+const AppPageLayout = ({ afterContent, children, contentProps, pageRef, showScrollToTop = false, showMobileLogo = false, title, description, topButton }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
-  const hasToolbar = Boolean(toolbarStart || topButton);
+  const hasToolbar = Boolean(topButton);
 
   useEffect(() => {
     const toolbar = toolbarRef.current;
@@ -56,8 +55,7 @@ const AppPageLayout = ({ afterContent, children, contentProps, pageRef, showScro
           {title && <AppPageTitle title={title} description={description} />}
           {hasToolbar && (
             <div ref={toolbarRef} data-component="pageToolbar" className="sticky top-0 z-[91] -mx-[4dvw] mb-4 flex flex-wrap items-center gap-2 bg-theme-bg px-[4dvw] py-3 after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-4 after:bg-scroll-fade-top after:content-[''] tablet:-mx-9 tablet:px-9 desktop:-mx-14 desktop:px-14">
-              {toolbarStart && <div className="flex min-w-0 flex-wrap items-center gap-2">{toolbarStart}</div>}
-              {topButton && <div className="ml-auto flex min-w-0 flex-wrap items-center justify-end gap-2">{topButton}</div>}
+              {topButton}
             </div>
           )}
           <PageContent {...contentProps} className={cn("min-w-0", contentProps?.className)}>

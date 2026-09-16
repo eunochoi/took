@@ -76,7 +76,7 @@ const DiaryListView = () => {
       contentProps={{
         className: 'flex-1 gap-3 max-tablet:gap-5 tablet:gap-6',
       }}
-      toolbarStart={
+      topButton={<>
         <TopButton
           aria-label="기간 필터"
           onClick={openMonthFilter}
@@ -84,8 +84,6 @@ const DiaryListView = () => {
           <MdCalendarMonth size={18} />
           {isPeriodSelected ? selectedPeriodLabel : "전체 기간"}
         </TopButton>
-      }
-      topButton={<>
         <TopButton
           onClick={onToggle}
         >
@@ -97,7 +95,6 @@ const DiaryListView = () => {
         >
           {isEmotionSelected ? selectedEmotionLabel : <MdEmojiEmotions size={18} />}
         </TopButton>
-
       </>}
     >
       <EmotionFilter

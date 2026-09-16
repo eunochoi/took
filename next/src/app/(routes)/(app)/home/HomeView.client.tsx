@@ -59,13 +59,7 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
       description="작은 기록이 모여 나다운 하루가 돼요"
       showMobileLogo
       showScrollToTop
-      topButton={
-        <>
-          <TopButton onClick={openYearFilter}>
-            {selectedYear}년
-          </TopButton>
-        </>
-      }
+      topButton={<TopButton onClick={openYearFilter}>{selectedYear}년</TopButton>}
       contentProps={{
         className: "flex-1 gap-3 max-tablet:gap-5 tablet:gap-6",
       }}
