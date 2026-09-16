@@ -3,6 +3,7 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
+import { MdEdit } from 'react-icons/md';
 
 import { getDiaryByDate } from '@/common/actions/diary';
 import { authAction } from '@/common/auth/authAction';
@@ -53,7 +54,7 @@ const CalendarView = ({ initialDate }: Props) => {
 
   return (
     <AppPageLayout
-      title="캘린더"
+      title="월간 기록"
       description="하루하루 쌓인 마음과 습관을 살펴봐요"
       topButton={
         <>
@@ -61,6 +62,7 @@ const CalendarView = ({ initialDate }: Props) => {
             onClick={openTodayDiary}
             disabled={todayDiaryQuery.isPending}
           >
+            <MdEdit size={18} className="shrink-0" aria-hidden="true" />
             <span>{todayDiaryQuery.data?.visible ? '오늘 일기 수정' : '오늘 일기 작성'}</span>
           </TopButton>
           <CaptureTopButton targetRef={captureRef} />

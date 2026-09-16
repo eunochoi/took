@@ -18,7 +18,7 @@ import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
 import type { DiaryData } from "@/common/types/diary";
-import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
+import { MdCalendarMonth, MdEmojiEmotions, MdSort } from 'react-icons/md';
 import DiaryCard from "./_components/DiaryCard";
 import DiaryStatsPanel from "./_components/DiaryStatsPanel";
 import { useDiaryListFilter } from "./_hooks/useDiaryListFilter";
@@ -69,7 +69,7 @@ const DiaryListView = () => {
 
   return (
     <AppPageLayout
-      title="다이어리"
+      title="일기 목록"
       description="차곡차곡 쌓이는 나의 하루"
       pageRef={wrapperRef}
       showScrollToTop
@@ -81,19 +81,21 @@ const DiaryListView = () => {
           aria-label="기간 필터"
           onClick={openMonthFilter}
         >
-          <MdCalendarMonth size={18} />
+          <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
           {isPeriodSelected ? selectedPeriodLabel : "전체 기간"}
         </TopButton>
         <TopButton
           onClick={onToggle}
         >
+          <MdSort size={18} className="shrink-0" aria-hidden="true" />
           {sortValue === 'DESC' ? '최신순' : '과거순'}
         </TopButton>
         <TopButton
           aria-label="감정 필터"
           onClick={openEmotionFilter}
         >
-          {isEmotionSelected ? selectedEmotionLabel : <MdEmojiEmotions size={18} />}
+          <MdEmojiEmotions size={18} className="shrink-0" aria-hidden="true" />
+          {isEmotionSelected && selectedEmotionLabel}
         </TopButton>
       </>}
     >

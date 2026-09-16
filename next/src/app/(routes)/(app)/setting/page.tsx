@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import { AccountInfoSection } from "./_components/AccountInfoSection";
 import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
 
-import { MdPrivacyTip } from "react-icons/md";
+import { MdPrivacyTip, MdShop } from "react-icons/md";
 import { AccountActionSection } from "./_components/AccountActionSection";
 
 
@@ -27,6 +27,7 @@ const SettingPage = () => {
 
   return (
     <AppPageLayout
+      showMobileLogo
       title="설정"
       description="나에게 편안한 기록 공간을 만들어요"
       contentProps={{ className: "gap-6" }}
@@ -34,6 +35,7 @@ const SettingPage = () => {
       topButton={<>
         <TopButton
           onClick={() => router.push('https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share')}>
+          <MdShop size={18} className="shrink-0" aria-hidden="true" />
           PlayStore
         </TopButton>
         <TopButton

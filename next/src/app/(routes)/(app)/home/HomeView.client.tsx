@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useRef } from "react";
+import { MdCalendarMonth } from "react-icons/md";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
@@ -63,7 +64,10 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
       showScrollToTop
       topButton={
         <>
-          <TopButton onClick={openYearFilter}>{selectedYear}년</TopButton>
+          <TopButton onClick={openYearFilter}>
+            <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
+            {selectedYear}년
+          </TopButton>
           <CaptureTopButton targetRef={captureRef} disabled={!diaryReady || !habitReady || diaryFetching || habitFetching} />
         </>
       }

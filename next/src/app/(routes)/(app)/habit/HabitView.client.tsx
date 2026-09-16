@@ -12,7 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useEffect, useRef } from "react";
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdSort } from 'react-icons/md';
 import HabitBox from "./_components/HabitBox";
 import HabitOverviewCard from "./_components/HabitOverviewCard";
 import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
@@ -61,13 +61,14 @@ const HabitView = () => {
 
   return (
     <AppPageLayout
-      title="습관"
+      title="습관 만들기"
       description="작은 실천으로 만들어가는 나의 일상"
       pageRef={pageRef}
       showScrollToTop
       topButton={
         <>
           <TopButton onClick={onToggle}>
+            <MdSort size={18} className="shrink-0" aria-hidden="true" />
             {HABIT_SORT_LABELS[sortValue]}
           </TopButton>
           <TopButton aria-label="습관 추가" onClick={onAddHabit} title="습관 추가">
