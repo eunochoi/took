@@ -51,7 +51,7 @@ const AppPageLayout = ({ afterContent, children, contentProps, pageRef, showScro
         showScrollToTop={showScrollToTop}
       >
         <div className="flex w-full max-w-[650px] flex-1 flex-col px-[4dvw] pt-8 tablet:px-9 tablet:pt-6 desktop:max-w-[1080px] desktop:px-14">
-          {showMobileLogo && <div className="mb-8 tablet:hidden"><Wordmark /></div>}
+          {showMobileLogo && <div className="mb-8 tablet:hidden"><Wordmark className="text-[48px]" /></div>}
           {title && <AppPageTitle title={title} description={description} />}
           {hasToolbar && (
             <div ref={toolbarRef} data-component="pageToolbar" className="sticky top-0 z-[91] -mx-[4dvw] mb-4 flex flex-wrap items-center gap-2 bg-theme-bg px-[4dvw] py-3 after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-4 after:bg-scroll-fade-top after:content-[''] tablet:-mx-9 tablet:px-9 desktop:-mx-14 desktop:px-14">
