@@ -10,12 +10,9 @@ interface Props {
   setSelectedMonth: (d: number) => void;
 }
 
-const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelectedMonth }: Props) => {
-  const monthsTopNum = [1, 2, 3, 4, 5, 6];
-  const monthsTopEng = ['jan', 'feb', 'mar', 'apr', 'may', 'jun'];
-  const monthsBottomNum = [7, 8, 9, 10, 11, 12];
-  const monthsBottomEng = ['jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+const MONTHS = Array.from({ length: 12 }, (_, index) => index + 1);
 
+const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelectedMonth }: Props) => {
   const [touchStartX, setTouchStartX] = useState<number>(0);
   const yearButtonClass = "px-2 py-[3px] text-base text-theme-text-primary";
 
@@ -37,25 +34,6 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
     else setSelectedMonth(n);
   };
 
-  const renderMonth = (month: number, label: string) => {
-    const selected = selectedMonth === month;
-
-    return (
-      <button
-        className={cn(
-          "flex w-[16%] flex-col items-center justify-center",
-          selected && "rounded-theme bg-theme-accent",
-        )}
-        key={'month' + month}
-        onClick={() => selectMonth(month)}
-        type="button"
-      >
-        <span className={cn("text-sm text-theme-text-primary", selected && "text-theme-text-on-accent")}>{month}</span>
-        <span className={cn("text-sm capitalize text-theme-text-tertiary", selected && "text-theme-text-on-accent")}>{label}</span>
-      </button>
-    );
-  };
-
   return (
     <div>
       <div className="flex w-full items-center justify-between p-2">
@@ -64,22 +42,34 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
         <button className={yearButtonClass} onClick={goToNextYear} type="button"><MdKeyboardArrowRight /></button>
       </div>
       <div
-        className="flex h-[150px] w-full flex-col items-center justify-center"
-        onTouchStart={(e: any) => {
+        className="grid h-[150px] w-full grid-cols-6 grid-rows-2"
+        onTouchStart={(e) => {
           setTouchStartX(e.changedTouches[0].clientX);
         }}
-        onTouchEnd={(e: any) => {
+        onTouchEnd={(e) => {
           const touchEndX = e.changedTouches[0].clientX;
           if (touchEndX - touchStartX > 100) goToPreYear();
           else if (touchStartX - touchEndX > 100) goToNextYear();
         }}
       >
-        <section className="flex h-1/2 w-full justify-between">
-          {monthsTopNum.map((month, i) => renderMonth(month, monthsTopEng[i]))}
-        </section>
-        <section className="flex h-1/2 w-full justify-between">
-          {monthsBottomNum.map((month, i) => renderMonth(month, monthsBottomEng[i]))}
-        </section>
+        {MONTHS.map((month) => {
+          const selected = selectedMonth === month;
+
+          return (
+            <button
+              key={month}
+              className={cn(
+                "flex items-center justify-center rounded-theme text-sm transition-colors duration-500",
+                selected ? "bg-theme-accent text-white" : "text-theme-text-primary",
+              )}
+              aria-pressed={selected}
+              onClick={() => selectMonth(month)}
+              type="button"
+            >
+              {month}월
+            </button>
+          );
+        })}
       </div>
     </div>
   );
