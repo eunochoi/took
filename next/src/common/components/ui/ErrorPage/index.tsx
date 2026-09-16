@@ -39,7 +39,7 @@ export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) 
               <button
                 key={index}
                 className={cn(
-                  "cursor-pointer rounded-full px-5 py-2 text-sm font-medium shadow-card transition-opacity hover:opacity-80",
+                  "cursor-pointer rounded-full px-5 py-2 text-sm font-medium shadow-card transition-opacity desktop:hover:opacity-80",
                   (button.variant || 'primary') === 'primary'
                     ? "bg-theme-accent text-theme-text-on-accent"
                     : "bg-theme-surface-muted text-theme-text-secondary",

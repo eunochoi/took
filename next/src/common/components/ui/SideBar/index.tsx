@@ -16,7 +16,7 @@ const SideBar = () => {
       <nav className="flex flex-col gap-2" aria-label="주요 메뉴">
         {items.map(({ key, segment, icon: Icon, href, label }) => (
           <Link key={key} href={href} aria-label={label} aria-current={current === segment ? 'page' : undefined}
-            className={cn("flex min-h-12 items-center justify-center gap-3 rounded-xl px-3 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent desktop:justify-start", current === segment ? "bg-theme-accent/15 font-semibold text-theme-accent" : "text-theme-text-secondary hover:bg-theme-surface/60")}>
+            className={cn("flex min-h-12 items-center justify-center gap-3 rounded-xl px-3 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent desktop:justify-start", current === segment ? "bg-theme-accent/15 font-semibold text-theme-accent" : "text-theme-text-secondary desktop:hover:bg-theme-surface/60")}>
             <Icon className="shrink-0 text-xl" />
             <span className="hidden desktop:block">{label}</span>
           </Link>

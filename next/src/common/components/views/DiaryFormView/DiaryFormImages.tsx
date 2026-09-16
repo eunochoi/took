@@ -27,7 +27,7 @@ const DiaryFormImages = ({
     <div className="flex h-auto w-full shrink-0 items-stretch gap-4 overflow-x-auto rounded-theme bg-theme-surface px-4 py-4 shadow-card [&::-webkit-scrollbar-thumb]:rounded-sm [&::-webkit-scrollbar-thumb]:bg-theme-overlay/10 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar]:h-1">
       <div className={imageTileClass}>
         <label
-          className={`flex h-full w-full flex-col items-center justify-center gap-2 rounded-theme bg-theme-accent shadow-card transition-all duration-200 ease-in-out ${isLoading ? 'cursor-not-allowed opacity-40' : 'cursor-pointer hover:-translate-y-px hover:shadow-theme-soft'}`}
+          className={`flex h-full w-full flex-col items-center justify-center gap-2 rounded-theme bg-theme-accent shadow-card transition-all duration-200 ease-in-out ${isLoading ? 'cursor-not-allowed opacity-40' : 'cursor-pointer desktop:hover:-translate-y-px desktop:hover:shadow-theme-soft'}`}
           htmlFor="diary-image-upload"
         >
           <input
@@ -62,7 +62,7 @@ const DiaryFormImages = ({
               unoptimized
             />
             <button
-              className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-theme-accent text-xl text-theme-text-on-accent transition-all duration-200 ease-in-out hover:scale-110 hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+              className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-theme-accent text-xl text-theme-text-on-accent transition-all duration-200 ease-in-out desktop:hover:scale-110 desktop:hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
               disabled={isLoading}
               onClick={() => handleRemoveImage(index)}
               type="button"
