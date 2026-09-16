@@ -14,7 +14,7 @@ import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
 import DiaryAnalysis from "./_components/DiaryAnalysis";
 import EmotionStats from "./_components/EmotionStats";
-import GreetingSection from "./_components/GreetingSection";
+import TodayRecordSection from "./_components/TodayRecordSection";
 import HabitAnalysis from "./_components/HabitAnalysis";
 import YearFilter from "./_components/YearFilter";
 
@@ -82,7 +82,7 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
       }>
       <div className="grid w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6">
         <div className="min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
-          <GreetingSection initialDate={initialDate} />
+          <TodayRecordSection initialDate={initialDate} />
         </div>
 
         <div className="flex min-w-0 flex-col gap-14 desktop:col-start-1 desktop:row-start-1">

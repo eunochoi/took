@@ -3,8 +3,8 @@
 import { ReactNode, RefObject, useEffect, useRef } from "react";
 
 import { cn } from "@/common/utils/cn";
-import Wordmark from "../ui/Wordmark";
 import { ScrollContainer } from "../ui/ScrollContainer";
+import Wordmark from "../ui/Wordmark";
 import AppPageTitle from "./AppPageTitle";
 import { PageContent, PageContentProps } from "./PageContent";
 
