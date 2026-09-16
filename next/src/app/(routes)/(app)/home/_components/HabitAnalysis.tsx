@@ -34,7 +34,7 @@ const HabitAnalysis = ({ stats }: Props) => {
   return (
     <AppSection>
       <AppSectionHeader>
-        <AppSectionTitle>습관 정보</AppSectionTitle>
+        <AppSectionTitle>습관 기록</AppSectionTitle>
         <AppSectionMeta>전체 {stats?.totalHabits ?? 0}개의 목표 습관</AppSectionMeta>
       </AppSectionHeader>
 

@@ -38,7 +38,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
   return (
     <AppSection>
       <AppSectionHeader>
-        <AppSectionTitle>일기 정보</AppSectionTitle>
+        <AppSectionTitle>일기 기록</AppSectionTitle>
         <AppSectionMeta>{totalCount}개의 일기</AppSectionMeta>
       </AppSectionHeader>
 

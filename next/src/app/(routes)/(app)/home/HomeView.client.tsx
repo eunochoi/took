@@ -55,16 +55,19 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
 
   return (
     <AppPageLayout
+      title="기록 돌아보기"
+      description="작은 기록이 모여 나다운 하루가 돼요"
+      showMobileLogo
       showScrollToTop
       topButton={
         <>
-          <TopButton size="auto" onClick={openYearFilter}>
+          <TopButton onClick={openYearFilter}>
             {selectedYear}년
           </TopButton>
         </>
       }
       contentProps={{
-        className: "flex-1 gap-3 max-tablet:gap-5 pt-6 tablet:gap-6 desktop:px-14",
+        className: "flex-1 gap-3 max-tablet:gap-5 tablet:gap-6",
       }}
       afterContent={
         <YearFilter
@@ -84,7 +87,7 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
         />
       }>
       <div className="grid w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6">
-        <div className="min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--mobileHeader)+2.25rem)] desktop:self-start">
+        <div className="min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
           <GreetingSection initialDate={initialDate} />
         </div>
 

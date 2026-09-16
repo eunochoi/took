@@ -92,7 +92,7 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
   return (
     <AppSection>
       <AppSectionHeader>
-        <AppSectionTitle>감정 정보</AppSectionTitle>
+        <AppSectionTitle>감정 기록</AppSectionTitle>
         <AppSectionMeta>전체 {totalCount}개의 감정 기록</AppSectionMeta>
       </AppSectionHeader>
 
