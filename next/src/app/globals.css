@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '../style/fonts.css';
+@import '../style/local-fonts.css';
 @import '../style/keyframes.css';
 @import '../style/notistack.css';
 @import '../style/theme.css';
@@ -33,8 +33,7 @@
 
 
   --sidebarWidth: 270px;
-  --desktopHeader: 72px;
-  --mobileHeader: 56px;
+  --mobileHeader: 72px;
   --mobileNav: 81px;
 }
 
@@ -113,7 +112,7 @@ html[data-theme-mode='어둡게'] {
 
 /* app font type */
 html[data-font-type='타입1'] {
-  --app-font-family: 'Paperozi';
+  --app-font-family: 'Pretendard';
 }
 
 html[data-font-type='타입2'] {
@@ -121,6 +120,10 @@ html[data-font-type='타입2'] {
 }
 
 html[data-font-type='타입3'] {
+  --app-font-family: 'Paperozi';
+}
+
+html[data-font-type='타입4'] {
   --app-font-family: 'MaruBuri';
 }
 
