@@ -2,17 +2,16 @@
 
 import { checkHabit as checkHabitAction, deleteHabit as deleteHabitAction, getHabitRecentStatus, uncheckHabit as uncheckHabitAction } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
-import { StarRating } from "@/common/components/ui/StarRating";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { SnackBarAction } from "@/common/providers/snackbar/SnackBarAction";
 import { cn } from "@/common/utils/cn";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { format, subDays } from "date-fns";
-import { ko } from "date-fns/locale";
-import { useRouter } from "next/navigation";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
-import { ChangeEvent } from "react";
-import { MdOutlineDeleteForever, MdOutlineEdit, MdOutlineInsertChart } from 'react-icons/md';
+import { useRef, useState } from "react";
+
+import HabitBoxHeader from "./HabitBoxHeader";
+import HabitBoxRecentDays from "./HabitBoxRecentDays";
+import HabitBoxProgress from "./HabitBoxProgress";
 
 interface Props {
   name: string;
@@ -20,19 +19,16 @@ interface Props {
   priority: number;
 }
 
-const actionButtonClass = "mx-2 text-xl";
-
 const HabitBox = ({ name, id, priority }: Props) => {
-  const router = useRouter();
   const queryClient = useQueryClient();
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isUpdating, setUpdating] = useState(false);
+  const updatingRef = useRef(false);
 
   const todayString = getTodayString();
-  const currentDate = new Date();
-  let recentDateArray = new Array(4).fill(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
-  recentDateArray = recentDateArray.map((e, i) => subDays(e, i));
 
-  const { data: recentDateStatus } = useQuery({
-    queryKey: ['habit', name, 'recent'],
+  const { data: recentDateStatus, isFetching } = useQuery({
+    queryKey: ['habit', id, 'recent', todayString],
     queryFn: () => authAction(() => getHabitRecentStatus({ id, date: todayString })),
   });
 
@@ -61,68 +57,58 @@ const HabitBox = ({ name, id, priority }: Props) => {
     enqueueSnackbar(`습관 항목(${name})을 지우시겠습니까?`, { key: 'deleteHabit', persist: false, action, autoHideDuration: 3000 });
   };
 
-  const ontoggleHabit = async (e: ChangeEvent<HTMLInputElement>, dateString: string) => {
+  const onToggleHabit = async (checked: boolean, dateString: string) => {
+    if (updatingRef.current) return;
+    updatingRef.current = true;
+    setUpdating(true);
     try {
-      if (e.currentTarget.checked === true) {
+      if (checked) {
         await authAction(() => checkHabitAction({ habitId: id, date: dateString }));
       }
       else {
         await authAction(() => uncheckHabitAction({ habitId: id, date: dateString }));
       }
 
-      queryClient.invalidateQueries({ queryKey: ['habits'] });
-      queryClient.invalidateQueries({ queryKey: ['habit'] });
-      queryClient.invalidateQueries({ queryKey: ['diary'] });
-      queryClient.invalidateQueries({ queryKey: ['diary-habit', 'month'] });
-      queryClient.invalidateQueries({ queryKey: ['stats', 'habit'] });
-      queryClient.invalidateQueries({ queryKey: ['stats', 'years'] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['habits'] }),
+        queryClient.invalidateQueries({ queryKey: ['habit'] }),
+        queryClient.invalidateQueries({ queryKey: ['diary'] }),
+        queryClient.invalidateQueries({ queryKey: ['diary-habit', 'month'] }),
+        queryClient.invalidateQueries({ queryKey: ['stats', 'habit'] }),
+        queryClient.invalidateQueries({ queryKey: ['stats', 'years'] }),
+      ]);
     } catch (error) {
       enqueueSnackbar(error instanceof Error ? error.message : '습관 체크 변경 실패');
+    } finally {
+      updatingRef.current = false;
+      setUpdating(false);
     }
   };
 
-  return (
-    <div className="flex aspect-[0.8] py-2 w-full flex-col items-center justify-evenly rounded-theme bg-theme-surface shadow-theme-section backdrop-blur-xl">
-      <div className="flex flex-col gap-1 h-auto w-full items-center justify-center text-center text-base font-medium text-theme-text-primary">
-        <StarRating rating={priority + 1} />
-        <span className="max-w-[90%] text-base truncate">{name}</span>
-      </div>
-      <div className="my-1.5 flex h-auto w-full items-center justify-evenly">
-        {recentDateArray.map((date, i: number) => {
-          const checked = !!recentDateStatus?.[i];
+  const controlsDisabled = isUpdating || isFetching || !recentDateStatus;
 
-          return (
-            <div key={`${date}-${name}`} className="flex h-full items-center justify-center">
-              <label htmlFor={`${date}-${name}`} className="flex h-full flex-col items-center justify-between text-base font-medium text-theme-text-secondary">
-                <span className={i === 0 ? "text-theme-accent" : "text-theme-text-primary"}>{format(date, 'eee', { locale: ko })}</span>
-                <span className="my-0.5">{format(date, 'd')}</span>
-                <input
-                  id={`${date}-${name}`}
-                  className="absolute h-0 w-0 cursor-pointer opacity-0"
-                  type="checkbox"
-                  checked={checked}
-                  onChange={(e) => {
-                    ontoggleHabit(e, format(date, 'yyyy-MM-dd'));
-                  }} />
-                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-theme-bg">
-                  <div className={cn("h-3 w-3 shrink-0 rounded-full transition-all duration-200 ease-in-out", checked && "bg-theme-accent")} />
-                </div>
-              </label>
-            </div>
-          );
-        })}
-      </div>
-      <div className="flex h-auto w-full items-center justify-center text-theme-text-disabled">
-        <button className={actionButtonClass} onClick={() => router.push(`/inter/habitInfo?id=${id}`, { scroll: false })} type="button">
-          <MdOutlineInsertChart />
-        </button>
-        <button className={actionButtonClass} onClick={() => router.push(`/inter/input/editHabit?id=${id}`, { scroll: false })} type="button">
-          <MdOutlineEdit />
-        </button>
-        <button className={actionButtonClass} onClick={onDeleteHabit} type="button">
-          <MdOutlineDeleteForever />
-        </button>
-      </div>
+  return (
+    <div className={cn("relative flex min-w-0 flex-col gap-5 rounded-theme bg-theme-surface p-3 shadow-theme-section sm:p-5", isMenuOpen && "z-10")}>
+      <HabitBoxHeader
+        id={id}
+        name={name}
+        priority={priority}
+        isMenuOpen={isMenuOpen}
+        setMenuOpen={setMenuOpen}
+        onDeleteHabit={onDeleteHabit}
+      />
+      <HabitBoxRecentDays
+        name={name}
+        recentDateStatus={recentDateStatus}
+        controlsDisabled={controlsDisabled}
+        onToggleHabit={onToggleHabit}
+      />
+      <HabitBoxProgress
+        name={name}
+        recentDateStatus={recentDateStatus}
+        controlsDisabled={controlsDisabled}
+        onCompleteToday={() => onToggleHabit(true, todayString)}
+      />
     </div>
   );
 };
