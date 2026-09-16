@@ -4,6 +4,7 @@ import { AppSurfaceCard } from "@/common/components/ui/AppSection/card";
 import { cn } from "@/common/utils/cn";
 
 interface Props {
+  className?: string;
   data?: number[];
   year: string;
   onCurrentYear: () => void;
@@ -13,11 +14,11 @@ interface Props {
 
 const yearButtonClass = "flex p-[3px] text-theme-text-secondary";
 
-const MonthlyBarChart = ({ data, year, onCurrentYear, onNextYear, onPrevYear }: Props) => {
+const MonthlyBarChart = ({ data, year, onCurrentYear, onNextYear, onPrevYear, className }: Props) => {
   const maxCount = Math.max(...(data ?? [1]), 1);
 
   return (
-    <AppSurfaceCard className="flex flex-col gap-4">
+    <AppSurfaceCard className={cn("flex flex-col gap-4", className)}>
       <header className="flex w-full items-center justify-between py-1.5">
         <button className={yearButtonClass} onClick={onPrevYear} type="button"><MdKeyboardArrowLeft /></button>
         <button className={cn(yearButtonClass, " text-xl capitalize text-theme-text-primary")} onClick={onCurrentYear} type="button">

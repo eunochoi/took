@@ -36,7 +36,7 @@ const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
           >
             <MdKeyboardArrowLeft />
           </button>
-          <h2 className="text-xl font-semibold text-theme-text-primary">{year}년 기록</h2>
+          <h2 className="text-lg font-semibold text-theme-text-primary">{year}년 기록</h2>
           <button
             className="flex items-center text-2xl text-theme-text-tertiary"
             aria-label="다음 연도"
@@ -63,6 +63,7 @@ const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
       </AppSurfaceCard>
 
       <MonthlyBarChart
+        className="desktop:[&>header>button]:text-lg desktop:[&>header>button]:font-semibold"
         data={data?.monthlyCount}
         year={String(year)}
         onCurrentYear={() => onChangeYear(new Date().getFullYear())}

@@ -12,7 +12,7 @@ interface AccountInfoSectionProps {
 
 export const AccountInfoSection = ({ email, provider, createAt, className }: AccountInfoSectionProps) => {
   return (
-    <SettingSectionCard className={cn(className)}>
+    <SettingSectionCard className={cn("desktop:[&_.text-base]:text-sm", className)}>
       <SettingSubsection title="가입 정보">
         <SettingItem settingItemKey="이메일" settingItemValue={<span>{email}</span>} />
         <SettingItem settingItemKey="계정 타입" settingItemValue={<span>{provider}</span>} />

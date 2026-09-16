@@ -49,11 +49,11 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
     <div className="flex w-full min-w-0 flex-col gap-2.5 text-left">
       {diaryQuery.isError ? (
         <AppSurfaceCard className={recordCardClass} role="alert">
-          <span className="flex-1 text-xs">일기를 불러오지 못했어요.</span>
-          <button type="button" className="shrink-0 text-xs text-theme-accent" onClick={() => void diaryQuery.refetch()}>다시 시도</button>
+          <span className="flex-1 text-xs desktop:text-sm">일기를 불러오지 못했어요.</span>
+          <button type="button" className="shrink-0 text-xs desktop:text-sm text-theme-accent" onClick={() => void diaryQuery.refetch()}>다시 시도</button>
         </AppSurfaceCard>
       ) : diaryQuery.isPending ? (
-        <AppSurfaceCard className={recordCardClass} role="status"><span className="text-xs text-theme-text-secondary">일기 확인 중…</span></AppSurfaceCard>
+        <AppSurfaceCard className={recordCardClass} role="status"><span className="text-xs desktop:text-sm text-theme-text-secondary">일기 확인 중…</span></AppSurfaceCard>
       ) : (
         <AppSurfaceCard
           className={`${recordCardClass} cursor-pointer`}
