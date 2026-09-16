@@ -14,7 +14,7 @@ const layoutClass = "flex w-screen justify-center";
 
 const sideBarBaseClass = "hidden h-[100dvh] shrink-0";
 const sideBarTabletClass = "tablet:block tablet:w-32";
-const sideBarDesktopClass = "";
+const sideBarDesktopClass = "desktop:w-[200px]";
 
 const contentClass = "flex min-w-0 flex-1 flex-col items-center justify-start";
 

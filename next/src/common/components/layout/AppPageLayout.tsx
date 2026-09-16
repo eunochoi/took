@@ -1,9 +1,11 @@
 'use client';
 
-import { ReactNode, RefObject } from "react";
+import { ReactNode, RefObject, useEffect, useRef } from "react";
 
 import { cn } from "@/common/utils/cn";
+import Wordmark from "../ui/Wordmark";
 import { ScrollContainer } from "../ui/ScrollContainer";
+import AppPageTitle from "./AppPageTitle";
 import { PageContent, PageContentProps } from "./PageContent";
 
 interface Props {
@@ -12,32 +14,59 @@ interface Props {
   contentProps?: PageContentProps;
   pageRef?: RefObject<HTMLDivElement>;
   showScrollToTop?: boolean;
+  showMobileLogo?: boolean;
+  title?: string;
+  description?: string;
+  toolbarStart?: ReactNode;
   topButton?: ReactNode;
 }
 
-const AppPageLayout = ({ afterContent, children, contentProps, pageRef, showScrollToTop = false, topButton }: Props) => {
+const AppPageLayout = ({ afterContent, children, contentProps, pageRef, showScrollToTop = false, showMobileLogo = false, title, description, toolbarStart, topButton }: Props) => {
+  const layoutRef = useRef<HTMLDivElement>(null);
+  const toolbarRef = useRef<HTMLDivElement>(null);
+  const hasToolbar = Boolean(toolbarStart || topButton);
+
+  useEffect(() => {
+    const toolbar = toolbarRef.current;
+    if (!toolbar) {
+      layoutRef.current?.style.setProperty('--page-toolbar-height', '0px');
+      return;
+    }
+    const observer = new ResizeObserver(() => {
+      layoutRef.current?.style.setProperty('--page-toolbar-height', `${toolbar.getBoundingClientRect().height}px`);
+    });
+    observer.observe(toolbar);
+    return () => observer.disconnect();
+  }, [hasToolbar]);
+
   return (
-    <ScrollContainer
-      ref={pageRef}
-      className="flex h-[100dvh] flex-col items-center justify-start border-none outline-none"
-      contentClassName="flex min-h-full flex-col items-center justify-start"
-      fadeSizeClassName="h-[70px]"
-      scrollAreaClassName="flex h-full w-full flex-col items-center justify-start"
-      showScrollFade
-      showScrollToTop={showScrollToTop}
-    >
-      {topButton && (
-        <div className="sticky top-0 z-[91] flex h-[var(--mobileHeader)] w-full shrink-0 items-center justify-end gap-1.5 px-[4dvw] tablet:px-5 desktop:px-12">
-          {topButton}
+    <div ref={layoutRef} className="flex h-[100dvh] w-full min-w-0 flex-col">
+      <ScrollContainer
+        ref={pageRef}
+        className="flex min-h-0 flex-1 flex-col items-center justify-start border-none outline-none"
+        contentClassName="flex min-h-full flex-col items-center justify-start"
+        fadeSizeClassName="h-[60px]"
+        scrollAreaClassName="flex h-full w-full flex-col items-center justify-start"
+        showScrollFade
+        showTopFade={false}
+        showScrollToTop={showScrollToTop}
+      >
+        <div className="flex w-full max-w-[650px] flex-1 flex-col px-[4dvw] pt-8 tablet:px-9 tablet:pt-6 desktop:max-w-[1080px] desktop:px-14">
+          {showMobileLogo && <div className="mb-8 tablet:hidden"><Wordmark /></div>}
+          {title && <AppPageTitle title={title} description={description} />}
+          {hasToolbar && (
+            <div ref={toolbarRef} data-component="pageToolbar" className="sticky top-0 z-[91] -mx-[4dvw] mb-4 flex flex-wrap items-center gap-2 bg-theme-bg px-[4dvw] py-3 after:pointer-events-none after:absolute after:inset-x-0 after:top-full after:h-4 after:bg-scroll-fade-top after:content-[''] tablet:-mx-9 tablet:px-9 desktop:-mx-14 desktop:px-14">
+              {toolbarStart && <div className="flex min-w-0 flex-wrap items-center gap-2">{toolbarStart}</div>}
+              {topButton && <div className="ml-auto flex min-w-0 flex-wrap items-center justify-end gap-2">{topButton}</div>}
+            </div>
+          )}
+          <PageContent {...contentProps} className={cn("min-w-0", contentProps?.className)}>
+            {children}
+          </PageContent>
         </div>
-      )}
-
-      <PageContent {...contentProps} className={cn("desktop:max-w-[1200px]", contentProps?.className)}>
-        {children}
-      </PageContent>
-
-      {afterContent}
-    </ScrollContainer>
+        {afterContent}
+      </ScrollContainer>
+    </div>
   );
 };
 

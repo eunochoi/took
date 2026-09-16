@@ -14,6 +14,7 @@ interface ScrollContainerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
   fadeSizeClassName?: string;
   scrollAreaClassName?: string;
   showScrollFade?: boolean;
+  showTopFade?: boolean;
   showScrollToTop?: boolean;
 }
 
@@ -25,6 +26,7 @@ export const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
     fadeSizeClassName = "h-12",
     scrollAreaClassName,
     showScrollFade = false,
+    showTopFade = true,
     showScrollToTop = false,
     ...props
   }, ref) => {
@@ -65,7 +67,7 @@ export const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
           <>
             <ScrollEdgeFade
               edge="top"
-              visible={isVisibleTopFade}
+              visible={showTopFade && isVisibleTopFade}
               className={cn("absolute inset-x-0 top-0 z-[90]", fadeSizeClassName)}
             />
             <ScrollEdgeFade

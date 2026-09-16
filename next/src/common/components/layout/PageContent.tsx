@@ -18,9 +18,7 @@ export const PageContent = forwardRef<HTMLDivElement, PageContentProps>(
         ref={ref}
         key={pathname ?? 'page-content'}
         className={cn(
-          "flex h-auto w-full max-w-[650px] flex-col",
-          "max-tablet:px-[4dvw] max-tablet:pb-[var(--mobileNav)] max-tablet:pt-0",
-          "tablet:px-9 tablet:pb-9 tablet:pt-9",
+          "flex h-auto w-full flex-col max-tablet:pb-[var(--mobileNav)] tablet:pb-9",
           className,
         )}
         initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}

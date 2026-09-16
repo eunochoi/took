@@ -1,20 +1,19 @@
 import { ReactNode } from "react";
 
-type TopButtonSize = 'auto' | 'default';
+const topButtonClass = "shadow-theme-action flex min-h-11 w-auto items-center justify-center gap-1.5 rounded-xl border border-transparent bg-theme-accent px-3 py-2 font-sans text-sm font-medium leading-snug text-theme-text-on-accent transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent disabled:cursor-not-allowed disabled:opacity-50";
 
 interface Props {
   'aria-label'?: string;
   children: ReactNode;
   onClick: () => void;
-  size?: TopButtonSize;
   disabled?: boolean;
   title?: string;
 }
 
-const TopButton = ({ 'aria-label': ariaLabel, children, onClick, size = 'default', disabled = false, title }: Props) => (
+const TopButton = ({ 'aria-label': ariaLabel, children, onClick, disabled = false, title }: Props) => (
   <button
     aria-label={ariaLabel}
-    className={`shadow-theme-action flex h-8 items-center justify-center rounded-full bg-theme-accent text-sm font-medium text-theme-text-on-accent disabled:cursor-not-allowed disabled:opacity-50 ${size === 'auto' ? 'w-auto px-2.5' : 'w-16'}`}
+    className={topButtonClass}
     type="button"
     onClick={onClick}
     disabled={disabled}
