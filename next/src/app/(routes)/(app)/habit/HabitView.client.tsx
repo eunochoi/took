@@ -6,18 +6,17 @@ import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import TopButton from "@/common/components/ui/TopButton";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
-import { enqueueSnackbar } from "notistack";
-import { MdAdd } from 'react-icons/md';
-import HabitBox from "./_components/HabitBox";
-import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
 import type { HabitSort } from "@/common/types/sort";
-import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
-import HabitPageTitle from "./_components/HabitPageTitle";
+import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { enqueueSnackbar } from "notistack";
+import { useEffect, useRef } from "react";
+import { MdAdd } from 'react-icons/md';
+import HabitBox from "./_components/HabitBox";
 import HabitOverviewCard from "./_components/HabitOverviewCard";
+import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
+import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
 
 interface Habit {
   id: number;
@@ -62,21 +61,29 @@ const HabitView = () => {
 
   return (
     <AppPageLayout
+      title="습관"
+      description="작은 실천으로 만들어가는 나의 일상"
       pageRef={pageRef}
       showScrollToTop
-      contentProps={{ className: "desktop:px-14" }}
       topButton={
-        <TopButton onClick={onToggle}>
-          {HABIT_SORT_LABELS[sortValue]}
-        </TopButton>
+        <>
+          <TopButton onClick={onToggle}>
+            {HABIT_SORT_LABELS[sortValue]}
+          </TopButton>
+          <TopButton aria-label="습관 추가" onClick={onAddHabit} title="습관 추가">
+            <MdAdd className="text-xl" aria-hidden="true" />
+          </TopButton>
+        </>
       }>
       <div className="w-full desktop:grid desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:grid-rows-[auto_1fr] desktop:items-start desktop:gap-x-8 desktop:gap-y-0">
-        <HabitPageTitle
-          completedCount={todayDoneHabitCount}
-          rate={todayDoneHabitRate}
-          totalCount={totalHabitCount}
-          className="desktop:col-start-1 desktop:row-start-1"
-        />
+        <div className="mb-4 desktop:hidden">
+          <HabitOverviewCard
+            completedCount={todayDoneHabitCount}
+            habitCount={totalHabitCount}
+            maxHabitCount={MAX_HABIT_COUNT}
+            rate={todayDoneHabitRate}
+          />
+        </div>
 
         <section className="mt-0 flex min-w-0 flex-col desktop:col-start-1 desktop:row-start-2">
           <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3">
@@ -93,11 +100,12 @@ const HabitView = () => {
           </div>
         </section>
 
-        <aside className="hidden w-full flex-col gap-3 desktop:col-start-2 desktop:row-start-2 desktop:flex desktop:sticky desktop:top-[calc(var(--mobileHeader)+2.25rem)] desktop:self-start">
+        <aside className="hidden w-full flex-col gap-3 desktop:col-start-2 desktop:row-start-2 desktop:flex desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
           <HabitOverviewCard
+            completedCount={todayDoneHabitCount}
             habitCount={totalHabitCount}
             maxHabitCount={MAX_HABIT_COUNT}
-            onAddHabit={onAddHabit}
+            rate={todayDoneHabitRate}
           />
         </aside>
 
