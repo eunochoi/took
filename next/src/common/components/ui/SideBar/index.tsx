@@ -3,50 +3,28 @@
 import { useNavItems } from '@/common/hooks/useNavItems';
 import { cn } from '@/common/utils/cn';
 import Link from 'next/link';
-import Logo from '../Logo';
-
-const sideBarWrapperClass = "flex h-full w-full flex-col items-center justify-start gap-16 landscape-short:gap-4 py-8 overflow-y-auto";
-
-const commonNavWrapperClass = 'shrink-0 flex flex-col justify-center items-center w-16 rounded-full overflow-hidden bg-theme-surface/75 shadow-theme-floating backdrop-blur-2xl';
-const commonNavItemClass = "transition-colors duration-500 flex justify-center items-center w-full h-auto aspect-square text-xl rounded-full";
-const activNavItemClass = 'bg-theme-accent text-theme-text-on-accent';
-const inActiveNavItemCalss = 'bg-transparent text-theme-text-tertiary';
+import Wordmark from '../Wordmark';
 
 const SideBar = () => {
   const { items, current } = useNavItems();
-  const mainItems = items.slice(0, -1);
-  const lastItem = items.at(-1)!;
 
   return (
-    <aside className={cn(sideBarWrapperClass)}>
-      <div
-        data-component='logo'
-        className='flex flex-col justify-center items-start gap-2 landscape-short:hidden'>
-        <Logo
-          withText
-          logoClassName='w-16 h-auto'
-          textClassName='text-xl font-bold' />
-      </div>
-      <nav className={cn(commonNavWrapperClass, 'p-2 gap-4')} aria-label="주요 메뉴">
-        {mainItems.map(({ key, segment, icon: Icon, href }) => (
-          <Link key={key} href={href} aria-label={segment}
-            className={cn(
-              commonNavItemClass,
-              current === segment ? activNavItemClass : inActiveNavItemCalss,
-            )}>
-            <Icon />
+    <aside className="flex h-full w-full flex-col font-sans overflow-y-auto border-r border-theme-border/40 px-3 py-8 desktop:px-5">
+      <Link href="/home" aria-label="TOOK 홈" className="mb-10 self-center rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent desktop:ml-3 desktop:self-start">
+        <Wordmark />
+      </Link>
+      <nav className="flex flex-col gap-2" aria-label="주요 메뉴">
+        {items.map(({ key, segment, icon: Icon, href, label }) => (
+          <Link key={key} href={href} aria-label={label} aria-current={current === segment ? 'page' : undefined}
+            className={cn("flex min-h-12 items-center justify-center gap-3 rounded-xl px-3 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent desktop:justify-start", current === segment ? "bg-theme-accent/15 font-semibold text-theme-accent" : "text-theme-text-secondary hover:bg-theme-surface/60")}>
+            <Icon className="shrink-0 text-xl" />
+            <span className="hidden desktop:block">{label}</span>
           </Link>
         ))}
       </nav>
-      <div className={cn(commonNavWrapperClass)}>
-        <Link href={lastItem.href} aria-label={lastItem.segment}
-          className={cn(
-            commonNavItemClass,
-            current === lastItem.segment
-              ? activNavItemClass : inActiveNavItemCalss,
-          )}>
-          <lastItem.icon />
-        </Link>
+      <div className="mt-auto hidden px-3 pt-12 text-xs leading-relaxed text-theme-text-secondary desktop:block">
+        <p>오늘도<br />조금은 더 좋은 나에게</p>
+        <p className="mt-5 text-theme-text-tertiary">small moments<br />make a kinder you</p>
       </div>
     </aside>
   );
