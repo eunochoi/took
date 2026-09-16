@@ -17,7 +17,7 @@ export const CalendarDay = ({
   day, isToday, isSelected, label, className, onClick, children,
 }: Props) => {
   const cellClassName = cn(
-    'relative flex aspect-[5/7] min-w-0 flex-col items-center justify-center rounded-lg text-xs transition-colors',
+    'relative flex aspect-[1/1.3] min-w-0 flex-col items-center justify-center rounded-lg text-xs transition-colors',
     isToday
       ? 'text-theme-accent'
       : day.weekday === 6

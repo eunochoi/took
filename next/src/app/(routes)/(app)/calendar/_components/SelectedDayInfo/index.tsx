@@ -89,16 +89,16 @@ const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryPlaceholder, 
           aria-busy={isTransitioning}
           className="m-0 flex min-w-0 flex-col gap-0 divide-y divide-theme-border/60 border-0 p-0"
         >
-          <SelectedDayHabitSection
-            habitData={habitData}
-            pendingHabitId={pendingHabitId}
-            onToggleHabit={onToggleHabit}
-          />
           <SelectedDayDiarySection
             diaryData={diaryData}
             isFuture={habitData?.isFuture === true}
             onAddDiary={onAddDiary}
             onOpenDiary={onOpenDiary}
+          />
+          <SelectedDayHabitSection
+            habitData={habitData}
+            pendingHabitId={pendingHabitId}
+            onToggleHabit={onToggleHabit}
           />
         </fieldset>
       ) : <div aria-busy="true" className="min-h-[180px]" />}

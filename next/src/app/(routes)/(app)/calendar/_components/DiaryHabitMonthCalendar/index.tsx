@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 
 import { getDiaryHabitMonthData } from '@/common/actions/diary/getDiaryHabitMonthData';
 import { authAction } from '@/common/auth/authAction';
+import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
 import { CalendarDay } from '@/common/components/ui/Calendar/CalendarDay';
 import { CalendarGrid } from '@/common/components/ui/Calendar/CalendarGrid';
 import { CalendarDayModel, useMonthCalendar } from '@/common/components/ui/Calendar/useMonthCalendar';
@@ -58,8 +59,8 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
   };
 
   return (
-    <section className="flex w-full min-w-0 shrink-0 flex-col gap-3 desktop:row-span-2 desktop:grid desktop:grid-rows-subgrid desktop:self-stretch">
-      <div className="flex min-w-0 flex-col gap-3">
+    <section className="flex w-full min-w-0 shrink-0 flex-col">
+      <AppSurfaceCard className="flex min-w-0 flex-col gap-3 shadow-theme-section desktop:self-start">
         <DiaryHabitMonthCalendarHeader
           monthLabel={calendar.monthLabel}
           diaryCount={diaryHabitMonthData?.summary.diaryCount}
@@ -75,9 +76,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
             <button type="button" onClick={() => void monthQuery.refetch()} className="underline">다시 시도</button>
           </p>
         )}
-      </div>
 
-      <div className="rounded-theme bg-theme-surface p-2 shadow-theme-section backdrop-blur-xl tablet:p-3 desktop:self-start">
         <CalendarGrid {...swipeProps} aria-label={`${calendar.monthLabel} 일기와 습관 달력`} aria-busy={monthQuery.isFetching}>
           {calendar.days.map((day: CalendarDayModel) => {
             const record: DiaryHabitDayData | undefined = day.isOutsideMonth ? undefined : diaryHabitMonthData?.daysByDate[day.dateKey];
@@ -119,7 +118,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
             );
           })}
         </CalendarGrid>
-      </div>
+      </AppSurfaceCard>
     </section>
   );
 };

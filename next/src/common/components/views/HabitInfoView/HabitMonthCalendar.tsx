@@ -31,7 +31,7 @@ const HabitMonthCalendar = ({
         </button>
         <button
           type="button"
-          className="font-title text-xl font-bold text-theme-accent"
+          className="text-lg font-semibold text-theme-accent"
           onClick={onCurrentMonth}
           aria-label={`${monthLabel}, 이번 달로 이동`}
         >

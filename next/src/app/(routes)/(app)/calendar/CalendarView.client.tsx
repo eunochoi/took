@@ -51,9 +51,10 @@ const CalendarView = ({ initialDate }: Props) => {
 
   return (
     <AppPageLayout
+      title="캘린더"
+      description="하루하루 쌓인 마음과 습관을 살펴봐요"
       topButton={
         <TopButton
-          size="auto"
           onClick={openTodayDiary}
           disabled={todayDiaryQuery.isPending}
         >
@@ -61,12 +62,12 @@ const CalendarView = ({ initialDate }: Props) => {
         </TopButton>
       }
       contentProps={{
-        className: 'flex-1 gap-3 max-tablet:gap-5 pt-6 tablet:gap-6 desktop:px-14',
+        className: 'flex-1 gap-3 max-tablet:gap-5 tablet:gap-6',
       }}
     >
-      <div className="grid w-full min-w-0 grid-cols-1 items-start gap-5 tablet:gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:grid-rows-[auto_1fr] desktop:gap-x-8 desktop:gap-y-3">
+      <div className="grid w-full min-w-0 grid-cols-1 items-start gap-5 tablet:gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8">
         <DiaryHabitMonthCalendar today={today} selectedDate={selectedDate} onSelectDate={setSelectedDate} />
-        <div className="min-w-0 desktop:col-start-2 desktop:row-start-2">
+        <div className="min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
           <SelectedDayInfo
             date={selectedDate}
             diaryData={selectedDiaryQuery.data}

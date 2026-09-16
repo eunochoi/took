@@ -20,7 +20,7 @@ const SelectedDayInfoHeader = ({ date, emotion }: Props) => {
         <MdToday className={selectedDayInfoStyles.header.icon} aria-hidden="true" />
         <div className="min-w-0">
           <h2 className={selectedDayInfoStyles.header.title}>{formattedDate}</h2>
-          <p className={selectedDayInfoStyles.header.description}>습관과 감정 일기</p>
+          <p className={selectedDayInfoStyles.header.description}>감정 일기와 습관</p>
         </div>
       </div>
       {emotion && (
