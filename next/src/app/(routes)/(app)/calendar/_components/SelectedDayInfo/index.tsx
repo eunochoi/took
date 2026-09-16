@@ -84,7 +84,11 @@ const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryPlaceholder, 
           }}>다시 시도</button>
         </p>
       ) : !isPending ? (
-        <fieldset disabled={isTransitioning} aria-busy={isTransitioning} className="m-0 flex min-w-0 flex-col gap-3 border-0 p-0">
+        <fieldset
+          disabled={isTransitioning}
+          aria-busy={isTransitioning}
+          className="m-0 flex min-w-0 flex-col gap-0 divide-y divide-theme-border/60 border-0 p-0"
+        >
           <SelectedDayHabitSection
             habitData={habitData}
             pendingHabitId={pendingHabitId}

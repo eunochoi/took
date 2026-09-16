@@ -1,7 +1,7 @@
 import type { HabitsByDate } from '@/common/actions/habit';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { MdCheckBox, MdExpandLess, MdExpandMore, MdLockOutline } from 'react-icons/md';
+import { MdExpandLess, MdExpandMore, MdLockOutline } from 'react-icons/md';
 import SelectedDaySectionHeader from '../SelectedDaySectionHeader';
 import { selectedDayInfoStyles } from '../selectedDayInfoStyles';
 import SelectedDayHabitEmptyState from './SelectedDayHabitEmptyState';
@@ -28,7 +28,7 @@ const SelectedDayHabitSection = ({ habitData, pendingHabitId, onToggleHabit }: P
 
   return (
     <div className={selectedDayInfoStyles.section.frame}>
-      <SelectedDaySectionHeader title="오늘의 습관" icon={<MdCheckBox className={selectedDayInfoStyles.section.icon} aria-hidden="true" />}>
+      <SelectedDaySectionHeader title="오늘의 습관">
         {habitData?.isFuture ? (
           <span className={selectedDayInfoStyles.habit.lockedStatus}>
             <MdLockOutline className="text-sm" /> 기록 전
