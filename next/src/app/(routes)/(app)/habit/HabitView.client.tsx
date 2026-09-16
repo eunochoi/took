@@ -88,15 +88,6 @@ const HabitView = () => {
         <section className="mt-0 flex min-w-0 flex-col desktop:col-start-1 desktop:row-start-2">
           <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3">
             {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
-            {(habits?.length ?? 0) < MAX_HABIT_COUNT && (
-              <button
-                className="flex aspect-[0.8] w-full shrink-0 items-center justify-center rounded-theme bg-theme-surface text-5xl text-theme-accent shadow-[0_1px_8px_rgb(var(--theme-shadow-color)/0.04)]"
-                onClick={onAddHabit}
-                type="button"
-              >
-                <MdAdd />
-              </button>
-            )}
           </div>
         </section>
 
