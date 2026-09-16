@@ -26,7 +26,7 @@ const DiaryHabitMonthCalendarHeader = ({
         {`일기 ${diaryCount ?? '-'}개 · 습관 완료 ${completedHabitCount ?? '-'}회`}
       </p>
     </div>
-    <div className="flex shrink-0 items-center gap-0.5 text-theme-text-tertiary">
+    <div data-capture-exclude className="flex shrink-0 items-center gap-0.5 text-theme-text-tertiary">
       <button className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors desktop:hover:bg-theme-bg desktop:hover:text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent" onClick={onPreviousMonth} aria-label="이전 달" type="button">
         <FiChevronLeft size={18} strokeWidth={1.5} aria-hidden="true" />
       </button>

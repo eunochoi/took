@@ -16,26 +16,28 @@ interface Props {
 export const CalendarDay = ({
   day, isToday, isSelected, label, className, onClick, children,
 }: Props) => {
-  const cellClassName = cn(
+  const getCellClassName = (today: boolean, selected: boolean) => cn(
     'relative flex aspect-[1/1.3] min-w-0 flex-col items-center justify-center rounded-lg text-xs transition-colors',
-    isToday
+    today
       ? 'text-theme-accent'
       : day.weekday === 6
         ? 'text-theme-calendar-saturday'
         : day.weekday === 0
           ? 'text-theme-calendar-sunday'
           : 'text-theme-text-secondary',
-    isToday && 'ring-1 ring-inset ring-theme-accent',
-    isSelected && !day.isOutsideMonth && 'bg-theme-accent/10 motion-safe:animate-[calendar-selected-pop_0.35s_ease-out]',
+    today && 'ring-1 ring-inset ring-theme-accent',
+    selected && !day.isOutsideMonth && 'bg-theme-accent/10 motion-safe:animate-[calendar-selected-pop_0.35s_ease-out]',
     day.isOutsideMonth && 'opacity-30',
     onClick && 'cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent',
     className,
   );
+  const cellClassName = getCellClassName(isToday, Boolean(isSelected));
+  const defaultCellClassName = getCellClassName(false, false);
   const accessibleLabel = [label ?? day.dateKey, isSelected ? '선택됨' : ''].filter(Boolean).join(', ');
 
   if (!onClick) {
     return (
-      <div className={cellClassName} aria-label={accessibleLabel} aria-current={isToday ? 'date' : undefined}>
+      <div className={cellClassName} data-capture-class={defaultCellClassName} aria-label={accessibleLabel} aria-current={isToday ? 'date' : undefined}>
         {children ?? day.dayNumber}
       </div>
     );
@@ -45,6 +47,7 @@ export const CalendarDay = ({
     <button
       type="button"
       className={cellClassName}
+      data-capture-class={defaultCellClassName}
       onClick={onClick}
       aria-label={accessibleLabel}
       aria-current={isToday ? 'date' : undefined}

@@ -3,24 +3,26 @@
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
+import CaptureTopButton from "@/common/components/ui/CaptureTopButton";
 import TopButton from "@/common/components/ui/TopButton";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
 import DiaryAnalysis from "./_components/DiaryAnalysis";
 import EmotionStats from "./_components/EmotionStats";
-import TodayRecordSection from "./_components/TodayRecordSection";
 import HabitAnalysis from "./_components/HabitAnalysis";
+import TodayRecordSection from "./_components/TodayRecordSection";
 import YearFilter from "./_components/YearFilter";
 
 const HomeView = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
 
+  const captureRef = useRef<HTMLDivElement>(null);
   const currentYear = getYear(new Date());
   const searchParams = useSearchParams();
   const queryYear = Number(searchParams.get('year'));
@@ -33,13 +35,13 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
     staleTime: 5 * 60 * 1000,
   });
 
-  const { data: diaryStats } = useQuery({
+  const { data: diaryStats, isSuccess: diaryReady, isFetching: diaryFetching } = useQuery({
     queryKey: ['stats', 'diary', selectedYear],
     queryFn: () => authAction(() => getDiaryStats({ year: selectedYear })),
     staleTime: 60 * 1000,
   });
 
-  const { data: habitStats } = useQuery({
+  const { data: habitStats, isSuccess: habitReady, isFetching: habitFetching } = useQuery({
     queryKey: ['stats', 'habit', selectedYear],
     queryFn: () => authAction(() => getHabitStats({ year: selectedYear })),
     staleTime: 60 * 1000,
@@ -59,7 +61,12 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
       description="작은 기록이 모여 나다운 하루가 돼요"
       showMobileLogo
       showScrollToTop
-      topButton={<TopButton onClick={openYearFilter}>{selectedYear}년</TopButton>}
+      topButton={
+        <>
+          <TopButton onClick={openYearFilter}>{selectedYear}년</TopButton>
+          <CaptureTopButton targetRef={captureRef} disabled={!diaryReady || !habitReady || diaryFetching || habitFetching} />
+        </>
+      }
       contentProps={{
         className: "flex-1 gap-3 max-tablet:gap-5 tablet:gap-6",
       }}
@@ -85,7 +92,13 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
           <TodayRecordSection initialDate={initialDate} />
         </div>
 
-        <div className="flex min-w-0 flex-col gap-14 desktop:col-start-1 desktop:row-start-1">
+        <div
+          ref={captureRef}
+          data-capture-key={`records-${selectedYear}`}
+          data-capture-title={`${selectedYear}년 기록 돌아보기`}
+          data-capture-ready={diaryReady && habitReady && !diaryFetching && !habitFetching}
+          className="flex min-w-0 flex-col gap-14 desktop:col-start-1 desktop:row-start-1"
+        >
           <DiaryAnalysis
             stats={diaryStats}
             year={selectedYear}

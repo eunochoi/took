@@ -3,7 +3,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { addMonths, format } from 'date-fns';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
 
 import { getDiaryHabitMonthData } from '@/common/actions/diary/getDiaryHabitMonthData';
 import { authAction } from '@/common/auth/authAction';
@@ -19,12 +19,13 @@ import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import DiaryHabitMonthCalendarHeader from './DiaryHabitMonthCalendarHeader';
 
 interface Props {
+  captureRef?: RefObject<HTMLElement>;
   today: DateKey;
   selectedDate: DateKey;
   onSelectDate: (date: DateKey) => void;
 }
 
-const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) => {
+const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate, captureRef }: Props) => {
   const queryClient = useQueryClient();
   const calendar = useMonthCalendar(selectedDate);
   const monthQuery = useQuery({
@@ -59,7 +60,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
   };
 
   return (
-    <section className="flex w-full min-w-0 shrink-0 flex-col">
+    <section ref={captureRef} data-capture-key={`calendar-${calendar.visibleMonth}`} data-capture-title="" data-capture-ready={monthQuery.isSuccess && !monthQuery.isFetching} className="flex w-full min-w-0 shrink-0 flex-col">
       <AppSurfaceCard className="flex min-w-0 flex-col gap-3 shadow-theme-section desktop:self-start">
         <DiaryHabitMonthCalendarHeader
           monthLabel={calendar.monthLabel}

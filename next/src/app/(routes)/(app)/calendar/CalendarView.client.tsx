@@ -2,11 +2,12 @@
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { getDiaryByDate } from '@/common/actions/diary';
 import { authAction } from '@/common/auth/authAction';
 import AppPageLayout from '@/common/components/layout/AppPageLayout';
+import CaptureTopButton from '@/common/components/ui/CaptureTopButton';
 import TopButton from '@/common/components/ui/TopButton';
 import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
 import DiaryHabitMonthCalendar from './_components/DiaryHabitMonthCalendar';
@@ -20,6 +21,7 @@ interface Props {
 const CalendarView = ({ initialDate }: Props) => {
   usePrefetchPage();
   const router = useRouter();
+  const captureRef = useRef<HTMLElement>(null);
   const today = initialDate;
   const [selectedDate, setSelectedDate] = useState(initialDate);
 
@@ -54,19 +56,22 @@ const CalendarView = ({ initialDate }: Props) => {
       title="캘린더"
       description="하루하루 쌓인 마음과 습관을 살펴봐요"
       topButton={
-        <TopButton
-          onClick={openTodayDiary}
-          disabled={todayDiaryQuery.isPending}
-        >
-          <span>{todayDiaryQuery.data?.visible ? '오늘 일기 수정' : '오늘 일기 작성'}</span>
-        </TopButton>
+        <>
+          <TopButton
+            onClick={openTodayDiary}
+            disabled={todayDiaryQuery.isPending}
+          >
+            <span>{todayDiaryQuery.data?.visible ? '오늘 일기 수정' : '오늘 일기 작성'}</span>
+          </TopButton>
+          <CaptureTopButton targetRef={captureRef} />
+        </>
       }
       contentProps={{
         className: 'flex-1 gap-3 max-tablet:gap-5 tablet:gap-6',
       }}
     >
       <div className="grid w-full min-w-0 grid-cols-1 items-start gap-5 tablet:gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8">
-        <DiaryHabitMonthCalendar today={today} selectedDate={selectedDate} onSelectDate={setSelectedDate} />
+        <DiaryHabitMonthCalendar captureRef={captureRef} today={today} selectedDate={selectedDate} onSelectDate={setSelectedDate} />
         <div className="min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
           <SelectedDayInfo
             date={selectedDate}
