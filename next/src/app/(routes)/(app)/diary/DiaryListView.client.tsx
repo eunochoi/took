@@ -18,10 +18,8 @@ import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
 import type { DiaryData } from "@/common/types/diary";
-import { cn } from "@/common/utils/cn";
 import { MdCalendarMonth, MdEmojiEmotions } from 'react-icons/md';
-import { DiaryList } from "./_components/DiaryList";
-import DiaryMonthHeader from "./_components/DiaryMonthHeader";
+import DiaryCard from "./_components/DiaryCard";
 import DiaryStatsPanel from "./_components/DiaryStatsPanel";
 import { useDiaryListFilter } from "./_hooks/useDiaryListFilter";
 
@@ -61,8 +59,6 @@ const DiaryListView = () => {
     getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
 
-  const firstDiaryMonth = flatDiaries?.[0]?.date.slice(0, 7);
-
   useEffect(() => {
     if (currentUserEmail && !isFetching && hasNextPage && inView) fetchNextPage();
   }, [inView, hasNextPage, isFetching, currentUserEmail, fetchNextPage])
@@ -73,11 +69,22 @@ const DiaryListView = () => {
 
   return (
     <AppPageLayout
+      title="다이어리"
+      description="차곡차곡 쌓이는 나의 하루"
       pageRef={wrapperRef}
       showScrollToTop
       contentProps={{
-        className: 'flex-1 gap-3 max-tablet:gap-5 pt-6 tablet:gap-6 desktop:px-14',
+        className: 'flex-1 gap-3 max-tablet:gap-5 tablet:gap-6',
       }}
+      toolbarStart={
+        <TopButton
+          aria-label="기간 필터"
+          onClick={openMonthFilter}
+        >
+          <MdCalendarMonth size={18} />
+          {isPeriodSelected ? selectedPeriodLabel : "전체 기간"}
+        </TopButton>
+      }
       topButton={<>
         <TopButton
           onClick={onToggle}
@@ -85,19 +92,12 @@ const DiaryListView = () => {
           {sortValue === 'DESC' ? '최신순' : '과거순'}
         </TopButton>
         <TopButton
-          size="auto"
           aria-label="감정 필터"
           onClick={openEmotionFilter}
         >
           {isEmotionSelected ? selectedEmotionLabel : <MdEmojiEmotions size={18} />}
         </TopButton>
-        <TopButton
-          size="auto"
-          aria-label="기간 필터"
-          onClick={openMonthFilter}
-        >
-          {isPeriodSelected ? selectedPeriodLabel : <MdCalendarMonth size={18} />}
-        </TopButton>
+
       </>}
     >
       <EmotionFilter
@@ -113,24 +113,21 @@ const DiaryListView = () => {
         setSelectedYear={setSelectedYear}
         setSelectedMonth={setSelectedMonth}
       />
-      <div className={cn(
-        "grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8",
-        firstDiaryMonth && "desktop:grid-rows-[auto_1fr] desktop:gap-y-4",
-      )}>
-        <div className={cn(
-          "flex min-w-0 flex-col gap-4",
-          firstDiaryMonth && "desktop:row-span-2 desktop:grid desktop:grid-rows-subgrid desktop:self-stretch",
-        )}>
-          {firstDiaryMonth && <DiaryMonthHeader month={firstDiaryMonth} />}
+      <div className="grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
+        <div className="flex min-w-0 flex-col gap-4">
           <div className="flex min-w-0 flex-col gap-4 desktop:self-start">
-            {flatDiaries && <DiaryList diaries={flatDiaries} />}
+            {flatDiaries?.map((diary) => (
+              <div key={diary.id} className="flex w-full items-center justify-center">
+                <DiaryCard diaryData={diary} />
+              </div>
+            ))}
             <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
           </div>
         </div>
         <DiaryStatsPanel
           year={statsYear}
           onChangeYear={setStatsYear}
-          className={cn("desktop:col-start-2", firstDiaryMonth && "desktop:row-start-2")}
+          className="desktop:col-start-2"
         />
       </div>
     </AppPageLayout>
