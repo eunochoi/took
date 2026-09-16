@@ -35,7 +35,7 @@ const MonthInfo = ({ habitId, today }: Props) => {
   return (
     <AppSection>
       <AppSectionHeader>
-        <AppSectionTitle>월간 실천</AppSectionTitle>
+        <AppSectionTitle>월별 기록</AppSectionTitle>
         <AppSectionMeta>{calendar.monthLabel}</AppSectionMeta>
       </AppSectionHeader>
 

@@ -39,7 +39,7 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
   return (
     <AppSection>
       <AppSectionHeader>
-        <AppSectionTitle>연간 실천</AppSectionTitle>
+        <AppSectionTitle>연도별 기록</AppSectionTitle>
         <AppSectionMeta>{year}년</AppSectionMeta>
       </AppSectionHeader>
 
