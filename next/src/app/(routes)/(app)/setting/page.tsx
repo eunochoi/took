@@ -13,7 +13,6 @@ import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
 
 import { MdPrivacyTip } from "react-icons/md";
 import { AccountActionSection } from "./_components/AccountActionSection";
-import SettingPageTitle from "./_components/SettingPageTitle";
 
 
 const SettingPage = () => {
@@ -28,16 +27,16 @@ const SettingPage = () => {
 
   return (
     <AppPageLayout
+      title="설정"
+      description="나에게 편안한 기록 공간을 만들어요"
       contentProps={{ className: "gap-6" }}
       showScrollToTop={false}
       topButton={<>
         <TopButton
-          size="auto"
           onClick={() => router.push('https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share')}>
           PlayStore
         </TopButton>
         <TopButton
-          size="auto"
           aria-label="개인정보 처리방침"
           onClick={() => router.push('/privacy')}
         >
@@ -45,7 +44,6 @@ const SettingPage = () => {
         </TopButton>
       </>}>
 
-      <SettingPageTitle />
 
       <div className="grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:grid-rows-[auto_1fr] desktop:items-start desktop:gap-x-8 desktop:gap-y-4">
         <div className="flex min-w-0 flex-col gap-6 desktop:row-span-2 desktop:grid desktop:grid-rows-subgrid desktop:self-stretch">
