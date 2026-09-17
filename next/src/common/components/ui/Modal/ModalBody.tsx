@@ -7,6 +7,7 @@ import { HTMLAttributes } from "react";
 
 interface ModalBodyProps extends HTMLAttributes<HTMLDivElement> {
   withScrollFade?: boolean;
+  showScrollToTop?: boolean;
   contentMode?: 'scroll' | 'fill';
 }
 
@@ -14,6 +15,7 @@ export const ModalBody = ({
   children,
   className,
   withScrollFade = false,
+  showScrollToTop = false,
   contentMode = 'scroll',
   ...props
 }: ModalBodyProps) => {
@@ -34,7 +36,7 @@ export const ModalBody = ({
         className,
       )}
       showScrollFade={!isFillMode && withScrollFade}
-      showScrollToTop={!isFillMode}
+      showScrollToTop={showScrollToTop}
       {...props}
     >
       <motion.div
