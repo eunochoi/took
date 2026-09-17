@@ -1,8 +1,10 @@
 'use client';
 
+import Image from 'next/image';
 import { MdLockOutline, MdLogin, MdPalette } from 'react-icons/md';
 
-import Logo from '@/common/components/ui/Logo';
+import Wordmark from '@/common/components/ui/Wordmark';
+import { EMOTIONS } from '@/common/constants/emotions';
 import { ScrollContainer } from '@/common/components/ui/ScrollContainer';
 import IntroActionButtons from './_components/IntroActionButtons';
 import IntroHero from './_components/IntroHero';
@@ -20,7 +22,7 @@ const RESPONSIVE_IMAGES = [INTRO_IMAGES.list, INTRO_IMAGES.pc_list, INTRO_IMAGES
 const IntroView = () => {
   return (
     <ScrollContainer
-      className="h-[100dvh] w-[100dvw] bg-theme-bg font-paperozi"
+      className="h-[100dvh] w-[100dvw] bg-theme-bg font-title"
       showScrollFade={false}
       showScrollToTop
     >
@@ -75,25 +77,27 @@ const IntroView = () => {
         </div>
 
         <div className="grid w-[min(100%,520px)] grid-cols-1 gap-2.5 desktop:w-[min(100%,980px)] desktop:grid-cols-3 desktop:gap-3">
-          <IntroInfoCard icon={<MdLogin />} title="소셜 로그인" text="익숙한 계정으로 빠르게 시작합니다." />
-          <IntroInfoCard icon={<MdPalette />} title="테마 설정" text="색상과 글꼴을 내 취향에 맞춥니다." />
-          <IntroInfoCard icon={<MdLockOutline />} title="일기 보안" text="개인 기록을 더 안심하고 남길 수 있습니다." />
+          <IntroInfoCard icon={<MdLogin className="h-6 w-6 text-theme-accent" aria-hidden="true" />} title="소셜 로그인" text="익숙한 계정으로 빠르게 시작합니다." />
+          <IntroInfoCard icon={<MdPalette className="h-6 w-6 text-theme-accent" aria-hidden="true" />} title="테마 설정" text="색상과 글꼴을 내 취향에 맞춥니다." />
+          <IntroInfoCard icon={<MdLockOutline className="h-6 w-6 text-theme-accent" aria-hidden="true" />} title="일기 보안" text="개인 기록을 더 안심하고 남길 수 있습니다." />
         </div>
       </section>
 
-      <section className="flex flex-col items-center gap-8 bg-theme-surface px-5 py-16 desktop:gap-7 desktop:px-6 desktop:py-[82px]">
-        <Logo
-          rootClassName="desktop:origin-center desktop:scale-125"
-          logoClassName="w-64 h-auto"
-        />
-        <h1 className="m-0 break-keep text-3xl font-bold capitalize leading-tight text-theme-text-primary desktop:text-4xl desktop:leading-[1.18]">
+      <section className="flex flex-col items-center gap-5 bg-theme-surface px-5 py-16 desktop:gap-6 desktop:px-6 desktop:py-[82px]">
+        <Wordmark className="text-5xl desktop:text-6xl" />
+        <div aria-hidden="true" className="flex items-center gap-3">
+          {[EMOTIONS[1], EMOTIONS[3], EMOTIONS[2]].map((emotion) => (
+            <Image key={emotion.id} src={emotion.src} alt="" width={44} height={44} />
+          ))}
+        </div>
+        <h2 className="m-0 break-keep text-center text-3xl font-bold capitalize leading-tight text-theme-text-primary desktop:text-4xl desktop:leading-[1.18]">
           툭! 오늘도 하나씩 :)
-        </h1>
-        <p className="m-0 flex flex-col gap-1 break-keep text-lg leading-normal text-theme-text-primary desktop:text-xl desktop:leading-[1.7]">
+        </h2>
+        <p className="m-0 flex flex-col gap-1 break-keep text-center text-lg leading-normal text-theme-text-secondary desktop:text-xl desktop:leading-[1.7]">
           <span>툭, 무심히 습관 발도장을 찍고</span>
           <span>더 나은 나에게 OK를 건네세요.</span>
         </p>
-        <IntroActionButtons />
+        <IntroActionButtons className="mt-3 max-w-[620px]" />
       </section>
     </ScrollContainer>
   );

@@ -2,7 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { closeSnackbar, enqueueSnackbar } from 'notistack';
-import { MdInstallMobile, MdLanguage, MdOpenInNew } from 'react-icons/md';
+import { MdInstallMobile, MdLanguage } from 'react-icons/md';
+import { FaGooglePlay } from 'react-icons/fa';
 
 import { SnackBarAction } from '@/common/providers/snackbar/SnackBarAction';
 import { cn } from '@/common/utils/cn';
@@ -16,7 +17,7 @@ interface IntroActionButtonsProps {
 }
 
 const buttonLayoutClass = "inline-flex min-h-[46px] items-center justify-center gap-2 whitespace-nowrap px-4 max-[420px]:flex-[1_1_100%]";
-const buttonThemeClass = "rounded-theme border border-theme-accent/25 text-base font-medium leading-none text-theme-text-primary shadow-card";
+const buttonThemeClass = "rounded-theme border border-theme-accent/25 font-title text-base font-medium leading-none text-theme-text-primary shadow-card";
 const buttonMotionClass = "transition-[transform,border-color,background-color] duration-[180ms] active:translate-y-px";
 const buttonClass = cn(buttonLayoutClass, buttonThemeClass, buttonMotionClass);
 const iconClass = "h-5 w-5 shrink-0";
@@ -53,7 +54,7 @@ const IntroActionButtons = ({ tone = 'light', className }: IntroActionButtonsPro
         type="button"
         onClick={startInWeb}
       >
-        <MdLanguage className={cn(iconClass, 'text-theme-accent')} />
+        <MdLanguage className={cn(iconClass, 'text-theme-accent')} aria-hidden="true" />
         웹에서 실행
       </button>
       <button
@@ -61,7 +62,7 @@ const IntroActionButtons = ({ tone = 'light', className }: IntroActionButtonsPro
         type="button"
         onClick={installPwa}
       >
-        <MdInstallMobile className={cn(iconClass, 'text-theme-accent')} />
+        <MdInstallMobile className={cn(iconClass, 'text-theme-accent')} aria-hidden="true" />
         PWA 설치
       </button>
       <button
@@ -69,7 +70,7 @@ const IntroActionButtons = ({ tone = 'light', className }: IntroActionButtonsPro
         type="button"
         onClick={() => router.push(PLAY_STORE_URL)}
       >
-        <MdOpenInNew className={cn(iconClass, 'text-theme-accent')} />
+        <FaGooglePlay className={cn(iconClass, 'text-theme-accent')} aria-hidden="true" />
         Play Store
       </button>
     </div>
