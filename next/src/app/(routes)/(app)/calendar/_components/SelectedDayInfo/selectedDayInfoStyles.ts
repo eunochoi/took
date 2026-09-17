@@ -1,7 +1,7 @@
 export const selectedDayInfoStyles = {
   card: 'box-border flex w-full flex-col gap-3 rounded-theme bg-theme-surface p-3.5 shadow-theme-section backdrop-blur-xl tablet:p-4',
   header: {
-    container: 'flex items-center justify-between gap-4 border-b border-theme-border/60 pb-3',
+    container: 'font-title flex items-center justify-between gap-4 border-b border-theme-border/60 pb-3',
     title: 'text-lg font-semibold text-theme-text-primary',
     icon: 'h-9 w-9 shrink-0 text-theme-accent',
     description: 'mt-1 text-sm text-theme-text-tertiary',
