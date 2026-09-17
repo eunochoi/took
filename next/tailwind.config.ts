@@ -49,7 +49,7 @@ const config: Config = {
         app: "var(--app-font-size)",
       },
       borderRadius: {
-        theme: "20px",
+        theme: "16px",
       },
       screens: {
         tablet: "480px",
