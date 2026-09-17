@@ -20,7 +20,7 @@ html[data-theme-accent='pink'] {
 
 html[data-theme-accent='yellow'] {
   --theme-accent: 249 199 79;
-  --theme-bg-light: 255 248 234;
+  --theme-bg-light: 255 250 240;
 }
 
 html[data-theme-accent='grey'] {
