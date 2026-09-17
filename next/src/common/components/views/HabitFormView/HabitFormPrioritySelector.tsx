@@ -34,10 +34,7 @@ const HabitFormPrioritySelector = ({
             value={value}
           />
           <div aria-hidden="true" className="flex w-20 shrink-0 items-center text-base">
-            <StarRating
-              rating={value + 1}
-              className={isSelected ? 'text-theme-accent' : 'text-theme-text-tertiary'}
-            />
+            <StarRating maxRating={3} rating={value + 1} />
           </div>
           <span className={cn(
             'flex-1 font-title text-sm font-medium',

@@ -30,7 +30,7 @@ const HabitFormPrioritySection = ({
           <span className="font-title text-base font-semibold text-theme-text-primary">{HABIT_PRIORITY_LABELS[priority] ?? '우선순위를 골라주세요'}</span>
         </span>
         <span aria-hidden="true" className="flex h-14 shrink-0 items-center justify-center">
-          <StarRating className='text-xl' rating={priority + 1} />
+          <StarRating maxRating={3} className='text-xl' rating={priority + 1} />
         </span>
         <span className="flex shrink-0 items-center gap-0.5 text-xs text-theme-text-secondary">
           변경

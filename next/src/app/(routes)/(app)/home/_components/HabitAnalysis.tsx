@@ -52,7 +52,7 @@ const HabitAnalysis = ({ stats }: Props) => {
               key={habit.id}
               className="min-w-0 items-center justify-center overflow-hidden px-2 py-3"
             >
-              <StarRating rating={habit.priority + 1} className="shrink-0 gap-0.5 text-sm opacity-80" />
+              <StarRating maxRating={3} rating={habit.priority + 1} className="shrink-0 gap-0.5 text-sm opacity-80" />
               <span className="w-full min-w-0 text-center text-base truncate leading-[1.4] text-theme-text-primary">
                 {habit.name}
               </span>

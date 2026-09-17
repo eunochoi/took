@@ -31,7 +31,9 @@ export const HabitItem = ({ habit }: HabitItemProps) => {
       )}
       style={style}
     >
-      <span className='flex w-1/5 justify-center text-base text-theme-accent'><StarRating rating={habit?.priority + 1} /></span>
+      <span className='flex w-1/5 justify-center text-base text-theme-accent'>
+        <StarRating maxRating={3} rating={habit?.priority + 1} />
+      </span>
       <span className='flex w-3/5 justify-center overflow-x-scroll'>{habit?.name}</span>
       <button
         className="flex w-1/5 touch-none justify-center text-theme-text-tertiary"
