@@ -6,7 +6,7 @@ import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
 import MonthlyBarChart from '@/common/components/views/HabitInfoView/MonthlyBarChart';
 import { cn } from '@/common/utils/cn';
 import { useQuery } from '@tanstack/react-query';
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import { YearRecordHeader } from '@/common/components/ui/AppSection/YearRecordHeader';
 
 interface Props {
   className?: string;
@@ -27,25 +27,12 @@ const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
   return (
     <aside className={cn("hidden w-full flex-col gap-3 desktop:flex desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start", className)}>
       <AppSurfaceCard className="flex flex-col gap-4">
-        <header className="flex items-center justify-between">
-          <button
-            className="flex items-center text-2xl text-theme-text-tertiary"
-            aria-label="이전 연도"
-            onClick={() => onChangeYear(year - 1)}
-            type="button"
-          >
-            <MdKeyboardArrowLeft />
-          </button>
-          <h2 className="text-lg font-semibold text-theme-text-primary">{year}년 기록</h2>
-          <button
-            className="flex items-center text-2xl text-theme-text-tertiary"
-            aria-label="다음 연도"
-            onClick={() => onChangeYear(year + 1)}
-            type="button"
-          >
-            <MdKeyboardArrowRight />
-          </button>
-        </header>
+        <YearRecordHeader
+          year={year}
+          onPreviousYear={() => onChangeYear(year - 1)}
+          onCurrentYear={() => onChangeYear(new Date().getFullYear())}
+          onNextYear={() => onChangeYear(year + 1)}
+        />
         <div className="grid grid-cols-2 gap-2">
           <div className="rounded-theme bg-theme-bg p-3">
             <span className="text-sm text-theme-text-tertiary">작성된 일기</span>
@@ -60,16 +47,10 @@ const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
             </strong>
           </div>
         </div>
+        <MonthlyBarChart
+          data={data?.monthlyCount}
+        />
       </AppSurfaceCard>
-
-      <MonthlyBarChart
-        className="desktop:[&>header>button]:text-lg desktop:[&>header>button]:font-semibold"
-        data={data?.monthlyCount}
-        year={String(year)}
-        onCurrentYear={() => onChangeYear(new Date().getFullYear())}
-        onNextYear={() => onChangeYear(year + 1)}
-        onPrevYear={() => onChangeYear(year - 1)}
-      />
     </aside>
   );
 };

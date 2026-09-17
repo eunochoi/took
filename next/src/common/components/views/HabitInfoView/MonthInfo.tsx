@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 import { getHabitMonthData } from '@/common/actions/habit/getHabitMonthData';
 import { authAction } from '@/common/auth/authAction';
@@ -33,15 +34,25 @@ const MonthInfo = ({ habitId, today }: Props) => {
   ];
 
   return (
-    <AppSection>
-      <AppSectionHeader>
-        <AppSectionTitle>월별 기록</AppSectionTitle>
-        <AppSectionMeta>{calendar.monthLabel}</AppSectionMeta>
+    <AppSection className="rounded-theme bg-theme-surface p-4 shadow-card">
+      <AppSectionHeader className="!gap-1 !py-0">
+        <AppSectionTitle className="shrink-0 !text-lg">월별 기록</AppSectionTitle>
+        <div className="flex shrink-0 items-center text-theme-accent">
+          <button type="button" onClick={calendar.goPreviousMonth} aria-label="이전 달" className="flex h-9 w-8 items-center justify-center">
+            <MdKeyboardArrowLeft size={22} />
+          </button>
+          <button type="button" onClick={() => calendar.showDate(displayToday)} aria-label={`${calendar.monthLabel}, 이번 달로 이동`} className="px-1 py-2">
+            <AppSectionMeta>{calendar.monthLabel}</AppSectionMeta>
+          </button>
+          <button type="button" onClick={calendar.goNextMonth} aria-label="다음 달" className="flex h-9 w-8 items-center justify-center">
+            <MdKeyboardArrowRight size={22} />
+          </button>
+        </div>
       </AppSectionHeader>
 
       <AppCardGrid columns={3}>
         {stats.map((stat) => (
-          <AppStatCard key={stat.label}>
+          <AppStatCard key={stat.label} className="!min-h-[100px] !bg-theme-bg border border-theme-accent/10 !shadow-none">
             <AppStatLabel>{stat.label}</AppStatLabel>
             <AppStatValueWrapper>
               <AppStatValue>{stat.value}</AppStatValue>
@@ -57,9 +68,6 @@ const MonthInfo = ({ habitId, today }: Props) => {
         days={calendar.days}
         today={displayToday}
         isFetching={monthQuery.isFetching}
-        onCurrentMonth={() => calendar.showDate(displayToday)}
-        onNextMonth={calendar.goNextMonth}
-        onPrevMonth={calendar.goPreviousMonth}
         onShowDate={calendar.showDate}
       />
     </AppSection>

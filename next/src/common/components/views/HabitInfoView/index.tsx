@@ -3,14 +3,13 @@
 import { getHabitById } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Modal } from "../../ui/Modal";
 import { ModalBody } from "../../ui/Modal/ModalBody";
 import { ModalHeader } from "../../ui/Modal/ModalHeader";
-import { StarRating } from "../../ui/StarRating";
+import HabitInfoHeader from "./HabitInfoHeader";
 import MonthInfo from "./MonthInfo";
 import YearInfo from "./YearInfo";
 
@@ -43,18 +42,8 @@ const HabitInfoView = ({ habitId, today }: Props) => {
     >
       <ModalHeader title='습관 정보' onBack={() => router.back()} />
       <ModalBody withScrollFade>
-        <div className="flex w-full flex-col gap-12 px-4 py-4 pb-6 tablet:px-6 tablet:py-5 tablet:pb-7">
-          <section className="flex w-full flex-col items-center gap-2">
-            <StarRating rating={(habitDataById?.priority ?? 0) + 1} className="items-center justify-center text-lg" />
-            <div className="break-words text-center text-2xl font-semibold uppercase text-theme-text-primary">
-              {habitDataById?.name ?? '-'}
-            </div>
-            {habitDataById && (
-              <p className="text-center text-xs text-theme-text-secondary">
-                생성일 : {format(new Date(habitDataById.createdAt), 'yyyy년 M월 d일')}
-              </p>
-            )}
-          </section>
+        <div className="flex w-full flex-col gap-6 px-[4dvw] pb-6 pt-2 tablet:px-6 tablet:pb-7">
+          <HabitInfoHeader habitData={habitDataById} />
 
           <MonthInfo
             key={habitId}

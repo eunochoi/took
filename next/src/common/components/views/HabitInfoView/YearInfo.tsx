@@ -1,11 +1,12 @@
 import { getHabitYearlyStatus } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import { AppCardGrid } from "@/common/components/ui/AppSection/card";
-import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
+import { AppSection } from "@/common/components/ui/AppSection/section";
 import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
 import { useQuery } from "@tanstack/react-query";
 import { addYears, format, isLeapYear, subYears } from "date-fns";
 import { Dispatch, SetStateAction } from "react";
+import { YearRecordHeader } from "@/common/components/ui/AppSection/YearRecordHeader";
 import MonthlyBarChart from "./MonthlyBarChart";
 
 interface Props {
@@ -37,14 +38,16 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
   };
 
   return (
-    <AppSection>
-      <AppSectionHeader>
-        <AppSectionTitle>연도별 기록</AppSectionTitle>
-        <AppSectionMeta>{year}년</AppSectionMeta>
-      </AppSectionHeader>
+    <AppSection className="rounded-theme bg-theme-surface p-4 shadow-card">
+      <YearRecordHeader
+        year={Number(year)}
+        onPreviousYear={preYear}
+        onCurrentYear={currentYear}
+        onNextYear={nextYear}
+      />
 
       <AppCardGrid columns={2}>
-        <AppStatCard>
+        <AppStatCard className="!min-h-[100px] !bg-theme-bg border border-theme-accent/10 !shadow-none">
           <AppStatLabel>{year}년 완료</AppStatLabel>
           <AppStatValueWrapper>
             <AppStatValue>{count ?? 0}</AppStatValue>
@@ -52,7 +55,7 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
           </AppStatValueWrapper>
         </AppStatCard>
 
-        <AppStatCard>
+        <AppStatCard className="!min-h-[100px] !bg-theme-bg border border-theme-accent/10 !shadow-none">
           <AppStatLabel>연간 완료율</AppStatLabel>
           <AppStatValueWrapper>
             <AppStatValue>{completionRate}</AppStatValue>
@@ -63,10 +66,6 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
 
       <MonthlyBarChart
         data={data}
-        year={year}
-        onCurrentYear={currentYear}
-        onNextYear={nextYear}
-        onPrevYear={preYear}
       />
     </AppSection>);
 }

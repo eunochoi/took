@@ -1,6 +1,3 @@
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
-
-import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
 import { CalendarDay } from '@/common/components/ui/Calendar/CalendarDay';
 import { CalendarGrid } from '@/common/components/ui/Calendar/CalendarGrid';
 import type { CalendarDayModel } from '@/common/components/ui/Calendar/useMonthCalendar';
@@ -13,35 +10,15 @@ interface Props {
   days: CalendarDayModel[];
   today: string;
   isFetching: boolean;
-  onCurrentMonth: () => void;
-  onNextMonth: () => void;
-  onPrevMonth: () => void;
   onShowDate: (date: string) => void;
 }
 
 const HabitMonthCalendar = ({
   habitMonthData, monthLabel, days, today, isFetching,
-  onCurrentMonth, onNextMonth, onPrevMonth, onShowDate,
+  onShowDate,
 }: Props) => {
   return (
-    <AppSurfaceCard>
-      <header className="mb-2 flex items-center justify-between">
-        <button type="button" className="p-2 text-theme-text-secondary" onClick={onPrevMonth} aria-label="이전 달">
-          <MdKeyboardArrowLeft size={22} />
-        </button>
-        <button
-          type="button"
-          className="text-lg font-semibold text-theme-accent"
-          onClick={onCurrentMonth}
-          aria-label={`${monthLabel}, 이번 달로 이동`}
-        >
-          {monthLabel}
-        </button>
-        <button type="button" className="p-2 text-theme-text-secondary" onClick={onNextMonth} aria-label="다음 달">
-          <MdKeyboardArrowRight size={22} />
-        </button>
-      </header>
-
+    <div className="w-full border-t border-theme-border-muted pt-4">
       <CalendarGrid aria-busy={isFetching} aria-label={`${monthLabel} 습관 실천 달력`}>
         {days.map((day) => {
           const isCompleted = !day.isOutsideMonth && habitMonthData?.daysByDate[day.dateKey] === true;
@@ -54,6 +31,7 @@ const HabitMonthCalendar = ({
             <CalendarDay
               key={day.dateKey}
               day={day}
+              className="!rounded-none !outline-none"
               isToday={day.dateKey === today}
               onClick={day.isOutsideMonth ? () => onShowDate(day.dateKey) : undefined}
               label={[
@@ -65,7 +43,8 @@ const HabitMonthCalendar = ({
               ].filter(Boolean).join(', ')}
             >
               <span className={cn(
-                'flex h-7 w-7 items-center justify-center rounded-full',
+                'flex h-7 w-7 items-center justify-center',
+                (isCompleted || isMissed) && 'rounded-full',
                 isCompleted && 'bg-theme-accent text-theme-text-on-accent',
                 isMissed && 'bg-theme-surface-muted text-theme-text-secondary',
               )}>
@@ -75,7 +54,7 @@ const HabitMonthCalendar = ({
           );
         })}
       </CalendarGrid>
-    </AppSurfaceCard>
+    </div>
   );
 };
 
