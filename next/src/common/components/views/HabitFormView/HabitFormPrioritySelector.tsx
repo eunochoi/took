@@ -1,8 +1,8 @@
 import { HABIT_PRIORITY_VALUES } from '@/common/constants/habit';
 import { cn } from '@/common/utils/cn';
+import { MdCheck } from 'react-icons/md';
 import { StarRating } from '../../ui/StarRating';
-
-const PRIORITY_LABELS = ['낮음', '보통', '높음'] as const;
+import { HABIT_PRIORITY_LABELS } from './constants';
 
 interface HabitFormPrioritySelectorProps {
   priority: number;
@@ -13,7 +13,7 @@ const HabitFormPrioritySelector = ({
   priority,
   setPriority,
 }: HabitFormPrioritySelectorProps) => (
-  <div className="flex w-full gap-3">
+  <div role="radiogroup" aria-label="우선순위 선택" className="flex w-full flex-col gap-3">
     {HABIT_PRIORITY_VALUES.map((value) => {
       const isSelected = value === priority;
 
@@ -21,30 +21,31 @@ const HabitFormPrioritySelector = ({
         <label
           key={value}
           className={cn(
-            'flex min-w-0 flex-1 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-theme px-2 py-3 transition-colors duration-200',
-            isSelected ? 'bg-theme-accent' : 'bg-theme-bg',
+            'relative flex min-h-14 w-full cursor-pointer items-center gap-4 rounded-2xl border px-4 py-3 transition-colors tablet:focus-within:!outline tablet:focus-within:!outline-2 tablet:focus-within:!outline-offset-2 tablet:focus-within:!outline-theme-accent',
+            isSelected ? 'border-theme-accent bg-theme-accent/10' : 'border-theme-border-muted tablet:hover:bg-theme-accent/5',
           )}
         >
           <input
             checked={isSelected}
-            className="pointer-events-none absolute opacity-0"
+            className="peer sr-only"
             name="priority"
             onChange={() => setPriority(value)}
             type="radio"
             value={value}
           />
-          <div className="flex items-center justify-center text-base">
+          <div aria-hidden="true" className="flex w-20 shrink-0 items-center text-base">
             <StarRating
               rating={value + 1}
-              className={isSelected ? 'text-theme-text-on-accent' : undefined}
+              className={isSelected ? 'text-theme-accent' : 'text-theme-text-tertiary'}
             />
           </div>
           <span className={cn(
-            'text-base font-medium',
-            isSelected ? 'text-theme-text-on-accent' : 'text-theme-text-primary',
+            'flex-1 font-title text-sm font-medium',
+            isSelected ? 'text-theme-accent' : 'text-theme-text-primary',
           )}>
-            {PRIORITY_LABELS[value]}
+            {HABIT_PRIORITY_LABELS[value]}
           </span>
+          {isSelected && <MdCheck aria-hidden="true" className="h-5 w-5 shrink-0 text-theme-accent" />}
         </label>
       );
     })}

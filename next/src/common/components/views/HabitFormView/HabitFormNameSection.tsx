@@ -1,6 +1,3 @@
-import { MdCheckBox } from 'react-icons/md';
-import { SectionTitle, SectionTitleIcon } from '../../ui/SectionTitle';
-import { HabitFormCard } from './HabitFormCard';
 import HabitFormNameInput from './HabitFormNameInput';
 
 interface HabitFormNameSectionProps {
@@ -12,14 +9,9 @@ const HabitFormNameSection = ({
   name,
   setName,
 }: HabitFormNameSectionProps) => (
-  <section className="flex w-full flex-col gap-3">
-    <SectionTitle>
-      <SectionTitleIcon><MdCheckBox /></SectionTitleIcon>
-      습관 이름
-    </SectionTitle>
-    <HabitFormCard>
-      <HabitFormNameInput name={name} setName={setName} />
-    </HabitFormCard>
+  <section aria-labelledby="habit-name-title" className="flex w-full flex-col gap-3 pt-5">
+    <h2 id="habit-name-title" className="font-title text-base font-semibold text-theme-text-primary">습관 이름</h2>
+    <HabitFormNameInput name={name} setName={setName} />
   </section>
 );
 

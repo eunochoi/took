@@ -4,7 +4,6 @@ import { getHabitById } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
 import {
   HABIT_NAME_MAX_LENGTH,
-  HABIT_NAME_MIN_LENGTH,
   MAX_HABIT_COUNT,
 } from '@/common/constants/habit';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,6 @@ import { enqueueSnackbar } from 'notistack';
 import { Modal } from '../../ui/Modal';
 import { ModalBody } from '../../ui/Modal/ModalBody';
 import { ModalHeader } from '../../ui/Modal/ModalHeader';
-import { inputViewContentClass } from '../constants';
 import { createHabitRequest } from './functions/createHabitRequest';
 import { updateHabitRequest } from './functions/updateHabitRequest';
 import HabitFormNameSection from './HabitFormNameSection';
@@ -112,23 +110,30 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
     >
       <ModalHeader
         title={`목표 습관 ${confirmText}`}
-        confirmText={confirmText}
         onBack={handleBack}
-        onConfirm={handleSubmit}
-        isDisabled={isSubmitting}
       />
       <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
-        <div className={inputViewContentClass}>
-          <HabitFormNameSection name={name} setName={setName} />
-          <HabitFormPrioritySection
-            priority={priority}
-            setPriority={setPriority}
-          />
-          <span className="flex items-center justify-center text-sm text-theme-text-secondary">
-            *최대 생성 가능 개수 : {MAX_HABIT_COUNT}개, 이름 길이 제한 : {HABIT_NAME_MIN_LENGTH}~{HABIT_NAME_MAX_LENGTH}
-          </span>
-        </div>
+        <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 px-[4dvw] pb-6 pt-2 tablet:px-6">
+          <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">나의 작은 습관</h1>
+          <div className="w-full rounded-theme border border-transparent bg-theme-surface p-5 shadow-card transition-colors tablet:focus-within:border-theme-accent/50">
+            <HabitFormPrioritySection priority={priority} setPriority={setPriority} />
+            <HabitFormNameSection name={name} setName={setName} />
+          </div>
+          <p className="text-center text-xs leading-relaxed text-theme-text-secondary">습관은 최대 {MAX_HABIT_COUNT}개까지 만들 수 있어요.</p>
+        </fieldset>
       </ModalBody>
+      <div className="w-full shrink-0 px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={isSubmitting || name.length > HABIT_NAME_MAX_LENGTH}
+          aria-busy={isSubmitting}
+          className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity tablet:hover:opacity-90 tablet:focus-visible:!outline tablet:focus-visible:!outline-2 tablet:focus-visible:!outline-offset-4 tablet:focus-visible:!outline-theme-accent disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {isSubmitting && <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent motion-reduce:animate-none" />}
+          {isSubmitting ? '저장 중...' : isEdit ? '수정한 습관 저장하기' : '습관 저장하기'}
+        </button>
+      </div>
     </Modal>
   );
 };
