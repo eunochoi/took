@@ -108,7 +108,7 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
             year={selectedYear}
           />
 
-          <div className="min-w-0 desktop:order-last">
+          <div className="min-w-0">
             <EmotionStats
               emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
               monthlyEmotionCounts={diaryStats?.monthlyEmotionCounts ?? Array(12).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}

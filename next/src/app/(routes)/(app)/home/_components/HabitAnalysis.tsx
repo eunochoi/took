@@ -4,9 +4,9 @@ import { HabitStats } from "@/common/actions/stats";
 import { AppCardGrid } from "@/common/components/ui/AppSection/card";
 import { AppInfoCard, AppInfoContent, AppInfoText } from "@/common/components/ui/AppSection/info";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
-import { AppStatCard } from "@/common/components/ui/AppSection/stat";
 import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import { StarRating } from "@/common/components/ui/StarRating";
+import { cn } from "@/common/utils/cn";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -45,21 +45,37 @@ const HabitAnalysis = ({ stats }: Props) => {
       />
 
       {habits && habits.length > 0 ?
-        <AppCardGrid columns={3}>
-          {habits.slice(0, 3).map((habit) => (
-            <AppStatCard
-              onClick={() => handleHabitClick(habit.id)}
-              key={habit.id}
-              className="min-w-0 items-center justify-center overflow-hidden px-2 py-3"
-            >
-              <StarRating maxRating={3} rating={habit.priority + 1} className="shrink-0 gap-0.5 text-sm opacity-80" />
-              <span className="w-full min-w-0 text-center text-base truncate leading-[1.4] text-theme-text-primary">
-                {habit.name}
-              </span>
-              <span className="text-base font-medium text-theme-text-tertiary">{habit.count}회</span>
-            </AppStatCard>
+        <ol className="m-0 list-none divide-y divide-theme-border/70 rounded-theme bg-theme-surface px-4 py-1 shadow-card tablet:px-5">
+          {habits.slice(0, 3).map((habit, index) => (
+            <li key={habit.id}>
+              <button
+                type="button"
+                onClick={() => handleHabitClick(habit.id)}
+                className="flex w-full min-w-0 items-center gap-3 rounded-lg py-3 text-left transition-colors hover:bg-theme-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent focus-visible:outline-offset-2 tablet:gap-4"
+              >
+                <span className={cn(
+                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-title text-sm font-semibold tabular-nums",
+                  index === 0
+                    ? "bg-theme-accent/20 text-theme-text-primary"
+                    : "bg-theme-text-primary/5 text-theme-text-secondary",
+                )}>
+                  <span className="sr-only">{habitTab === 'top' ? '상위' : '하위'} 순위 </span>
+                  {index + 1}
+                </span>
+                <div className="flex min-w-0 flex-1 flex-col gap-1">
+                  <span className="truncate text-base leading-relaxed text-theme-text-primary">
+                    {habit.name}
+                  </span>
+                  <StarRating maxRating={3} rating={habit.priority + 1} className="shrink-0 gap-0.5 text-xs opacity-80" />
+                </div>
+                <span className="flex shrink-0 items-baseline gap-1 font-title tabular-nums">
+                  <span className="text-lg font-semibold text-theme-text-primary">{habit.count}</span>
+                  <span className="text-xs text-theme-text-secondary">회</span>
+                </span>
+              </button>
+            </li>
           ))}
-        </AppCardGrid> :
+        </ol> :
         <AppCardGrid columns={1}>
           <AppInfoCard>
             <AppInfoText>* 아직 완료한 습관이 없어요 :(</AppInfoText>

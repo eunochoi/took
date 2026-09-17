@@ -65,7 +65,7 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
           }}
         >
           <MdMenuBook className="shrink-0 text-xl text-theme-accent" />
-          <span className="flex-1">오늘 일기</span>
+          <span className="flex-1 font-base">오늘의 감정 일기</span>
           <span className={selectedDayInfoStyles.habit.completedStatus} aria-live="polite">{diaryQuery.data?.visible ? '작성 완료' : '아직 작성 전'}</span>
           <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" />
         </AppSurfaceCard>
@@ -80,8 +80,8 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
         }}
       >
         <MdCheckBox className="shrink-0 text-xl text-theme-accent" />
-        <span className="flex-1">오늘 습관</span>
-          <span className={selectedDayInfoStyles.habit.completedStatus} aria-live="polite">
+        <span className="flex-1 font-base">오늘 습관 진행</span>
+        <span className={selectedDayInfoStyles.habit.completedStatus} aria-live="polite">
           {habitQuery.isError ? '조회 실패' : habitQuery.isPending ? '확인 중…' : `${completedCount} / ${totalHabitCount} 완료`}
         </span>
         <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" />
