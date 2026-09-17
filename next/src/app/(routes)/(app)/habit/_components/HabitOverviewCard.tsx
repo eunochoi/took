@@ -11,6 +11,7 @@ interface Props {
 const HabitOverviewCard = ({ completedCount, habitCount, maxHabitCount, rate }: Props) => {
   return (
     <AppSurfaceCard className="flex flex-col gap-4">
+      <header className="text-xl font-title font-semibold text-theme-text-primary">오늘의 습관</header>
       <HabitTodayProgress
         completedCount={completedCount}
         rate={rate}

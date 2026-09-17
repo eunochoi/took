@@ -12,10 +12,7 @@ const HabitTodayProgress = ({ completedCount, rate, totalCount }: Props) => (
     aria-labelledby="today-habit-progress-title"
   >
     <div className="min-w-0">
-      <h2 id="today-habit-progress-title" className="text-base font-semibold text-theme-text-primary">
-        오늘의 습관
-      </h2>
-      <p className="mt-1 text-sm text-theme-text-tertiary">
+      <p className="mt-1 text-base text-theme-text-tertiary">
         {totalCount}개 중 {completedCount}개를 완료했어요.
       </p>
     </div>
