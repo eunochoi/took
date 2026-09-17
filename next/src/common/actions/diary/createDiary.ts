@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '../../../../lib/prisma';
+import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
 import { getAuth } from '../../auth/getAuth';
 import type { ActionResult } from '../types';
 import type { CreateDiaryParams, DiaryData } from './types';
@@ -19,8 +20,11 @@ export const createDiary = async ({
     if (emotion === undefined || emotion === null || emotion < 0 || emotion > 9) {
       return { ok: false, code: 'INVALID_EMOTION', message: '감정 값이 올바르지 않습니다. (0-9)' };
     }
-    if (!validateDateFormat(date) || !isValidDiaryText(text)) {
-      return { ok: false, code: 'INVALID_DIARY_INPUT', message: '날짜와 일기 내용을 확인해주세요.' };
+    if (!validateDateFormat(date)) {
+      return { ok: false, code: 'INVALID_DIARY_INPUT', message: '날짜를 확인해주세요.' };
+    }
+    if (!isValidDiaryText(text)) {
+      return { ok: false, code: 'INVALID_DIARY_INPUT', message: `일기 내용은 공백만 입력할 수 없으며 ${DIARY_TEXT_MAX_LENGTH}자까지 입력할 수 있습니다.` };
     }
     const diaryDate = date as string;
 

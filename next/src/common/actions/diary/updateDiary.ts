@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '../../../../lib/prisma';
+import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
 import { getAuth } from '../../auth/getAuth';
 import type { ActionResult } from '../types';
 import type { DiaryData, UpdateDiaryParams } from './types';
@@ -24,7 +25,7 @@ export const updateDiary = async ({
       return { ok: false, code: 'INVALID_EMOTION', message: '감정 값이 올바르지 않습니다. (0-9)' };
     }
     if (!isValidDiaryText(text)) {
-      return { ok: false, code: 'INVALID_DIARY_INPUT', message: '일기 내용을 확인해주세요.' };
+      return { ok: false, code: 'INVALID_DIARY_INPUT', message: `일기 내용은 공백만 입력할 수 없으며 ${DIARY_TEXT_MAX_LENGTH}자까지 입력할 수 있습니다.` };
     }
 
     const diary = await prisma.$transaction(async (tx) => {

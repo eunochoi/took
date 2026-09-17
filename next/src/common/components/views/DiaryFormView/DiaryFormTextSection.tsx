@@ -1,6 +1,3 @@
-import { MdOutlineEditNote } from 'react-icons/md';
-import { SectionTitle, SectionTitleIcon } from '../../ui/SectionTitle';
-import { DiaryFormCard } from './DiaryFormCard';
 import DiaryFormTextarea from './DiaryFormTextarea';
 
 interface DiaryFormTextSectionProps {
@@ -9,16 +6,9 @@ interface DiaryFormTextSectionProps {
 }
 
 const DiaryFormTextSection = ({ text, setText }: DiaryFormTextSectionProps) => (
-  <section className="flex w-full flex-col gap-3">
-    <SectionTitle>
-      <SectionTitleIcon><MdOutlineEditNote /></SectionTitleIcon>
-      하루의 기록
-    </SectionTitle>
-    <DiaryFormCard>
-      <div className="h-[220px] w-full">
-        <DiaryFormTextarea text={text} setText={setText} />
-      </div>
-    </DiaryFormCard>
+  <section aria-labelledby="diary-text-title" className="flex w-full flex-col gap-3 pt-5">
+    <h2 id="diary-text-title" className="font-title text-base font-semibold text-theme-text-primary">오늘의 이야기</h2>
+    <DiaryFormTextarea text={text} setText={setText} />
   </section>
 );
 

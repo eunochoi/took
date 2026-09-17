@@ -2,17 +2,19 @@
 
 import { getDiaryById } from '@/common/actions/diary';
 import { authAction } from '@/common/auth/authAction';
+import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
 import type { DiaryData } from '@/common/types/diary';
 import { isValidLocalDateString } from '@/common/utils/date/isValidLocalDateString';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
+import { arrayMove } from '@dnd-kit/sortable';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { Modal } from '../../ui/Modal';
 import { ModalBody } from '../../ui/Modal/ModalBody';
 import { ModalHeader } from '../../ui/Modal/ModalHeader';
-import { inputViewContentClass } from '../constants';
 import DiaryFormEmotionSection from './DiaryFormEmotionSection';
 import DiaryFormImagesSection from './DiaryFormImagesSection';
 import DiaryFormTextSection from './DiaryFormTextSection';
@@ -69,7 +71,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
     ?? (isValidLocalDateString(dateParam)
       ? dateParam
       : format(new Date(), 'yyyy-MM-dd'));
-  const headerTitle = format(parseLocalDate(date), 'yyyy.M.dd (eee)');
+  const headerTitle = format(parseLocalDate(date), 'yyyy. M. d. EEEE', { locale: ko });
   const saveDiary = isEdit
     ? (imageContentIds: string[]) => {
       if (!diaryId) {
@@ -127,30 +129,45 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
     >
       <ModalHeader
         title={headerTitle}
-        confirmText={isEdit ? '수정' : '추가'}
         onBack={handleBack}
-        onConfirm={handleSubmit}
-        isDisabled={isSubmitting}
       />
       <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
-        <div className={inputViewContentClass}>
-          <DiaryFormEmotionSection
-            emotion={emotion}
-            setEmotion={setEmotion}
-          />
-          <DiaryFormTextSection
-            text={text}
-            setText={setText}
-          />
+        <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 px-[4dvw] pb-6 pt-2 tablet:px-6">
+          <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">
+            오늘의 기록
+          </h1>
+          <div className="w-full rounded-theme border border-transparent bg-theme-surface p-5 shadow-card transition-colors focus-within:border-theme-accent/50">
+            <DiaryFormEmotionSection
+              emotion={emotion}
+              setEmotion={setEmotion}
+            />
+            <DiaryFormTextSection
+              text={text}
+              setText={setText}
+            />
+          </div>
           <DiaryFormImagesSection
             diaryImages={diaryImages}
             handleImageChange={imageHandlers.handleImageChange}
             getImageUrl={imageHandlers.getImageUrl}
             handleRemoveImage={imageHandlers.handleRemoveImage}
+            onReorder={(from, to) => setDiaryImages((images) => arrayMove(images, from, to))}
             isLoading={isSubmitting}
           />
-        </div>
+        </fieldset>
       </ModalBody>
+      <div className="w-full shrink-0 px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
+        <button
+          type="button"
+          onClick={handleSubmit}
+          disabled={isSubmitting || text.length > DIARY_TEXT_MAX_LENGTH}
+          aria-busy={isSubmitting}
+          className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity hover:opacity-90 focus-visible:!outline focus-visible:!outline-2 focus-visible:!outline-offset-4 focus-visible:!outline-theme-accent disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {isSubmitting && <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent motion-reduce:animate-none" />}
+          {isSubmitting ? '저장 중...' : isEdit ? '수정한 기록 저장하기' : '기록 저장하기'}
+        </button>
+      </div>
     </Modal>
   );
 };

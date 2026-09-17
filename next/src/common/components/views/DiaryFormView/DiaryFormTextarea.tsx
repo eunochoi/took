@@ -1,23 +1,33 @@
+import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
+import { cn } from '@/common/utils/cn';
+
 interface DiaryFormTextareaProps {
   text: string;
   setText: (v: string) => void;
 }
 
-const DiaryFormTextarea = ({
-  text,
-  setText,
-}: DiaryFormTextareaProps) => (
-  <div className="h-full w-full">
-    <textarea
-      name="diary-form-text"
-      className="h-full w-full resize-none border-none text-base outline-none placeholder:pt-20 placeholder:text-center"
-      onChange={(event) => setText(event.target.value)}
-      value={text}
-      maxLength={DIARY_TEXT_MAX_LENGTH}
-      placeholder="일상의 작은 감정들을 기록하세요."
-    />
-  </div>
-);
+const DiaryFormTextarea = ({ text, setText }: DiaryFormTextareaProps) => {
+  const isOverLimit = text.length > DIARY_TEXT_MAX_LENGTH;
+
+  return (
+    <div className="flex w-full flex-col gap-3">
+      <textarea
+        name="diary-form-text"
+        aria-label="일기 내용"
+        aria-describedby="diary-text-count"
+        aria-invalid={isOverLimit}
+        className="min-h-[170px] w-full resize-y border-none text-base leading-8 text-theme-text-primary outline-none placeholder:text-theme-text-tertiary"
+        onChange={(event) => setText(event.target.value)}
+        value={text}
+        maxLength={DIARY_TEXT_MAX_LENGTH}
+        placeholder="오늘 기억하고 싶은 순간을 남겨보세요."
+      />
+      <div id="diary-text-count" className={cn('flex flex-wrap items-center justify-end gap-x-3 gap-y-1 text-xs tabular-nums', isOverLimit ? 'text-theme-danger' : 'text-theme-text-tertiary')}>
+        {isOverLimit && <span role="alert">저장하려면 {text.length - DIARY_TEXT_MAX_LENGTH}자를 줄여주세요.</span>}
+        <span>{text.length} / {DIARY_TEXT_MAX_LENGTH}</span>
+      </div>
+    </div>
+  );
+};
 
 export default DiaryFormTextarea;
-import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
