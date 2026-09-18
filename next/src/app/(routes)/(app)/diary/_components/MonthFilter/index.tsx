@@ -54,10 +54,9 @@ const MonthFilter = ({
   return (
     <Modal
       ariaLabel="기간 선택"
-      animation={['top', 'fade']}
       onClose={() => onClose()}
       overlayClassName="z-[98] tablet:z-[105]"
-      variant={{ base: 'top', tablet: 'center-base', desktop: 'center-base' }}
+      variant={{ base: 'bottom', tablet: 'bottom', desktop: 'bottom' }}
     >
       <SelectionPanel
         title="기간 선택"

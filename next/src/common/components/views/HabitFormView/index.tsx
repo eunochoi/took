@@ -109,10 +109,9 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
         <Modal
           ariaLabel={`목표 습관 ${confirmText}`}
           dismissible={!isSubmitting}
-          animation={['bottom', 'fade']}
           onClose={handleBack}
           overlayClassName="z-[99999]"
-          variant={{ base: 'full', tablet: 'center-base', desktop: 'center-base' }}
+          variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
           <ModalHeader
             title={`목표 습관 ${confirmText}`}

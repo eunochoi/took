@@ -2,17 +2,15 @@
 
 import { cn } from '@/common/utils/cn';
 import { motion, useIsPresent, useReducedMotion } from 'framer-motion';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
-export type ModalVariant = 'top' | 'bottom' | 'center-base' | 'full';
+export type ModalVariant = 'bottom' | 'center-base' | 'right' | 'full';
 
 export interface ResponsiveModalVariant {
   base: ModalVariant;
   tablet: ModalVariant;
   desktop: ModalVariant;
 }
-
-export type ModalAnimation = 'top' | 'bottom' | 'left' | 'right' | 'fade';
 
 interface ModalProps {
   ariaLabel: string;
@@ -21,52 +19,37 @@ interface ModalProps {
   variant: ResponsiveModalVariant;
   overlayClassName?: string;
   dismissible?: boolean;
-  animation?: ModalAnimation | ModalAnimation[];
 }
 
-const overlayClass = 'fixed left-0 top-0 flex h-[100dvh] w-[100dvw] bg-theme-overlay/5 backdrop-blur-xl';
+const overlayClass = 'fixed inset-0 bg-theme-overlay/25 backdrop-blur-sm';
 const contentClass = 'flex min-h-0 flex-col overflow-hidden bg-theme-bg';
 
-const baseOverlayVariantClass: Record<ModalVariant, string> = {
-  top: 'items-start justify-center',
-  bottom: 'items-end justify-center',
-  'center-base': 'items-center justify-center',
-  full: 'items-stretch justify-stretch',
-};
-
-const tabletOverlayVariantClass: Record<ModalVariant, string> = {
-  top: 'tablet:items-start tablet:justify-center',
-  bottom: 'tablet:items-end tablet:justify-center',
-  'center-base': 'tablet:items-center tablet:justify-center',
-  full: 'tablet:items-stretch tablet:justify-stretch',
-};
-
-const desktopOverlayVariantClass: Record<ModalVariant, string> = {
-  top: 'desktop:items-start desktop:justify-center',
-  bottom: 'desktop:items-end desktop:justify-center',
-  'center-base': 'desktop:items-center desktop:justify-center',
-  full: 'desktop:items-stretch desktop:justify-stretch',
-};
-
 const baseContentVariantClass: Record<ModalVariant, string> = {
-  top: 'h-auto max-h-[calc(100dvh-var(--mobileHeader))] w-full rounded-b-3xl shadow-theme-panel-mobile',
-  bottom: 'h-auto max-h-[calc(100dvh-var(--mobileHeader))] w-full rounded-t-3xl shadow-theme-panel-mobile',
-  'center-base': 'h-[85dvh] min-w-[400px] w-[40dvw] max-w-[calc(100dvw-32px)] rounded-theme shadow-theme-panel',
-  full: 'h-full w-full rounded-none',
+  bottom: 'absolute inset-x-0 bottom-0 mx-auto h-fit max-h-[calc(100dvh-var(--mobileHeader))] w-full rounded-t-3xl shadow-theme-panel-mobile landscape-short:max-h-[calc(100dvh-12px)]',
+  'center-base': 'absolute inset-0 m-auto h-[85dvh] min-w-[400px] w-[40dvw] max-w-[calc(100dvw-32px)] rounded-theme shadow-theme-panel',
+  right: 'absolute inset-0 h-full w-full rounded-none',
+  full: 'absolute inset-0 h-full w-full rounded-none',
 };
 
 const tabletContentVariantClass: Record<ModalVariant, string> = {
-  top: 'tablet:h-auto tablet:max-h-[85dvh] tablet:w-full tablet:rounded-b-3xl tablet:shadow-theme-panel-mobile',
-  bottom: 'tablet:h-auto tablet:max-h-[85dvh] tablet:w-full tablet:rounded-t-3xl tablet:shadow-theme-panel-mobile',
+  bottom: 'tablet:h-fit tablet:max-h-[85dvh] tablet:w-[500px] tablet:rounded-t-3xl tablet:shadow-theme-panel',
   'center-base': 'tablet:h-[85dvh] tablet:min-w-[400px] tablet:w-[40dvw] tablet:max-w-[calc(100dvw-32px)] tablet:rounded-theme tablet:shadow-theme-panel',
+  right: 'tablet:inset-y-0 tablet:right-0 tablet:left-auto tablet:h-[100dvh] tablet:w-[500px] tablet:rounded-l-3xl tablet:rounded-r-none tablet:shadow-theme-modal',
   full: 'tablet:h-full tablet:w-full tablet:rounded-none tablet:shadow-none',
 };
 
 const desktopContentVariantClass: Record<ModalVariant, string> = {
-  top: 'desktop:h-auto desktop:max-h-[85dvh] desktop:w-full desktop:rounded-b-3xl desktop:shadow-theme-panel-mobile',
-  bottom: 'desktop:h-auto desktop:max-h-[85dvh] desktop:w-full desktop:rounded-t-3xl desktop:shadow-theme-panel-mobile',
+  bottom: 'desktop:h-auto desktop:max-h-[85dvh] desktop:w-[500px] desktop:rounded-t-3xl desktop:shadow-theme-panel',
   'center-base': 'desktop:h-[85dvh] desktop:min-w-[400px] desktop:w-[40dvw] desktop:max-w-[calc(100dvw-32px)] desktop:rounded-theme desktop:shadow-theme-modal',
+  right: 'desktop:inset-y-0 desktop:right-0 desktop:left-auto desktop:h-[100dvh] desktop:w-[500px] desktop:rounded-l-3xl desktop:rounded-r-none desktop:shadow-theme-modal',
   full: 'desktop:h-full desktop:w-full desktop:rounded-none desktop:shadow-none',
+};
+
+const getActiveVariant = ({ base, tablet, desktop }: ResponsiveModalVariant) => {
+  if (typeof window === 'undefined') return base;
+  if (window.innerWidth >= 1024) return desktop;
+  if (window.innerWidth >= 480) return tablet;
+  return base;
 };
 
 export const Modal = ({
@@ -76,18 +59,24 @@ export const Modal = ({
   variant,
   overlayClassName,
   dismissible = true,
-  animation = 'fade',
 }: ModalProps) => {
   const isPresent = useIsPresent();
   const reduceMotion = useReducedMotion();
-  const effects = typeof animation === 'string' ? [animation] : animation;
+  const [activeVariant, setActiveVariant] = useState(() => getActiveVariant(variant));
   const offset = reduceMotion ? 0 : 50;
-  const hiddenPosition = {
-    x: effects.includes('left') ? -offset : effects.includes('right') ? offset : 0,
-    y: effects.includes('top') ? -offset : effects.includes('bottom') ? offset : 0,
-  };
-  const hiddenOpacity = effects.includes('fade') ? 0 : 1;
+  const hiddenPosition = activeVariant === 'bottom'
+    ? { x: 0, y: offset }
+    : activeVariant === 'right'
+      ? { x: offset, y: 0 }
+      : { x: 0, y: 0 };
   const transition = { duration: reduceMotion ? 0 : 0.3, ease: 'easeInOut' as const };
+
+  useEffect(() => {
+    const updateActiveVariant = () => setActiveVariant(getActiveVariant(variant));
+    updateActiveVariant();
+    window.addEventListener('resize', updateActiveVariant);
+    return () => window.removeEventListener('resize', updateActiveVariant);
+  }, [variant]);
 
   useEffect(() => {
     if (!dismissible || !isPresent) return;
@@ -104,15 +93,12 @@ export const Modal = ({
 
   return (
     <motion.div
-      initial={{ opacity: hiddenOpacity }}
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: hiddenOpacity, pointerEvents: 'none' }}
+      exit={{ opacity: 0, pointerEvents: 'none' }}
       transition={transition}
       className={cn(
         overlayClass,
-        baseOverlayVariantClass[variant.base],
-        tabletOverlayVariantClass[variant.tablet],
-        desktopOverlayVariantClass[variant.desktop],
         overlayClassName,
       )}
       onClick={() => {

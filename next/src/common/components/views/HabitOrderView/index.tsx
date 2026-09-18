@@ -61,7 +61,7 @@ export const HabitOrderView = () => {
           ariaLabel="습관 순서 설정"
           onClose={() => setIsModalMounted(false)}
           overlayClassName="z-[99999]"
-          variant={{ base: 'full', tablet: 'center-base', desktop: 'center-base' }}
+          variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
           <ModalHeader title='습관 순서 설정' onBack={() => setIsModalMounted(false)} onConfirm={onSubmit} />
           <ModalBody withScrollFade={true}>

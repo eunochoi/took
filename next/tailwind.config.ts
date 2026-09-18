@@ -15,6 +15,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        "theme-overlay": "rgb(var(--theme-overlay) / <alpha-value>)",
         "theme-accent": "rgb(var(--theme-accent) / <alpha-value>)",
         "theme-accent-text": "var(--theme-accent-text)",
         "theme-bg": "rgb(var(--theme-bg) / <alpha-value>)",

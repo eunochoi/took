@@ -41,7 +41,7 @@ const HabitInfoView = ({ habitId, today }: Props) => {
           ariaLabel="습관 정보"
           onClose={() => setIsModalMounted(false)}
           overlayClassName="z-[99999]"
-          variant={{ base: 'full', tablet: 'center-base', desktop: 'center-base' }}
+          variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
           <ModalHeader title='습관 정보' onBack={() => setIsModalMounted(false)} />
           <ModalBody withScrollFade>

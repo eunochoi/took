@@ -14,7 +14,7 @@ interface Props {
 }
 
 const panelClass =
-  "flex h-full min-h-0 w-full flex-col items-center justify-start gap-5 overflow-y-auto overflow-x-hidden px-6 pb-8 pt-8 backdrop-blur-2xl tablet:gap-5 tablet:px-7 tablet:py-6 desktop:gap-6 desktop:px-10 desktop:py-8 landscape-short:justify-start landscape-short:gap-4 landscape-short:px-6 landscape-short:py-6";
+  "flex h-fit max-h-full min-h-0 w-full flex-col items-center justify-start gap-5 overflow-y-auto overflow-x-hidden px-6 pb-8 pt-8 backdrop-blur-2xl tablet:gap-5 tablet:px-7 tablet:py-6 desktop:gap-6 desktop:px-10 desktop:py-8 landscape-short:justify-start landscape-short:gap-4 landscape-short:px-6 landscape-short:py-6";
 const panelActionButtonClass = "shrink-0 rounded-full px-5 py-1.5 text-base shadow-card";
 
 export const SelectionPanel = ({

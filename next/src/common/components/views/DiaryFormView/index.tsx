@@ -128,10 +128,9 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
         <Modal
           ariaLabel={headerTitle}
           dismissible={!isSubmitting}
-          animation={['bottom', 'fade']}
           onClose={handleBack}
           overlayClassName="z-[99999]"
-          variant={{ base: 'full', tablet: 'center-base', desktop: 'center-base' }}
+          variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
           <ModalHeader
             title={headerTitle}
