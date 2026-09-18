@@ -11,7 +11,7 @@ const HabitIcon = ({ iconKey, className }: HabitIconProps) => {
 
   return (
     <Icon
-      className={cn('text-[color:color-mix(in_srgb,rgb(var(--theme-accent))_85%,black)]', className)}
+      className={cn('text-theme-accent', className)}
       aria-hidden="true"
       focusable="false"
     />
