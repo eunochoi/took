@@ -16,6 +16,7 @@ import { ModalBody } from '../../ui/Modal/ModalBody';
 import { ModalHeader } from '../../ui/Modal/ModalHeader';
 import { createHabitRequest } from './functions/createHabitRequest';
 import { updateHabitRequest } from './functions/updateHabitRequest';
+import HabitFormIconSection from './HabitFormIconSection';
 import HabitFormNameSection from './HabitFormNameSection';
 import HabitFormPrioritySection from './HabitFormPrioritySection';
 import { useHabitForm } from './hooks/useHabitForm';
@@ -45,12 +46,15 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
     setName,
     priority,
     setPriority,
+    iconKey,
+    setIconKey,
   } = useHabitForm();
   const isFormInitialized = useSyncHabitDataToForm({
     enabled: isEdit,
     habitData,
     setName,
     setPriority,
+    setIconKey,
   });
   const isHabitLoadFailure = useHandleHabitFormLoadFailure({
     isEdit,
@@ -69,12 +73,14 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
         habitId,
         name: habitName,
         priority,
+        iconKey,
       });
     }
     : (habitName: string) =>
       createHabitRequest({
         name: habitName,
         priority,
+        iconKey,
       });
   const confirmText = isEdit ? '수정' : '추가';
   const { isSubmitting, handleSubmit } = useHabitSubmission({
@@ -121,8 +127,9 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
             <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 px-[4dvw] pb-6 pt-2 tablet:px-6">
               <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">나의 작은 습관</h1>
               <div className="w-full rounded-theme border border-transparent bg-theme-surface p-5 shadow-card transition-colors tablet:focus-within:border-theme-accent/50">
-                <HabitFormPrioritySection priority={priority} setPriority={setPriority} />
                 <HabitFormNameSection name={name} setName={setName} />
+                <HabitFormPrioritySection priority={priority} setPriority={setPriority} />
+                <HabitFormIconSection iconKey={iconKey} setIconKey={setIconKey} />
               </div>
               <p className="text-center text-xs leading-relaxed text-theme-text-secondary">습관은 최대 {MAX_HABIT_COUNT}개까지 만들 수 있어요.</p>
             </fieldset>

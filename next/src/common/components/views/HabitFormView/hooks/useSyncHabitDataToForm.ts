@@ -1,4 +1,5 @@
 import { HABIT_PRIORITY_MIN } from '@/common/constants/habit';
+import { getHabitIconKey, type HabitIconKey } from '@/common/constants/habitIcons';
 import type { HabitData } from '@/common/actions/habit';
 import { useEffect, useRef, useState } from 'react';
 
@@ -7,6 +8,7 @@ type UseSyncHabitDataToFormParams = {
   habitData: HabitData | undefined;
   setName: (value: string) => void;
   setPriority: (value: number) => void;
+  setIconKey: (value: HabitIconKey) => void;
 };
 
 export const useSyncHabitDataToForm = ({
@@ -14,6 +16,7 @@ export const useSyncHabitDataToForm = ({
   habitData,
   setName,
   setPriority,
+  setIconKey,
 }: UseSyncHabitDataToFormParams) => {
   const initializedHabitIdRef = useRef<number | null>(null);
   const [initializedHabitId, setInitializedHabitId] = useState<number | null>(
@@ -26,9 +29,10 @@ export const useSyncHabitDataToForm = ({
 
     setName(habitData.name ?? '');
     setPriority(habitData.priority ?? HABIT_PRIORITY_MIN);
+    setIconKey(getHabitIconKey(habitData.iconKey));
     initializedHabitIdRef.current = habitData.id;
     setInitializedHabitId(habitData.id);
-  }, [enabled, habitData, setName, setPriority]);
+  }, [enabled, habitData, setName, setPriority, setIconKey]);
 
   return !enabled || initializedHabitId === habitData?.id;
 };
