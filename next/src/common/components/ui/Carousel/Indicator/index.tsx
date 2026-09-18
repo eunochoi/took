@@ -6,9 +6,10 @@ interface IndicatorProps {
   page: number;
   indicatorLength: number;
   type?: string;
+  gap?: boolean;
 }
 
-const Indicator = ({ slideWrapperRef, page, indicatorLength, type }: IndicatorProps) => {
+const Indicator = ({ slideWrapperRef, page, indicatorLength, type, gap = false }: IndicatorProps) => {
   return (
     <div className="my-1 flex h-auto w-full justify-center">
       {[...Array(indicatorLength)].map((_: any, i: number) => {
@@ -24,7 +25,7 @@ const Indicator = ({ slideWrapperRef, page, indicatorLength, type }: IndicatorPr
             )}
             onClick={() => {
               slideWrapperRef.current?.scrollTo({
-                left: slideWrapperRef.current.clientWidth * i,
+                left: (slideWrapperRef.current.clientWidth + (gap ? 16 : 0)) * i,
                 behavior: "smooth",
               });
             }}
