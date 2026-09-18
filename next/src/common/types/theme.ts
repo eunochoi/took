@@ -21,7 +21,7 @@ export const THEME_BG_LIST = [
   '238 250 246',
   '237 237 247',
   '249 241 242',
-  '255 248 234',
+  '255 250 240',
   '242 242 242',
 ] as const;
 
@@ -67,7 +67,7 @@ export const THEME_VALUE: Record<
   },
   yellow: {
     accent: '249 199 79',
-    bg: '255 248 234',
+    bg: '255 250 240',
   },
   grey: {
     accent: '143 143 143',

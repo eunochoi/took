@@ -26,7 +26,7 @@ html[data-theme-accent='pink'] {
 html[data-theme-accent='yellow'] {
   --theme-accent: 249 199 79;
   --theme-accent-deep: 202 160 61;
-  --theme-bg-light: 247 247 247;
+  --theme-bg-light: 255 250 240;
 }
 
 html[data-theme-accent='grey'] {
