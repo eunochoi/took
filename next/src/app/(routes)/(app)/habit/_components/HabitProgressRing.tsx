@@ -11,7 +11,7 @@ const HabitProgressRing = ({ completedCount, rate, totalCount, className }: Prop
   const rateValue = Math.min(Math.max(Number(rate) || 0, 0), 100);
 
   return (
-    <div className={cn("flex h-28 w-28 shrink-0 items-start justify-center rounded-full p-2.5 tablet:h-40 tablet:w-40 tablet:p-4", className)}
+    <div className={cn("flex shrink-0 items-start justify-center rounded-full p-2.5", className)}
       style={{
         background: `conic-gradient(rgb(var(--theme-accent)) ${rateValue}%, rgb(var(--theme-accent) / 0.16) ${rateValue}% 100%)`,
       }}
