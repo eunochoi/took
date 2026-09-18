@@ -4,16 +4,13 @@ import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query
 
 interface Props {
   searchParams: {
-    id: string
+    id: string;
   };
 }
 
-const ZoomPage = async ({ searchParams }: Props) => {
-
+const ZoomModalPage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();
-
-  const params = searchParams;
-  let diaryId = params.id;
+  const diaryId = searchParams.id;
 
   await queryClient.prefetchQuery({
     queryKey: ['diary', 'id', diaryId],
@@ -24,13 +21,11 @@ const ZoomPage = async ({ searchParams }: Props) => {
     },
   });
 
-  const dehydratedState = dehydrate(queryClient)
-
   return (
-    <HydrationBoundary state={dehydratedState}>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <ZoomView diaryId={diaryId} />
     </HydrationBoundary>
   );
-}
+};
 
-export default ZoomPage;
+export default ZoomModalPage;

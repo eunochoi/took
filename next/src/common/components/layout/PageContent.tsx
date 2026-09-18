@@ -16,7 +16,7 @@ export const PageContent = forwardRef<HTMLDivElement, PageContentProps>(
     return (
       <motion.div
         ref={ref}
-        key={pathname ?? 'page-content'}
+        // key={pathname ?? 'page-content'}
         className={cn(
           "flex h-auto w-full flex-col max-tablet:pb-[var(--mobileNav)] tablet:pb-9",
           className,

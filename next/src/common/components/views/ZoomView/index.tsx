@@ -1,22 +1,20 @@
 'use client';
+
 import { getDiaryById } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 import { useQuery } from "@tanstack/react-query";
+import { AnimatePresence } from "framer-motion";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
-import { EMOTIONS } from "@/common/constants/emotions";
+import { Modal } from "@/common/components/ui/Modal";
+import { ModalHeader } from "@/common/components/ui/Modal/ModalHeader";
+import { ScrollContainer } from "@/common/components/ui/ScrollContainer";
+import { cn } from "@/common/utils/cn";
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import Image from "next/image";
-import Carousel from "../../ui/Carousel";
-import { Modal } from "../../ui/Modal";
-import { ModalBody } from "../../ui/Modal/ModalBody";
-import { ModalHeader } from "../../ui/Modal/ModalHeader";
-
-import { TextSlide } from "./TextSlide";
-import { ZoomViewImage } from "./types";
+import { ZoomViewEntry } from "./ZoomViewEntry";
+import { ZoomViewGallery } from "./ZoomViewGallery";
 
 interface ZoomViewProps {
   diaryId: string;
@@ -24,86 +22,57 @@ interface ZoomViewProps {
 
 const ZoomView = ({ diaryId }: ZoomViewProps) => {
   const router = useRouter();
+  const [isModalMounted, setIsModalMounted] = useState(true);
   const { data: diaryData, isError } = useQuery({
     queryKey: ['diary', 'id', diaryId],
     queryFn: () => authAction(() => getDiaryById({ id: diaryId })),
-    enabled: diaryId !== null
+    enabled: diaryId !== null,
   });
-
-  const date = diaryData?.date;  // yyyy-MM-dd
-  const dateForDisplay = date ? parseLocalDate(date) : null;
-  const formattedDate = dateForDisplay ? format(dateForDisplay, 'yyyy년 M월 d일') : '';
-  const formattedDay = dateForDisplay ? format(dateForDisplay, 'eeee', { locale: ko }) : '';
-  const headerTitle = date ? `${formattedDate} ${formattedDay}` : '';
-  const images = diaryData?.Images;
-  const hasImages = (images?.length ?? 0) > 0;
-
-  const [zoomState, setZoomState] = useState<'zoom' | ''>('');
-
-  const zoomToggle = () => {
-    if (zoomState === '') setZoomState('zoom');
-    else setZoomState('');
-  }
 
   useEffect(() => {
     if (isError) notFound();
-  }, [isError])
+  }, [isError]);
 
   if (!diaryData) return null;
 
-  const emotion = EMOTIONS[diaryData.emotion];
-  const imageSlides = images?.map((image: ZoomViewImage) => (
-    <Image
-      key={image.id}
-      onClick={zoomToggle}
-      className={zoomState === 'zoom' ? "h-full w-full cursor-pointer object-cover" : "h-full w-full cursor-pointer object-contain"}
-      src={image.src}
-      alt="zoomImage"
-      width={400}
-      height={400}
-      placeholder="blur"
-      blurDataURL={image.src}
-    />
-  ));
+  const headerTitle = format(parseLocalDate(diaryData.date), 'yyyy년 M월 d일 eeee', { locale: ko });
+  const hasImages = diaryData.Images.length > 0;
 
-  return <Modal
-    ariaLabel={headerTitle}
-    isOpen
-    onClose={() => router.back()}
-    overlayClassName="z-[99999]"
-    variant={{ base: 'full', tablet: 'center-base', desktop: 'center-zoom' }}
-  >
-    <div className="flex min-h-0 flex-1 flex-col desktop:hidden">
-      <ModalHeader title={headerTitle} onBack={() => router.back()} />
-      <ModalBody contentMode="fill">
-        <Carousel>
-          <TextSlide diaryData={diaryData} />
-          {imageSlides}
-        </Carousel>
-      </ModalBody>
-    </div>
-    <div className="hidden h-full min-h-0 w-full desktop:flex">
-      <aside className="flex h-full w-[450px] shrink-0 flex-col bg-white border-r border-theme-border-muted">
-        <ModalHeader title={headerTitle} onBack={() => router.back()} />
-        <div className="min-h-0 flex-1">
-          <TextSlide diaryData={diaryData} showEmotion={hasImages} />
-        </div>
-      </aside>
-      <section className="h-full min-w-0 flex-1 overflow-hidden">
-        <Carousel>
-          {hasImages ? imageSlides : (
-            <Image
-              className="h-80 w-80 object-contain"
-              src={emotion?.src}
-              alt={emotion?.nameKr || '감정'}
-              width={160}
-              height={160}
+  return (
+    <AnimatePresence onExitComplete={() => router.back()}>
+      {isModalMounted && (
+        <Modal
+          ariaLabel={headerTitle}
+          onClose={() => setIsModalMounted(false)}
+          overlayClassName="z-[99999]"
+          variant={{ base: 'full', tablet: 'full', desktop: 'full' }}
+        >
+          <main className="flex h-[100dvh] min-h-0 w-full flex-col overflow-hidden bg-theme-surface pt-[env(safe-area-inset-top)]">
+            <ModalHeader
+              title={headerTitle}
+              onBack={() => setIsModalMounted(false)}
+              backLabel="뒤로가기"
+              className="landscape-short:!h-14 landscape-short:!pl-[max(1rem,env(safe-area-inset-left))] landscape-short:!pr-[max(1rem,env(safe-area-inset-right))] [&>button]:min-h-11 [&>button]:min-w-11 [&>button]:focus-visible:ring-2 [&>button]:focus-visible:ring-theme-accent [&>span]:max-w-[calc(100%-7rem)] [&>span]:text-center"
             />
-          )}
-        </Carousel>
-      </section>
-    </div>
-  </Modal>;
-}
+            <ScrollContainer className="flex-1" scrollAreaClassName="overscroll-y-contain">
+              <div
+                className={cn(
+                  "mx-auto grid w-full min-w-0 grid-cols-1 items-start gap-8 px-7 pt-5 pb-[max(2rem,env(safe-area-inset-bottom))] tablet:px-10 desktop:gap-16 desktop:px-12 desktop:pt-10 desktop:pb-16",
+                  "landscape-short:gap-6 landscape-short:pl-[max(1.5rem,env(safe-area-inset-left))] landscape-short:pr-[max(1.5rem,env(safe-area-inset-right))] landscape-short:pt-2",
+                  hasImages
+                    ? "max-w-7xl desktop:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] landscape-short:min-[640px]:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]"
+                    : "max-w-[760px] desktop:pt-12",
+                )}
+              >
+                <ZoomViewEntry diaryData={diaryData} />
+                {hasImages && <ZoomViewGallery key={diaryData.id} images={diaryData.Images} />}
+              </div>
+            </ScrollContainer>
+          </main>
+        </Modal>
+      )}
+    </AnimatePresence>
+  );
+};
 
 export default ZoomView;
