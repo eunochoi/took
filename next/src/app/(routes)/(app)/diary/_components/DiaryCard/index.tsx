@@ -1,11 +1,11 @@
 'use client';
 
+import Carousel from '@/common/components/ui/Carousel';
 import type { DiaryData } from '@/common/types/diary';
 import { cn } from '@/common/utils/cn';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { IoMdImage } from 'react-icons/io';
-import Carousel from '@/common/components/ui/Carousel';
 import DiaryDateHeader from './DiaryDateHeader';
 import DiaryHabits from './DiaryHabits';
 
@@ -27,14 +27,6 @@ const DiaryCard = ({ diaryData }: Props) => {
       <DiaryDateHeader diaryData={diaryData} />
       <div className="mx-4 border-t border-dashed border-theme-border-muted" aria-hidden="true" />
       <div className="flex flex-col gap-3 py-4">
-        <button
-          type="button"
-          onClick={navigateToZoom}
-          aria-label={`${diaryData.date} 일기 자세히 보기`}
-          className="min-w-0 w-full px-4 text-left text-base leading-[1.8] text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent"
-        >
-          <span className="line-clamp-3 whitespace-pre-wrap break-words">{diaryData.text}</span>
-        </button>
         {hasImages && (
           <div className="relative aspect-[5/3] w-full overflow-hidden bg-theme-surface-muted">
             <div className="absolute inset-0">
@@ -69,6 +61,14 @@ const DiaryCard = ({ diaryData }: Props) => {
             사진 {images.length}장
           </span>
         )}
+        <button
+          type="button"
+          onClick={navigateToZoom}
+          aria-label={`${diaryData.date} 일기 자세히 보기`}
+          className="min-w-0 w-full px-4 text-left text-base leading-[1.8] text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent"
+        >
+          <span className="line-clamp-3 whitespace-pre-wrap break-words">{diaryData.text}</span>
+        </button>
         <div className="mx-4 mt-1 border-t border-dashed border-theme-border-muted pt-3">
           <DiaryHabits habits={diaryData.Habits} />
         </div>
