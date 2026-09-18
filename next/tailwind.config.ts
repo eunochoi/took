@@ -16,6 +16,7 @@ const config: Config = {
     extend: {
       colors: {
         "theme-accent": "rgb(var(--theme-accent) / <alpha-value>)",
+        "theme-accent-text": "var(--theme-accent-text)",
         "theme-bg": "rgb(var(--theme-bg) / <alpha-value>)",
         "theme-surface": "rgb(var(--theme-surface) / <alpha-value>)",
         "theme-surface-muted": "rgb(var(--theme-surface-muted) / <alpha-value>)",
