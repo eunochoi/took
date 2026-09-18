@@ -36,7 +36,7 @@ export const HabitList = memo(({ tempHabits, setTempHabits }: HabitListProps) =>
   };
 
 
-  return (<div className='w-full h-full px-6 py-4'>
+  return (<div className='flex h-full w-full flex-col items-center px-6 py-4'>
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
