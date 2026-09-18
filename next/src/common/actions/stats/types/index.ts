@@ -25,6 +25,7 @@ export interface HabitCount {
   id: number;
   name: string;
   priority: number;
+  iconKey: string;
   count: number;
 }
 

@@ -2,6 +2,7 @@
 
 import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
+import { DEFAULT_HABIT_ICON_KEY, isValidHabitIconKey } from '../../constants/habitIcons';
 import {
   HABIT_NAME_MAX_LENGTH,
   HABIT_NAME_MIN_LENGTH,
@@ -17,7 +18,7 @@ import {
   isValidHabitPriority,
 } from './utils';
 
-export const createHabit = async ({ habitName, priority }: HabitFormParams): Promise<ActionResult<HabitData>> => {
+export const createHabit = async ({ habitName, priority, iconKey = DEFAULT_HABIT_ICON_KEY }: HabitFormParams): Promise<ActionResult<HabitData>> => {
   try {
     const auth = await getAuth();
     if (!auth.ok) return createAuthErrorResult(auth);
@@ -29,6 +30,9 @@ export const createHabit = async ({ habitName, priority }: HabitFormParams): Pro
       return { ok: false, code: 'INVALID_HABIT_PRIORITY', message: '습관 우선순위가 올바르지 않습니다.' };
     }
     const normalizedHabitName = habitName.trim();
+    if (!isValidHabitIconKey(iconKey)) {
+      return { ok: false, code: 'INVALID_HABIT_ICON', message: '습관 아이콘을 다시 선택해주세요.' };
+    }
 
     const user = await prisma.user.findUnique({
       where: { email: auth.email },
@@ -61,6 +65,7 @@ export const createHabit = async ({ habitName, priority }: HabitFormParams): Pro
         email: auth.email,
         name: normalizedHabitName,
         priority,
+        iconKey,
       },
     });
 

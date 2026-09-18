@@ -26,6 +26,7 @@ model Habit {
   email     String   @db.VarChar(30)
   name      String   @db.VarChar(50)
   priority  Int
+  iconKey   String   @default("goal") @db.VarChar(32)
   userId    Int      @map("UserId")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

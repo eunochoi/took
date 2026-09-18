@@ -1,4 +1,5 @@
 import type { Habit } from '@prisma/client';
+import type { HabitIconKey } from '../../../constants/habitIcons';
 import type { HabitSort } from '../../../types/sort';
 
 export type IdParams = {
@@ -28,6 +29,7 @@ export type HabitFormParams = {
   habitId?: string | number | null;
   habitName: string;
   priority: number;
+  iconKey?: string;
 };
 
 export type DeleteHabitParams = {
@@ -39,8 +41,9 @@ export type CheckHabitParams = {
   date: string;
 };
 
-export type HabitData = Omit<Habit, 'userId' | 'createdAt' | 'updatedAt'> & {
+export type HabitData = Omit<Habit, 'userId' | 'createdAt' | 'updatedAt' | 'iconKey'> & {
   UserId: number;
+  iconKey: HabitIconKey;
   createdAt: string;
   updatedAt: string;
 };
@@ -54,6 +57,7 @@ export type HabitByDate = {
   id: number;
   name: string;
   priority: number;
+  iconKey: string;
   completed: boolean;
 };
 

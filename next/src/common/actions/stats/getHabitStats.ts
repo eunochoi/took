@@ -20,6 +20,7 @@ export const getHabitStats = async ({ year }: YearParams): Promise<ActionResult<
           id: true,
           name: true,
           priority: true,
+          iconKey: true,
         },
       }),
       prisma.diary.findMany({
@@ -51,6 +52,7 @@ export const getHabitStats = async ({ year }: YearParams): Promise<ActionResult<
         id: habit.id,
         name: habit.name,
         priority: habit.priority,
+        iconKey: habit.iconKey,
         count: 0,
       };
     });

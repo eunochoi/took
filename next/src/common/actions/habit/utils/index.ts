@@ -1,4 +1,5 @@
 import type { Habit } from '@prisma/client';
+import { getHabitIconKey } from '../../../constants/habitIcons';
 
 import type { AuthResult } from '../../../auth/getAuth';
 import {
@@ -83,6 +84,7 @@ export const formatHabitData = (habit: Habit): HabitData => {
     email: habit.email,
     name: habit.name,
     priority: habit.priority,
+    iconKey: getHabitIconKey(habit.iconKey),
     createdAt: habit.createdAt.toISOString(),
     updatedAt: habit.updatedAt.toISOString(),
   };

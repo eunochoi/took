@@ -27,7 +27,7 @@ export const getHabitsByDate = async ({ date }: HabitsByDateParams): Promise<Act
       select: {
         habits: {
           orderBy: [{ priority: 'desc' }, { createdAt: 'asc' }],
-          select: { id: true, name: true, priority: true },
+          select: { id: true, name: true, priority: true, iconKey: true },
         },
       },
     });
@@ -49,7 +49,7 @@ export const getHabitsByDate = async ({ date }: HabitsByDateParams): Promise<Act
       prisma.habit.findMany({
         where: { email: auth.email },
         orderBy: [{ priority: 'desc' }, { createdAt: 'asc' }],
-        select: { id: true, name: true, priority: true, createdAt: true },
+        select: { id: true, name: true, priority: true, iconKey: true, createdAt: true },
       }),
     ]);
     const completedHabitIds = new Set(completedHabits.map((habit) => habit.id));
@@ -63,6 +63,7 @@ export const getHabitsByDate = async ({ date }: HabitsByDateParams): Promise<Act
             id: habit.id,
             name: habit.name,
             priority: habit.priority,
+            iconKey: habit.iconKey,
             completed: completedHabitIds.has(habit.id),
           })),
         canEdit: true,
