@@ -1,29 +1,36 @@
+/* accent-deep: 보라 #979fc7 → #777ea1 기준으로 HSL 색상 유지, 채도 × 14/23, 명도 × 0.8 */
 html[data-theme-accent='blue'] {
   --theme-accent: 140 173 226;
+  --theme-accent-deep: 107 137 186;
   --theme-bg-light: 240 247 255;
 }
 
 html[data-theme-accent='green'] {
   --theme-accent: 131 198 182;
+  --theme-accent-deep: 104 159 146;
   --theme-bg-light: 238 250 246;
 }
 
 html[data-theme-accent='purple'] {
   --theme-accent: 151 159 199;
+  --theme-accent-deep: 119 126 161;
   --theme-bg-light: 237 237 247;
 }
 
 html[data-theme-accent='pink'] {
   --theme-accent: 237 165 177;
+  --theme-accent-deep: 199 123 135;
   --theme-bg-light: 249 241 242;
 }
 
 html[data-theme-accent='yellow'] {
   --theme-accent: 249 199 79;
-  --theme-bg-light: 255 250 240;
+  --theme-accent-deep: 202 160 61;
+  --theme-bg-light: 247 247 247;
 }
 
 html[data-theme-accent='grey'] {
   --theme-accent: 143 143 143;
+  --theme-accent-deep: 114 114 114;
   --theme-bg-light: 242 242 242;
 }

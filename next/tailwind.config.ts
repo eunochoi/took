@@ -17,6 +17,7 @@ const config: Config = {
       colors: {
         "theme-overlay": "rgb(var(--theme-overlay) / <alpha-value>)",
         "theme-accent": "rgb(var(--theme-accent) / <alpha-value>)",
+        "theme-accent-deep": "rgb(var(--theme-accent-deep) / <alpha-value>)",
         "theme-accent-text": "var(--theme-accent-text)",
         "theme-bg": "rgb(var(--theme-bg) / <alpha-value>)",
         "theme-surface": "rgb(var(--theme-surface) / <alpha-value>)",
