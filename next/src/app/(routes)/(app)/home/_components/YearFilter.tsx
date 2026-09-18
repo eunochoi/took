@@ -3,25 +3,18 @@
 import { Modal } from "@/common/components/ui/Modal";
 import { SelectionPanel } from "@/common/components/ui/SelectionPanel";
 import { cn } from "@/common/utils/cn";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
-  isOpen: boolean;
   onClose: () => void;
   years: number[];
   selectedYear: number;
   onApplyYear: (year: number) => void;
 }
 
-const YearFilter = ({ isOpen, onClose, years, selectedYear, onApplyYear }: Props) => {
+const YearFilter = ({ onClose, years, selectedYear, onApplyYear }: Props) => {
   const [tempYear, setTempYear] = useState(selectedYear);
   const yearGridClass = "grid w-full grid-cols-3 gap-2.5 overflow-y-auto p-1 max-h-[calc(50dvh-120px)] tablet:max-h-[300px]";
-
-  useEffect(() => {
-    if (isOpen) {
-      setTempYear(selectedYear);
-    }
-  }, [isOpen, selectedYear]);
 
   const onSubmit = () => {
     onApplyYear(tempYear);
@@ -30,7 +23,7 @@ const YearFilter = ({ isOpen, onClose, years, selectedYear, onApplyYear }: Props
   return (
     <Modal
       ariaLabel="연도 선택"
-      isOpen={isOpen}
+      animation={['top', 'fade']}
       onClose={() => onClose()}
       overlayClassName="z-[98] tablet:z-[105]"
       variant={{ base: 'top', tablet: 'center-base', desktop: 'center-base' }}

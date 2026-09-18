@@ -9,6 +9,7 @@ interface ModalHeaderProps {
   confirmText?: string;
   onConfirm?: () => void;
   onBack?: () => void;
+  backLabel?: string;
   isDisabled?: boolean;
 }
 
@@ -22,6 +23,7 @@ export const ModalHeader = ({
   confirmText = '완료',
   onConfirm,
   onBack,
+  backLabel = '모달 닫기',
   isDisabled = false,
 }: ModalHeaderProps) => {
   return (
@@ -33,7 +35,7 @@ export const ModalHeader = ({
     >
       {onBack ? (
         <button
-          aria-label="모달 닫기"
+          aria-label={backLabel}
           className={modalHeaderButtonClass}
           onClick={onBack}
           type="button"

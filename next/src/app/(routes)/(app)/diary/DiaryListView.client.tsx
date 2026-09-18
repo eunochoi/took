@@ -1,5 +1,7 @@
 'use client';
 
+import { AnimatePresence } from "framer-motion";
+
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -99,19 +101,25 @@ const DiaryListView = () => {
         </TopButton>
       </>}
     >
-      <EmotionFilter
-        contentRef={wrapperRef}
-        isOpen={isEmotionFilterOpen}
-        onClose={closeEmotionFilter}
-        setEmotionToggle={setEmotionToggle}
-      />
-      <MonthFilter
-        contentRef={wrapperRef}
-        isOpen={isMonthFilterOpen}
-        onClose={closeMonthFilter}
-        setSelectedYear={setSelectedYear}
-        setSelectedMonth={setSelectedMonth}
-      />
+      <AnimatePresence>
+        {isEmotionFilterOpen && (
+          <EmotionFilter
+            key="emotion-filter"
+            contentRef={wrapperRef}
+            onClose={closeEmotionFilter}
+            setEmotionToggle={setEmotionToggle}
+          />
+        )}
+        {isMonthFilterOpen && (
+          <MonthFilter
+            key="month-filter"
+            contentRef={wrapperRef}
+            onClose={closeMonthFilter}
+            setSelectedYear={setSelectedYear}
+            setSelectedMonth={setSelectedMonth}
+          />
+        )}
+      </AnimatePresence>
       <div className="grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
         <div className="flex min-w-0 flex-col gap-4">
           <div className="flex min-w-0 flex-col gap-4 desktop:self-start">

@@ -6,7 +6,6 @@ import {
   HABIT_PRIORITY_MIN,
 } from '@/common/constants/habit';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 
@@ -16,6 +15,7 @@ type UseHabitSubmissionParams = {
   saveHabit: (name: string) => Promise<HabitData>;
   successMessage: string;
   failureMessage: string;
+  onSuccess: () => void;
 };
 
 export const useHabitSubmission = ({
@@ -24,9 +24,9 @@ export const useHabitSubmission = ({
   saveHabit,
   successMessage,
   failureMessage,
+  onSuccess,
 }: UseHabitSubmissionParams) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
@@ -61,7 +61,7 @@ export const useHabitSubmission = ({
         queryClient.invalidateQueries({ queryKey: ['habit'] }),
         queryClient.invalidateQueries({ queryKey: ['stats'] }),
       ]);
-      router.back();
+      onSuccess();
       setTimeout(() => enqueueSnackbar(successMessage), 300);
     } catch (error) {
       console.error(failureMessage, error);

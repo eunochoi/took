@@ -3,6 +3,7 @@
 import { getHabitList } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
 import { useQuery } from '@tanstack/react-query';
+import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 import { useCustomHabitOrder } from '@/app/(routes)/(app)/habit/_hooks/useCustomHabitOrder';
@@ -19,6 +20,7 @@ import { HabitList } from './HabitList';
 
 export const HabitOrderView = () => {
   const router = useRouter();
+  const [isModalMounted, setIsModalMounted] = useState(true);
   const { customHabitOrder, setCustomHabitOrder } = useCustomHabitOrder();
 
   //custom habits data load
@@ -43,7 +45,7 @@ export const HabitOrderView = () => {
     try {
       const tempHabitsIdArray = tempHabits.map(e => e.id);
       setCustomHabitOrder(tempHabitsIdArray);
-      router.back();
+      setIsModalMounted(false);
       setTimeout(() => {
         enqueueSnackbar('변경 완료');
       }, 300);
@@ -53,19 +55,23 @@ export const HabitOrderView = () => {
   };
 
   return (
-    <Modal
-      ariaLabel="습관 순서 설정"
-      isOpen
-      onClose={() => router.back()}
-      overlayClassName="z-[99999]"
-      variant={{ base: 'full', tablet: 'center-base', desktop: 'center-base' }}
-    >
-      <ModalHeader title='습관 순서 설정' onBack={() => router.back()} onConfirm={onSubmit} />
-      <ModalBody withScrollFade={true}>
-        <HabitList tempHabits={tempHabits} setTempHabits={setTempHabits} />
-      </ModalBody>
-      <ModalFooter>
-        <button className="text-base capitalize text-theme-accent" onClick={onInitialize} type="button">변경사항 취소</button>
-      </ModalFooter>
-    </Modal>);
-}
+    <AnimatePresence onExitComplete={() => router.back()}>
+      {isModalMounted && (
+        <Modal
+          ariaLabel="습관 순서 설정"
+          onClose={() => setIsModalMounted(false)}
+          overlayClassName="z-[99999]"
+          variant={{ base: 'full', tablet: 'center-base', desktop: 'center-base' }}
+        >
+          <ModalHeader title='습관 순서 설정' onBack={() => setIsModalMounted(false)} onConfirm={onSubmit} />
+          <ModalBody withScrollFade={true}>
+            <HabitList tempHabits={tempHabits} setTempHabits={setTempHabits} />
+          </ModalBody>
+          <ModalFooter>
+            <button className="text-base capitalize text-theme-accent" onClick={onInitialize} type="button">변경사항 취소</button>
+          </ModalFooter>
+        </Modal>
+      )}
+    </AnimatePresence>
+  );
+};

@@ -1,5 +1,7 @@
 'use client';
 
+import { AnimatePresence } from "framer-motion";
+
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useSearchParams } from "next/navigation";
@@ -75,21 +77,25 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
         className: "flex-1 gap-3 max-tablet:gap-5 tablet:gap-6",
       }}
       afterContent={
-        <YearFilter
-          isOpen={isYearFilterOpen}
-          onClose={() => closeYearFilter()}
-          years={years}
-          selectedYear={selectedYear}
-          onApplyYear={(year) => {
-            const params = new URLSearchParams(searchParams);
-            params.delete('modal');
+        <AnimatePresence>
+          {isYearFilterOpen && (
+            <YearFilter
+              key="year-filter"
+              onClose={() => closeYearFilter()}
+              years={years}
+              selectedYear={selectedYear}
+              onApplyYear={(year) => {
+                const params = new URLSearchParams(searchParams);
+                params.delete('modal');
 
-            if (year === currentYear) params.delete('year');
-            else params.set('year', year.toString());
+                if (year === currentYear) params.delete('year');
+                else params.set('year', year.toString());
 
-            closeYearFilter(params);
-          }}
-        />
+                closeYearFilter(params);
+              }}
+            />
+          )}
+        </AnimatePresence>
       }>
       <div className="grid w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6">
         <div className="min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">

@@ -4,13 +4,12 @@ import { Modal } from "@/common/components/ui/Modal";
 import { SelectionPanel } from "@/common/components/ui/SelectionPanel";
 import { getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MdRefresh } from 'react-icons/md';
 import MonthSelector from "./MonthSelector";
 
 interface Props {
   contentRef: React.MutableRefObject<HTMLDivElement | null>;
-  isOpen: boolean;
   onClose: (params?: URLSearchParams) => void;
   setSelectedYear: React.Dispatch<React.SetStateAction<number>>;
   setSelectedMonth: (d: number) => void;
@@ -18,27 +17,16 @@ interface Props {
 
 const MonthFilter = ({
   contentRef,
-  isOpen,
   onClose,
   setSelectedYear,
   setSelectedMonth,
 }: Props) => {
   const searchParams = useSearchParams();
 
-  const [tempYear, setTempYear] = useState<number>(getDefaultYear());
-  const [tempMonth, setTempMonth] = useState<number>(MONTH_UNSELECTED);
-
   const year = searchParams.get('year');
   const month = searchParams.get('month');
-
-  useEffect(() => {
-    if (isOpen) {
-      if (year) setTempYear(Number(year));
-      else setTempYear(getDefaultYear());
-      if (month) setTempMonth(Number(month));
-      else setTempMonth(MONTH_UNSELECTED);
-    }
-  }, [isOpen, year, month]);
+  const [tempYear, setTempYear] = useState<number>(() => year ? Number(year) : getDefaultYear());
+  const [tempMonth, setTempMonth] = useState<number>(() => month ? Number(month) : MONTH_UNSELECTED);
 
   const onSubmit = () => {
     const params = new URLSearchParams(searchParams);
@@ -66,7 +54,7 @@ const MonthFilter = ({
   return (
     <Modal
       ariaLabel="기간 선택"
-      isOpen={isOpen}
+      animation={['top', 'fade']}
       onClose={() => onClose()}
       overlayClassName="z-[98] tablet:z-[105]"
       variant={{ base: 'top', tablet: 'center-base', desktop: 'center-base' }}

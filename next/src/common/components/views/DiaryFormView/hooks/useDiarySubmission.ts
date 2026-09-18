@@ -1,7 +1,6 @@
 import type { DiaryData } from '@/common/types/diary';
 import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import { uploadDiaryImagesAndCollectIds } from '../functions/uploadDiaryImagesAndCollectIds';
@@ -14,6 +13,7 @@ type UseDiarySubmissionParams = {
   saveDiary: (imageContentIds: string[]) => Promise<DiaryData>;
   successMessage: string;
   failureMessage: string;
+  onSuccess: () => void;
 };
 
 export const useDiarySubmission = ({
@@ -23,9 +23,9 @@ export const useDiarySubmission = ({
   saveDiary,
   successMessage,
   failureMessage,
+  onSuccess,
 }: UseDiarySubmissionParams) => {
   const queryClient = useQueryClient();
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
@@ -59,7 +59,7 @@ export const useDiarySubmission = ({
         queryClient.invalidateQueries({ queryKey: ['diary', 'diaryList'] }),
         queryClient.invalidateQueries({ queryKey: ['stats'] }),
       ]);
-      router.back();
+      onSuccess();
       const completedMessage = duplicateImageCount > 0
         ? `${successMessage}. 이미 추가된 사진은 한 장만 저장되었습니다.`
         : successMessage;

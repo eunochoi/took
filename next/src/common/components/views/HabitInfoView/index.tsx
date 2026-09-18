@@ -3,6 +3,7 @@
 import { getHabitById } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import { useQuery } from "@tanstack/react-query";
+import { AnimatePresence } from "framer-motion";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -20,6 +21,7 @@ interface Props {
 
 const HabitInfoView = ({ habitId, today }: Props) => {
   const router = useRouter();
+  const [isModalMounted, setIsModalMounted] = useState(true);
   const [chartDate, setChartDate] = useState<Date>(new Date());
 
   const { data: habitDataById, isError } = useQuery({
@@ -33,31 +35,34 @@ const HabitInfoView = ({ habitId, today }: Props) => {
   }, [isError]);
 
   return (
-    <Modal
-      ariaLabel="습관 정보"
-      isOpen
-      onClose={() => router.back()}
-      overlayClassName="z-[99999]"
-      variant={{ base: 'full', tablet: 'center-base', desktop: 'center-base' }}
-    >
-      <ModalHeader title='습관 정보' onBack={() => router.back()} />
-      <ModalBody withScrollFade>
-        <div className="flex w-full flex-col gap-6 px-[4dvw] pb-6 pt-2 tablet:px-6 tablet:pb-7">
-          <HabitInfoHeader habitData={habitDataById} />
+    <AnimatePresence onExitComplete={() => router.back()}>
+      {isModalMounted && (
+        <Modal
+          ariaLabel="습관 정보"
+          onClose={() => setIsModalMounted(false)}
+          overlayClassName="z-[99999]"
+          variant={{ base: 'full', tablet: 'center-base', desktop: 'center-base' }}
+        >
+          <ModalHeader title='습관 정보' onBack={() => setIsModalMounted(false)} />
+          <ModalBody withScrollFade>
+            <div className="flex w-full flex-col gap-6 px-[4dvw] pb-6 pt-2 tablet:px-6 tablet:pb-7">
+              <HabitInfoHeader habitData={habitDataById} />
 
-          <MonthInfo
-            key={habitId}
-            habitId={habitId}
-            today={today}
-          />
+              <MonthInfo
+                key={habitId}
+                habitId={habitId}
+                today={today}
+              />
 
-          <YearInfo
-            displayDate={chartDate}
-            habitId={habitId}
-            setDisplayDate={setChartDate} />
-        </div>
-      </ModalBody>
-    </Modal>
+              <YearInfo
+                displayDate={chartDate}
+                habitId={habitId}
+                setDisplayDate={setChartDate} />
+            </div>
+          </ModalBody>
+        </Modal>
+      )}
+    </AnimatePresence>
   );
 };
 
