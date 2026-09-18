@@ -1,7 +1,7 @@
 export const selectedDayInfoStyles = {
   card: 'box-border flex w-full flex-col gap-3 rounded-theme bg-theme-surface p-3.5 shadow-theme-section backdrop-blur-xl tablet:p-4',
   header: {
-    container: 'font-title flex items-center justify-between gap-4 border-b border-theme-border/60 pb-3',
+    container: 'font-title flex items-center justify-between gap-4',
     title: 'text-lg font-semibold text-theme-text-primary',
     icon: 'h-9 w-9 shrink-0 text-theme-accent',
     description: 'mt-1 text-sm text-theme-text-tertiary',
@@ -18,8 +18,8 @@ export const selectedDayInfoStyles = {
     lockedStatus: 'flex items-center gap-1 text-xs desktop:text-sm text-theme-text-tertiary',
     list: 'flex flex-col gap-2',
     item:
-      'flex w-full items-center justify-between transition-opacity',
-    toggleButton: 'flex min-h-9 min-w-0 items-center gap-2.5 rounded-lg text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
+      'flex w-full items-center justify-between gap-2 transition-opacity',
+    toggleButton: 'flex min-h-9 min-w-0 flex-1 items-center gap-2.5 rounded-lg text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
     selector:
       'flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-[1.5px] transition-colors duration-150 motion-reduce:transition-none',
     name: 'min-w-0 truncate text-sm',
