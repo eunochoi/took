@@ -25,7 +25,7 @@ export const selectedDayInfoStyles = {
     name: 'min-w-0 truncate text-sm',
     infoButton: 'flex h-6 w-6 shrink-0 items-center justify-center text-theme-text-disabled',
     expandButton: 'flex min-h-8 w-full items-center justify-center gap-1 text-xs desktop:text-sm font-semibold text-theme-accent',
-    emptyMessage: 'text-center text-xs desktop:text-sm leading-relaxed text-theme-text-tertiary',
+    emptyMessage: 'text-center text-xs py-6 desktop:text-sm leading-relaxed text-theme-text-tertiary',
   },
   diary: {
     imageFrame: 'relative aspect-square w-full overflow-hidden',
