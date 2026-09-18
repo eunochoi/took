@@ -25,10 +25,9 @@ const DiaryCard = ({ diaryData }: Props) => {
   return (
     <article className="box-border w-full shrink-0 rounded-theme bg-theme-surface shadow-theme-section">
       <DiaryDateHeader diaryData={diaryData} />
-      <div className="mx-4 border-t border-dashed border-theme-border-muted" aria-hidden="true" />
-      <div className="flex flex-col gap-3 py-4">
+      <div className="flex flex-col gap-3 pb-4">
         {hasImages && (
-          <div className="relative aspect-[5/3] w-full overflow-hidden bg-theme-surface-muted">
+          <div className="relative aspect-[5/4] w-full overflow-hidden bg-theme-surface-muted">
             <div className="absolute inset-0">
               <Carousel
                 className={cn(images.length > 1 && '[&>div:last-child]:absolute [&>div:last-child]:bottom-1 [&>div:last-child]:z-10')}
