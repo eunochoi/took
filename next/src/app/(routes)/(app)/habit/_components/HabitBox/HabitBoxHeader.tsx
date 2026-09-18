@@ -1,39 +1,41 @@
 import EditDeleteMenu from "@/common/components/ui/EditDeleteMenu";
+import HabitIcon from "@/common/components/ui/HabitIcon";
 import { StarRating } from "@/common/components/ui/StarRating";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction, useRef } from "react";
-import { MdChevronRight, MdMoreVert } from 'react-icons/md';
+import { MdMoreVert } from 'react-icons/md';
 
 interface Props {
   id: number;
   name: string;
   priority: number;
+  iconKey: string;
   isMenuOpen: boolean;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
   onDeleteHabit: () => void;
 }
 
-const HabitBoxHeader = ({ id, name, priority, isMenuOpen, setMenuOpen, onDeleteHabit }: Props) => {
+const HabitBoxHeader = ({ id, name, priority, iconKey, isMenuOpen, setMenuOpen, onDeleteHabit }: Props) => {
   const router = useRouter();
   const menuAnchorRef = useRef<HTMLButtonElement>(null);
 
   return (
     <div className="min-w-0">
-      <div className="flex mb-2 min-w-0 items-center justify-between gap-1">
+      <div className="relative mb-1 min-w-0">
         <Link
           href={`/inter/habitInfo?id=${id}`}
           scroll={false}
-          className="flex min-w-0 items-center gap-1 font-semibold text-theme-text-primary sm:text-lg"
+          className="flex w-full min-w-0 flex-col items-start gap-3 font-semibold text-theme-text-primary"
           aria-label={`${name} 습관 정보`}
         >
-          <span className="truncate text-lg" title={name}>{name}</span>
-          <MdChevronRight className="shrink-0 text-xl" aria-hidden="true" />
+          <HabitIcon iconKey={iconKey} className="text-3xl shrink-0" />
+          <span className="w-full truncate text-base">{name}</span>
         </Link>
         <button
           ref={menuAnchorRef}
           type="button"
-          className="-mr-2 flex w-8 shrink-0 items-center justify-center text-xl text-theme-text-secondary"
+          className="absolute -right-2 top-0 flex h-9 w-8 items-center justify-center text-xl text-theme-text-secondary"
           aria-label={`${name} 수정·삭제 메뉴`}
           aria-expanded={isMenuOpen}
           aria-controls={isMenuOpen ? `habit-menu-${id}` : undefined}

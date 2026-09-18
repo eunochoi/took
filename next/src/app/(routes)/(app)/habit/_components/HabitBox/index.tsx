@@ -11,15 +11,15 @@ import { useRef, useState } from "react";
 
 import HabitBoxHeader from "./HabitBoxHeader";
 import HabitBoxRecentDays from "./HabitBoxRecentDays";
-import HabitBoxProgress from "./HabitBoxProgress";
 
 interface Props {
   name: string;
   id: number;
   priority: number;
+  iconKey: string;
 }
 
-const HabitBox = ({ name, id, priority }: Props) => {
+const HabitBox = ({ name, id, priority, iconKey }: Props) => {
   const queryClient = useQueryClient();
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isUpdating, setUpdating] = useState(false);
@@ -31,6 +31,8 @@ const HabitBox = ({ name, id, priority }: Props) => {
     queryKey: ['habit', id, 'recent', todayString],
     queryFn: () => authAction(() => getHabitRecentStatus({ id, date: todayString })),
   });
+  const todayCompleted = !!recentDateStatus?.[0];
+
 
   const onDeleteHabit = () => {
     const action = () => (
@@ -93,6 +95,7 @@ const HabitBox = ({ name, id, priority }: Props) => {
         id={id}
         name={name}
         priority={priority}
+        iconKey={iconKey}
         isMenuOpen={isMenuOpen}
         setMenuOpen={setMenuOpen}
         onDeleteHabit={onDeleteHabit}
@@ -103,12 +106,17 @@ const HabitBox = ({ name, id, priority }: Props) => {
         controlsDisabled={controlsDisabled}
         onToggleHabit={onToggleHabit}
       />
-      <HabitBoxProgress
-        name={name}
-        recentDateStatus={recentDateStatus}
-        controlsDisabled={controlsDisabled}
-        onCompleteToday={() => onToggleHabit(true, todayString)}
-      />
+      <button
+        type="button"
+        disabled={controlsDisabled || todayCompleted}
+        onClick={() => onToggleHabit(true, todayString)}
+        className={cn(
+          "w-full rounded-xl px-2 py-2 text-sm font-medium",
+          todayCompleted ? "bg-theme-bg text-theme-accent/80" : "bg-theme-accent text-white",
+        )}
+      >
+        {todayCompleted ? '오늘 완료했어요' : '오늘 완료하기'}
+      </button>
     </div>
   );
 };

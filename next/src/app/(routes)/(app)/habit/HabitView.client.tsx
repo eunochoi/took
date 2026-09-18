@@ -18,12 +18,6 @@ import HabitOverviewCard from "./_components/HabitOverviewCard";
 import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
 import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
 
-interface Habit {
-  id: number;
-  name: string;
-  priority: number;
-}
-
 const HABIT_SORT_LABELS: Record<HabitSort, string> = {
   ASC: '과거순',
   DESC: '최신순',
@@ -88,7 +82,7 @@ const HabitView = () => {
 
         <section className="mt-0 flex min-w-0 flex-col desktop:col-start-1 desktop:row-start-2">
           <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3">
-            {habits?.map((habit: Habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} />)}
+            {habits?.map((habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} iconKey={habit.iconKey} />)}
           </div>
         </section>
 

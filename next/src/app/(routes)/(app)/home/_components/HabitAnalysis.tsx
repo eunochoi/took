@@ -5,8 +5,8 @@ import { AppCardGrid } from "@/common/components/ui/AppSection/card";
 import { AppInfoCard, AppInfoContent, AppInfoText } from "@/common/components/ui/AppSection/info";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
+import HabitIcon from "@/common/components/ui/HabitIcon";
 import { StarRating } from "@/common/components/ui/StarRating";
-import { cn } from "@/common/utils/cn";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -46,21 +46,15 @@ const HabitAnalysis = ({ stats }: Props) => {
 
       {habits && habits.length > 0 ?
         <ol className="m-0 list-none divide-y divide-theme-border/70 rounded-theme bg-theme-surface px-4 py-1 shadow-card tablet:px-5">
-          {habits.slice(0, 3).map((habit, index) => (
+          {habits.slice(0, 3).map((habit) => (
             <li key={habit.id}>
               <button
                 type="button"
                 onClick={() => handleHabitClick(habit.id)}
                 className="flex w-full min-w-0 items-center gap-3 rounded-lg py-3 text-left transition-colors hover:bg-theme-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent focus-visible:outline-offset-2 tablet:gap-4"
               >
-                <span className={cn(
-                  "flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-title text-sm font-semibold tabular-nums",
-                  index === 0
-                    ? "bg-theme-accent/20 text-theme-text-primary"
-                    : "bg-theme-text-primary/5 text-theme-text-secondary",
-                )}>
-                  <span className="sr-only">{habitTab === 'top' ? '상위' : '하위'} 순위 </span>
-                  {index + 1}
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-transparent">
+                  <HabitIcon iconKey={habit.iconKey} className="text-2xl" />
                 </span>
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
                   <span className="truncate text-base leading-relaxed text-theme-text-primary">
