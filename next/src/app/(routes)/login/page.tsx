@@ -7,10 +7,10 @@ import { FiBookOpen, FiCheckCircle, FiHeart } from "react-icons/fi";
 
 import { logout } from "@/common/auth/logout";
 import Wordmark from '@/common/components/ui/Wordmark';
+import { EMOTIONS } from "@/common/constants/emotions";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import LoginButton from "./_components/LoginButton";
 import StartButton from "./_components/StartButton";
-import emotionsImage from '/public/img/emotion/emotions.png';
 
 const Page = () => {
   const router = useRouter();
@@ -47,14 +47,10 @@ const Page = () => {
               습관과 감정을 기록하며,<br className="desktop:hidden" /> 나만의 속도로 쌓아가는 하루.
             </p>
           </div>
-
-          <div className="mt-7 flex flex-1 items-center justify-center desktop:mt-10">
-            <Image
-              src={emotionsImage}
-              alt="다양한 감정을 표현하는 TOOK 캐릭터들"
-              className="w-64 h-auto desktop:w-96"
-              priority
-            />
+          <div aria-hidden="true" className="flex items-center gap-3 mt-4">
+            {[EMOTIONS[0], EMOTIONS[6], EMOTIONS[3]].map((emotion) => (
+              <Image key={emotion.id} src={emotion.src} alt="" width={64} height={64} />
+            ))}
           </div>
           <p className="mt-6 hidden text-sm tracking-[-0.02em] text-theme-text-secondary desktop:block">
             완벽하지 않아도 괜찮아요. 오늘도, 조금 더 나답게.
