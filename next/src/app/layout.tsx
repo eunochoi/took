@@ -20,7 +20,6 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   width: 'device-width',
-  themeColor: '#ffffff',
   userScalable: false,
   // interactiveWidget: 'resizes-visual',
   interactiveWidget: 'resizes-content'
@@ -46,15 +45,33 @@ export default async function RootLayout({
         var storedValue = window.localStorage.getItem(${JSON.stringify(THEME_LOCAL_STORAGE_KEY)});
         var preference = storedValue ? JSON.parse(storedValue) : null;
         var themeValues = ${JSON.stringify(THEME_VALUE)};
-        var accent = preference && themeValues[preference.theme]
-          ? themeValues[preference.theme]
-          : themeValues.blue;
-        var background = preference && preference.mode === '어둡게'
+        var themeName = preference && themeValues[preference.theme]
+          ? preference.theme
+          : 'blue';
+        var accent = themeValues[themeName];
+        var isDarkMode = preference && preference.mode === '어둡게';
+        var background = isDarkMode
           ? '${THEME_BG_DARK_MODE}'
           : accent.bg;
+        var themeColor = 'rgb(' + background + ')';
 
-        document.documentElement.style.setProperty('--loading-background', 'rgb(' + background + ')');
+        document.documentElement.dataset.themeAccent = themeName;
+        document.documentElement.dataset.themeMode = isDarkMode ? '어둡게' : '밝게';
+        document.documentElement.style.setProperty('--loading-background', themeColor);
         document.documentElement.style.setProperty('--loading-indicator', 'rgb(' + accent.accent + ')');
+
+        var metaThemeColor = document.getElementById('theme-color');
+        if (metaThemeColor) {
+          metaThemeColor.setAttribute('content', themeColor);
+        }
+
+        if (window.ReactNativeWebView) {
+          window.ReactNativeWebView.postMessage(JSON.stringify({
+            type: 'THEME_CHANGE',
+            color: themeColor,
+            style: isDarkMode ? 'light' : 'dark'
+          }));
+        }
       } catch (error) {
         document.documentElement.style.setProperty('--loading-background', 'rgb(240 247 255)');
         document.documentElement.style.setProperty('--loading-indicator', 'rgb(140 173 226)');
@@ -84,7 +101,7 @@ export default async function RootLayout({
         {isIosDevice && <meta name="apple-mobile-web-app-capable" content="yes" />}
         <meta name="mobile-web-app-capable" content="yes" />
 
-        <meta name="theme-color" content="#f3f7fc" />
+        <meta id="theme-color" name="theme-color" content="#f3f7fc" />
         <meta property="og:title" content="Took" />
         <meta property="og:description" content="감정 일기를 적고 습관을 실천하세요. 당신의 긍정적 변화와 성장을 응원합니다. :)" />
         <meta property="og:image" content="https://i.ibb.co/WfHNc58/shareImg.png" />

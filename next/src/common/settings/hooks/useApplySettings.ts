@@ -27,9 +27,10 @@ export const useApplySettings = ({ accent, mode, fontSize, fontType }: useApplyS
     const bgColor = mode === '어둡게' ? `rgb(${THEME_BG_DARK_MODE})` : `rgb(${THEME_VALUE[accent].bg})`;
 
     //apply status bar color for web
-    let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    let metaThemeColor = document.getElementById('theme-color');
     if (!metaThemeColor) {
       metaThemeColor = document.createElement('meta');
+      metaThemeColor.id = 'theme-color';
       metaThemeColor.setAttribute('name', 'theme-color');
       document.head.appendChild(metaThemeColor);
     }
