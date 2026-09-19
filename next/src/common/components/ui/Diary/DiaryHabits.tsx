@@ -11,7 +11,7 @@ const habitPillClass = "max-w-full rounded-full border border-theme-accent/25 bg
 export const DiaryHabits = ({ habits, showCount = true, onHabitClick }: DiaryHabitsProps) => (
   <div className="flex min-w-0 flex-wrap items-center gap-2" aria-label="습관">
     {showCount && (
-      <span className="shrink-0 whitespace-nowrap rounded-full border border-transparent bg-theme-accent/20 px-3 py-1 text-xs font-medium leading-[1.4] text-theme-accent-text">
+      <span className={`${habitPillClass} break-words`}>
         {habits.length}개 완료
       </span>
     )}

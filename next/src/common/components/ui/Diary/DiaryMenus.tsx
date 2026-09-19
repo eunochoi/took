@@ -52,6 +52,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
       anchorRef={anchorRef}
       onEdit={onClickEdit}
       onDelete={onClickDeleteButton}
+      vertical
     />
   );
 };

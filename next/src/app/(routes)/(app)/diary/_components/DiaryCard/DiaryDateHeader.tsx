@@ -1,3 +1,4 @@
+import DiaryMenus from '@/common/components/ui/Diary/DiaryMenus';
 import { EMOTIONS } from '@/common/constants/emotions';
 import type { DiaryData } from '@/common/types/diary';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
@@ -6,7 +7,6 @@ import { ko } from 'date-fns/locale';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { MdMoreVert } from 'react-icons/md';
-import DiaryMenus from '@/common/components/ui/Diary/DiaryMenus';
 
 interface Props {
   diaryData: DiaryData;
@@ -29,7 +29,7 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
   }, [diaryData]);
 
   return (
-    <div className="relative flex min-w-0 w-full items-center gap-3 p-4 pr-14">
+    <div className="relative flex min-w-0 w-full items-center gap-3">
       {emotion && (
         <Image src={emotion.src} width={36} height={36} alt="" className="h-9 w-9 shrink-0 object-contain" />
       )}
@@ -42,7 +42,7 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
       </div>
       <button
         ref={menuButtonRef}
-        className="absolute right-2 top-4 flex h-11 w-11 items-center justify-center rounded-full text-xl text-theme-text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent"
+        className="-mr-3 ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl text-theme-text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent"
         aria-label="일기 메뉴"
         aria-expanded={isMenuOpen}
         onClick={handleToggleMenu}

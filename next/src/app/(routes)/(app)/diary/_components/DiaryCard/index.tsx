@@ -23,11 +23,11 @@ const DiaryCard = ({ diaryData }: Props) => {
   };
 
   return (
-    <article className="box-border w-full shrink-0 rounded-theme bg-theme-surface shadow-theme-section">
+    <article className="box-border flex w-full shrink-0 flex-col gap-4 rounded-theme bg-theme-surface p-4 shadow-theme-section">
       <DiaryDateHeader diaryData={diaryData} />
-      <div className="flex flex-col gap-3 pb-4">
+      <div className="flex flex-col gap-3">
         {hasImages && (
-          <div className="relative aspect-[5/4] w-full overflow-hidden bg-theme-surface-muted">
+          <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-theme-surface-muted">
             <div className="absolute inset-0">
               <Carousel
                 className={cn(images.length > 1 && '[&>div:last-child]:absolute [&>div:last-child]:bottom-1 [&>div:last-child]:z-10')}
@@ -55,7 +55,7 @@ const DiaryCard = ({ diaryData }: Props) => {
           </div>
         )}
         {hasImages && (
-          <span className="flex shrink-0 items-center gap-1 whitespace-nowrap px-4 text-sm text-theme-text-tertiary">
+          <span className="flex shrink-0 items-center gap-1 whitespace-nowrap text-sm text-theme-text-tertiary">
             <IoMdImage aria-hidden="true" className="text-base" />
             사진 {images.length}장
           </span>
@@ -64,13 +64,11 @@ const DiaryCard = ({ diaryData }: Props) => {
           type="button"
           onClick={navigateToZoom}
           aria-label={`${diaryData.date} 일기 자세히 보기`}
-          className="min-w-0 w-full px-4 text-left text-base leading-[1.8] text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent"
+          className="min-w-0 w-full text-left text-base leading-[1.8] text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent"
         >
           <span className="line-clamp-3 whitespace-pre-wrap break-words">{diaryData.text}</span>
         </button>
-        <div className="mx-4 mt-1 border-t border-dashed border-theme-border-muted pt-3">
-          <DiaryHabits habits={diaryData.Habits} />
-        </div>
+        <DiaryHabits habits={diaryData.Habits} />
       </div>
     </article>
   );

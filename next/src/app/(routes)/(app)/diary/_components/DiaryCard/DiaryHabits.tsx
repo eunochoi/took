@@ -1,5 +1,5 @@
-import type { DiaryHabit } from '@/common/types/diary';
 import { DiaryHabits as DiaryHabitPills } from '@/common/components/ui/Diary/DiaryHabits';
+import type { DiaryHabit } from '@/common/types/diary';
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -13,7 +13,7 @@ const DiaryHabits = ({ habits }: Props) => {
     router.push(`/inter/habitInfo?id=${habitId}`, { scroll: false });
   };
 
-  return <DiaryHabitPills habits={habits} onHabitClick={handleHabitClick} />;
+  return <DiaryHabitPills habits={habits} onHabitClick={handleHabitClick} showCount={false} />;
 };
 
 export default DiaryHabits;
