@@ -28,7 +28,7 @@ export const selectedDayInfoStyles = {
     emptyMessage: 'text-center text-xs py-6 desktop:text-sm leading-relaxed text-theme-text-tertiary',
   },
   diary: {
-    imageFrame: 'relative aspect-square w-full overflow-hidden',
+    imageFrame: 'relative aspect-square rounded-lg w-full overflow-hidden',
     carouselWithIndicator:
       '[&>div:last-child]:absolute [&>div:last-child]:bottom-1 [&>div:last-child]:z-10',
     body: 'flex flex-col gap-2',
