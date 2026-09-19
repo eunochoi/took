@@ -4,7 +4,6 @@ import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import OfflineScreen from "../components/ui/OfflineScreen";
-import { useAutoCloseSnackbar } from "../hooks/useAutoCloseSnackbar";
 import { ServiceWorkerRegister } from "../utils/ServiceWorker/ServiceWorkerRegister";
 import RQProvider from "./reactQuery/ReactQueryProvider";
 import CustomSnackbarProvider from "./snackbar/CustomSnackbarProvider";
@@ -23,8 +22,6 @@ interface Props {
  * - OfflineScreen: 오프라인 상태 화면
  */
 export const GlobalProviders = ({ children, dehydratedState }: Props) => {
-  useAutoCloseSnackbar();
-
   return (
     <SessionProvider>
       <RQProvider>
