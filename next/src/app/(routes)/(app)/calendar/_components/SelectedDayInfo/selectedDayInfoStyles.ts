@@ -33,7 +33,7 @@ export const selectedDayInfoStyles = {
       '[&>div:last-child]:absolute [&>div:last-child]:bottom-1 [&>div:last-child]:z-10',
     body: 'flex flex-col gap-2',
     bodyAfterMedia: 'pt-2',
-    text: '[display:-webkit-box] overflow-hidden whitespace-pre-wrap break-words text-sm leading-relaxed text-theme-text-secondary [-webkit-box-orient:vertical] [-webkit-line-clamp:3]',
+    text: '[display:-webkit-box] overflow-hidden whitespace-pre-wrap break-words text-base leading-relaxed text-theme-text-secondary [-webkit-box-orient:vertical] [-webkit-line-clamp:3]',
     openButton: 'flex items-center self-end text-xs desktop:text-sm font-semibold text-theme-accent',
     futureState:
       'text-xs desktop:text-sm leading-relaxed text-theme-text-tertiary',
