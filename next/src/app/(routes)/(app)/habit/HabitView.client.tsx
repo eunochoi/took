@@ -3,6 +3,7 @@
 import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
+import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
 import TopButton from "@/common/components/ui/TopButton";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -12,7 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useEffect, useRef } from "react";
-import { MdAdd, MdSort } from 'react-icons/md';
+import { MdAdd, MdChecklist, MdSort } from 'react-icons/md';
 import HabitBox from "./_components/HabitBox";
 import HabitOverviewCard from "./_components/HabitOverviewCard";
 import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
@@ -82,7 +83,14 @@ const HabitView = () => {
 
         <section className="mt-0 flex min-w-0 flex-col desktop:col-start-1 desktop:row-start-2">
           <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3">
-            {habits?.map((habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} iconKey={habit.iconKey} />)}
+            {habits?.length === 0 ? (
+              <EmptyStateCard
+                className="col-span-2"
+                description="작은 목표 하나부터 만들고, 매일의 변화를 쌓아보세요."
+                icon={<MdChecklist aria-hidden="true" />}
+                title="아직 만든 습관이 없어요."
+              />
+            ) : habits?.map((habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} iconKey={habit.iconKey} />)}
           </div>
         </section>
 

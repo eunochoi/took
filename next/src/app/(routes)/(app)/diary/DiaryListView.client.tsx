@@ -11,6 +11,7 @@ import MonthFilter from "@/app/(routes)/(app)/diary/_components/MonthFilter";
 import { getDiaryList } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
+import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
 import TopButton from "@/common/components/ui/TopButton";
 import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
 import { EMOTIONS } from "@/common/constants/emotions";
@@ -20,7 +21,7 @@ import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
 import type { DiaryData } from "@/common/types/diary";
-import { MdCalendarMonth, MdEmojiEmotions, MdSort } from 'react-icons/md';
+import { MdCalendarMonth, MdEmojiEmotions, MdMenuBook, MdSort } from 'react-icons/md';
 import DiaryCard from "./_components/DiaryCard";
 import DiaryStatsPanel from "./_components/DiaryStatsPanel";
 import { useDiaryListFilter } from "./_hooks/useDiaryListFilter";
@@ -60,6 +61,8 @@ const DiaryListView = () => {
     select: (data) => data.pages.flat() as DiaryData[],
     getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
+  const isDiaryListEmpty = flatDiaries !== undefined && flatDiaries.length === 0;
+  const hasAppliedFilter = isEmotionSelected || isPeriodSelected;
 
   useEffect(() => {
     if (currentUserEmail && !isFetching && hasNextPage && inView) fetchNextPage();
@@ -122,8 +125,14 @@ const DiaryListView = () => {
       </AnimatePresence>
       <div className="grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
         <div className="flex min-w-0 flex-col gap-4">
-          <div className="flex min-w-0 flex-col gap-4 desktop:self-start">
-            {flatDiaries?.map((diary) => (
+          <div className="flex w-full min-w-0 flex-col gap-4 desktop:self-start">
+            {isDiaryListEmpty ? (
+              <EmptyStateCard
+                description={hasAppliedFilter ? '필터를 바꾸거나 새로운 일기를 작성해 보세요.' : '오늘의 감정과 생각을 첫 번째 일기로 남겨보세요.'}
+                icon={<MdMenuBook aria-hidden="true" />}
+                title={hasAppliedFilter ? '선택한 조건의 일기가 없어요.' : '아직 작성한 일기가 없어요.'}
+              />
+            ) : flatDiaries?.map((diary) => (
               <div key={diary.id} className="flex w-full items-center justify-center">
                 <DiaryCard diaryData={diary} />
               </div>
