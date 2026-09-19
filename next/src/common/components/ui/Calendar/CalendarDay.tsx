@@ -25,8 +25,8 @@ export const CalendarDay = ({
         : day.weekday === 0
           ? 'text-theme-calendar-sunday'
           : 'text-theme-text-secondary',
-    today && 'ring-1 ring-inset ring-theme-accent',
     selected && !day.isOutsideMonth && 'bg-theme-accent/10 motion-safe:animate-[calendar-selected-pop_0.35s_ease-out]',
+    today && 'bg-theme-accent/20',
     day.isOutsideMonth && 'opacity-30',
     onClick && 'cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent',
     className,
