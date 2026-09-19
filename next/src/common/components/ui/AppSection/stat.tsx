@@ -9,7 +9,7 @@ export const AppStatCard = forwardRef<HTMLDivElement, DivProps>(
       ref={ref}
       className={cn(
         appCardClass,
-        "flex min-h-[100px] flex-col justify-between gap-2 px-2 py-4 tablet:min-h-[110px] tablet:p-4",
+        "flex min-h-[100px] flex-col justify-center gap-4 px-2 py-4 tablet:min-h-[110px] tablet:p-4",
         className,
       )}
       {...props}
