@@ -22,7 +22,7 @@ const CustomSnackbarProvider = ({ children }: Props) => {
         horizontal: 'right',
       }}
       maxSnack={1}
-      autoHideDuration={2000}
+      autoHideDuration={3000}
       preventDuplicate={true}
     >
       {children}
