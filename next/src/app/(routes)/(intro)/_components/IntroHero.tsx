@@ -59,6 +59,7 @@ const IntroHero = ({ images }: Props) => {
             alt={`${IMAGE_ALT_TEXT[src] ?? 'TOOK 앱 화면'} 미리보기`}
             width={900}
             height={900}
+            priority={index === 0}
             sizes="(min-width: 1024px) 52vw, 88vw"
           />
         ))}

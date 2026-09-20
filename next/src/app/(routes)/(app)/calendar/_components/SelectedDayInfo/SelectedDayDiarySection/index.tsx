@@ -56,6 +56,7 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
             <Carousel className={selectedDayInfoStyles.diary.imageFrame}>
               {images.map((image, index) => (
                 <Image
+                  priority={index === 0}
                   className="h-full w-full object-cover"
                   key={image.id}
                   src={image.src}

@@ -30,6 +30,7 @@ export const ZoomViewGallery = ({ images }: ZoomViewGalleryProps) => {
             key={image.id}
             image={image}
             index={index}
+            priority={index === 0}
             isFullView={fullViewImageId === image.id}
             onToggleView={() => setFullViewImageId((currentId) => currentId === image.id ? null : image.id)}
           />

@@ -5,11 +5,12 @@ import Image from "next/image";
 interface ZoomViewImageSlideProps {
   image: DiaryImage;
   index: number;
+  priority?: boolean;
   isFullView: boolean;
   onToggleView: () => void;
 }
 
-export const ZoomViewImageSlide = ({ image, index, isFullView, onToggleView }: ZoomViewImageSlideProps) => (
+export const ZoomViewImageSlide = ({ image, index, priority = false, isFullView, onToggleView }: ZoomViewImageSlideProps) => (
   <button
     type="button"
     className={cn(
@@ -25,6 +26,7 @@ export const ZoomViewImageSlide = ({ image, index, isFullView, onToggleView }: Z
       src={image.src}
       alt={`일기에 첨부한 사진 ${index + 1}`}
       fill
+      priority={priority}
       sizes="(min-width: 1024px) 35vw, (orientation: landscape) and (max-height: 600px) and (min-width: 640px) 45vw, 90vw"
       draggable={false}
     />

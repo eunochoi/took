@@ -39,6 +39,7 @@ const DiaryCard = ({ diaryData }: Props) => {
                 className="h-full w-full focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-theme-accent"
               >
                 <Image
+                  priority={index === 0}
                   className="h-full w-full object-cover"
                   src={image.src}
                   width={800}
