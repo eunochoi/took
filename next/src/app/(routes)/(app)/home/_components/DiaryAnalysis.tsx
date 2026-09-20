@@ -26,7 +26,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
 
   const currentStreak = stats?.currentStreak?.days ?? 0;
   const longestStreak = stats?.longestStreak?.days ?? 0;
-  const currentStreakLabel = stats?.streakStatus === 'pending' ? '유지 중인 기록' : '현재 연속 기록';
+  const currentStreakLabel = stats?.streakStatus === 'pending' ? '유지 기록' : '현재 기록';
   const streakInfoText = stats?.streakStatus === 'pending'
     ? '* 오늘 일기를 작성하면 유지 중인 기록이 현재 연속 기록으로 이어집니다.'
     : '* 오늘 일기를 작성하면 오늘 기록까지 포함돼요.';
@@ -52,7 +52,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         </AppStatCard>
 
         <AppStatCard>
-          <AppStatLabel>최장 연속 기록</AppStatLabel>
+          <AppStatLabel>최고 기록</AppStatLabel>
           <AppStatValueWrapper>
             <AppStatValue>{longestStreak}</AppStatValue>
             <AppStatUnit>일</AppStatUnit>
@@ -60,7 +60,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         </AppStatCard>
 
         <AppStatCard>
-          <AppStatLabel>총 텍스트량</AppStatLabel>
+          <AppStatLabel>총 텍스트</AppStatLabel>
           <AppStatValueWrapper>
             <AppStatValue>{textLengthFormatted.value}</AppStatValue>
             <AppStatUnit>{textLengthFormatted.unit}</AppStatUnit>

@@ -3,10 +3,10 @@
 import { getDiaryStats } from '@/common/actions/stats';
 import { authAction } from '@/common/auth/authAction';
 import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
+import { YearRecordHeader } from '@/common/components/ui/AppSection/YearRecordHeader';
 import MonthlyBarChart from '@/common/components/views/HabitInfoView/MonthlyBarChart';
 import { cn } from '@/common/utils/cn';
 import { useQuery } from '@tanstack/react-query';
-import { YearRecordHeader } from '@/common/components/ui/AppSection/YearRecordHeader';
 
 interface Props {
   className?: string;
@@ -41,7 +41,7 @@ const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
             </strong>
           </div>
           <div className="rounded-theme bg-theme-bg p-3">
-            <span className="text-sm text-theme-text-tertiary">총 텍스트량</span>
+            <span className="text-sm text-theme-text-tertiary">총 텍스트</span>
             <strong className="mt-1 block text-2xl text-theme-accent">
               {isPending ? '—' : formattedTextLength}
             </strong>
