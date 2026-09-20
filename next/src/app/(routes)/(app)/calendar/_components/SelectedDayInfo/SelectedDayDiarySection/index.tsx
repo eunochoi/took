@@ -1,5 +1,6 @@
 import Carousel from '@/common/components/ui/Carousel';
 import DiaryMenus from '@/common/components/ui/Diary/DiaryMenus';
+import { DIARY_TEXT_PREVIEW_LINE_COUNT } from '@/common/constants/diary';
 import type { DiaryData } from '@/common/types/diary';
 import { cn } from '@/common/utils/cn';
 import Image from 'next/image';
@@ -78,7 +79,12 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
               )}
               onClick={onOpenDiary}
             >
-              <p className="[display:-webkit-box] overflow-hidden whitespace-pre-wrap break-words text-base leading-relaxed text-theme-text-secondary [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">{diaryData.text}</p>
+              <p
+                className="overflow-hidden whitespace-pre-wrap break-words text-base leading-relaxed text-theme-text-secondary [display:-webkit-box] [-webkit-box-orient:vertical]"
+                style={{ WebkitLineClamp: DIARY_TEXT_PREVIEW_LINE_COUNT }}
+              >
+                {diaryData.text}
+              </p>
               <button className="flex items-center self-end text-xs font-semibold text-theme-accent desktop:text-sm" type="button">
                 일기 전체 보기 <MdChevronRight className="text-lg" />
               </button>
