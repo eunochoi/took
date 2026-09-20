@@ -27,7 +27,7 @@ const DiaryCard = ({ diaryData }: Props) => {
       <DiaryDateHeader diaryData={diaryData} />
       <div className="flex flex-col gap-3">
         {hasImages && (
-          <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-theme-surface-muted">
+          <div className="relative aspect-[3/2] w-full overflow-hidden rounded-lg bg-theme-surface-muted">
             <div className="absolute inset-0">
               <Carousel
                 className={cn(images.length > 1 && '[&>div:last-child]:absolute [&>div:last-child]:bottom-1 [&>div:last-child]:z-10')}
@@ -40,14 +40,23 @@ const DiaryCard = ({ diaryData }: Props) => {
                     aria-label={`${diaryData.date} 일기 사진 ${index + 1} 상세 보기`}
                     className="h-full w-full focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-theme-accent"
                   >
-                    <Image
+                    {index === 0 ? <Image
+                      priority
                       className="h-full w-full object-cover"
                       src={image.src}
                       width={800}
                       height={480}
                       alt={`일기 사진 ${index + 1}`}
                       draggable={false}
-                    />
+                    /> : <Image
+                      className="h-full w-full object-cover"
+                      src={image.src}
+                      width={800}
+                      height={480}
+                      alt={`일기 사진 ${index + 1}`}
+                      draggable={false}
+                    />}
+
                   </button>
                 ))}
               </Carousel>
