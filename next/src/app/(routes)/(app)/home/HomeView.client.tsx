@@ -5,13 +5,12 @@ import { AnimatePresence } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useSearchParams } from "next/navigation";
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { MdCalendarMonth } from "react-icons/md";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
-import CaptureTopButton from "@/common/components/ui/CaptureTopButton";
 import TopButton from "@/common/components/ui/TopButton";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -25,7 +24,6 @@ import YearFilter from "./_components/YearFilter";
 const HomeView = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
 
-  const captureRef = useRef<HTMLDivElement>(null);
   const currentYear = getYear(new Date());
   const searchParams = useSearchParams();
   const queryYear = Number(searchParams.get('year'));
@@ -38,13 +36,13 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
     staleTime: 5 * 60 * 1000,
   });
 
-  const { data: diaryStats, isSuccess: diaryReady, isFetching: diaryFetching } = useQuery({
+  const { data: diaryStats } = useQuery({
     queryKey: ['stats', 'diary', selectedYear],
     queryFn: () => authAction(() => getDiaryStats({ year: selectedYear })),
     staleTime: 60 * 1000,
   });
 
-  const { data: habitStats, isSuccess: habitReady, isFetching: habitFetching } = useQuery({
+  const { data: habitStats } = useQuery({
     queryKey: ['stats', 'habit', selectedYear],
     queryFn: () => authAction(() => getHabitStats({ year: selectedYear })),
     staleTime: 60 * 1000,
@@ -70,7 +68,6 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
             <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
             {selectedYear}년
           </TopButton>
-          <CaptureTopButton targetRef={captureRef} disabled={!diaryReady || !habitReady || diaryFetching || habitFetching} />
         </>
       }
       contentProps={{
@@ -103,10 +100,6 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
         </div>
 
         <div
-          ref={captureRef}
-          data-capture-key={`records-${selectedYear}`}
-          data-capture-title={`${selectedYear}년 기록 돌아보기`}
-          data-capture-ready={diaryReady && habitReady && !diaryFetching && !habitFetching}
           className="flex min-w-0 flex-col gap-14 desktop:col-start-1 desktop:row-start-1"
         >
           <DiaryAnalysis

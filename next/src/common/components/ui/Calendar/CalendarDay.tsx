@@ -32,12 +32,11 @@ export const CalendarDay = ({
     className,
   );
   const cellClassName = getCellClassName(isToday, Boolean(isSelected));
-  const defaultCellClassName = getCellClassName(false, false);
   const accessibleLabel = [label ?? day.dateKey, isSelected ? '선택됨' : ''].filter(Boolean).join(', ');
 
   if (!onClick) {
     return (
-      <div className={cellClassName} data-capture-class={defaultCellClassName} aria-label={accessibleLabel} aria-current={isToday ? 'date' : undefined}>
+      <div className={cellClassName} aria-label={accessibleLabel} aria-current={isToday ? 'date' : undefined}>
         {children ?? day.dayNumber}
       </div>
     );
@@ -47,7 +46,6 @@ export const CalendarDay = ({
     <button
       type="button"
       className={cellClassName}
-      data-capture-class={defaultCellClassName}
       onClick={onClick}
       aria-label={accessibleLabel}
       aria-current={isToday ? 'date' : undefined}
