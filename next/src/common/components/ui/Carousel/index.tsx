@@ -16,7 +16,7 @@ interface CarouselProps {
   onPageChange?: (page: number) => void;
 }
 
-const defaultCarouselWrapperClass = 'relative aspect-square w-full overflow-hidden';
+const defaultCarouselWrapperClass = 'relative aspect-square w-full overflow-hidden [&_img]:border-2 [&_img]:border-theme-bg [&_img]:rounded-xl';
 
 const Carousel = ({
   children,
@@ -59,7 +59,7 @@ const Carousel = ({
             ref={slideWrapperRef}
             className={cn(
               "flex min-h-0 w-full flex-1 snap-x snap-mandatory overflow-x-scroll overflow-y-hidden scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
-              gap && "gap-4",
+              gap && "gap-2",
             )}
             onScroll={handleScroll}
           >

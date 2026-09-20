@@ -29,7 +29,7 @@ const DiaryCard = ({ diaryData }: Props) => {
       <DiaryDateHeader diaryData={diaryData} />
       <div className="flex flex-col gap-3">
         {hasImages && (
-          <Carousel className="aspect-[3/2] rounded-lg">
+          <Carousel className="aspect-[4/3]">
             {images.map((image, index) => (
               <button
                 key={image.id}
