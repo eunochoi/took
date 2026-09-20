@@ -102,3 +102,23 @@
 ## md 파일 생성
 
 설명을 요구하는 md 파일 생성시 took/md 폴더에 md파일을 생성한다. 
+
+## Git Commit Rules (Strict Enforcement)
+Whenever I ask you to commit changes, you must always adhere to the following rules based on my personal code style:
+
+1. Atomic Commits Over File-Based Commits:
+   - Do NOT commit a file as a whole chunk if it contains multiple distinct changes.
+   - Analyze the `git diff` at a granular hunk/line level. 
+   - Separate and group modifications by their logical purpose or feature (e.g., separating a bug fix from a style change within the same file).
+
+2. Maintain Build Integrity:
+   - Each individual commit must represent a complete, working state. 
+   - Never split changes in a way that breaks compiling, building, or tests for that specific commit.
+
+3. Standardized Commit Messages:
+   - Use the 'Conventional Commits' specification for every commit message (e.g., `feat:`, `fix:`, `refactor:`, `style:`, `docs:`).
+   - Write clear, concise imperative summary lines (e.g., `fix: resolve login button bypass bug`).
+
+4. Review Before Execution:
+   - Always present your proposed staging/commit plan to me first.
+   - Proceed with the sequential commits only after I review and explicitly approve your plan.
