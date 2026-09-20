@@ -1,13 +1,13 @@
 'use client';
 
 import Carousel from '@/common/components/ui/Carousel';
+import { DiaryHabits } from '@/common/components/ui/Diary/DiaryHabits';
 import type { DiaryData } from '@/common/types/diary';
 import { cn } from '@/common/utils/cn';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { IoMdImage } from 'react-icons/io';
 import DiaryDateHeader from './DiaryDateHeader';
-import DiaryHabits from './DiaryHabits';
 
 interface Props {
   diaryData: DiaryData;
@@ -20,6 +20,9 @@ const DiaryCard = ({ diaryData }: Props) => {
 
   const navigateToZoom = () => {
     router.push(`/inter/zoom?id=${diaryData.id}`, { scroll: false });
+  };
+  const handleHabitClick = (habitId: number) => {
+    router.push(`/inter/habitInfo?id=${habitId}`, { scroll: false });
   };
 
   return (
@@ -77,7 +80,7 @@ const DiaryCard = ({ diaryData }: Props) => {
         >
           <span className="line-clamp-3 whitespace-pre-wrap break-words">{diaryData.text}</span>
         </button>
-        <DiaryHabits habits={diaryData.Habits} />
+        <DiaryHabits habits={diaryData.Habits} onHabitClick={handleHabitClick} />
       </div>
     </article>
   );
