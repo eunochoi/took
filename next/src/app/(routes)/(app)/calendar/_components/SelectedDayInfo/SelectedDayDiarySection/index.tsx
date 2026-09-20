@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { MdChevronRight, MdMenuBook, MdMoreVert } from 'react-icons/md';
 import SelectedDaySectionHeader from '../SelectedDaySectionHeader';
-import { selectedDayInfoStyles } from '../selectedDayInfoStyles';
 import SelectedDayDiaryEmptyState from './SelectedDayDiaryEmptyState';
 
 interface Props {
@@ -27,7 +26,7 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
   }, [diaryData]);
 
   return (
-    <div className={cn('relative', selectedDayInfoStyles.section.frame)}>
+    <div className="relative min-w-0">
       <SelectedDaySectionHeader title="감정 일기" icon={<MdMenuBook />}>
         {hasDiary && (
           <button
@@ -50,40 +49,45 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
           diaryData={diaryData}
         />
       )}
-      {hasDiary ? (
-        <div className="flex w-full flex-col">
-          {images.length > 0 && (
-            <Carousel className={selectedDayInfoStyles.diary.imageFrame}>
-              {images.map((image, index) => (
-                <Image
-                  priority={index === 0}
-                  className="h-full w-full object-cover"
-                  key={image.id}
-                  src={image.src}
-                  width={600}
-                  height={600}
-                  sizes="(max-width: 479px) calc(100vw - 76px), 440px"
-                  alt={`일기 이미지 ${index + 1}`}
-                />
-              ))}
-            </Carousel>
-          )}
-          <div
-            className={cn(
-              selectedDayInfoStyles.section.contentInset,
-              selectedDayInfoStyles.diary.body,
-              images.length > 0 && selectedDayInfoStyles.diary.bodyAfterMedia,
+      <div className="flex w-full py-3 px-2">
+        {hasDiary ? (
+          <div className="flex w-full items-stretch gap-3">
+            {images.length > 0 && (
+              <Carousel
+                containerClassName="w-2/5 shrink-0"
+                className="aspect-square"
+              >
+                {images.map((image, index) => (
+                  <Image
+                    priority={index === 0}
+                    className="h-full w-full object-cover"
+                    key={image.id}
+                    src={image.src}
+                    width={600}
+                    height={600}
+                    sizes="25vw"
+                    alt={`일기 이미지 ${index + 1}`}
+                  />
+                ))}
+              </Carousel>
             )}
-          >
-            <p className={selectedDayInfoStyles.diary.text}>{diaryData.text}</p>
-            <button className={selectedDayInfoStyles.diary.openButton} onClick={onOpenDiary} type="button">
-              일기 전체 보기 <MdChevronRight className="text-lg" />
-            </button>
+            <div
+              className={cn(
+                'flex min-w-0 flex-1 flex-col gap-4',
+                images.length > 0 && 'justify-between',
+              )}
+              onClick={onOpenDiary}
+            >
+              <p className="[display:-webkit-box] overflow-hidden whitespace-pre-wrap break-words text-base leading-relaxed text-theme-text-secondary [-webkit-box-orient:vertical] [-webkit-line-clamp:3]">{diaryData.text}</p>
+              <button className="flex items-center self-end text-xs font-semibold text-theme-accent desktop:text-sm" type="button">
+                일기 전체 보기 <MdChevronRight className="text-lg" />
+              </button>
+            </div>
           </div>
-        </div>
-      ) : (
-        <SelectedDayDiaryEmptyState isFuture={isFuture} onAddDiary={onAddDiary} />
-      )}
+        ) : (
+          <SelectedDayDiaryEmptyState isFuture={isFuture} onAddDiary={onAddDiary} />
+        )}
+      </div>
     </div>
   );
 };

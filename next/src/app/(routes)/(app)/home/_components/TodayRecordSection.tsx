@@ -5,8 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { MdCheckBox, MdChevronRight, MdMenuBook } from 'react-icons/md';
 
-import { selectedDayInfoStyles } from '../../calendar/_components/SelectedDayInfo/selectedDayInfoStyles';
-
 import { getDiaryByDate } from '@/common/actions/diary';
 import { getTodayHabitStat } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
@@ -14,6 +12,7 @@ import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
 import { getTodayString } from '@/common/functions/getTodayString';
 
 const recordCardClass = 'flex min-h-14 items-center gap-3 border border-theme-border-muted text-left text-sm';
+const recordStatusClass = 'text-xs font-semibold text-theme-accent desktop:text-sm';
 
 const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
   const router = useRouter();
@@ -66,7 +65,7 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
         >
           <MdMenuBook className="shrink-0 text-xl text-theme-accent" />
           <span className="flex-1 font-base">오늘의 감정 일기</span>
-          <span className={selectedDayInfoStyles.habit.completedStatus} aria-live="polite">{diaryQuery.data?.visible ? '작성 완료' : '아직 작성 전'}</span>
+          <span className={recordStatusClass} aria-live="polite">{diaryQuery.data?.visible ? '작성 완료' : '아직 작성 전'}</span>
           <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" />
         </AppSurfaceCard>
       )}
@@ -81,7 +80,7 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
       >
         <MdCheckBox className="shrink-0 text-xl text-theme-accent" />
         <span className="flex-1 font-base">오늘 습관 진행</span>
-        <span className={selectedDayInfoStyles.habit.completedStatus} aria-live="polite">
+        <span className={recordStatusClass} aria-live="polite">
           {habitQuery.isError ? '조회 실패' : habitQuery.isPending ? '확인 중…' : `${completedCount} / ${totalHabitCount} 완료`}
         </span>
         <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" />

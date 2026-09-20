@@ -3,11 +3,10 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { MdExpandLess, MdExpandMore, MdLockOutline, MdCheckBox } from 'react-icons/md';
 import SelectedDaySectionHeader from '../SelectedDaySectionHeader';
-import { selectedDayInfoStyles } from '../selectedDayInfoStyles';
-import SelectedDayHabitEmptyState from './SelectedDayHabitEmptyState';
 import SelectedDayHabitItem from './SelectedDayHabitItem';
 
 const COLLAPSED_HABIT_COUNT = 3;
+const emptyMessageClassName = 'py-6 text-center text-xs leading-relaxed text-theme-text-tertiary desktop:text-sm';
 
 interface Props {
   habitData?: HabitsByDate;
@@ -27,28 +26,28 @@ const SelectedDayHabitSection = ({ habitData, pendingHabitId, onToggleHabit }: P
   };
 
   return (
-    <div className={selectedDayInfoStyles.section.frame}>
+    <div className="min-w-0">
       <SelectedDaySectionHeader title="오늘의 습관" icon={<MdCheckBox />}>
         {habitData?.isFuture ? (
-          <span className={selectedDayInfoStyles.habit.lockedStatus}>
+          <span className="flex items-center gap-1 text-xs text-theme-text-tertiary desktop:text-sm">
             <MdLockOutline className="text-sm" /> 기록 전
           </span>
         ) : habitData?.canEdit ? (
-          <span className={selectedDayInfoStyles.habit.completedStatus}>
+          <span className="text-xs font-semibold text-theme-accent desktop:text-sm">
             {completedHabitCount}/{habits.length} 완료
           </span>
         ) : (
-          <span className={selectedDayInfoStyles.habit.lockedStatus}>
+          <span className="flex items-center gap-1 text-xs text-theme-text-tertiary desktop:text-sm">
             <MdLockOutline className="text-sm" /> {completedHabitCount}개 완료
           </span>
         )}
       </SelectedDaySectionHeader>
 
-      <div className={selectedDayInfoStyles.section.contentInset}>
+      <div className="px-2 py-3">
         {habitData?.isFuture ? (
-          <SelectedDayHabitEmptyState message="미래 날짜에는 습관을 기록할 수 없어요." />
+          <p className={emptyMessageClassName}>미래 날짜에는 습관을 기록할 수 없어요.</p>
         ) : habits.length > 0 ? (
-          <div className={selectedDayInfoStyles.habit.list}>
+          <div className="flex flex-col gap-2">
             {visibleHabits.map((habit) => (
               <SelectedDayHabitItem
                 key={habit.id}
@@ -61,7 +60,7 @@ const SelectedDayHabitSection = ({ habitData, pendingHabitId, onToggleHabit }: P
             ))}
             {canExpand && (
               <button
-                className={selectedDayInfoStyles.habit.expandButton}
+                className="flex min-h-8 w-full items-center justify-center gap-1 text-xs font-semibold text-theme-accent desktop:text-sm"
                 onClick={() => setIsExpanded((previousIsExpanded) => !previousIsExpanded)}
                 type="button"
                 aria-expanded={isExpanded}
@@ -79,9 +78,7 @@ const SelectedDayHabitSection = ({ habitData, pendingHabitId, onToggleHabit }: P
             )}
           </div>
         ) : (
-          <SelectedDayHabitEmptyState
-            message={habitData?.canEdit ? '이 날짜에 등록된 습관이 없어요.' : '완료한 습관 기록이 없어요.'}
-          />
+          <p className={emptyMessageClassName}>이 날짜의 습관 기록이 없어요.</p>
         )}
       </div>
     </div>

@@ -11,7 +11,6 @@ import { useState } from 'react';
 import SelectedDayDiarySection from './SelectedDayDiarySection';
 import SelectedDayHabitSection from './SelectedDayHabitSection';
 import SelectedDayInfoHeader from './SelectedDayInfoHeader';
-import { selectedDayInfoStyles } from './selectedDayInfoStyles';
 
 interface Props {
   date: string;
@@ -72,7 +71,7 @@ const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryPlaceholder, 
   };
 
   return (
-    <section className={selectedDayInfoStyles.card}>
+    <section className="box-border flex w-full flex-col gap-3 rounded-theme bg-theme-surface p-3.5 shadow-theme-section backdrop-blur-xl tablet:p-4">
       <SelectedDayInfoHeader date={date} emotion={emotion} />
 
       {isDiaryError || isHabitError ? (
