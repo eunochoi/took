@@ -60,7 +60,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         </AppStatCard>
 
         <AppStatCard>
-          <AppStatLabel>총 텍스트</AppStatLabel>
+          <AppStatLabel>누적 텍스트</AppStatLabel>
           <AppStatValueWrapper>
             <AppStatValue>{textLengthFormatted.value}</AppStatValue>
             <AppStatUnit>{textLengthFormatted.unit}</AppStatUnit>
