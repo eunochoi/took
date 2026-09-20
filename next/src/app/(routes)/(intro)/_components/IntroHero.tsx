@@ -1,9 +1,10 @@
 import Image from 'next/image';
 
+import Carousel from '@/common/components/ui/Carousel';
 import Wordmark from '@/common/components/ui/Wordmark';
 import { EMOTIONS } from '@/common/constants/emotions';
+import { IMAGE_ALT_TEXT } from '../_constants/images';
 import IntroActionButtons from './IntroActionButtons';
-import IntroImageCarousel from './IntroImageCarousel';
 
 interface Props {
   images: string[];
@@ -12,7 +13,6 @@ interface Props {
 const heroSectionClass = "grid min-h-[90dvh] w-full overflow-hidden bg-theme-surface py-12 px-5 desktop:gap-8 desktop:px-[min(6vw,96px)] desktop:grid-cols-[minmax(360px,0.85fr)_minmax(0,1.15fr)]";
 const heroContentColumnClass = "contents desktop:flex desktop:flex-col desktop:items-start desktop:justify-center desktop:gap-6 desktop:px-6 desktop:py-16 desktop:text-left";
 const heroContentClass = "order-1 flex flex-col items-center justify-center gap-7 px-1 py-8 text-center desktop:order-none desktop:items-start desktop:p-0 desktop:text-left";
-const heroImageClass = "order-2 flex h-full w-full items-center justify-center desktop:order-none";
 const heroActionsClass = "order-3 px-6 pb-12 pt-8 desktop:order-none desktop:justify-start desktop:p-0";
 
 const IntroHero = ({ images }: Props) => {
@@ -47,14 +47,22 @@ const IntroHero = ({ images }: Props) => {
         <IntroActionButtons className={heroActionsClass} />
       </div>
 
-      <div className={heroImageClass}>
-        <IntroImageCarousel
-          className="h-[360px] desktop:h-[560px]"
-          images={images}
-          priorityFirst
-          sizes="(min-width: 1024px) 52vw, 88vw"
-        />
-      </div>
+      <Carousel
+        containerClassName="order-2 pt-3 desktop:order-none"
+        className="h-[360px] aspect-auto desktop:h-[560px] desktop:my-auto"
+      >
+        {images.map((src, index) => (
+          <Image
+            className="h-full w-full object-contain"
+            key={src}
+            src={src}
+            alt={`${IMAGE_ALT_TEXT[src] ?? 'TOOK 앱 화면'} 미리보기`}
+            width={900}
+            height={900}
+            sizes="(min-width: 1024px) 52vw, 88vw"
+          />
+        ))}
+      </Carousel>
     </section>
   );
 };

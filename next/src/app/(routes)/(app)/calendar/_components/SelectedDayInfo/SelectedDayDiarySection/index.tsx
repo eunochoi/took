@@ -4,7 +4,7 @@ import type { DiaryData } from '@/common/types/diary';
 import { cn } from '@/common/utils/cn';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { MdChevronRight, MdMoreVert, MdMenuBook } from 'react-icons/md';
+import { MdChevronRight, MdMenuBook, MdMoreVert } from 'react-icons/md';
 import SelectedDaySectionHeader from '../SelectedDaySectionHeader';
 import { selectedDayInfoStyles } from '../selectedDayInfoStyles';
 import SelectedDayDiaryEmptyState from './SelectedDayDiaryEmptyState';
@@ -53,25 +53,19 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
       {hasDiary ? (
         <div className="flex w-full flex-col">
           {images.length > 0 && (
-            <div className={selectedDayInfoStyles.diary.imageFrame}>
-              <Carousel
-                className={cn(
-                  images.length > 1 && selectedDayInfoStyles.diary.carouselWithIndicator,
-                )}
-              >
-                {images.map((image, index) => (
-                  <Image
-                    className="h-full w-full object-cover"
-                    key={image.id}
-                    src={image.src}
-                    width={600}
-                    height={600}
-                    sizes="(max-width: 479px) calc(100vw - 76px), 440px"
-                    alt={`일기 이미지 ${index + 1}`}
-                  />
-                ))}
-              </Carousel>
-            </div>
+            <Carousel className={selectedDayInfoStyles.diary.imageFrame}>
+              {images.map((image, index) => (
+                <Image
+                  className="h-full w-full object-cover"
+                  key={image.id}
+                  src={image.src}
+                  width={600}
+                  height={600}
+                  sizes="(max-width: 479px) calc(100vw - 76px), 440px"
+                  alt={`일기 이미지 ${index + 1}`}
+                />
+              ))}
+            </Carousel>
           )}
           <div
             className={cn(

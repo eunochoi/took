@@ -18,22 +18,23 @@ const IntroImageCarousel = ({
   sizes,
 }: IntroImageCarouselProps) => {
   return (
-    <div className={cn("h-[600px] w-full overflow-hidden bg-transparent pt-3", className)}>
-      <Carousel>
-        {images.map((src, index) => (
-          <Image
-            className="h-full w-full object-contain"
-            key={src}
-            src={src}
-            alt={`${IMAGE_ALT_TEXT[src] ?? 'TOOK 앱 화면'} 미리보기`}
-            width={900}
-            height={900}
-            priority={priorityFirst && index === 0}
-            sizes={sizes}
-          />
-        ))}
-      </Carousel>
-    </div>
+    <Carousel
+      containerClassName="pt-3"
+      className={cn("aspect-auto h-[600px]", className)}
+    >
+      {images.map((src, index) => (
+        <Image
+          className="h-full w-full object-contain"
+          key={src}
+          src={src}
+          alt={`${IMAGE_ALT_TEXT[src] ?? 'TOOK 앱 화면'} 미리보기`}
+          width={900}
+          height={900}
+          priority={priorityFirst && index === 0}
+          sizes={sizes}
+        />
+      ))}
+    </Carousel>
   );
 };
 

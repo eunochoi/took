@@ -1,26 +1,30 @@
 'use client';
 
-import React, { ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/common/utils/cn";
+import React, { ReactNode, useEffect, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 import Indicator from "./Indicator";
-import { CarouselNavigation } from "./CarouselNavigation";
 
 interface CarouselProps {
   children: ReactNode;
   showIndicator?: boolean;
-  indicatorVariant?: 'dots' | 'arrows';
+  indicatorPosition?: 'overlay' | 'below';
   gap?: boolean;
   resetOnChange?: boolean;
+  containerClassName?: string;
   className?: string;
   onPageChange?: (page: number) => void;
 }
 
+const defaultCarouselWrapperClass = 'relative aspect-square w-full overflow-hidden';
+
 const Carousel = ({
   children,
   showIndicator = true,
-  indicatorVariant = 'dots',
-  gap = false,
+  indicatorPosition = 'below',
+  gap = true,
   resetOnChange = false,
+  containerClassName,
   className,
   onPageChange,
 }: CarouselProps) => {
@@ -48,38 +52,44 @@ const Carousel = ({
   if (childrenArray.length === 0) return null;
 
   return (
-    <div className={cn("relative flex h-full w-full flex-col overflow-hidden", className)}>
-      <div
-        ref={slideWrapperRef}
-        className={cn(
-          "flex min-h-0 w-full flex-1 snap-x snap-mandatory overflow-x-scroll overflow-y-hidden scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
-          gap && "gap-[16px]",
-        )}
-        onScroll={handleScroll}
-      >
-        {childrenArray.map((child, i) => (
+    <div className={twMerge("relative flex w-full flex-col", containerClassName)}>
+      <div className={twMerge(defaultCarouselWrapperClass, className)}>
+        <div className="absolute inset-0 flex min-h-0 flex-col">
           <div
-            key={`slide-${i}`}
-            className="box-border flex h-full w-full min-w-full shrink-0 snap-start snap-always items-center justify-center overflow-hidden"
+            ref={slideWrapperRef}
+            className={cn(
+              "flex min-h-0 w-full flex-1 snap-x snap-mandatory overflow-x-scroll overflow-y-hidden scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden",
+              gap && "gap-4",
+            )}
+            onScroll={handleScroll}
           >
-            {child}
+            {childrenArray.map((child, i) => (
+              <div
+                key={`slide-${i}`}
+                className="box-border flex h-full w-full min-w-full shrink-0 snap-start snap-always items-center justify-center overflow-hidden"
+              >
+                {child}
+              </div>
+            ))}
           </div>
-        ))}
+          {showIndicator && indicatorPosition === 'overlay' && childrenArray.length > 1 && (
+            <Indicator
+              slideWrapperRef={slideWrapperRef}
+              page={page}
+              indicatorLength={childrenArray.length}
+              gap={gap}
+              position={indicatorPosition}
+            />
+          )}
+        </div>
       </div>
-      {showIndicator && indicatorVariant === 'arrows' && (
-        <CarouselNavigation
-          slideWrapperRef={slideWrapperRef}
-          page={page}
-          count={childrenArray.length}
-          gap={gap}
-        />
-      )}
-      {showIndicator && indicatorVariant === 'dots' && childrenArray.length > 1 && (
+      {showIndicator && indicatorPosition === 'below' && childrenArray.length > 1 && (
         <Indicator
           slideWrapperRef={slideWrapperRef}
           page={page}
           indicatorLength={childrenArray.length}
           gap={gap}
+          position={indicatorPosition}
         />
       )}
     </div>

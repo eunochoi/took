@@ -19,23 +19,22 @@ export const ZoomViewGallery = ({ images }: ZoomViewGalleryProps) => {
         <IoMdImage aria-hidden="true" className="shrink-0 text-lg text-theme-accent-text" />
         함께 남긴 장면
       </h2>
-      <div className="h-[min(90dvw,520px)] desktop:h-[min(65dvh,640px)] landscape-short:h-[max(180px,calc(100dvh-150px))]">
-        <Carousel
-          indicatorVariant="arrows"
-          gap
-          onPageChange={() => setFullViewImageId(null)}
-        >
-          {images.map((image, index) => (
-            <ZoomViewImageSlide
-              key={image.id}
-              image={image}
-              index={index}
-              isFullView={fullViewImageId === image.id}
-              onToggleView={() => setFullViewImageId((currentId) => currentId === image.id ? null : image.id)}
-            />
-          ))}
-        </Carousel>
-      </div>
+      <Carousel
+        className="aspect-auto h-[min(90dvw,520px)] desktop:h-[min(65dvh,640px)] landscape-short:h-[max(180px,calc(100dvh-150px))]"
+        indicatorPosition="below"
+        gap
+        onPageChange={() => setFullViewImageId(null)}
+      >
+        {images.map((image, index) => (
+          <ZoomViewImageSlide
+            key={image.id}
+            image={image}
+            index={index}
+            isFullView={fullViewImageId === image.id}
+            onToggleView={() => setFullViewImageId((currentId) => currentId === image.id ? null : image.id)}
+          />
+        ))}
+      </Carousel>
     </section>
   );
 };

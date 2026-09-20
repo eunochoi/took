@@ -7,14 +7,26 @@ interface IndicatorProps {
   indicatorLength: number;
   type?: string;
   gap?: boolean;
+  position?: 'overlay' | 'below';
 }
 
-const Indicator = ({ slideWrapperRef, page, indicatorLength, type, gap = false }: IndicatorProps) => {
+const Indicator = ({
+  slideWrapperRef,
+  page,
+  indicatorLength,
+  type,
+  gap = false,
+  position = 'overlay',
+}: IndicatorProps) => {
   return (
-    <div className="my-1 flex h-auto w-full justify-center">
+    <div
+      className={cn(
+        "flex shrink-0 justify-center py-1.5",
+        position === 'overlay' && "absolute inset-x-0 bottom-1 z-10",
+      )}
+    >
       {[...Array(indicatorLength)].map((_: any, i: number) => {
         const current = page === i;
-
         return (
           <button
             key={`indicator${i}`}
