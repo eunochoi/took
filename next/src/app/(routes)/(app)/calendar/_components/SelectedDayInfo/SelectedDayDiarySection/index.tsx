@@ -74,7 +74,7 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
             <div
               className={cn(
                 'flex min-w-0 flex-1 flex-col gap-4',
-                images.length > 0 && 'justify-between',
+                images.length > 0 && 'justify-evenly',
               )}
               onClick={onOpenDiary}
             >

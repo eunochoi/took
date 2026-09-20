@@ -1,12 +1,12 @@
 import type { HabitsByDate } from '@/common/actions/habit';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { MdExpandLess, MdExpandMore, MdLockOutline, MdCheckBox } from 'react-icons/md';
+import { MdCheckBox, MdExpandLess, MdExpandMore, MdLockOutline } from 'react-icons/md';
 import SelectedDaySectionHeader from '../SelectedDaySectionHeader';
 import SelectedDayHabitItem from './SelectedDayHabitItem';
 
 const COLLAPSED_HABIT_COUNT = 3;
-const emptyMessageClassName = 'py-6 text-center text-xs leading-relaxed text-theme-text-tertiary desktop:text-sm';
+const emptyMessageClassName = 'py-4 text-center text-xs leading-relaxed text-theme-text-tertiary desktop:text-sm';
 
 interface Props {
   habitData?: HabitsByDate;
@@ -71,7 +71,7 @@ const SelectedDayHabitSection = ({ habitData, pendingHabitId, onToggleHabit }: P
                   </>
                 ) : (
                   <>
-                    <span>모두 보기{` (${habits.length})`}</span><MdExpandMore className="text-lg" />
+                    <span>더보기{` (${habits.length - 3})`}</span><MdExpandMore className="text-lg" />
                   </>
                 )}
               </button>

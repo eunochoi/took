@@ -6,7 +6,7 @@ interface Props {
 }
 
 const SelectedDayDiaryEmptyState = ({ isFuture, onAddDiary }: Props) => (
-  <div className="flex w-full flex-col items-center px-2 py-6 text-center">
+  <div className="flex w-full flex-col items-center px-2 py-4 text-center">
     {isFuture ? (
       <p className="text-xs leading-relaxed text-theme-text-tertiary desktop:text-sm">
         아직 기록할 수 없는 날짜예요.<br />오늘이 되면 일기를 작성할 수 있어요.

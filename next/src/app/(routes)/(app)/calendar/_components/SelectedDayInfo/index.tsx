@@ -86,7 +86,7 @@ const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryPlaceholder, 
         <fieldset
           disabled={isTransitioning}
           aria-busy={isTransitioning}
-          className="m-0 flex min-w-0 flex-col gap-0 divide-y divide-theme-border/60 border-0 p-0"
+          className="m-0 flex min-w-0 flex-col gap-4"
         >
           <SelectedDayDiarySection
             diaryData={diaryData}
@@ -94,6 +94,7 @@ const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryPlaceholder, 
             onAddDiary={onAddDiary}
             onOpenDiary={onOpenDiary}
           />
+          <span className='w-full h-[1px] bg-theme-border/60'></span>
           <SelectedDayHabitSection
             habitData={habitData}
             pendingHabitId={pendingHabitId}
