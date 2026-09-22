@@ -35,7 +35,8 @@
 
 
   --sidebarWidth: 270px;
-  --mobileHeader: 72px;
+  --pageHeader: 72px;
+  --modalHeader: 56px;
   --mobileNav: 81px;
 }
 
