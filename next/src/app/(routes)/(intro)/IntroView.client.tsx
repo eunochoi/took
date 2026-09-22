@@ -3,9 +3,9 @@
 import Image from 'next/image';
 import { MdLockOutline, MdLogin, MdPalette } from 'react-icons/md';
 
+import { ScrollContainer } from '@/common/components/ui/ScrollContainer';
 import Wordmark from '@/common/components/ui/Wordmark';
 import { EMOTIONS } from '@/common/constants/emotions';
-import { ScrollContainer } from '@/common/components/ui/ScrollContainer';
 import IntroActionButtons from './_components/IntroActionButtons';
 import IntroHero from './_components/IntroHero';
 import IntroInfoCard from './_components/IntroInfoCard';
@@ -22,7 +22,7 @@ const RESPONSIVE_IMAGES = [INTRO_IMAGES.list, INTRO_IMAGES.pc_list, INTRO_IMAGES
 const IntroView = () => {
   return (
     <ScrollContainer
-      className="h-[100dvh] w-[100dvw] bg-theme-bg font-title"
+      className="static-theme-blue h-[100dvh] w-[100dvw] bg-theme-bg font-title"
       showScrollFade={false}
       showScrollToTop
     >

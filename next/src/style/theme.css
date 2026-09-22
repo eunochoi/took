@@ -1,4 +1,10 @@
-/* accent-deep: 보라 #979fc7 → #777ea1 기준으로 HSL 색상 유지, 채도 × 14/23, 명도 × 0.8 */
+.static-theme-blue {
+  --theme-accent: 140 173 226;
+  --theme-accent-deep: 107 137 186;
+  --theme-bg-light: 240 247 255;
+  --theme-bg: 240 247 255;
+}
+
 html[data-theme-accent='blue'] {
   --theme-accent: 140 173 226;
   --theme-accent-deep: 107 137 186;

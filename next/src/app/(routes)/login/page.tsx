@@ -31,7 +31,7 @@ const Page = () => {
   }, [router]);
 
   return (
-    <main className="h-[100dvh] w-full overflow-y-auto bg-theme-bg font-title text-theme-text-primary [&_*]:!font-title">
+    <main className="static-theme-blue h-[100dvh] w-full overflow-y-auto bg-theme-bg font-title text-theme-text-primary [&_*]:!font-title">
       <div className="grid min-h-full desktop:grid-cols-[1.35fr_1fr]">
         <section
           aria-labelledby="login-intro-title"
