@@ -46,7 +46,7 @@ const SortableDiaryImage = ({ id, src, index, disabled, onRemove }: {
         aria-label={`사진 ${index + 1} 순서 변경`}
         disabled={disabled}
         onContextMenu={(event) => event.preventDefault()}
-        className={cn('relative h-full w-full cursor-grab touch-auto active:cursor-grabbing disabled:cursor-default', isDragging && 'opacity-0')}
+        className={cn('relative h-full w-full cursor-grab touch-none active:cursor-grabbing disabled:cursor-default', isDragging && 'opacity-0')}
       >
         <Image src={src} alt={`첨부 사진 ${index + 1}`} width={192} height={224} unoptimized draggable={false} className="h-full w-full object-cover" />
         <span className="absolute bottom-2 left-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/50 text-xs text-white">{index + 1}</span>
