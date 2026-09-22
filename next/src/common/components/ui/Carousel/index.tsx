@@ -16,7 +16,7 @@ interface CarouselProps {
   onPageChange?: (page: number) => void;
 }
 
-const defaultCarouselWrapperClass = 'relative aspect-square w-full overflow-hidden [&_img]:border-2 [&_img]:border-theme-bg [&_img]:rounded-xl';
+const defaultCarouselWrapperClass = 'relative aspect-square w-full overflow-hidden';
 
 const Carousel = ({
   children,
@@ -66,7 +66,7 @@ const Carousel = ({
             {childrenArray.map((child, i) => (
               <div
                 key={`slide-${i}`}
-                className="box-border flex h-full w-full min-w-full shrink-0 snap-start snap-always items-center justify-center overflow-hidden"
+                className="box-border [&_img]:border-2 [&_img]:border-theme-border-muted [&_img]:rounded-xl flex h-full w-full min-w-full shrink-0 snap-start snap-always items-center justify-center overflow-hidden"
               >
                 {child}
               </div>
