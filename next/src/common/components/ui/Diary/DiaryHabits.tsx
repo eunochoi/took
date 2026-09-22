@@ -8,7 +8,7 @@ interface DiaryHabitsProps {
 
 const habitPillClass = "max-w-full rounded-full bg-theme-accent px-3 py-1 text-left text-xs font-medium leading-[1.4] text-white";
 
-export const DiaryHabits = ({ habits, showCount = true, onHabitClick }: DiaryHabitsProps) => (
+export const DiaryHabits = ({ habits, showCount = false, onHabitClick }: DiaryHabitsProps) => (
   <div className="flex min-w-0 flex-wrap items-center gap-2" aria-label="습관">
     {showCount && (
       <span className={`${habitPillClass} break-words`}>
