@@ -51,7 +51,7 @@ const HabitAnalysis = ({ stats }: Props) => {
               <button
                 type="button"
                 onClick={() => handleHabitClick(habit.id)}
-                className="flex w-full min-w-0 items-center gap-3 rounded-lg py-3 text-left transition-colors hover:bg-theme-accent/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent focus-visible:outline-offset-2 tablet:gap-4"
+                className="flex w-full min-w-0 items-center gap-3 rounded-lg py-3 text-left transition-colors hover:bg-theme-accent/10 tablet:gap-4"
               >
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-transparent">
                   <HabitIcon iconKey={habit.iconKey} className="text-2xl" />

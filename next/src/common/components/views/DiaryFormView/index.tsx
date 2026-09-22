@@ -141,7 +141,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
               <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">
                 오늘의 기록
               </h1>
-              <div className="w-full rounded-theme border border-transparent bg-theme-surface p-5 shadow-card transition-colors focus-within:border-theme-accent/50">
+              <div className="w-full rounded-theme border border-transparent bg-theme-surface p-5 shadow-card transition-colors">
                 <DiaryFormEmotionSection
                   emotion={emotion}
                   setEmotion={setEmotion}
@@ -167,7 +167,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
               onClick={handleSubmit}
               disabled={isSubmitting || text.length > DIARY_TEXT_MAX_LENGTH}
               aria-busy={isSubmitting}
-              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity hover:opacity-90 focus-visible:!outline focus-visible:!outline-2 focus-visible:!outline-offset-4 focus-visible:!outline-theme-accent disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting && <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent motion-reduce:animate-none" />}
               {isSubmitting ? '저장 중...' : isEdit ? '수정한 기록 저장하기' : '기록 저장하기'}

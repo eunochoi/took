@@ -27,13 +27,13 @@ const DiaryHabitMonthCalendarHeader = ({
       </p>
     </div>
     <div className="flex shrink-0 items-center gap-0.5 text-theme-text-tertiary">
-      <button className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors desktop:hover:bg-theme-bg desktop:hover:text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent" onClick={onPreviousMonth} aria-label="이전 달" type="button">
+      <button className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors desktop:hover:bg-theme-bg desktop:hover:text-theme-text-secondary" onClick={onPreviousMonth} aria-label="이전 달" type="button">
         <FiChevronLeft size={18} strokeWidth={1.5} aria-hidden="true" />
       </button>
-      <button className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors desktop:hover:bg-theme-bg desktop:hover:text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent" onClick={onToday} aria-label="오늘로 이동" type="button">
+      <button className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors desktop:hover:bg-theme-bg desktop:hover:text-theme-text-secondary" onClick={onToday} aria-label="오늘로 이동" type="button">
         <span className="text-xs font-medium">오늘</span>
       </button>
-      <button className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors desktop:hover:bg-theme-bg desktop:hover:text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent" onClick={onNextMonth} aria-label="다음 달" type="button">
+      <button className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors desktop:hover:bg-theme-bg desktop:hover:text-theme-text-secondary" onClick={onNextMonth} aria-label="다음 달" type="button">
         <FiChevronRight size={18} strokeWidth={1.5} aria-hidden="true" />
       </button>
     </div>

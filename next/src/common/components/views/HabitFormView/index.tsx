@@ -126,7 +126,7 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
           <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
             <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 px-[4dvw] pb-6 pt-2 tablet:px-6">
               <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">나의 작은 습관</h1>
-              <div className="w-full rounded-theme border border-transparent bg-theme-surface p-5 shadow-card transition-colors tablet:focus-within:border-theme-accent/50">
+              <div className="w-full rounded-theme border border-transparent bg-theme-surface p-5 shadow-card transition-colors">
                 <HabitFormNameSection name={name} setName={setName} />
                 <HabitFormPrioritySection priority={priority} setPriority={setPriority} />
                 <HabitFormIconSection iconKey={iconKey} setIconKey={setIconKey} />
@@ -140,7 +140,7 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
               onClick={handleSubmit}
               disabled={isSubmitting || name.length > HABIT_NAME_MAX_LENGTH}
               aria-busy={isSubmitting}
-              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity tablet:hover:opacity-90 tablet:focus-visible:!outline tablet:focus-visible:!outline-2 tablet:focus-visible:!outline-offset-4 tablet:focus-visible:!outline-theme-accent disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity tablet:hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting && <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent motion-reduce:animate-none" />}
               {isSubmitting ? '저장 중...' : isEdit ? '수정한 습관 저장하기' : '습관 저장하기'}

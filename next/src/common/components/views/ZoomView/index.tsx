@@ -51,7 +51,7 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
             title={headerTitle}
             onBack={() => setIsModalMounted(false)}
             backLabel="뒤로가기"
-            className="landscape-short:!h-14 landscape-short:!pl-[max(1rem,env(safe-area-inset-left))] landscape-short:!pr-[max(1rem,env(safe-area-inset-right))] [&>button]:min-h-11 [&>button]:min-w-11 [&>button]:focus-visible:ring-2 [&>button]:focus-visible:ring-theme-accent [&>span]:max-w-[calc(100%-7rem)] [&>span]:text-center"
+            className="landscape-short:!h-14 landscape-short:!pl-[max(1rem,env(safe-area-inset-left))] landscape-short:!pr-[max(1rem,env(safe-area-inset-right))] [&>button]:min-h-11 [&>button]:min-w-11 [&>span]:max-w-[calc(100%-7rem)] [&>span]:text-center"
           />
           <ScrollContainer className="flex-1" scrollAreaClassName="overscroll-y-contain">
             <div

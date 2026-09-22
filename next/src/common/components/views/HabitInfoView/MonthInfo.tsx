@@ -29,7 +29,7 @@ const MonthInfo = ({ habitId, today }: Props) => {
   const displayToday = habitMonthData?.today ?? today;
   const stats = [
     { label: '완료', value: summary?.completedCount ?? '—', unit: '회' },
-    { label: '월 목표 달성률', value: summary?.completionRate == null ? '—' : summary.completionRate.toFixed(1), unit: '%' },
+    { label: '월 실천률', value: summary?.completionRate == null ? '—' : summary.completionRate.toFixed(1), unit: '%' },
     { label: '놓친 실천', value: summary?.missedCount ?? '—', unit: '회' },
   ];
 

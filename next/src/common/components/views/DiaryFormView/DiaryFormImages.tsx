@@ -11,7 +11,6 @@ import { MdAdd, MdClose } from 'react-icons/md';
 import type { DiaryImageDraft } from './types';
 
 const tileClass = 'relative h-28 w-24 shrink-0 overflow-hidden rounded-2xl';
-const focusClass = 'focus-visible:!outline focus-visible:!outline-2 focus-visible:!outline-offset-[-3px] focus-visible:!outline-theme-accent';
 const longPressConstraint = { delay: 300, tolerance: 8 };
 
 interface Props {
@@ -47,7 +46,7 @@ const SortableDiaryImage = ({ id, src, index, disabled, onRemove }: {
         aria-label={`사진 ${index + 1} 순서 변경`}
         disabled={disabled}
         onContextMenu={(event) => event.preventDefault()}
-        className={cn('relative h-full w-full cursor-grab touch-auto active:cursor-grabbing disabled:cursor-default', focusClass, isDragging && 'opacity-0')}
+        className={cn('relative h-full w-full cursor-grab touch-auto active:cursor-grabbing disabled:cursor-default', isDragging && 'opacity-0')}
       >
         <Image src={src} alt={`첨부 사진 ${index + 1}`} width={192} height={224} unoptimized draggable={false} className="h-full w-full object-cover" />
         <span className="absolute bottom-2 left-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/50 text-xs text-white">{index + 1}</span>
@@ -57,7 +56,7 @@ const SortableDiaryImage = ({ id, src, index, disabled, onRemove }: {
         aria-label={`사진 ${index + 1} 삭제`}
         disabled={disabled}
         onClick={onRemove}
-        className={cn('absolute right-0 top-0 flex h-9 w-9 items-center justify-center rounded-bl-xl text-white disabled:opacity-40', focusClass, isDragging && 'invisible')}
+        className={cn('absolute right-0 top-0 flex h-9 w-9 items-center justify-center rounded-bl-xl text-white disabled:opacity-40', isDragging && 'invisible')}
       >
         <MdClose className="h-6 w-6 rounded-full bg-black/50 p-1" />
       </button>
@@ -125,7 +124,7 @@ const DiaryFormImages = ({ diaryImages, handleImageChange, getImageUrl, handleRe
             type="button"
             disabled={isLoading}
             onClick={() => fileInputRef.current?.click()}
-            className={cn(tileClass, focusClass, 'flex flex-col items-center justify-center gap-2 border border-dashed border-theme-accent bg-theme-surface/40 text-theme-text-secondary transition-colors hover:bg-theme-accent/10 disabled:opacity-40')}
+            className={cn(tileClass, 'flex flex-col items-center justify-center gap-2 border border-dashed border-theme-accent bg-theme-surface/40 text-theme-text-secondary transition-colors hover:bg-theme-accent/10 disabled:opacity-40')}
           >
             <MdAdd aria-hidden="true" className="h-7 w-7 text-theme-accent" />
             <span className="text-xs">사진 추가</span>

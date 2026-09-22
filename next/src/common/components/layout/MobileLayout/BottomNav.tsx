@@ -11,7 +11,7 @@ const BottomNav = () => {
   const lastItem = items.at(-1)!;
 
   const navItemsWrapperClass = 'border-[1px] border-theme-bg pointer-events-auto flex items-center gap-1.5 rounded-full bg-theme-surface/75 shadow-theme-floating backdrop-blur-2xl';
-  const navItemClass = 'flex cursor-pointer items-center justify-center rounded-full text-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent';
+  const navItemClass = 'flex cursor-pointer items-center justify-center rounded-full text-xl';
   const activeNavItemClass = 'bg-theme-accent text-theme-text-on-accent';
   const inactiveNavItemClass = "bg-transparent text-theme-text-tertiary";
 

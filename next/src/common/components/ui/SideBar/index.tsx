@@ -11,13 +11,13 @@ const SideBar = () => {
 
   return (
     <aside className="flex h-full w-full flex-col font-sans overflow-y-auto border-r border-theme-border/40 px-3 py-8 desktop:px-5">
-      <button type="button" onClick={() => router.push('/home')} aria-label="TOOK 홈" className="mb-10 self-center rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent desktop:ml-3 desktop:self-start">
+      <button type="button" onClick={() => router.push('/home')} aria-label="TOOK 홈" className="mb-10 self-center rounded-lg desktop:ml-3 desktop:self-start">
         <Wordmark />
       </button>
       <nav className="flex flex-col gap-2" aria-label="주요 메뉴">
         {items.map(({ key, segment, icon: Icon, href, label }) => (
           <button key={key} type="button" onClick={() => router.push(href)} aria-label={label} aria-current={current === segment ? 'page' : undefined}
-            className={cn("font-semibold flex min-h-12 items-center justify-center gap-3 rounded-xl px-3 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent desktop:justify-start",
+            className={cn("font-semibold flex min-h-12 items-center justify-center gap-3 rounded-xl px-3 text-sm desktop:justify-start",
               current === segment ? "bg-theme-accent/20 text-theme-accent-deep" : "text-theme-text-secondary desktop:hover:bg-theme-surface/50")}>
             <Icon className="shrink-0 text-xl" />
             <span className="hidden desktop:block">{label}</span>

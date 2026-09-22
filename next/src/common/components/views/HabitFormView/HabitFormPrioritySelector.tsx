@@ -21,7 +21,7 @@ const HabitFormPrioritySelector = ({
         <label
           key={value}
           className={cn(
-            'relative flex min-h-14 w-full cursor-pointer items-center gap-4 rounded-2xl border px-4 py-3 transition-colors tablet:focus-within:!outline tablet:focus-within:!outline-2 tablet:focus-within:!outline-offset-2 tablet:focus-within:!outline-theme-accent',
+            'relative flex min-h-14 w-full cursor-pointer items-center gap-4 rounded-2xl border px-4 py-3 transition-colors',
             isSelected ? 'border-theme-accent bg-theme-accent/10' : 'border-theme-border-muted tablet:hover:bg-theme-accent/5',
           )}
         >

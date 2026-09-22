@@ -42,7 +42,7 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
       </div>
       <button
         ref={menuButtonRef}
-        className="-mr-3 ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl text-theme-text-tertiary focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent"
+        className="-mr-3 ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl text-theme-text-tertiary"
         aria-label="일기 메뉴"
         aria-expanded={isMenuOpen}
         onClick={handleToggleMenu}

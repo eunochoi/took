@@ -68,7 +68,7 @@ const DiaryFormEmotionPicker = ({ emotion, onClose, onConfirm }: DiaryFormEmotio
               type="button"
               aria-label="감정 선택 닫기"
               onClick={onClose}
-              className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full text-theme-text-secondary tablet:hover:bg-theme-accent/10 tablet:focus-visible:!outline tablet:focus-visible:!outline-2 tablet:focus-visible:!outline-theme-accent"
+              className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full text-theme-text-secondary tablet:hover:bg-theme-accent/10"
             >
               <MdClose aria-hidden="true" className="h-5 w-5" />
             </button>
@@ -82,7 +82,7 @@ const DiaryFormEmotionPicker = ({ emotion, onClose, onConfirm }: DiaryFormEmotio
                   aria-pressed={draftEmotion === item.id}
                   onClick={() => setDraftEmotion(item.id)}
                   className={cn(
-                    'relative flex min-w-0 flex-col items-center gap-2 rounded-2xl border px-1 py-3 transition-colors tablet:focus-visible:!outline tablet:focus-visible:!outline-2 tablet:focus-visible:!outline-offset-2 tablet:focus-visible:!outline-theme-accent',
+                    'relative flex min-w-0 flex-col items-center gap-2 rounded-2xl border px-1 py-3 transition-colors',
                     draftEmotion === item.id ? 'border-theme-accent bg-theme-accent/10' : 'border-transparent tablet:hover:bg-theme-accent/5',
                   )}
                 >
@@ -96,7 +96,7 @@ const DiaryFormEmotionPicker = ({ emotion, onClose, onConfirm }: DiaryFormEmotio
               type="button"
               disabled={!EMOTIONS.some((item) => item.id === draftEmotion)}
               onClick={() => onConfirm(draftEmotion)}
-              className="flex min-h-14 w-full items-center justify-center rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-theme-text-on-accent transition-opacity tablet:hover:opacity-90 tablet:focus-visible:!outline tablet:focus-visible:!outline-2 tablet:focus-visible:!outline-offset-4 tablet:focus-visible:!outline-theme-accent disabled:cursor-not-allowed disabled:opacity-40"
+              className="flex min-h-14 w-full items-center justify-center rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-theme-text-on-accent transition-opacity tablet:hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
             >
               선택 완료
             </button>

@@ -36,7 +36,7 @@ const DiaryCard = ({ diaryData }: Props) => {
           className={
             cn("flex flex-col",
               (hasImages && images.length === 1) && "gap-4",
-              "min-w-0 w-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-theme-accent")}
+              "min-w-0 w-full")}
         >
           {hasImages && (
             <Carousel className="aspect-[4/3]">
@@ -46,7 +46,7 @@ const DiaryCard = ({ diaryData }: Props) => {
                   type="button"
                   onClick={navigateToZoom}
                   aria-label={`${diaryData.date} 일기 사진 ${index + 1} 상세 보기`}
-                  className="h-full w-full focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-theme-accent"
+                  className="h-full w-full"
                 >
                   <Image
                     priority={index === 0}

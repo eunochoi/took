@@ -14,7 +14,7 @@ export const ZoomViewImageSlide = ({ image, index, priority = false, isFullView,
   <button
     type="button"
     className={cn(
-      "relative h-full w-full overflow-hidden rounded-theme focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-theme-accent",
+      "relative h-full w-full overflow-hidden rounded-theme",
       isFullView ? "cursor-zoom-in" : "cursor-zoom-out",
     )}
     aria-label={`사진 ${index + 1} ${isFullView ? '크롭해서 보기' : '전체 보기'}`}

@@ -17,7 +17,7 @@ const SelectedDayHabitItem = ({ habit, canEdit, pendingHabitId, onOpenHabitInfo,
     <div className={cn('flex w-full items-center justify-between gap-2 transition-opacity', isPending && 'opacity-50')}>
       <button
         className={cn(
-          'flex min-h-9 min-w-0 flex-1 items-center gap-2.5 rounded-lg text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
+          'flex min-h-9 min-w-0 flex-1 items-center gap-2.5 rounded-lg text-left',
           canEdit ? 'cursor-pointer' : 'cursor-default',
         )}
         disabled={!canEdit || pendingHabitId !== null}
