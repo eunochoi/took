@@ -61,7 +61,7 @@ const CalendarView = ({ initialDate }: Props) => {
             disabled={todayDiaryQuery.isPending}
           >
             <MdEdit size={18} className="shrink-0" aria-hidden="true" />
-            <span>{todayDiaryQuery.data?.visible ? '오늘 일기 수정' : '오늘 일기 작성'}</span>
+            <span>{todayDiaryQuery.data?.visible ? '오늘 일기 수정하기' : '오늘 일기 작성하기'}</span>
           </TopButton>
         </>
       }
