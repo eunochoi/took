@@ -23,7 +23,7 @@ export const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
     children,
     className,
     contentClassName,
-    fadeSizeClassName = "h-12",
+    fadeSizeClassName = "h-24",
     scrollAreaClassName,
     showScrollFade = false,
     showTopFade = true,
