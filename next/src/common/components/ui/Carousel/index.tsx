@@ -10,6 +10,7 @@ interface CarouselProps {
   showIndicator?: boolean;
   indicatorPosition?: 'overlay' | 'below';
   gap?: boolean;
+  showImageBorder?: boolean;
   resetOnChange?: boolean;
   containerClassName?: string;
   className?: string;
@@ -21,6 +22,7 @@ const defaultCarouselWrapperClass = 'relative aspect-square w-full overflow-hidd
 const Carousel = ({
   children,
   showIndicator = true,
+  showImageBorder = false,
   indicatorPosition = 'below',
   gap = true,
   resetOnChange = false,
@@ -36,7 +38,8 @@ const Carousel = ({
     const { scrollLeft, clientWidth } = e.currentTarget;
     if (clientWidth === 0) return;
 
-    const newPage = Math.max(0, Math.min(childrenArray.length - 1, Math.round(scrollLeft / (clientWidth + (gap ? 16 : 0)))));
+    const slideGap = gap ? 8 : 0;
+    const newPage = Math.max(0, Math.min(childrenArray.length - 1, Math.round(scrollLeft / (clientWidth + slideGap))));
     if (newPage === page) return;
 
     setPage(newPage);
@@ -66,7 +69,9 @@ const Carousel = ({
             {childrenArray.map((child, i) => (
               <div
                 key={`slide-${i}`}
-                className="box-border [&_img]:border-2 [&_img]:border-theme-border-muted [&_img]:rounded-xl flex h-full w-full min-w-full shrink-0 snap-start snap-always items-center justify-center overflow-hidden"
+                className={cn("box-border flex h-full w-full min-w-full shrink-0 snap-start snap-always items-center justify-center overflow-hidden",
+                  showImageBorder && "[&_img]:border-2 [&_img]:border-theme-border-muted [&_img]:rounded-xl"
+                )}
               >
                 {child}
               </div>
@@ -74,10 +79,8 @@ const Carousel = ({
           </div>
           {showIndicator && indicatorPosition === 'overlay' && childrenArray.length > 1 && (
             <Indicator
-              slideWrapperRef={slideWrapperRef}
               page={page}
               indicatorLength={childrenArray.length}
-              gap={gap}
               position={indicatorPosition}
             />
           )}
@@ -85,10 +88,8 @@ const Carousel = ({
       </div>
       {showIndicator && indicatorPosition === 'below' && childrenArray.length > 1 && (
         <Indicator
-          slideWrapperRef={slideWrapperRef}
           page={page}
           indicatorLength={childrenArray.length}
-          gap={gap}
           position={indicatorPosition}
         />
       )}

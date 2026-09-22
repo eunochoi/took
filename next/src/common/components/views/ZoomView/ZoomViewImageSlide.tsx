@@ -22,7 +22,7 @@ export const ZoomViewImageSlide = ({ image, index, priority = false, isFullView,
     onClick={onToggleView}
   >
     <Image
-      className={cn("rounded-theme", isFullView ? "object-contain" : "object-cover")}
+      className={cn("rounded-theme bg-black/75", isFullView ? "object-contain" : "object-cover")}
       src={image.src}
       alt={`일기에 첨부한 사진 ${index + 1}`}
       fill

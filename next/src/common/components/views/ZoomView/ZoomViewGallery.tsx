@@ -23,6 +23,7 @@ export const ZoomViewGallery = ({ images }: ZoomViewGalleryProps) => {
         className="aspect-auto h-[min(90dvw,520px)] desktop:h-[min(65dvh,640px)] landscape-short:h-[max(180px,calc(100dvh-150px))]"
         indicatorPosition="below"
         gap
+        showImageBorder
         onPageChange={() => setFullViewImageId(null)}
       >
         {images.map((image, index) => (

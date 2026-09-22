@@ -39,7 +39,9 @@ const DiaryCard = ({ diaryData }: Props) => {
               "min-w-0 w-full")}
         >
           {hasImages && (
-            <Carousel className="aspect-[4/3]">
+            <Carousel
+              className="aspect-[4/3]"
+              showImageBorder>
               {images.map((image, index) => (
                 <button
                   key={image.id}

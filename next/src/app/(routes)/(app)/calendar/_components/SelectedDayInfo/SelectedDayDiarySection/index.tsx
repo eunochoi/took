@@ -57,6 +57,7 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
               <Carousel
                 containerClassName="w-2/5 shrink-0"
                 className="aspect-square"
+                showImageBorder
               >
                 {images.map((image, index) => (
                   <Image

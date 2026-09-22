@@ -1,21 +1,14 @@
 import { cn } from "@/common/utils/cn";
-import { RefObject } from "react";
 
 interface IndicatorProps {
-  slideWrapperRef: RefObject<HTMLDivElement>;
   page: number;
   indicatorLength: number;
-  type?: string;
-  gap?: boolean;
   position?: 'overlay' | 'below';
 }
 
 const Indicator = ({
-  slideWrapperRef,
   page,
   indicatorLength,
-  type,
-  gap = false,
   position = 'overlay',
 }: IndicatorProps) => {
   return (
@@ -28,20 +21,13 @@ const Indicator = ({
       {[...Array(indicatorLength)].map((_: any, i: number) => {
         const current = page === i;
         return (
-          <button
+          <span
             key={`indicator${i}`}
             className={cn(
               "m-[3px] h-2 rounded-theme transition-all duration-200 ease-in-out",
               current ? "bg-theme-accent w-5" : "bg-theme-accent/80 w-2",
-              type === "diary" && i === indicatorLength - 1 && "rounded-sm",
             )}
-            onClick={() => {
-              slideWrapperRef.current?.scrollTo({
-                left: (slideWrapperRef.current.clientWidth + (gap ? 16 : 0)) * i,
-                behavior: "smooth",
-              });
-            }}
-            type="button"
+            aria-current={current ? 'step' : undefined}
           />
         );
       })}
