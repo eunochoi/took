@@ -7,11 +7,11 @@ import { useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { createPortal } from 'react-dom';
-import { MdAdd, MdClose } from 'react-icons/md';
+import { MdAdd, MdClose, MdDragIndicator } from 'react-icons/md';
 import type { DiaryImageDraft } from './types';
 
 const tileClass = 'relative h-28 w-24 shrink-0 overflow-hidden rounded-2xl';
-const longPressConstraint = { delay: 300, tolerance: 8 };
+const imageControlClass = 'flex h-6 w-6 items-center justify-center rounded-full bg-black/50 text-white disabled:opacity-40';
 
 interface Props {
   diaryImages: DiaryImageDraft[];
@@ -38,6 +38,19 @@ const SortableDiaryImage = ({ id, src, index, disabled, onRemove }: {
       style={{ transform: CSS.Transform.toString(transform), transition: reducedMotion ? undefined : transition }}
       className={cn(tileClass, isDragging ? 'border-2 border-dashed border-theme-accent bg-theme-accent/10' : 'shadow-card')}
     >
+      <div className={cn('relative h-full w-full touch-auto', isDragging && 'opacity-0')}>
+        <Image src={src} alt={`첨부 사진 ${index + 1}`} width={192} height={224} unoptimized draggable={false} className="h-full w-full object-cover" />
+        <span className={cn('absolute bottom-2 left-2 text-xs', imageControlClass)}>{index + 1}</span>
+      </div>
+      <button
+        type="button"
+        aria-label={`사진 ${index + 1} 삭제`}
+        disabled={disabled}
+        onClick={onRemove}
+        className={cn('absolute right-2 top-2', imageControlClass, isDragging && 'invisible')}
+      >
+        <MdClose className="h-4 w-4" />
+      </button>
       <button
         ref={setActivatorNodeRef}
         type="button"
@@ -46,19 +59,9 @@ const SortableDiaryImage = ({ id, src, index, disabled, onRemove }: {
         aria-label={`사진 ${index + 1} 순서 변경`}
         disabled={disabled}
         onContextMenu={(event) => event.preventDefault()}
-        className={cn('relative h-full w-full cursor-grab touch-none active:cursor-grabbing disabled:cursor-default', isDragging && 'opacity-0')}
+        className={cn('absolute bottom-2 right-2 cursor-grab touch-none active:cursor-grabbing disabled:cursor-default', imageControlClass, isDragging && 'invisible')}
       >
-        <Image src={src} alt={`첨부 사진 ${index + 1}`} width={192} height={224} unoptimized draggable={false} className="h-full w-full object-cover" />
-        <span className="absolute bottom-2 left-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/50 text-xs text-white">{index + 1}</span>
-      </button>
-      <button
-        type="button"
-        aria-label={`사진 ${index + 1} 삭제`}
-        disabled={disabled}
-        onClick={onRemove}
-        className={cn('absolute right-0 top-0 flex h-9 w-9 items-center justify-center rounded-bl-xl text-white disabled:opacity-40', isDragging && 'invisible')}
-      >
-        <MdClose className="h-6 w-6 rounded-full bg-black/50 p-1" />
+        <MdDragIndicator className="h-4 w-4" aria-hidden="true" />
       </button>
     </div>
   );
@@ -76,8 +79,8 @@ const DiaryFormImages = ({ diaryImages, handleImageChange, getImageUrl, handleRe
     setOverlayContainer(document.body);
   }, []);
   const sensors = useSensors(
-    useSensor(MouseSensor, { activationConstraint: longPressConstraint }),
-    useSensor(TouchSensor, { activationConstraint: longPressConstraint }),
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
   const items = diaryImages.map((image) => {
