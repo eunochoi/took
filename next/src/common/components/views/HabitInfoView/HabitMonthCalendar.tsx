@@ -31,13 +31,13 @@ const HabitMonthCalendar = ({
             <CalendarDay
               key={day.dateKey}
               day={day}
-              className="!rounded-none !outline-none"
+              className="!outline-none"
               isToday={day.dateKey === today}
               onClick={day.isOutsideMonth ? () => onShowDate(day.dateKey) : undefined}
               label={[
                 day.dateKey,
                 isCompleted ? '완료 기록 있음' : '',
-                isMissed ? '놓친 실천' : '',
+                isMissed ? '놓친 횟수' : '',
                 isBeforeCreation ? '생성일 이전, 통계 제외' : '',
                 isFuture ? '미래 날짜' : '',
               ].filter(Boolean).join(', ')}

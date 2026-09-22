@@ -3,10 +3,10 @@ import { authAction } from "@/common/auth/authAction";
 import { AppCardGrid } from "@/common/components/ui/AppSection/card";
 import { AppSection } from "@/common/components/ui/AppSection/section";
 import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
+import { YearRecordHeader } from "@/common/components/ui/AppSection/YearRecordHeader";
 import { useQuery } from "@tanstack/react-query";
 import { addYears, format, isLeapYear, subYears } from "date-fns";
 import { Dispatch, SetStateAction } from "react";
-import { YearRecordHeader } from "@/common/components/ui/AppSection/YearRecordHeader";
 import MonthlyBarChart from "./MonthlyBarChart";
 
 interface Props {
@@ -48,7 +48,7 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
 
       <AppCardGrid columns={2}>
         <AppStatCard className="!min-h-[100px] !bg-theme-bg border border-theme-accent/10 !shadow-none">
-          <AppStatLabel>{year}년 완료</AppStatLabel>
+          <AppStatLabel>실천 횟수</AppStatLabel>
           <AppStatValueWrapper>
             <AppStatValue>{count ?? 0}</AppStatValue>
             <AppStatUnit>회</AppStatUnit>
@@ -56,7 +56,7 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
         </AppStatCard>
 
         <AppStatCard className="!min-h-[100px] !bg-theme-bg border border-theme-accent/10 !shadow-none">
-          <AppStatLabel>연간 완료율</AppStatLabel>
+          <AppStatLabel>실천율</AppStatLabel>
           <AppStatValueWrapper>
             <AppStatValue>{completionRate}</AppStatValue>
             <AppStatUnit>%</AppStatUnit>
