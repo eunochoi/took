@@ -46,7 +46,7 @@ const config: Config = {
       },
       fontFamily: {
         paperozi: ["Paperozi", "sans-serif"],
-        title: ["Pretendard", "-apple-system", "BlinkMacSystemFont", "Apple SD Gothic Neo", "sans-serif"],
+        title: ["SUIT", "-apple-system", "BlinkMacSystemFont", "Apple SD Gothic Neo", "sans-serif"],
       },
       fontSize: {
         app: "var(--app-font-size)",
