@@ -59,7 +59,7 @@ const config: Config = {
         desktop: "1024px",
       },
       boxShadow: {
-        card: "0 1px 4px rgb(var(--theme-shadow-color) / 0.05)",
+        card: "0 4px 8px rgb(var(--theme-shadow-color) / 0.02)",
         "theme-soft": "0 2px 8px rgb(var(--theme-shadow-color) / 0.08)",
         "theme-section": "0 2px 12px rgb(var(--theme-shadow-color) / 0.06)",
         "theme-action": "0 2px 8px rgb(var(--theme-shadow-color) / 0.1)",
