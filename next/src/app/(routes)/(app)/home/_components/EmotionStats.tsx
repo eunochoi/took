@@ -57,10 +57,9 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
       />
 
       <AppSurfaceCard>
-        <div className="grid grid-cols-[repeat(5,max-content)] justify-between gap-y-6">
+        <div className="grid grid-cols-[repeat(5,max-content)] justify-between gap-y-7 my-2">
           {EMOTIONS.map((emotion) => (
-            <div key={emotion.id} className="flex flex-col min-w-0 justify-center items-center gap-3">
-              <span className="min-w-0 flex-1 text-sm whitespace-nowrap text-theme-text-secondary/80">{emotion.nameKr}</span>
+            <div key={emotion.id} className="flex flex-col min-w-0 justify-center items-center gap-1">
               <span className="relative">
                 <Image
                   className="h-12 w-12 shrink-0 object-contain"
@@ -75,7 +74,13 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
                   </span>
                 )}
               </span>
-              <span className="text-lg font-semibold text-theme-text-primary">{displayEmotionCounts[emotion.id]}</span>
+              <div className="flex items-center shrink-0 items-baseline gap-1 font-title tabular-nums">
+                <span className="text-lg font-semibold text-theme-accent">{displayEmotionCounts[emotion.id]}</span>
+                <span className="text-base text-theme-text-tertiary">회</span>
+              </div>
+              <span className="min-w-0 flex-1 text-sm whitespace-nowrap text-theme-text-primary">
+                {emotion.nameKr}
+              </span>
             </div>
           ))}
         </div>
