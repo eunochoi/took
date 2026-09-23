@@ -1,6 +1,5 @@
 'use client';
 
-import { cn } from "@/common/utils/cn";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 
@@ -8,15 +7,12 @@ import { AppSurfaceCard } from "@/common/components/ui/AppSection/card";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import { EMOTIONS } from "@/common/constants/emotions";
-import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
-import { getEmotionMessage } from "../_messages/emotionMessages";
 
 interface Props {
   emotionCounts: number[];
   halfYearEmotionCounts: number[][];
 }
 
-const EMOTION_NAMES_KR = ['행복', '기쁨', '사랑', '평온', '놀람', '불안', '슬픔', '화남', '혼란', '?'];
 const HALF_YEAR_OPTIONS = ['전체', '전반기', '후반기'];
 const HALF_YEAR_TAB_OPTIONS = HALF_YEAR_OPTIONS.map((label, value) => ({ label, value }));
 
@@ -38,37 +34,14 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
     displayEmotionCounts.reduce((sum, count) => sum + count, 0)
     , [displayEmotionCounts]);
 
-  const dominantEmotion = useMemo(() => {
-    if (totalCount === 0) return null;
-    const maxIndex = displayEmotionCounts.indexOf(Math.max(...displayEmotionCounts));
-    return { index: maxIndex, name: EMOTION_NAMES_KR[maxIndex], count: displayEmotionCounts[maxIndex] };
-  }, [displayEmotionCounts, totalCount]);
+  const firstPlaceEmotionIds = useMemo(() => {
+    const maxCount = Math.max(...displayEmotionCounts);
+    if (maxCount === 0) return [];
 
-  const getMessage = () => {
-    return getEmotionMessage({
-      totalCount,
-      selectedMonth: selectedHalfYear === 0 ? MONTH_UNSELECTED : selectedHalfYear,
-      selectedMonthName: HALF_YEAR_OPTIONS[selectedHalfYear],
-      dominantEmotion,
-    });
-  };
-
-  const renderEmotionRow = (startIndex: number) => (
-    <div className={cn("flex justify-between gap-2", startIndex > 0 && "mt-4")}>
-      {EMOTIONS.slice(startIndex, startIndex + 5).map((emotion, index) => (
-        <div key={emotion.id} className="flex flex-1 flex-col items-center gap-2.5">
-          <Image
-            className="h-11 w-11"
-            src={emotion.src}
-            alt={emotion.nameKr}
-            width={77}
-            height={77}
-          />
-          <span className="text-sm font-semibold text-theme-text-primary">{displayEmotionCounts[index + startIndex]}</span>
-        </div>
-      ))}
-    </div>
-  );
+    return displayEmotionCounts
+      .map((count, emotionId) => count === maxCount ? emotionId : -1)
+      .filter((emotionId) => emotionId !== -1);
+  }, [displayEmotionCounts]);
 
   return (
     <AppSection>
@@ -83,9 +56,29 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
         onChange={setSelectedHalfYear}
       />
 
-      <AppSurfaceCard className="px-4 py-5">
-        {renderEmotionRow(0)}
-        {renderEmotionRow(5)}
+      <AppSurfaceCard>
+        <div className="grid grid-cols-[repeat(5,max-content)] justify-between gap-y-6">
+          {EMOTIONS.map((emotion) => (
+            <div key={emotion.id} className="flex flex-col min-w-0 justify-center items-center gap-3">
+              <span className="min-w-0 flex-1 text-sm whitespace-nowrap text-theme-text-secondary/80">{emotion.nameKr}</span>
+              <span className="relative">
+                <Image
+                  className="h-12 w-12 shrink-0 object-contain"
+                  src={emotion.src}
+                  alt={emotion.nameKr}
+                  width={56}
+                  height={56}
+                />
+                {firstPlaceEmotionIds.includes(emotion.id) && (
+                  <span className="absolute -right-3 -top-2 flex h-6 min-w-7 items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent px-1 text-xs font-semibold text-theme-text-on-accent">
+                    1등
+                  </span>
+                )}
+              </span>
+              <span className="text-lg font-semibold text-theme-text-primary">{displayEmotionCounts[emotion.id]}</span>
+            </div>
+          ))}
+        </div>
       </AppSurfaceCard>
     </AppSection>
   );
