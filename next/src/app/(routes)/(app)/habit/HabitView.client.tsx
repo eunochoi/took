@@ -3,6 +3,7 @@
 import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
+import AppPageTitle from "@/common/components/layout/AppPageTitle";
 import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
 import TopButton from "@/common/components/ui/TopButton";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
@@ -56,8 +57,7 @@ const HabitView = () => {
 
   return (
     <AppPageLayout
-      title="습관 만들기"
-      description="작은 실천으로 만들어가는 나의 일상"
+      beforeToolbar={<AppPageTitle title="습관 만들기" description="작은 실천으로 만들어가는 나의 일상" />}
       pageRef={pageRef}
       showScrollToTop
       topButton={

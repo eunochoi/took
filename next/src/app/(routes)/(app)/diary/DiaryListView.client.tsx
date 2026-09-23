@@ -11,6 +11,7 @@ import MonthFilter from "@/app/(routes)/(app)/diary/_components/MonthFilter";
 import { getDiaryList } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
+import AppPageTitle from "@/common/components/layout/AppPageTitle";
 import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
 import TopButton from "@/common/components/ui/TopButton";
 import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
@@ -74,8 +75,7 @@ const DiaryListView = () => {
 
   return (
     <AppPageLayout
-      title="일기 목록"
-      description="차곡차곡 쌓이는 나의 하루"
+      beforeToolbar={<AppPageTitle title="일기 목록" description="차곡차곡 쌓이는 나의 하루" />}
       pageRef={wrapperRef}
       showScrollToTop
       contentProps={{

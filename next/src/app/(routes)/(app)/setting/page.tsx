@@ -2,6 +2,8 @@
 
 
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
+import AppPageTitle from "@/common/components/layout/AppPageTitle";
+import Wordmark from "@/common/components/ui/Wordmark";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { format } from "date-fns";
@@ -27,9 +29,12 @@ const SettingPage = () => {
 
   return (
     <AppPageLayout
-      showMobileLogo
-      title="설정"
-      description="나에게 편안한 기록 공간을 만들어요"
+      beforeToolbar={
+        <>
+          <div className="mb-8 tablet:hidden"><Wordmark className="text-[48px]" /></div>
+          <AppPageTitle title="설정" description="나에게 편안한 기록 공간을 만들어요" />
+        </>
+      }
       contentProps={{ className: "gap-6" }}
       showScrollToTop={false}
       topButton={<>
