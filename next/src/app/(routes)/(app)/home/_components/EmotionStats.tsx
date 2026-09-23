@@ -13,44 +13,26 @@ import { getEmotionMessage } from "../_messages/emotionMessages";
 
 interface Props {
   emotionCounts: number[];
-  monthlyEmotionCounts: number[][];
+  halfYearEmotionCounts: number[][];
 }
 
 const EMOTION_NAMES_KR = ['행복', '기쁨', '사랑', '평온', '놀람', '불안', '슬픔', '화남', '혼란', '?'];
-const QUARTER_OPTIONS = ['전체', '1분기', '2분기', '3분기', '4분기'];
-const QUARTER_TAB_OPTIONS = QUARTER_OPTIONS.map((label, value) => ({ label, value }));
+const HALF_YEAR_OPTIONS = ['전체', '전반기', '후반기'];
+const HALF_YEAR_TAB_OPTIONS = HALF_YEAR_OPTIONS.map((label, value) => ({ label, value }));
 
-const QUARTER_MONTHS = [
-  [],
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [9, 10, 11],
-];
-
-const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
-  const [selectedQuarter, setSelectedQuarter] = useState<number>(0);
+const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
+  const [selectedHalfYear, setSelectedHalfYear] = useState<number>(0);
 
   const displayEmotionCounts = useMemo(() => {
-    if (selectedQuarter === 0) {
+    if (selectedHalfYear === 0) {
       const expandedCounts = [...emotionCounts];
       while (expandedCounts.length < 10) {
         expandedCounts.push(0);
       }
       return expandedCounts.slice(0, 10);
     }
-    const quarterMonths = QUARTER_MONTHS[selectedQuarter];
-    const quarterCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-    quarterMonths.forEach(monthIndex => {
-      const monthCounts = monthlyEmotionCounts[monthIndex] || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-      monthCounts.forEach((count, emotionIndex) => {
-        quarterCounts[emotionIndex] += count;
-      });
-    });
-
-    return quarterCounts;
-  }, [selectedQuarter, emotionCounts, monthlyEmotionCounts]);
+    return halfYearEmotionCounts[selectedHalfYear - 1] || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  }, [selectedHalfYear, emotionCounts, halfYearEmotionCounts]);
 
   const totalCount = useMemo(() =>
     displayEmotionCounts.reduce((sum, count) => sum + count, 0)
@@ -65,8 +47,8 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
   const getMessage = () => {
     return getEmotionMessage({
       totalCount,
-      selectedMonth: selectedQuarter === 0 ? MONTH_UNSELECTED : selectedQuarter,
-      selectedMonthName: QUARTER_OPTIONS[selectedQuarter],
+      selectedMonth: selectedHalfYear === 0 ? MONTH_UNSELECTED : selectedHalfYear,
+      selectedMonthName: HALF_YEAR_OPTIONS[selectedHalfYear],
       dominantEmotion,
     });
   };
@@ -96,9 +78,9 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
       </AppSectionHeader>
 
       <AppUnderlineTabs
-        options={QUARTER_TAB_OPTIONS}
-        value={selectedQuarter}
-        onChange={setSelectedQuarter}
+        options={HALF_YEAR_TAB_OPTIONS}
+        value={selectedHalfYear}
+        onChange={setSelectedHalfYear}
       />
 
       <AppSurfaceCard className="px-4 py-5">

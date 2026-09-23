@@ -18,7 +18,7 @@ export interface DiaryStats {
   streakStatus: 'current' | 'pending' | 'none';
   monthlyCount: number[];
   totalTextLength: number;
-  monthlyEmotionCounts: number[][];
+  halfYearEmotionCounts: number[][];
 }
 
 export interface HabitCount {

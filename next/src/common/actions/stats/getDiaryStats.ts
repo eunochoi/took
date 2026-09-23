@@ -36,7 +36,7 @@ export const getDiaryStats = async ({ year }: YearParams): Promise<ActionResult<
 
     const emotionCounts = Array(10).fill(0);
     const monthlyCount = Array(12).fill(0);
-    const monthlyEmotionCounts = Array(12).fill(null).map(() => Array(10).fill(0));
+    const halfYearEmotionCounts = Array(2).fill(null).map(() => Array(10).fill(0));
     let totalTextLength = 0;
 
     diaries.forEach((diary) => {
@@ -47,7 +47,8 @@ export const getDiaryStats = async ({ year }: YearParams): Promise<ActionResult<
       const month = parseInt(diary.date.split('-')[1], 10) - 1;
       monthlyCount[month] += 1;
       if (diary.emotion >= 0 && diary.emotion <= 9) {
-        monthlyEmotionCounts[month][diary.emotion] += 1;
+        const halfYear = Math.floor(month / 6);
+        halfYearEmotionCounts[halfYear][diary.emotion] += 1;
       }
 
       try {
@@ -69,7 +70,7 @@ export const getDiaryStats = async ({ year }: YearParams): Promise<ActionResult<
         streakStatus: streak.status,
         monthlyCount,
         totalTextLength,
-        monthlyEmotionCounts,
+        halfYearEmotionCounts,
       },
     };
   } catch (error) {
