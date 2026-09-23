@@ -16,14 +16,6 @@ const HabitOverviewCard = ({ completedCount, habitCount, maxHabitCount, rate }: 
         rate={rate}
         totalCount={habitCount}
       />
-      <div className="flex min-h-14 items-center justify-between rounded-theme bg-theme-bg p-3">
-        <span className="text-sm text-theme-text-tertiary">생성된 습관</span>
-        <strong className="text-2xl text-theme-accent">
-          {habitCount}
-          <span className="ml-1 text-sm font-semibold text-theme-text-tertiary">/ {maxHabitCount}</span>
-        </strong>
-      </div>
-
     </AppSurfaceCard>
   );
 };

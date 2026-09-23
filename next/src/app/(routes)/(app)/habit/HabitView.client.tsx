@@ -4,6 +4,7 @@ import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import AppPageTitle from "@/common/components/layout/AppPageTitle";
+import { AppStatCard } from "@/common/components/ui/AppSection/stat";
 import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
 import TopButton from "@/common/components/ui/TopButton";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
@@ -16,7 +17,7 @@ import { enqueueSnackbar } from "notistack";
 import { useEffect, useRef } from "react";
 import { MdAdd, MdChecklist, MdSort } from 'react-icons/md';
 import HabitBox from "./_components/HabitBox";
-import HabitOverviewCard from "./_components/HabitOverviewCard";
+import HabitTodayProgress from "./_components/HabitTodayProgress";
 import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
 import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
 
@@ -72,13 +73,21 @@ const HabitView = () => {
         </>
       }>
       <div className="w-full desktop:grid desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:grid-rows-[auto_1fr] desktop:items-start desktop:gap-x-8 desktop:gap-y-0">
-        <div className="mb-4 desktop:hidden">
-          <HabitOverviewCard
-            completedCount={todayDoneHabitCount}
-            habitCount={totalHabitCount}
-            maxHabitCount={MAX_HABIT_COUNT}
-            rate={todayDoneHabitRate}
-          />
+        <div className="flex flex-col mb-4 gap-4 desktop:col-start-2 desktop:row-start-2">
+          <AppStatCard className="flex !flex-row items-center justify-between !p-4 !h-auto !min-h-0">
+            <HabitTodayProgress
+              completedCount={todayDoneHabitCount}
+              rate={todayDoneHabitRate}
+              totalCount={MAX_HABIT_COUNT}
+            />
+          </AppStatCard>
+          <AppStatCard className="flex !flex-row items-center justify-between !p-4 !h-auto !min-h-0">
+            <header className="text-xl font-title font-semibold text-theme-text-primary">습관 목록</header>
+            <div className="flex items-baseline text-theme-accent">
+              <span className="text-3xl ">{totalHabitCount}</span>
+              <span className="ml-1 text-lg font-semibold text-theme-text-tertiary">/ {MAX_HABIT_COUNT} 생성</span>
+            </div>
+          </AppStatCard>
         </div>
 
         <section className="mt-0 flex min-w-0 flex-col desktop:col-start-1 desktop:row-start-2">
@@ -93,17 +102,7 @@ const HabitView = () => {
             ) : habits?.map((habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} iconKey={habit.iconKey} />)}
           </div>
         </section>
-
-        <aside className="hidden w-full flex-col gap-3 desktop:col-start-2 desktop:row-start-2 desktop:flex desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
-          <HabitOverviewCard
-            completedCount={todayDoneHabitCount}
-            habitCount={totalHabitCount}
-            maxHabitCount={MAX_HABIT_COUNT}
-            rate={todayDoneHabitRate}
-          />
-        </aside>
-
-      </div>
+      </div >
     </AppPageLayout >
   );
 }
