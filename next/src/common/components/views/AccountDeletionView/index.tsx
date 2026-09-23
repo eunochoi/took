@@ -17,7 +17,7 @@ const AccountDeletionView = () => {
   return (
     <DocLayout>
       <DocHeader
-        title="Took 계정 삭제"
+        title="계정 삭제"
         subtitle="Account deletion"
         description="앱을 설치하지 않아도 이 페이지에서 본인 확인 후 Took 회원 탈퇴를 완료할 수 있습니다."
       />

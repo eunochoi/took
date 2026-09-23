@@ -1,6 +1,6 @@
 'use client';
 
-import Logo from '@/common/components/ui/Logo';
+import Wordmark from '@/common/components/ui/Wordmark';
 import { useRouter } from 'next/navigation';
 import { MdArrowBackIos } from 'react-icons/md';
 
@@ -26,13 +26,13 @@ const DocHeader = ({ description, subtitle, title }: Props) => {
       >
         <MdArrowBackIos />
       </button>
-      <Logo logoClassName="w-60 h-auto" />
+      <Wordmark className="text-6xl my-6" />
       <div className="flex flex-col gap-3">
         <h1 className="m-0 break-keep text-3xl leading-tight text-theme-text-primary tablet:text-4xl">{title}</h1>
         <p className="m-0 text-base font-bold text-theme-accent">{subtitle}</p>
       </div>
       {description ? (
-        <p className="m-0 max-w-[520px] text-sm leading-relaxed text-theme-text-secondary tablet:text-base">{description}</p>
+        <p className="text-balance break-keep m-0 max-w-[520px] text-sm leading-relaxed text-theme-text-secondary tablet:text-base">{description}</p>
       ) : null}
     </header>
   );
