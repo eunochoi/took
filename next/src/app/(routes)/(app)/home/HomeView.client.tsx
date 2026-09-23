@@ -134,14 +134,10 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
             stats={diaryStats}
             year={selectedYear}
           />
-
-          <div className="min-w-0">
-            <EmotionStats
-              emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-              halfYearEmotionCounts={diaryStats?.halfYearEmotionCounts ?? Array(2).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
-            />
-          </div>
-
+          <EmotionStats
+            emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+            halfYearEmotionCounts={diaryStats?.halfYearEmotionCounts ?? Array(2).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+          />
           <HabitAnalysis
             stats={habitStats}
           />
