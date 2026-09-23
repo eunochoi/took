@@ -3,11 +3,9 @@
 import { DiaryStats } from "@/common/actions/stats";
 
 import { AppCardGrid, AppSurfaceCard } from "@/common/components/ui/AppSection/card";
-import { AppInfoCard, AppInfoContent, AppInfoText } from "@/common/components/ui/AppSection/info";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
 import { cn } from "@/common/utils/cn";
-import { getStreakMessage } from "../_messages/streakMessages";
 
 interface Props {
   stats?: DiaryStats;
@@ -67,15 +65,6 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
           </AppStatValueWrapper>
         </AppStatCard>
       </AppCardGrid>
-
-      <AppInfoCard>
-        <AppInfoContent>
-          <span>{getStreakMessage(currentStreak)}</span>
-        </AppInfoContent>
-        <AppInfoText>
-          {streakInfoText}
-        </AppInfoText>
-      </AppInfoCard>
 
       <AppSurfaceCard className="flex flex-col gap-2">
         <div className="flex flex-row px-2 py-2">

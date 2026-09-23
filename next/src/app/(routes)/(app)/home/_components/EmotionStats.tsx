@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 
 import { AppSurfaceCard } from "@/common/components/ui/AppSection/card";
-import { AppInfoCard, AppInfoContent, AppInfoText } from "@/common/components/ui/AppSection/info";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import { EMOTIONS } from "@/common/constants/emotions";
@@ -106,17 +105,6 @@ const EmotionStats = ({ emotionCounts, monthlyEmotionCounts }: Props) => {
         {renderEmotionRow(0)}
         {renderEmotionRow(5)}
       </AppSurfaceCard>
-
-      <AppInfoCard>
-        <AppInfoContent>
-          <span>{getMessage()}</span>
-        </AppInfoContent>
-        {totalCount > 0 && totalCount < 10 && (
-          <AppInfoText>
-            * 기록이 적어서 정확한 분석이 어려울 수 있어요.
-          </AppInfoText>
-        )}
-      </AppInfoCard>
     </AppSection>
   );
 };

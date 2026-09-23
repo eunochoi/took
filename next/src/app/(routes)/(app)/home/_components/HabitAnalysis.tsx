@@ -2,7 +2,7 @@
 
 import { HabitStats } from "@/common/actions/stats";
 import { AppCardGrid } from "@/common/components/ui/AppSection/card";
-import { AppInfoCard, AppInfoContent, AppInfoText } from "@/common/components/ui/AppSection/info";
+import { AppInfoCard, AppInfoText } from "@/common/components/ui/AppSection/info";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import HabitIcon from "@/common/components/ui/HabitIcon";
@@ -77,13 +77,6 @@ const HabitAnalysis = ({ stats }: Props) => {
         </AppCardGrid>}
 
       <AppInfoCard>
-        <AppInfoContent>
-          <span>
-            {habitTab === 'top'
-              ? '상위 Top 3는 선택한 해에 가장 많이 완료한 습관을 보여줘요.'
-              : '하위 Top 3는 선택한 해에 완료 기록이 있는 습관 중 가장 적게 완료한 습관을 보여줘요.'}
-          </span>
-        </AppInfoContent>
         <AppInfoText>
           * 0회 완료한 습관은 Top 3에 표시되지 않습니다.
         </AppInfoText>
