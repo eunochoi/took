@@ -1,6 +1,7 @@
 'use client';
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { MdEdit } from 'react-icons/md';
@@ -11,6 +12,7 @@ import AppPageLayout from '@/common/components/layout/AppPageLayout';
 import AppPageTitle from '@/common/components/layout/AppPageTitle';
 import TopButton from '@/common/components/ui/TopButton';
 import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
+import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import DiaryHabitMonthCalendar from './_components/DiaryHabitMonthCalendar';
 import SelectedDayInfo from './_components/SelectedDayInfo';
 
@@ -31,37 +33,31 @@ const CalendarView = ({ initialDate }: Props) => {
     staleTime: 60_000,
     placeholderData: keepPreviousData,
   });
-  const todayDiaryQuery = useQuery({
-    queryKey: ['diary', 'date', today],
-    queryFn: () => authAction(() => getDiaryByDate({ date: today })),
-    staleTime: 60_000,
-  });
-
-  const openTodayDiary = () => {
-    if (todayDiaryQuery.isPending) return;
-    if (todayDiaryQuery.isError) {
-      void todayDiaryQuery.refetch();
+  const openSelectedDiary = () => {
+    if (selectedDiaryQuery.isPending || selectedDiaryQuery.isPlaceholderData) return;
+    if (selectedDiaryQuery.isError) {
+      void selectedDiaryQuery.refetch();
       return;
     }
 
-    const diary = todayDiaryQuery.data;
+    const diary = selectedDiaryQuery.data;
     const href = diary?.visible
       ? `/inter/input/editDiary?id=${diary.id}`
-      : `/inter/input/addDiary?date=${today}`;
+      : `/inter/input/addDiary?date=${selectedDate}`;
     router.push(href, { scroll: false });
   };
+
+  const selectedDateLabel = selectedDate === today ? '오늘' : format(parseLocalDate(selectedDate), 'M월 d일');
+  const diaryActionLabel = `${selectedDateLabel} ${selectedDiaryQuery.data?.visible ? '일기 수정' : '일기 작성'}`;
 
   return (
     <AppPageLayout
       beforeToolbar={<AppPageTitle title="월간 기록" description="하루하루 쌓인 마음과 습관을 살펴봐요" />}
       topButton={
         <>
-          <TopButton
-            onClick={openTodayDiary}
-            disabled={todayDiaryQuery.isPending}
-          >
+          <TopButton onClick={openSelectedDiary}>
             <MdEdit size={18} className="shrink-0" aria-hidden="true" />
-            <span>{todayDiaryQuery.data?.visible ? '오늘 일기 수정' : '오늘 일기 작성'}</span>
+            <span>{diaryActionLabel}</span>
           </TopButton>
         </>
       }
