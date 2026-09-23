@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
+import { CALENDAR_BADGE_SCALE } from "./src/common/constants/calendar";
 
 const config: Config = {
   future: {
@@ -73,10 +74,26 @@ const config: Config = {
         rotateCustom: {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(10deg)' },
-        }
+        },
+        calendarSelectedBounce: {
+          '0%, 100%': { transform: 'translateY(0) scale(1)' },
+          '20%': { transform: 'translateY(-3px) scale(1.02)' },
+          '40%': { transform: 'translateY(0) scale(0.98)' },
+          '55%': { transform: 'translateY(-1px) scale(1.01)' },
+          '70%': { transform: 'translateY(0) scale(1)' },
+        },
+        calendarSelectedBadgeBounce: {
+          '0%, 100%': { transform: `translateY(0) scale(${CALENDAR_BADGE_SCALE})` },
+          '20%': { transform: `translateY(-3px) scale(${CALENDAR_BADGE_SCALE + 0.05})` },
+          '40%': { transform: `translateY(0) scale(${CALENDAR_BADGE_SCALE - 0.03})` },
+          '55%': { transform: `translateY(-1px) scale(${CALENDAR_BADGE_SCALE + 0.015})` },
+          '70%': { transform: `translateY(0) scale(${CALENDAR_BADGE_SCALE})` },
+        },
       },
       animation: {
         'rotate-slow': 'rotateCustom 500ms ease-in-out infinite alternate',
+        'calendar-selected-bounce': 'calendarSelectedBounce 1200ms ease-in-out infinite',
+        'calendar-selected-badge-bounce': 'calendarSelectedBadgeBounce 1200ms ease-in-out infinite',
       }
     },
   },
