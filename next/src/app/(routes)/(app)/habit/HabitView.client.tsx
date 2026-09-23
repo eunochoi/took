@@ -82,10 +82,10 @@ const HabitView = () => {
             />
           </AppStatCard>
           <AppStatCard className="flex !flex-row items-center justify-between !p-4 !h-auto !min-h-0">
-            <header className="text-xl font-title font-semibold text-theme-text-primary">습관 목록</header>
+            <header className="text-lg font-title font-semibold text-theme-text-primary">습관 목록</header>
             <div className="flex items-baseline text-theme-accent">
-              <span className="text-3xl ">{totalHabitCount}</span>
-              <span className="ml-1 text-lg font-semibold text-theme-text-tertiary">/ {MAX_HABIT_COUNT} 생성</span>
+              <span className="text-2xl ">{totalHabitCount}</span>
+              <span className="ml-1 text-sm font-semibold text-theme-text-tertiary">/ {MAX_HABIT_COUNT} 생성</span>
             </div>
           </AppStatCard>
         </div>
