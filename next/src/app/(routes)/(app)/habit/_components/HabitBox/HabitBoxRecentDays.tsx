@@ -16,7 +16,7 @@ const HabitBoxRecentDays = ({ name, recentDateStatus, controlsDisabled, onToggle
   recentDateArray = recentDateArray.map((e, i) => subDays(e, i));
 
   return (
-    <div className="grid grid-cols-4 gap-1">
+    <div className="grid grid-cols-[repeat(4,max-content)] justify-around">
       {recentDateArray.map((date, i) => {
         const checked = !!recentDateStatus?.[i];
         const dateString = format(date, 'yyyy-MM-dd');
