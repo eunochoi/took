@@ -11,7 +11,7 @@ import { authAction } from '@/common/auth/authAction';
 import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
 import { getTodayString } from '@/common/functions/getTodayString';
 
-const recordCardClass = 'flex min-h-14 items-center gap-3 border border-theme-border-muted text-left text-sm';
+const recordCardClass = 'flex min-h-14 items-center gap-3 text-left text-sm';
 const recordStatusClass = 'text-xs font-semibold text-theme-accent desktop:text-sm';
 
 const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {

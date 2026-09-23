@@ -36,7 +36,7 @@ const SortableDiaryImage = ({ id, src, index, disabled, onRemove }: {
     <div
       ref={setNodeRef}
       style={{ transform: CSS.Transform.toString(transform), transition: reducedMotion ? undefined : transition }}
-      className={cn(tileClass, isDragging ? 'border-2 border-dashed border-theme-accent bg-theme-accent/10' : 'shadow-card')}
+      className={cn(tileClass, isDragging ? 'bg-theme-accent/10' : 'shadow-card')}
     >
       <div className={cn('relative h-full w-full touch-auto', isDragging && 'opacity-0')}>
         <Image src={src} alt={`첨부 사진 ${index + 1}`} width={192} height={224} unoptimized draggable={false} className="h-full w-full object-cover" />

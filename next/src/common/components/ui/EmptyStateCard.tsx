@@ -10,7 +10,7 @@ interface Props {
 }
 
 const EmptyStateCard = ({ className, description, icon, title }: Props) => (
-  <AppSurfaceCard className={cn('flex min-h-[220px] flex-col items-center justify-center gap-3 border border-theme-accent/10 px-6 py-10 text-center', className)}>
+  <AppSurfaceCard className={cn('flex min-h-[220px] flex-col items-center justify-center gap-3 px-6 py-10 text-center', className)}>
     <div className="flex h-14 w-14 items-center justify-center rounded-full bg-theme-accent/10 text-3xl text-theme-accent">
       {icon}
     </div>

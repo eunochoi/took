@@ -126,7 +126,7 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
           <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
             <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 px-[4dvw] pb-6 pt-2 tablet:px-6">
               <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">나의 작은 습관</h1>
-              <div className="w-full rounded-theme border border-transparent bg-theme-surface p-5 shadow-card transition-colors">
+              <div className="w-full rounded-theme bg-theme-surface p-5 shadow-card transition-colors">
                 <HabitFormNameSection name={name} setName={setName} />
                 <HabitFormPrioritySection priority={priority} setPriority={setPriority} />
                 <HabitFormIconSection iconKey={iconKey} setIconKey={setIconKey} />

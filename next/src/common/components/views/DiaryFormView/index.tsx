@@ -141,7 +141,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
               <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">
                 오늘의 기록
               </h1>
-              <div className="w-full rounded-theme border border-transparent bg-theme-surface p-5 shadow-card transition-colors">
+              <div className="w-full rounded-theme bg-theme-surface p-5 shadow-card transition-colors">
                 <DiaryFormEmotionSection
                   emotion={emotion}
                   setEmotion={setEmotion}

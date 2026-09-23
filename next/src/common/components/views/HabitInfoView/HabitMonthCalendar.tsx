@@ -18,7 +18,7 @@ const HabitMonthCalendar = ({
   onShowDate,
 }: Props) => {
   return (
-    <div className="w-full border-t border-theme-border-muted pt-4">
+    <div className="w-full">
       <CalendarGrid aria-busy={isFetching} aria-label={`${monthLabel} 습관 실천 달력`}>
         {days.map((day) => {
           const isCompleted = !day.isOutsideMonth && habitMonthData?.daysByDate[day.dateKey] === true;

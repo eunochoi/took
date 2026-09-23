@@ -47,7 +47,7 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
       />
 
       <AppCardGrid columns={2}>
-        <AppStatCard className="!min-h-[100px] !bg-theme-bg border border-theme-accent/10 !shadow-none">
+        <AppStatCard className="!min-h-[100px] !bg-theme-bg !shadow-none">
           <AppStatLabel>실천 횟수</AppStatLabel>
           <AppStatValueWrapper>
             <AppStatValue>{count ?? 0}</AppStatValue>
@@ -55,7 +55,7 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
           </AppStatValueWrapper>
         </AppStatCard>
 
-        <AppStatCard className="!min-h-[100px] !bg-theme-bg border border-theme-accent/10 !shadow-none">
+        <AppStatCard className="!min-h-[100px] !bg-theme-bg !shadow-none">
           <AppStatLabel>실천율</AppStatLabel>
           <AppStatValueWrapper>
             <AppStatValue>{completionRate}</AppStatValue>

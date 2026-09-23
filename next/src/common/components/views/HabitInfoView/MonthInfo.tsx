@@ -52,7 +52,7 @@ const MonthInfo = ({ habitId, today }: Props) => {
 
       <AppCardGrid columns={3}>
         {stats.map((stat) => (
-          <AppStatCard key={stat.label} className="!min-h-[100px] !bg-theme-bg border border-theme-accent/10 !shadow-none">
+          <AppStatCard key={stat.label} className="!min-h-[100px] !bg-theme-bg !shadow-none">
             <AppStatLabel>{stat.label}</AppStatLabel>
             <AppStatValueWrapper>
               <AppStatValue>{stat.value}</AppStatValue>
