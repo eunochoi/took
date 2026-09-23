@@ -69,6 +69,15 @@ const config: Config = {
         "theme-modal": "0 8px 32px rgb(var(--theme-shadow-color) / 0.12)",
         "theme-floating": "0 2px 12px rgb(var(--theme-shadow-color) / 0.08)",
       },
+      keyframes: {
+        rotateCustom: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(10deg)' },
+        }
+      },
+      animation: {
+        'rotate-slow': 'rotateCustom 500ms ease-in-out infinite alternate',
+      }
     },
   },
   plugins: [

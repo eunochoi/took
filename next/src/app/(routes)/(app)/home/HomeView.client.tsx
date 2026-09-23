@@ -77,7 +77,7 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
             <span className="m-0 text-2xl font-semibold text-theme-text-primary">{today}</span>
             <h1 className="flex gap-4 items-center m-0">
               <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
-              <Image src={EMOTIONS[6].src} alt="greeting emotion icon" className="h-12 mb-1 w-auto rotate-[10deg]" />
+              <Image src={EMOTIONS[6].src} alt="greeting emotion icon" className="h-12 mb-1 w-auto animate-rotate-slow" />
             </h1>
             <div className="m-0 text-lg desktop:text-xl desktop:mb-4 leading-relaxed text-theme-text-secondary">
               <p>{GREETING_TEXT.sub[0]}</p>
