@@ -131,6 +131,10 @@ html[data-font-type='타입4'] {
   --app-font-family: 'MaruBuri';
 }
 
+html[data-font-type='타입5'] {
+  --app-font-family: 'SUIT';
+}
+
 /* app font size */
 html[data-font-size='작게'] {
   --app-font-size: 15px;
