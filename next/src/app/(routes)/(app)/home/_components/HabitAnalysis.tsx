@@ -51,20 +51,20 @@ const HabitAnalysis = ({ stats }: Props) => {
               <button
                 type="button"
                 onClick={() => handleHabitClick(habit.id)}
-                className="flex w-full min-w-0 items-center gap-3 rounded-lg py-3 text-left transition-colors hover:bg-theme-accent/10 tablet:gap-4"
+                className="flex w-full min-w-0 items-center gap-6 rounded-lg py-3 text-left transition-colors hover:bg-theme-accent/10 tablet:gap-4"
               >
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-transparent">
-                  <HabitIcon iconKey={habit.iconKey} className="text-2xl" />
+                  <HabitIcon iconKey={habit.iconKey} className="text-4xl" />
                 </span>
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
                   <span className="truncate text-base leading-relaxed text-theme-text-primary">
                     {habit.name}
                   </span>
-                  <StarRating maxRating={3} rating={habit.priority + 1} className="shrink-0 gap-0.5 text-xs opacity-80" />
+                  <StarRating maxRating={3} rating={habit.priority + 1} className="shrink-0 gap-0.5 text-base opacity-80" />
                 </div>
                 <span className="flex shrink-0 items-baseline gap-1 font-title tabular-nums">
                   <span className="text-lg font-semibold text-theme-text-primary">{habit.count}</span>
-                  <span className="text-xs text-theme-text-secondary">회</span>
+                  <span className="text-base text-theme-text-secondary">회</span>
                 </span>
               </button>
             </li>
