@@ -35,7 +35,7 @@ const GREETING_TEXT = {
 
 const HomeView = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
-  const today = format(new Date(initialDate), 'M월 d일(EEE)', { locale: ko });
+  const today = format(new Date(initialDate), 'M월 d일 EEEE', { locale: ko });
   const currentYear = getYear(new Date());
   const searchParams = useSearchParams();
   const queryYear = Number(searchParams.get('year'));
@@ -74,7 +74,7 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
         <div className="flex flex-col gap-8">
           <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
           <div className="flex flex-col font-title gap-4 desktop:gap-8">
-            <span className="m-0 text-3xl font-semibold text-theme-text-primary">{today}</span>
+            <span className="m-0 text-2xl font-semibold text-theme-text-primary">{today}</span>
             <h1 className="flex gap-4 items-center m-0">
               <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
               <Image src={EMOTIONS[6].src} alt="greeting emotion icon" className="h-12 mb-1 w-auto rotate-[10deg]" />
