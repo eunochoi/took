@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 
-import BottomNav from "@/common/components/layout/MobileLayout/BottomNav";
+import BottomNav from "@/common/components/ui/BottomNav";
 import SideBar from "@/common/components/ui/SideBar";
 import { cn } from "@/common/utils/cn";
 
