@@ -1,6 +1,6 @@
 {
-    "theme_color": "#f3f7fc",
-    "background_color": "#f3f7fc",
+    "theme_color": "#F6F8FA",
+    "background_color": "#F6F8FA",
     "display": "standalone",
     "display_override": [
         "window_controls_overlay",

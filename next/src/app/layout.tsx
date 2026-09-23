@@ -73,7 +73,7 @@ export default async function RootLayout({
           }));
         }
       } catch (error) {
-        document.documentElement.style.setProperty('--loading-background', 'rgb(240 247 255)');
+        document.documentElement.style.setProperty('--loading-background', 'rgb(246 248 250)');
         document.documentElement.style.setProperty('--loading-indicator', 'rgb(140 173 226)');
       }
     })();
@@ -101,7 +101,7 @@ export default async function RootLayout({
         {isIosDevice && <meta name="apple-mobile-web-app-capable" content="yes" />}
         <meta name="mobile-web-app-capable" content="yes" />
 
-        <meta id="theme-color" name="theme-color" content="#f3f7fc" />
+        <meta id="theme-color" name="theme-color" content="#F6F8FA" />
         <meta property="og:title" content="Took" />
         <meta property="og:description" content="감정 일기를 적고 습관을 실천하세요. 당신의 긍정적 변화와 성장을 응원합니다. :)" />
         <meta property="og:image" content="https://i.ibb.co/WfHNc58/shareImg.png" />

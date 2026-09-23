@@ -16,14 +16,7 @@ export const THEME_ACCENT_LIST = [
   '143 143 143',
 ] as const;
 
-export const THEME_BG_LIST = [
-  '240 247 255',
-  '238 250 246',
-  '237 237 247',
-  '249 241 242',
-  '255 250 240',
-  '242 242 242',
-] as const;
+export const THEME_BG = '246 248 250' as const;
 
 export const THEME_BG_DARK_MODE = `38 38 38`;
 
@@ -34,7 +27,7 @@ export const THEME_LOCAL_STORAGE_KEY = 'took:local:theme';
 
 export type ThemeName = typeof THEME_NAME_LIST[number];
 export type ThemeAccent = typeof THEME_ACCENT_LIST[number];
-export type ThemeBG = typeof THEME_BG_LIST[number];
+export type ThemeBG = typeof THEME_BG;
 export type ThemeMode = typeof THEME_MODE_LIST[number];
 
 export interface ThemePreference {
@@ -51,26 +44,26 @@ export const THEME_VALUE: Record<
 > = {
   blue: {
     accent: '140 173 226',
-    bg: '240 247 255',
+    bg: THEME_BG,
   },
   green: {
     accent: '131 198 182',
-    bg: '238 250 246',
+    bg: THEME_BG,
   },
   purple: {
     accent: '151 159 199',
-    bg: '237 237 247',
+    bg: THEME_BG,
   },
   pink: {
     accent: '237 165 177',
-    bg: '249 241 242',
+    bg: THEME_BG,
   },
   yellow: {
     accent: '249 199 79',
-    bg: '255 250 240',
+    bg: THEME_BG,
   },
   grey: {
     accent: '143 143 143',
-    bg: '242 242 242',
+    bg: THEME_BG,
   },
 } as const;

@@ -1,8 +1,8 @@
 .static-theme-blue {
   --theme-accent: 140 173 226;
   --theme-accent-deep: 107 137 186;
-  --theme-bg-light: 244 246 248;
-  --theme-bg: 244 246 248;
+  --theme-bg-light: 246 248 250;
+  --theme-bg: 246 248 250;
 }
 
 html[data-theme-accent='blue'] {
