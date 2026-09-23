@@ -72,8 +72,15 @@ const config: Config = {
       },
       keyframes: {
         rotateCustom: {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(10deg)' },
+          '0%': { transform: 'rotate(5deg)', transformOrigin: '50% 100%' },
+          '5%': { transform: 'rotate(15deg)' },
+          '10%': { transform: 'rotate(-3deg)' },
+          '16%': { transform: 'rotate(13deg)' },
+          '21%': { transform: 'rotate(-1deg)' },
+          '26%': { transform: 'rotate(10deg)' },
+          '32%': { transform: 'rotate(2deg)' },
+          '39%': { transform: 'rotate(7deg)' },
+          '47%, 100%': { transform: 'rotate(5deg)' },
         },
         calendarSelectedBounce: {
           '0%, 100%': { transform: 'translateY(0) scale(1)' },
@@ -91,7 +98,7 @@ const config: Config = {
         },
       },
       animation: {
-        'rotate-slow': 'rotateCustom 500ms ease-in-out infinite alternate',
+        'rotate-slow': 'rotateCustom 3500ms ease-in-out infinite',
         'calendar-selected-bounce': 'calendarSelectedBounce 1200ms ease-in-out infinite',
         'calendar-selected-badge-bounce': 'calendarSelectedBadgeBounce 1200ms ease-in-out infinite',
       }
