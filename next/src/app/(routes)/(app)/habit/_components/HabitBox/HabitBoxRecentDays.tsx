@@ -22,7 +22,7 @@ const HabitBoxRecentDays = ({ name, recentDateStatus, controlsDisabled, onToggle
         const dateString = format(date, 'yyyy-MM-dd');
         return (
           <label key={dateString} className="flex cursor-pointer flex-col items-center gap-1 text-sm text-theme-text-secondary">
-            <span>{format(date, 'eee', { locale: ko })}</span>
+            <span className={i === 0 ? 'text-theme-accent font-semibold' : ''}>{format(date, 'eee', { locale: ko })}</span>
             <span>{format(date, 'd')}</span>
             <input
               className="peer sr-only"
@@ -33,10 +33,12 @@ const HabitBoxRecentDays = ({ name, recentDateStatus, controlsDisabled, onToggle
               onChange={(event) => onToggleHabit(event.currentTarget.checked, dateString)}
             />
             <span className={cn(
-              "mt-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-theme-accent/80 transition-colors",
-              checked ? "bg-theme-accent/80 text-white" : "text-theme-accent/80",
+              "mt-1 flex h-5 w-5 items-center justify-center rounded-md border-[1.5px] transition-colors duration-150 motion-reduce:transition-none",
+              checked
+                ? "border-theme-accent bg-theme-accent text-theme-text-on-accent"
+                : "border-theme-text-disabled/60 bg-theme-surface",
             )}>
-              {checked && <MdCheck className="text-lg" aria-hidden="true" />}
+              <MdCheck className={cn("h-3.5 w-3.5 transition-opacity motion-reduce:transition-none", checked ? "opacity-100" : "opacity-0")} aria-hidden="true" />
             </span>
           </label>
         );

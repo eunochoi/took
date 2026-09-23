@@ -90,7 +90,7 @@ const HabitBox = ({ name, id, priority, iconKey }: Props) => {
   const controlsDisabled = isUpdating || isFetching || !recentDateStatus;
 
   return (
-    <div className={cn("relative flex min-w-0 flex-col gap-5 rounded-theme bg-theme-surface p-3 shadow-card sm:p-5", isMenuOpen && "z-10")}>
+    <div className={cn("relative flex min-w-0 flex-col gap-6 rounded-theme bg-theme-surface p-3 shadow-card sm:p-5", isMenuOpen && "z-10")}>
       <HabitBoxHeader
         id={id}
         name={name}
