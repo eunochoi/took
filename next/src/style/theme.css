@@ -8,35 +8,29 @@
 html[data-theme-accent='blue'] {
   --theme-accent: 140 173 226;
   --theme-accent-deep: 107 137 186;
-  --theme-bg-light: 244 246 248;
 }
 
 html[data-theme-accent='green'] {
   --theme-accent: 131 198 182;
   --theme-accent-deep: 104 159 146;
-  --theme-bg-light: 244 246 248;
 }
 
 html[data-theme-accent='purple'] {
   --theme-accent: 151 159 199;
   --theme-accent-deep: 119 126 161;
-  --theme-bg-light: 244 246 248;
 }
 
 html[data-theme-accent='pink'] {
   --theme-accent: 237 165 177;
   --theme-accent-deep: 199 123 135;
-  --theme-bg-light: 244 246 248;
 }
 
 html[data-theme-accent='yellow'] {
   --theme-accent: 249 199 79;
   --theme-accent-deep: 202 160 61;
-  --theme-bg-light: 244 246 248;
 }
 
 html[data-theme-accent='grey'] {
   --theme-accent: 143 143 143;
   --theme-accent-deep: 114 114 114;
-  --theme-bg-light: 244 246 248;
 }
