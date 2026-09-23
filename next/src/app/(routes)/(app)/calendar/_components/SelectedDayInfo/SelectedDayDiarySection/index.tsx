@@ -27,7 +27,7 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
   }, [diaryData]);
 
   return (
-    <div className="relative min-w-0">
+    <div className="relative min-w-0 p-1">
       <SelectedDaySectionHeader title="감정 일기" icon={<MdMenuBook />}>
         {hasDiary && (
           <button

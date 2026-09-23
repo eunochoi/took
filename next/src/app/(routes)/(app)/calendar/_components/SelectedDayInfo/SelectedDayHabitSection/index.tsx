@@ -6,7 +6,7 @@ import SelectedDaySectionHeader from '../SelectedDaySectionHeader';
 import SelectedDayHabitItem from './SelectedDayHabitItem';
 
 const COLLAPSED_HABIT_COUNT = 3;
-const emptyMessageClassName = 'py-4 text-center text-xs leading-relaxed text-theme-text-tertiary desktop:text-sm';
+const emptyMessageClassName = 'py-4 text-center text-sm leading-relaxed text-theme-text-tertiary desktop:text-sm';
 
 interface Props {
   habitData?: HabitsByDate;
@@ -26,7 +26,7 @@ const SelectedDayHabitSection = ({ habitData, pendingHabitId, onToggleHabit }: P
   };
 
   return (
-    <div className="min-w-0">
+    <div className="min-w-0 p-1">
       <SelectedDaySectionHeader title="오늘의 습관" icon={<MdCheckBox />}>
         {habitData?.isFuture ? (
           <span className="flex items-center gap-1 text-xs text-theme-text-tertiary desktop:text-sm">
