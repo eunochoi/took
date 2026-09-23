@@ -5,7 +5,6 @@ import type { CalendarDayModel } from './useMonthCalendar';
 
 interface Props {
   day: CalendarDayModel;
-  isToday: boolean;
   isSelected?: boolean;
   label?: string;
   className?: string;
@@ -14,29 +13,25 @@ interface Props {
 }
 
 export const CalendarDay = ({
-  day, isToday, isSelected, label, className, onClick, children,
+  day, isSelected, label, className, onClick, children,
 }: Props) => {
-  const getCellClassName = (today: boolean, selected: boolean) => cn(
+  const cellClassName = cn(
     'relative flex aspect-[1/1.2] min-w-0 flex-col items-center justify-center rounded-lg text-xs transition-colors',
-    today
-      ? 'text-theme-accent'
-      : day.weekday === 6
-        ? 'text-theme-calendar-saturday'
-        : day.weekday === 0
-          ? 'text-theme-calendar-sunday'
-          : 'text-theme-text-secondary',
-    selected && !day.isOutsideMonth && 'bg-theme-accent/10 motion-safe:animate-[calendar-selected-pop_0.35s_ease-out]',
-    today && 'bg-theme-accent/20',
+    day.weekday === 6
+      ? 'text-theme-calendar-saturday'
+      : day.weekday === 0
+        ? 'text-theme-calendar-sunday'
+        : 'text-theme-text-secondary',
+    isSelected && 'motion-safe:animate-[calendar-selected-pop_0.35s_ease-out]',
     day.isOutsideMonth && 'opacity-30',
     onClick && 'cursor-pointer',
     className,
   );
-  const cellClassName = getCellClassName(isToday, Boolean(isSelected));
-  const accessibleLabel = [label ?? day.dateKey, isSelected ? '선택됨' : ''].filter(Boolean).join(', ');
+  const accessibleLabel = label ?? day.dateKey;
 
   if (!onClick) {
     return (
-      <div className={cellClassName} aria-label={accessibleLabel} aria-current={isToday ? 'date' : undefined}>
+      <div className={cellClassName} aria-label={accessibleLabel}>
         {children ?? day.dayNumber}
       </div>
     );
@@ -48,7 +43,6 @@ export const CalendarDay = ({
       className={cellClassName}
       onClick={onClick}
       aria-label={accessibleLabel}
-      aria-current={isToday ? 'date' : undefined}
     >
       {children ?? day.dayNumber}
     </button>

@@ -32,7 +32,6 @@ const HabitMonthCalendar = ({
               key={day.dateKey}
               day={day}
               className="!outline-none"
-              isToday={day.dateKey === today}
               onClick={day.isOutsideMonth ? () => onShowDate(day.dateKey) : undefined}
               label={[
                 day.dateKey,

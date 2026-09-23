@@ -88,7 +88,6 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
               <CalendarDay
                 key={day.dateKey}
                 day={day}
-                isToday={day.dateKey === today}
                 isSelected={day.dateKey === selectedDate}
                 onClick={() => selectDate(day.dateKey)}
                 label={[
@@ -107,8 +106,8 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
                       className="object-contain" />
                   )}
                   {habitCount > 0 && (
-                    <span className={cn("flex items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent h-[24px] w-[24px] text-[12px] font-semibold text-theme-text-on-accent",
-                      emotion ? "absolute -top-1 -right-1" : "scale-[1.3]"
+                    <span className={cn("flex items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent h-[24px] w-[24px] text-sm font-semibold text-theme-text-on-accent",
+                      emotion ? "absolute -top-2 -right-2" : "scale-[1.3]"
                     )}>
                       {habitCount}
                     </span>
