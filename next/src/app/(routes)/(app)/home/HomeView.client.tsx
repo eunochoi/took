@@ -30,7 +30,7 @@ import YearFilter from "./_components/YearFilter";
 
 const GREETING_TEXT = {
   title: '오늘도 하나씩',
-  sub: ['작은 감정도 작은 습관도', '툭, 조금씩 더 나은 내가 돼요.']
+  sub: ['감정도 습관도, 툭.', '조금씩 더 나은 내가 돼요.']
 }
 
 const HomeView = ({ initialDate }: { initialDate: string }) => {
@@ -73,13 +73,13 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
       beforeToolbar={
         <div className="flex flex-col gap-8">
           <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
-          <div className="flex flex-col gap-4 desktop:gap-8">
+          <div className="flex flex-col font-title gap-4 desktop:gap-8">
             <span className="m-0 text-3xl desktop:text-4xl font-semibold text-theme-text-primary">{today}</span>
             <h1 className="flex gap-4 items-center m-0">
               <span className="text-4xl desktop:text-6xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
               <Image src={EMOTIONS[6].src} alt="greeting emotion icon" className="h-12 mb-1 w-auto rotate-[10deg]" />
             </h1>
-            <div className="m-0 text-lg desktop:text-2xl desktop:mb-4 leading-relaxed text-theme-text-secondary">
+            <div className="m-0 text-xl desktop:text-2xl desktop:mb-4 leading-relaxed text-theme-text-secondary">
               <p>{GREETING_TEXT.sub[0]}</p>
               <p>{GREETING_TEXT.sub[1]}</p>
             </div>
