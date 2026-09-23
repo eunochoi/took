@@ -78,7 +78,7 @@ const HabitAnalysis = ({ stats }: Props) => {
 
       <AppInfoCard>
         <AppInfoText>
-          * 0회 완료한 습관은 Top 3에 표시되지 않습니다.
+          *완료한적 없는 습관은 &apos;Top 3&apos;에 나타나지 않습니다.
         </AppInfoText>
       </AppInfoCard>
     </AppSection>

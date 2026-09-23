@@ -29,7 +29,7 @@ export const SelectionPanel = ({
   return (
     <div className={panelClass}>
       <span className="mb-3 block text-center text-lg font-semibold leading-none text-theme-text-primary">{title}</span>
-      <div className="flex w-full flex-col rounded-theme bg-theme-surface p-4 shadow-theme-floating">
+      <div className="flex w-full flex-col rounded-theme bg-theme-surface shadow-card p-4">
         {children}
       </div>
       {resetLabel && onReset && (
