@@ -1,5 +1,6 @@
 import { cn } from "@/common/utils/cn";
 import { HTMLAttributes, forwardRef } from "react";
+import { twMerge } from "tailwind-merge";
 import { appCardClass } from "./constants";
 import { DivProps, ParagraphProps } from "./types";
 
@@ -7,7 +8,7 @@ export const AppStatCard = forwardRef<HTMLDivElement, DivProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(
+      className={twMerge(
         appCardClass,
         "flex min-h-[100px] flex-col justify-center gap-4 px-2 py-6 tablet:min-h-[110px] tablet:p-4",
         className,
