@@ -59,7 +59,7 @@ const HabitView = () => {
   return (
     <AppPageLayout
       contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
-      beforeToolbar={<AppPageTitle title="습관 만들기" description="작은 실천으로 만들어가는 나의 일상" />}
+      appPageTopArea={<AppPageTitle title="습관 만들기" description="작은 실천으로 만들어가는 나의 일상" />}
       pageRef={pageRef}
       showScrollToTop
       topButton={

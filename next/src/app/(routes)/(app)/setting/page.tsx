@@ -30,7 +30,7 @@ const SettingPage = () => {
   return (
     <AppPageLayout
       contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
-      beforeToolbar={
+      appPageTopArea={
         <>
           <div className="mb-8 tablet:hidden"><Wordmark className="text-[48px]" /></div>
           <AppPageTitle title="설정" description="나에게 편안한 기록 공간을 만들어요" />

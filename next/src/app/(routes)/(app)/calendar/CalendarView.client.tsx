@@ -53,7 +53,7 @@ const CalendarView = ({ initialDate }: Props) => {
   return (
     <AppPageLayout
       contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
-      beforeToolbar={<AppPageTitle title="월간 기록" description="하루하루 쌓인 마음과 습관을 살펴봐요" />}
+      appPageTopArea={<AppPageTitle title="월간 기록" description="하루하루 쌓인 마음과 습관을 살펴봐요" />}
       topButton={
         <>
           <TopButton onClick={openSelectedDiary}>

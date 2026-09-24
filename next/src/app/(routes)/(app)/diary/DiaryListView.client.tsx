@@ -76,7 +76,7 @@ const DiaryListView = () => {
   return (
     <AppPageLayout
       contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
-      beforeToolbar={<AppPageTitle title="일기 목록" description="차곡차곡 쌓이는 나의 하루" />}
+      appPageTopArea={<AppPageTitle title="일기 목록" description="차곡차곡 쌓이는 나의 하루" />}
       pageRef={wrapperRef}
       showScrollToTop
       contentProps={{
