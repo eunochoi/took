@@ -1,70 +1,38 @@
-import EmotionImage from '@/common/components/ui/EmotionImage';
 import Image from 'next/image';
 
-import Carousel from '@/common/components/ui/Carousel';
 import Wordmark from '@/common/components/ui/Wordmark';
-import { EMOTIONS } from '@/common/constants/emotions';
-import { IMAGE_ALT_TEXT } from '../_constants/images';
 import IntroActionButtons from './IntroActionButtons';
+import bottomCat from '/public/img/bottom-cat.png';
 
-interface Props {
-  images: string[];
-}
+const heroSectionClass = "flex min-h-[80dvh] w-full flex-col overflow-hidden bg-theme-surface px-5 pt-12 desktop:flex-row desktop:gap-8 desktop:px-[min(6vw,96px)]";
+const heroContentClass = "flex flex-col items-center justify-center gap-16 px-1 py-8 text-center desktop:w-auto desktop:items-start desktop:gap-16 desktop:px-6 desktop:py-16 desktop:text-left";
+const heroImageClass = "mt-auto flex items-end justify-center tablet:justify-center desktop:flex-1 desktop:shrink-0";
 
-const heroSectionClass = "grid min-h-[90dvh] w-full overflow-hidden bg-theme-surface py-12 px-5 desktop:gap-8 desktop:px-[min(6vw,96px)] desktop:grid-cols-[minmax(360px,0.85fr)_minmax(0,1.15fr)]";
-const heroContentColumnClass = "contents desktop:flex desktop:flex-col desktop:items-start desktop:justify-center desktop:gap-6 desktop:px-6 desktop:py-16 desktop:text-left";
-const heroContentClass = "order-1 flex flex-col items-center justify-center gap-7 px-1 py-8 text-center desktop:order-none desktop:items-start desktop:p-0 desktop:text-left";
-const heroActionsClass = "order-3 px-6 pb-12 pt-8 desktop:order-none desktop:justify-start desktop:p-0";
-
-const IntroHero = ({ images }: Props) => {
+const IntroHero = () => {
   return (
     <section className={heroSectionClass}>
-      <div className={heroContentColumnClass}>
-        <div className={heroContentClass}>
-          <div className="flex flex-col items-center gap-2 desktop:items-start">
-            <Wordmark className="mb-3 text-5xl desktop:text-6xl" />
-            <span className="rounded-full bg-theme-bg px-3 py-1 text-sm font-semibold tracking-[0.08em] text-theme-accent">
-              EMOTION DIARY & HABIT TRACKER
-            </span>
-          </div>
-
-          <div aria-hidden="true" className="flex items-center gap-3">
-            {[EMOTIONS[0], EMOTIONS[3], EMOTIONS[2]].map((emotion) => (
-              <EmotionImage key={emotion.id} emotion={emotion} alt="" width={44} height={44} />
-            ))}
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <h1 className="m-0 break-keep text-4xl font-bold tracking-tight leading-[1.2] text-theme-text-primary desktop:text-6xl desktop:leading-[1.12]">
-              오늘의 나를<br />가볍게, 툭!
-            </h1>
-            <p className="m-0 flex flex-col gap-1 break-keep text-lg leading-[1.7] text-theme-text-secondary desktop:text-xl">
-              <span>감정과 습관을 부담 없이 기록하고</span>
-              <span>더 나은 나에게 작은 OK를 건네세요.</span>
-            </p>
-          </div>
+      <div className={heroContentClass}>
+        <div className="flex flex-col items-center gap-2 desktop:items-start">
+          <Wordmark className="mb-3 text-7xl desktop:text-8xl" />
+          <span className="rounded-full bg-theme-bg px-3 py-1 border border-theme-accent/30 text-sm font-semibold tracking-[0.08em] text-theme-accent">
+            EMOTION DIARY & HABIT TRACKER
+          </span>
         </div>
 
-        <IntroActionButtons className={heroActionsClass} />
+        <div className="flex flex-col gap-6">
+          <h1 className="m-0 break-keep text-3xl font-bold tracking-tight leading-[1.2] text-theme-text-primary desktop:text-5xl desktop:leading-[1.12]">
+            감정도 툭! 습관도 툭!<br />조금 더 나은 나로 To OK
+          </h1>
+          <p className="m-0 flex flex-col break-keep text-lg text-theme-text-secondary desktop:text-xl">
+            <span>습관과 감정을 기록하고</span>
+            <span>나만의 속도로 하루를 쌓아가요.</span>
+          </p>
+        </div>
+        <IntroActionButtons className="p-0 desktop:justify-start" />
       </div>
-
-      <Carousel
-        containerClassName="order-2 pt-3 desktop:order-none"
-        className="h-[360px] aspect-auto desktop:h-[560px] desktop:my-auto"
-      >
-        {images.map((src, index) => (
-          <Image
-            className="h-full w-full object-contain"
-            key={src}
-            src={src}
-            alt={`${IMAGE_ALT_TEXT[src] ?? 'TOOK 앱 화면'} 미리보기`}
-            width={900}
-            height={900}
-            priority={index === 0}
-            sizes="(min-width: 1024px) 52vw, 88vw"
-          />
-        ))}
-      </Carousel>
+      <div className={heroImageClass}>
+        <Image src={bottomCat} alt="bottom-cat" className="tablet:w-2/3 desktop:w-full" />
+      </div>
     </section>
   );
 };

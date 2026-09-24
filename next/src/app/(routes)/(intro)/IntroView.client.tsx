@@ -12,7 +12,6 @@ import IntroInfoCard from './_components/IntroInfoCard';
 import IntroSection from './_components/IntroSection';
 import { INTRO_IMAGES } from './_constants/images';
 
-const HERO_IMAGES = [INTRO_IMAGES.calendar, INTRO_IMAGES.list, INTRO_IMAGES.habit];
 const HOME_IMAGES = [INTRO_IMAGES.habitinfo1, INTRO_IMAGES.habitinfo2, INTRO_IMAGES.calendar];
 const RECORD_IMAGES = [INTRO_IMAGES.calendar, INTRO_IMAGES.list, INTRO_IMAGES.list2, INTRO_IMAGES.zoom1];
 const HABIT_IMAGES = [INTRO_IMAGES.habit, INTRO_IMAGES.habitbox, INTRO_IMAGES.habitinfo1, INTRO_IMAGES.habitinfo2];
@@ -26,7 +25,7 @@ const IntroView = () => {
       showScrollFade={false}
       showScrollToTop
     >
-      <IntroHero images={HERO_IMAGES} />
+      <IntroHero />
 
       <IntroSection
         background="background"
