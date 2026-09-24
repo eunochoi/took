@@ -1,16 +1,19 @@
 'use client';
 
-import EmotionImage from '@/common/components/ui/EmotionImage';
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FiBookOpen, FiCheckCircle, FiHeart } from "react-icons/fi";
 
 import { logout } from "@/common/auth/logout";
+import EmotionImage from "@/common/components/ui/EmotionImage";
 import Wordmark from '@/common/components/ui/Wordmark';
 import { EMOTIONS } from "@/common/constants/emotions";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
+import Image from 'next/image';
 import LoginButton from "./_components/LoginButton";
 import StartButton from "./_components/StartButton";
+import bottomCat from '/public/img/bottom-cat.png';
+
 
 const Page = () => {
   const router = useRouter();
@@ -35,21 +38,20 @@ const Page = () => {
       <div className="grid min-h-full desktop:grid-cols-[1.35fr_1fr]">
         <section
           aria-labelledby="login-intro-title"
-          className="flex flex-col bg-gradient-to-br from-theme-bg to-theme-accent/15 px-6 py-16 tablet:px-10 desktop:px-12 desktop:py-10 xl:px-20">
+          className="flex flex-col gap-12 bg-gradient-to-br from-theme-bg to-theme-accent/15 px-6 pt-16 pb-0 tablet:px-10 desktop:gap-24 desktop:px-12 desktop:pt-10 desktop:pb-0 xl:px-20">
           <Wordmark className="text-[48px]" />
 
-          <div className="mt-10 desktop:mt-16">
-            <h1 id="login-intro-title" className="text-[30px] font-bold leading-[1.35] tracking-[-0.04em] tablet:text-[38px] xl:text-[46px]">
-              오늘의 작은 실천이<br />
-              내일의 나를 만듭니다.
+          <div className="flex flex-col gap-8">
+            <h1 id="login-intro-title" className="flex flex-col gap-3 text-4xl desktop:text-5xl font-bold tracking-[-0.04em]">
+              <span>오늘의 작은 실천이</span>
+              <span>내일의 나를 만듭니다.</span>
             </h1>
-            <p className="mt-4 max-w-[420px] text-[15px] leading-relaxed tracking-[-0.02em] text-theme-text-secondary desktop:mt-5 desktop:text-base">
-              습관과 감정을 기록하며,<br className="desktop:hidden" /> 나만의 속도로 쌓아가는 하루.
-            </p>
+            <div className="flex flex-col gap-1 text-lg desktop:text-2xl text-theme-text-secondary">
+              <p>습관과 감정을 기록하며</p>
+              <p>나만의 속도로 하루를 쌓아가요.</p>
+            </div>
           </div>
-          <p className="mt-6 hidden text-sm tracking-[-0.02em] text-theme-text-secondary desktop:block">
-            완벽하지 않아도 괜찮아요. 오늘도, 조금 더 나답게.
-          </p>
+          <Image src={bottomCat} alt="bottom-cat" className="ml-auto mt-auto block w-full tablet:w-2/3 desktop:w-full" />
         </section>
 
         <section
