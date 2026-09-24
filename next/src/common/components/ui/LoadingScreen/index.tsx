@@ -1,6 +1,8 @@
 'use client';
 
 import Wordmark from '@/common/components/ui/Wordmark';
+import Image from 'next/image';
+import bottomCat from '/public/img/bottom-cat.png';
 
 interface LoadingScreenProps {
   message?: string;
@@ -10,7 +12,7 @@ interface LoadingScreenProps {
 const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => {
   return (
     <div
-      className="flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-6"
+      className="relative flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-6"
       style={{ backgroundColor: 'var(--loading-background)' }}
     >
       {showLogo && (
@@ -24,6 +26,7 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => {
         </div>
       )}
       {message && <span className="text-base text-theme-text-primary">{message}</span>}
+      <Image src={bottomCat} alt="bottom-cat" className='absolute bottom-0 tablet:w-[70dvw] desktop:w-[50dvw]' />
     </div>
   );
 };
