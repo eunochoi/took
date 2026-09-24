@@ -7,9 +7,9 @@ interface SettingItemProps {
 
 export const SettingItem = ({ settingItemKey, settingItemValue }: SettingItemProps) => {
   return (
-    <span className="box-border flex flex-wrap w-full justify-between items-center py-2 text-theme-text-tertiary">
-      <span className="flex shrink-0 justify-between items-center text-base capitalize">{settingItemKey}</span>
-      <span className="flex shrink-0 justify-between items-center text-base ml-auto">{settingItemValue}</span>
-    </span>
+    <div className="flex min-w-0 w-full flex-wrap items-center justify-between gap-2 py-3">
+      <span className="min-w-0 text-base text-theme-text-secondary">{settingItemKey}</span>
+      <span className="ml-auto min-w-0 text-base text-theme-accent">{settingItemValue}</span>
+    </div>
   );
 };

@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 
-import { AppCard } from "@/common/components/ui/AppSection/card";
 import { AppSection } from "@/common/components/ui/AppSection/section";
 import { cn } from "@/common/utils/cn";
 
@@ -11,10 +10,10 @@ interface SettingSectionCardProps {
 
 export const SettingSectionCard = ({ children, className }: SettingSectionCardProps) => {
   return (
-    <AppCard className={cn(className)}>
-      <AppSection className="gap-6">
+    <div className={cn("w-full py-6 first:pt-0 last:pb-0", className)}>
+      <AppSection className="gap-0">
         {children}
       </AppSection>
-    </AppCard>
+    </div>
   );
 };
