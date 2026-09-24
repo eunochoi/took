@@ -71,7 +71,7 @@ const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryPlaceholder, 
   };
 
   return (
-    <section className="box-border flex w-full flex-col gap-3 rounded-theme bg-theme-surface p-3.5 shadow-theme-section backdrop-blur-xl tablet:p-4">
+    <section className="box-border flex w-full flex-col gap-3">
       <SelectedDayInfoHeader date={date} emotion={emotion} />
 
       {isDiaryError || isHabitError ? (

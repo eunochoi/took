@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 
 import { getDiaryHabitMonthData } from '@/common/actions/diary/getDiaryHabitMonthData';
 import { authAction } from '@/common/auth/authAction';
-import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
 import { CalendarDay } from '@/common/components/ui/Calendar/CalendarDay';
 import { CalendarGrid } from '@/common/components/ui/Calendar/CalendarGrid';
 import { CalendarDayModel, useMonthCalendar } from '@/common/components/ui/Calendar/useMonthCalendar';
@@ -62,7 +61,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
 
   return (
     <section className="flex w-full min-w-0 shrink-0 flex-col">
-      <AppSurfaceCard className="flex min-w-0 flex-col gap-3 shadow-theme-section desktop:self-start">
+      <div className="flex min-w-0 flex-col gap-3 desktop:self-start">
         <DiaryHabitMonthCalendarHeader
           monthLabel={calendar.monthLabel}
           diaryCount={diaryHabitMonthData?.summary.diaryCount}
@@ -129,7 +128,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
             );
           })}
         </CalendarGrid>
-      </AppSurfaceCard>
+      </div>
     </section>
   );
 };

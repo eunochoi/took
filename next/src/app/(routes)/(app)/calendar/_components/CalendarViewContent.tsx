@@ -17,7 +17,7 @@ const CalendarViewContent = ({ today, selectedDate, setSelectedDate, selectedDia
   return (
     <div className="grid flex-1 w-full min-w-0 grid-cols-1 items-start gap-5 tablet:gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8">
       <DiaryHabitMonthCalendar today={today} selectedDate={selectedDate} onSelectDate={setSelectedDate} />
-      <div className="min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
+      <div className="min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start desktop:border-l desktop:border-theme-border/60 desktop:pl-8">
         <SelectedDayInfo
           date={selectedDate}
           diaryData={selectedDiaryQuery.data}
