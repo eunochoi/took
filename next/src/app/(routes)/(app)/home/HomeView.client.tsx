@@ -20,6 +20,8 @@ import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 
 import { EMOTIONS } from "@/common/constants/emotions";
+import { useSettingsContext } from '@/common/settings/useSettingsContext';
+import { cn } from '@/common/utils/cn';
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import DiaryAnalysis from "./_components/DiaryAnalysis";
@@ -35,6 +37,7 @@ const GREETING_TEXT = {
 
 const HomeView = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
+  const { emotionIcon } = useSettingsContext();
   const today = format(new Date(initialDate), 'M월 d일 EEEE', { locale: ko });
   const currentYear = getYear(new Date());
   const searchParams = useSearchParams();
@@ -77,7 +80,11 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
             <span className="m-0 text-2xl font-semibold text-theme-text-primary">{today}</span>
             <h1 className="flex gap-4 items-center m-0 h-10 desktop:h-12">
               <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
-              <EmotionImage emotion={EMOTIONS[1]} alt="greeting emotion icon" className="h-16 mb-4 w-auto animate-rotate-slow" />
+              <EmotionImage
+                emotion={EMOTIONS[1]}
+                alt="greeting emotion icon"
+                className={cn(emotionIcon.style === 'basic' ? "mb-4" : "mb-2",
+                  "rotate-[5deg] h-16 w-auto animate-rotate-slow")} />
             </h1>
             <div className="m-0 text-lg desktop:text-xl desktop:mb-4 leading-relaxed text-theme-text-secondary">
               <p>{GREETING_TEXT.sub[0]}</p>

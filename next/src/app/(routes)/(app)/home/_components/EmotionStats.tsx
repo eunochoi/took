@@ -65,8 +65,8 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
                   className="h-12 w-12 shrink-0 object-contain"
                   emotion={emotion}
                   alt={emotion.nameKr}
-                  width={56}
-                  height={56}
+                  width={48}
+                  height={48}
                 />
                 {firstPlaceEmotionIds.includes(emotion.id) && (
                   <span className="absolute -right-3 -top-2 flex h-6 min-w-7 items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent px-1 text-xs font-semibold text-theme-text-on-accent">
@@ -78,7 +78,7 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
                 <span className="text-xl font-semibold text-theme-accent">{displayEmotionCounts[emotion.id]}</span>
                 <span className="text-sm text-theme-text-secondary">회</span>
               </div>
-              <span className="min-w-0 flex-1 text-base whitespace-nowrap text-theme-text-tertiary">
+              <span className="min-w-0 flex-1 text-sm whitespace-nowrap text-theme-text-tertiary">
                 {emotion.nameKr}
               </span>
             </div>

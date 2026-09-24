@@ -20,7 +20,7 @@ export const ThemeSettingsSection = () => {
       <SettingSubsection title="감정 아이콘">
         <EmotionIconStyleSelector />
       </SettingSubsection>
-      <SettingSubsection title="테마 색상">
+      <SettingSubsection title="테마">
         <SettingItem
           settingItemKey="강조 색상"
           settingItemValue={<ThemeColorSelector />}
