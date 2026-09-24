@@ -1,15 +1,15 @@
 'use client';
 
+import HomeViewToolbar from "./_components/HomeViewToolbar";
+
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
-import { MdCalendarMonth } from "react-icons/md";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
-import ToolbarButton from "@/common/components/ui/ToolbarButton";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { cn } from "@/common/utils/cn";
@@ -63,10 +63,10 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
         appPageTopArea={<HomeViewTopArea initialDate={initialDate} />}
         showScrollToTop
         toolbar={
-          <ToolbarButton onClick={openYearFilter}>
-            <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
-            {selectedYear}년
-          </ToolbarButton>
+          <HomeViewToolbar
+            selectedYear={selectedYear}
+            openYearFilter={openYearFilter}
+          />
         }
         mainAreaClassName={`bg-theme-surface ${PADDING_X} py-2 tablet:py-4 desktop:py-8`}
       >

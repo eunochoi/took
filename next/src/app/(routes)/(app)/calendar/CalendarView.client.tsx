@@ -1,16 +1,16 @@
 'use client';
 
+import CalendarViewToolbar from "./_components/CalendarViewToolbar";
+
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { MdEdit } from 'react-icons/md';
 
 import { getDiaryByDate } from '@/common/actions/diary';
 import { authAction } from '@/common/auth/authAction';
 import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from '@/common/components/layout/AppPageLayout';
 import AppPageTitle from '@/common/components/layout/AppPageTitle';
-import ToolbarButton from '@/common/components/ui/ToolbarButton';
 import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import DiaryHabitMonthCalendar from './_components/DiaryHabitMonthCalendar';
@@ -55,12 +55,10 @@ const CalendarView = ({ initialDate }: Props) => {
       contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
       appPageTopArea={<AppPageTitle title="월간 기록" description="하루하루 쌓인 마음과 습관을 살펴봐요" />}
       toolbar={
-        <>
-          <ToolbarButton onClick={openSelectedDiary}>
-            <MdEdit size={18} className="shrink-0" aria-hidden="true" />
-            <span>{diaryActionLabel}</span>
-          </ToolbarButton>
-        </>
+        <CalendarViewToolbar
+          openSelectedDiary={openSelectedDiary}
+          diaryActionLabel={diaryActionLabel}
+        />
       }
     >
       <div className="grid flex-1 w-full min-w-0 grid-cols-1 items-start gap-5 tablet:gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8">

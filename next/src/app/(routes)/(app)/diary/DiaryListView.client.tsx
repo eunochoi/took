@@ -1,5 +1,7 @@
 'use client';
 
+import DiaryListViewToolbar from "./_components/DiaryListViewToolbar";
+
 import { AnimatePresence } from "framer-motion";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -13,7 +15,6 @@ import { authAction } from "@/common/auth/authAction";
 import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from "@/common/components/layout/AppPageLayout";
 import AppPageTitle from "@/common/components/layout/AppPageTitle";
 import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
-import ToolbarButton from "@/common/components/ui/ToolbarButton";
 import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
 import { EMOTIONS } from "@/common/constants/emotions";
 import { EMOTION_UNSELECTED, getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
@@ -22,7 +23,7 @@ import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
 import type { DiaryData } from "@/common/types/diary";
-import { MdCalendarMonth, MdEmojiEmotions, MdMenuBook, MdSort } from 'react-icons/md';
+import { MdMenuBook } from 'react-icons/md';
 import DiaryCard from "./_components/DiaryCard";
 import DiaryStatsPanel from "./_components/DiaryStatsPanel";
 import { useDiaryListFilter } from "./_hooks/useDiaryListFilter";
@@ -80,28 +81,18 @@ const DiaryListView = () => {
         appPageTopArea={<AppPageTitle title="일기 목록" description="차곡차곡 쌓이는 나의 하루" />}
         pageRef={wrapperRef}
         showScrollToTop
-        toolbar={<>
-          <ToolbarButton
-            aria-label="기간 필터"
-            onClick={openMonthFilter}
-          >
-            <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
-            {isPeriodSelected ? selectedPeriodLabel : "전체 기간"}
-          </ToolbarButton>
-          <ToolbarButton
-            onClick={onToggle}
-          >
-            <MdSort size={18} className="shrink-0" aria-hidden="true" />
-            {sortValue === 'DESC' ? '최신순' : '과거순'}
-          </ToolbarButton>
-          <ToolbarButton
-            aria-label="감정 필터"
-            onClick={openEmotionFilter}
-          >
-            <MdEmojiEmotions size={18} className="shrink-0" aria-hidden="true" />
-            {isEmotionSelected && selectedEmotionLabel}
-          </ToolbarButton>
-        </>}
+        toolbar={
+          <DiaryListViewToolbar
+            openMonthFilter={openMonthFilter}
+            isPeriodSelected={isPeriodSelected}
+            selectedPeriodLabel={selectedPeriodLabel}
+            onToggle={onToggle}
+            sortValue={sortValue}
+            openEmotionFilter={openEmotionFilter}
+            isEmotionSelected={isEmotionSelected}
+            selectedEmotionLabel={selectedEmotionLabel}
+          />
+        }
       >
         <div className="grid flex-1 w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
           <div className="flex min-w-0 flex-col gap-4">

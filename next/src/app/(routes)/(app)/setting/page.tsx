@@ -1,19 +1,18 @@
 'use client';
 
+import SettingViewToolbar from "./_components/SettingViewToolbar";
+import SettingViewTopArea from "./_components/SettingViewTopArea";
+
 
 import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from "@/common/components/layout/AppPageLayout";
-import AppPageTitle from "@/common/components/layout/AppPageTitle";
-import Wordmark from "@/common/components/ui/Wordmark";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { format } from "date-fns";
 
-import ToolbarButton from '@/common/components/ui/ToolbarButton';
 import { useRouter } from 'next/navigation';
 import { AccountInfoSection } from "./_components/AccountInfoSection";
 import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
 
-import { MdPrivacyTip, MdShop } from "react-icons/md";
 import { AccountActionSection } from "./_components/AccountActionSection";
 
 
@@ -30,26 +29,14 @@ const SettingPage = () => {
   return (
     <AppPageLayout
       contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
-      appPageTopArea={
-        <>
-          <div className="mb-8 tablet:hidden"><Wordmark className="text-[48px]" /></div>
-          <AppPageTitle title="설정" description="나에게 편안한 기록 공간을 만들어요" />
-        </>
-      }
+      appPageTopArea={<SettingViewTopArea />}
       showScrollToTop={false}
-      toolbar={<>
-        <ToolbarButton
-          onClick={() => router.push('https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share')}>
-          <MdShop size={18} className="shrink-0" aria-hidden="true" />
-          PlayStore
-        </ToolbarButton>
-        <ToolbarButton
-          aria-label="개인정보 처리방침"
-          onClick={() => router.push('/privacy')}
-        >
-          <MdPrivacyTip size={18} />
-        </ToolbarButton>
-      </>}>
+      toolbar={
+        <SettingViewToolbar
+          onOpenStore={() => router.push('https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share')}
+          onOpenPrivacy={() => router.push('/privacy')}
+        />
+      }>
 
 
       <div className="grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:grid-rows-[auto_1fr] desktop:items-start desktop:gap-x-8 desktop:gap-y-4">
