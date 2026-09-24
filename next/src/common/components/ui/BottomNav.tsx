@@ -31,7 +31,7 @@ const BottomNav = () => {
           </button>
         ))}
       </div>
-      <div className={cn('h-[50px] w-[50px]', navItemsWrapperClass)}>
+      <div className={cn('h-[50px] w-[50px] !border-0', navItemsWrapperClass)}>
         <button
           type="button"
           onClick={() => router.push(lastItem.href)}
