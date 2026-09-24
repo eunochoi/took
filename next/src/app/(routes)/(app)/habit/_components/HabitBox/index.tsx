@@ -9,6 +9,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { closeSnackbar, enqueueSnackbar } from "notistack";
 import { useRef, useState } from "react";
 
+import { MdCheck } from "react-icons/md";
 import HabitBoxHeader from "./HabitBoxHeader";
 import HabitBoxRecentDays from "./HabitBoxRecentDays";
 
@@ -90,7 +91,7 @@ const HabitBox = ({ name, id, priority, iconKey }: Props) => {
   const controlsDisabled = isUpdating || isFetching || !recentDateStatus;
 
   return (
-    <div className={cn("relative flex min-w-0 flex-col gap-6 rounded-theme bg-theme-surface p-3 shadow-card sm:p-5", isMenuOpen && "z-10")}>
+    <article className={cn("relative mx-auto flex h-full w-full max-w-[250px] min-w-0 flex-col gap-4 bg-theme-surface p-2 desktop:p-4", isMenuOpen && "z-10")}>
       <HabitBoxHeader
         id={id}
         name={name}
@@ -111,13 +112,13 @@ const HabitBox = ({ name, id, priority, iconKey }: Props) => {
         disabled={controlsDisabled || todayCompleted}
         onClick={() => onToggleHabit(true, todayString)}
         className={cn(
-          "w-full rounded-xl px-2 py-2 text-sm font-medium",
-          todayCompleted ? "bg-theme-bg text-theme-accent/80" : "bg-theme-accent text-white",
+          "w-full mt-auto self-start border-b py-1 text-sm font-semibold",
+          todayCompleted ? "border-theme-text-disabled text-theme-text-disabled" : "border-theme-accent text-theme-accent",
         )}
       >
-        {todayCompleted ? '오늘 완료했어요' : '오늘 완료하기'}
+        {todayCompleted ? <span className="flex justify-center items-center gap-2"><MdCheck className="shrink-0" />오늘 완료했어요</span> : '오늘 완료하기'}
       </button>
-    </div>
+    </article>
   );
 };
 

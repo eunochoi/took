@@ -22,20 +22,20 @@ const HabitBoxHeader = ({ id, name, priority, iconKey, isMenuOpen, setMenuOpen, 
 
   return (
     <div className="min-w-0">
-      <div className="relative mb-1 min-w-0">
+      <div className="relative mb-2 min-w-0">
         <Link
           href={`/inter/habitInfo?id=${id}`}
           scroll={false}
-          className="flex w-full min-w-0 flex-col items-start gap-3 font-semibold text-theme-text-primary"
+          className="flex min-w-0 flex-col items-start gap-2 font-semibold text-theme-text-primary"
           aria-label={`${name} 습관 정보`}
         >
-          <HabitIcon iconKey={iconKey} className="text-3xl shrink-0" />
+          <HabitIcon iconKey={iconKey} className="shrink-0 text-3xl" />
           <span className="w-full truncate text-base">{name}</span>
         </Link>
         <button
           ref={menuAnchorRef}
           type="button"
-          className="absolute -right-2 top-0 flex h-9 w-8 items-center justify-center text-xl text-theme-text-secondary"
+          className="absolute right-0 top-0 flex h-9 w-8 items-center justify-center text-xl text-theme-text-secondary"
           aria-label={`${name} 수정·삭제 메뉴`}
           aria-expanded={isMenuOpen}
           aria-controls={isMenuOpen ? `habit-menu-${id}` : undefined}
