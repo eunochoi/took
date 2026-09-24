@@ -23,7 +23,7 @@ const HabitFormPrioritySection = ({
         aria-haspopup="dialog"
         aria-expanded={isPickerOpen}
         onClick={() => setIsPickerOpen(true)}
-        className="flex w-full items-center justify-between gap-3 rounded-xl py-1 text-left transition-colors tablet:hover:bg-theme-accent/5 disabled:cursor-wait"
+        className="flex w-full items-center justify-between gap-3 rounded-xl py-1 text-left disabled:cursor-wait"
       >
         <span className="flex min-w-0 flex-col gap-1">
           <span className="text-xs text-theme-text-secondary">우선순위</span>

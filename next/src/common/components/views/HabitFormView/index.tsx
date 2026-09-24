@@ -140,7 +140,7 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
               onClick={handleSubmit}
               disabled={isSubmitting || name.length > HABIT_NAME_MAX_LENGTH}
               aria-busy={isSubmitting}
-              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity tablet:hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting && <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent motion-reduce:animate-none" />}
               {isSubmitting ? '저장 중...' : isEdit ? '수정한 습관 저장하기' : '습관 저장하기'}

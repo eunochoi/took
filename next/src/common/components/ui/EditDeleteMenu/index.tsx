@@ -67,11 +67,11 @@ const EditDeleteMenu = ({ isMenuOpen, setMenuOpen, anchorRef, onEdit, onDelete, 
             vertical ? "min-w-24 flex-col p-1.5" : "items-center gap-5 px-5 py-2.5",
           )}
         >
-          <button type="button" className={cn("flex items-center rounded-lg text-sm text-theme-text-primary", vertical && "justify-center px-3 py-2.5 desktop:hover:bg-theme-bg")} onClick={() => { closeMenu(); onEdit(); }}>
+          <button type="button" className={cn("flex items-center rounded-lg text-sm text-theme-text-primary", vertical && "justify-center px-3 py-2.5")} onClick={() => { closeMenu(); onEdit(); }}>
             {!vertical && <MdOutlineEdit className="mr-1 text-lg leading-none" aria-hidden="true" />}
             수정
           </button>
-          <button type="button" className={cn("flex items-center rounded-lg text-sm text-theme-danger", vertical && "justify-center px-3 py-2.5 desktop:hover:bg-theme-bg")} onClick={() => { closeMenu(); onDelete(); }}>
+          <button type="button" className={cn("flex items-center rounded-lg text-sm text-theme-danger", vertical && "justify-center px-3 py-2.5")} onClick={() => { closeMenu(); onDelete(); }}>
             {!vertical && <MdOutlineDeleteForever className="mr-1 text-lg leading-none" aria-hidden="true" />}
             삭제
           </button>

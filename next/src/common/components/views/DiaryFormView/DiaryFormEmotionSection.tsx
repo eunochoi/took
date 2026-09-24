@@ -24,7 +24,7 @@ const DiaryFormEmotionSection = ({
         aria-haspopup="dialog"
         aria-expanded={isPickerOpen}
         onClick={() => setIsPickerOpen(true)}
-        className="flex w-full items-center gap-3 rounded-xl py-1 text-left transition-colors hover:bg-theme-accent/5 disabled:cursor-wait"
+        className="flex w-full items-center gap-3 rounded-xl py-1 text-left disabled:cursor-wait"
       >
         <span className="flex h-14 w-14 shrink-0 items-center justify-center">
           {selectedEmotion ? (

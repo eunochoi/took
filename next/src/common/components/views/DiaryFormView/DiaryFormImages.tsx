@@ -127,7 +127,7 @@ const DiaryFormImages = ({ diaryImages, handleImageChange, getImageUrl, handleRe
             type="button"
             disabled={isLoading}
             onClick={() => fileInputRef.current?.click()}
-            className={cn(tileClass, 'flex flex-col items-center justify-center gap-2 border border-dashed border-theme-accent bg-theme-surface/40 text-theme-text-secondary transition-colors hover:bg-theme-accent/10 disabled:opacity-40')}
+            className={cn(tileClass, 'flex flex-col items-center justify-center gap-2 border border-dashed border-theme-accent bg-theme-surface/40 text-theme-text-secondary disabled:opacity-40')}
           >
             <MdAdd aria-hidden="true" className="h-7 w-7 text-theme-accent" />
             <span className="text-xs">사진 추가</span>

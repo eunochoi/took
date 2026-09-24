@@ -27,7 +27,7 @@ const HabitFormIconSection = ({ iconKey, setIconKey }: HabitFormIconSectionProps
             'flex min-h-14 min-w-0 items-center justify-center rounded-xl border bg-transparent p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50',
             iconKey === key
               ? 'border-theme-accent'
-              : 'border-transparent tablet:hover:border-theme-accent/50',
+              : 'border-transparent',
           )}
         >
           <HabitIcon iconKey={key} className="shrink-0 text-2xl" />

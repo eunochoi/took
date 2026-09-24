@@ -22,7 +22,7 @@ const HabitFormPrioritySelector = ({
           key={value}
           className={cn(
             'relative flex min-h-14 w-full cursor-pointer items-center gap-4 rounded-2xl border px-4 py-3 transition-colors',
-            isSelected ? 'border-theme-accent bg-theme-accent/10' : 'border-theme-border-muted tablet:hover:bg-theme-accent/5',
+            isSelected ? 'border-theme-accent bg-theme-accent/10' : 'border-theme-border-muted',
           )}
         >
           <input
