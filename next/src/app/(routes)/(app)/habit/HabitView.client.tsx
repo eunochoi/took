@@ -74,20 +74,13 @@ const HabitView = () => {
       }>
       <div className="w-full desktop:grid desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:grid-rows-[auto_1fr] desktop:items-start desktop:gap-x-8 desktop:gap-y-0">
         <div className="flex flex-col mb-4 gap-4 desktop:col-start-2 desktop:row-start-2">
-          <AppStatCard className="flex !flex-row items-center justify-between !p-4 !h-auto !min-h-0">
+          {totalHabitCount > 0 && <AppStatCard className="flex flex-col items-center justify-between !p-4 !h-auto !min-h-0">
             <HabitTodayProgress
               completedCount={todayDoneHabitCount}
               rate={todayDoneHabitRate}
-              totalCount={MAX_HABIT_COUNT}
+              totalCount={totalHabitCount}
             />
-          </AppStatCard>
-          <AppStatCard className="flex !flex-row items-center justify-between !p-4 !h-auto !min-h-0">
-            <header className="text-lg font-title font-semibold text-theme-text-primary">습관 목록</header>
-            <div className="flex items-baseline text-theme-accent">
-              <span className="text-2xl ">{totalHabitCount}</span>
-              <span className="ml-1 text-sm font-semibold text-theme-text-tertiary">/ {MAX_HABIT_COUNT} 생성</span>
-            </div>
-          </AppStatCard>
+          </AppStatCard>}
         </div>
 
         <section className="mt-0 flex min-w-0 flex-col desktop:col-start-1 desktop:row-start-2">
@@ -103,6 +96,7 @@ const HabitView = () => {
           </div>
         </section>
       </div >
+
     </AppPageLayout >
   );
 }
