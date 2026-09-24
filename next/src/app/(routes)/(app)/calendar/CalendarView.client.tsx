@@ -1,5 +1,6 @@
 'use client';
 
+import CalendarViewContent from "./_components/CalendarViewContent";
 import CalendarViewToolbar from "./_components/CalendarViewToolbar";
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
@@ -13,8 +14,6 @@ import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from '@/common/com
 import AppPageTitle from '@/common/components/layout/AppPageTitle';
 import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
-import DiaryHabitMonthCalendar from './_components/DiaryHabitMonthCalendar';
-import SelectedDayInfo from './_components/SelectedDayInfo';
 
 interface Props {
   initialDate: string;
@@ -60,21 +59,15 @@ const CalendarView = ({ initialDate }: Props) => {
           diaryActionLabel={diaryActionLabel}
         />
       }
-    >
-      <div className="grid flex-1 w-full min-w-0 grid-cols-1 items-start gap-5 tablet:gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8">
-        <DiaryHabitMonthCalendar today={today} selectedDate={selectedDate} onSelectDate={setSelectedDate} />
-        <div className="min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
-          <SelectedDayInfo
-            date={selectedDate}
-            diaryData={selectedDiaryQuery.data}
-            isDiaryPending={selectedDiaryQuery.isPending}
-            isDiaryPlaceholder={selectedDiaryQuery.isPlaceholderData}
-            isDiaryError={selectedDiaryQuery.isError}
-            onRetryDiary={() => void selectedDiaryQuery.refetch()}
-          />
-        </div>
-      </div>
-    </AppPageLayout>
+      appPageMainArea={
+        <CalendarViewContent
+          today={today}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          selectedDiaryQuery={selectedDiaryQuery}
+        />
+      }
+    />
   );
 };
 

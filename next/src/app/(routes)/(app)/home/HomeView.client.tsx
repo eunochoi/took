@@ -1,5 +1,6 @@
 'use client';
 
+import HomeViewContent from "./_components/HomeViewContent";
 import HomeViewToolbar from "./_components/HomeViewToolbar";
 
 import { useQuery } from "@tanstack/react-query";
@@ -12,16 +13,9 @@ import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-import { cn } from "@/common/utils/cn";
 import { AnimatePresence } from 'framer-motion';
-import DiaryAnalysis from "./_components/DiaryAnalysis";
-import EmotionStats from "./_components/EmotionStats";
-import HabitAnalysis from "./_components/HabitAnalysis";
 import HomeViewTopArea from './_components/HomeViewTopArea';
-import TodayRecordSection from "./_components/TodayRecordSection";
 import YearFilter from './_components/YearFilter';
-
-const PADDING_X = "px-[4dvw] tablet:px-9 desktop:px-14";
 
 const HomeView = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
@@ -68,30 +62,17 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
             openYearFilter={openYearFilter}
           />
         }
-        mainAreaClassName={`bg-theme-surface ${PADDING_X} py-2 tablet:py-4 desktop:py-8`}
-      >
-        <div className={cn("grid flex-1 w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6")}>
-          <div className="hidden desktop:block min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
-            <TodayRecordSection initialDate={initialDate} />
-          </div>
+        mainAreaClassName={`bg-theme-surface px-[4dvw] tablet:px-9 desktop:px-14 py-2 tablet:py-4 desktop:py-8`}
 
-          <div
-            className="flex min-w-0 flex-col gap-14 desktop:col-start-1 desktop:row-start-1"
-          >
-            <DiaryAnalysis
-              stats={diaryStats}
-              year={selectedYear}
-            />
-            <EmotionStats
-              emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-              halfYearEmotionCounts={diaryStats?.halfYearEmotionCounts ?? Array(2).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
-            />
-            <HabitAnalysis
-              stats={habitStats}
-            />
-          </div>
-        </div>
-      </AppPageLayout>
+        appPageMainArea={
+          <HomeViewContent
+            initialDate={initialDate}
+            selectedYear={selectedYear}
+            diaryStats={diaryStats}
+            habitStats={habitStats}
+          />
+        }
+      />
       <AnimatePresence>
         {isYearFilterOpen && (
           <YearFilter

@@ -10,7 +10,7 @@ import { PageContent } from "./PageContent";
 
 interface Props {
   appPageTopArea?: ReactNode;
-  children: ReactNode;
+  appPageMainArea: ReactNode;
   contentWrapperClassName?: string;
   pageRef?: RefObject<HTMLDivElement>;
   showScrollToTop?: boolean;
@@ -20,7 +20,7 @@ interface Props {
 
 export const APP_PAGE_CONTENT_PADDING_CLASS_NAME = "px-[4dvw] pt-8 tablet:px-9 tablet:pt-6 desktop:px-14";
 
-const AppPageLayout = ({ appPageTopArea, children, contentWrapperClassName, pageRef, showScrollToTop = false, toolbar, mainAreaClassName }: Props) => {
+const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassName, pageRef, showScrollToTop = false, toolbar, mainAreaClassName }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const hasToolbar = Boolean(toolbar);
@@ -57,7 +57,7 @@ const AppPageLayout = ({ appPageTopArea, children, contentWrapperClassName, page
               </div>
             )}
             <PageContent className="min-w-0">
-              {children}
+              {appPageMainArea}
             </PageContent>
           </div>
         </div>

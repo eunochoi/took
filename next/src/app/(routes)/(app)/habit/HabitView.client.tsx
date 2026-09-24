@@ -1,13 +1,12 @@
 'use client';
 
+import HabitViewContent from "./_components/HabitViewContent";
 import HabitViewToolbar from "./_components/HabitViewToolbar";
 
 import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from "@/common/components/layout/AppPageLayout";
 import AppPageTitle from "@/common/components/layout/AppPageTitle";
-import { AppStatCard } from "@/common/components/ui/AppSection/stat";
-import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
@@ -15,12 +14,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useEffect, useRef } from "react";
-import { MdChecklist } from 'react-icons/md';
-import HabitBox from "./_components/HabitBox";
-import HabitTodayProgress from "./_components/HabitTodayProgress";
 import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
 import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
-
 
 const HabitView = () => {
   usePrefetchPage();
@@ -62,33 +57,16 @@ const HabitView = () => {
           onAddHabit={onAddHabit}
           sortValue={sortValue}
         />
-      }>
-      <div className="w-full desktop:grid desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:grid-rows-[auto_1fr] desktop:items-start desktop:gap-x-8 desktop:gap-y-0">
-        <div className="flex flex-col mb-4 gap-4 desktop:col-start-2 desktop:row-start-2">
-          {totalHabitCount > 0 && <AppStatCard className="flex flex-col items-center justify-between !p-4 !h-auto !min-h-0">
-            <HabitTodayProgress
-              completedCount={todayDoneHabitCount}
-              rate={todayDoneHabitRate}
-              totalCount={totalHabitCount}
-            />
-          </AppStatCard>}
-        </div>
-
-        <section className="mt-0 flex min-w-0 flex-col desktop:col-start-1 desktop:row-start-2">
-          <div className="grid h-auto w-full shrink-0 grid-cols-2 grid-rows-[auto] gap-3">
-            {habits?.length === 0 ? (
-              <EmptyStateCard
-                className="col-span-2"
-                description="작은 목표 하나부터 만들고, 매일의 변화를 쌓아보세요."
-                icon={<MdChecklist aria-hidden="true" />}
-                title="아직 만든 습관이 없어요."
-              />
-            ) : habits?.map((habit) => <HabitBox key={habit.id} id={habit.id} name={habit.name} priority={habit.priority} iconKey={habit.iconKey} />)}
-          </div>
-        </section>
-      </div >
-
-    </AppPageLayout >
+      }
+      appPageMainArea={
+        <HabitViewContent
+          habits={habits}
+          totalHabitCount={totalHabitCount}
+          todayDoneHabitCount={todayDoneHabitCount}
+          todayDoneHabitRate={todayDoneHabitRate}
+        />
+      }
+    />
   );
 }
 
