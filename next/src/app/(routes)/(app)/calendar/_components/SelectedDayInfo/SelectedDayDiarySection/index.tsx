@@ -52,7 +52,9 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
       )}
       <div className="flex w-full py-3 px-2">
         {hasDiary ? (
-          <div className="flex w-full items-stretch gap-3">
+          <div className="flex w-full items-stretch gap-3"
+            onClick={onOpenDiary}
+          >
             {images.length > 0 && (
               <Carousel
                 containerClassName="w-2/5 shrink-0"
@@ -78,7 +80,6 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
                 'flex min-w-0 flex-1 flex-col gap-4',
                 images.length > 0 && 'justify-evenly',
               )}
-              onClick={onOpenDiary}
             >
               <p
                 className="overflow-hidden whitespace-pre-wrap break-words text-base leading-relaxed text-theme-text-secondary [display:-webkit-box] [-webkit-box-orient:vertical]"
