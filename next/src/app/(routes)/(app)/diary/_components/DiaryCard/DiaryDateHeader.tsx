@@ -33,16 +33,16 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
       {emotion && (
         <EmotionImage emotion={emotion} alt="" className="h-12 w-12 shrink-0 object-contain" />
       )}
-      <div className="flex min-w-0 flex-col gap-0.5">
-        {emotion && <span className="text-lg font-semibold text-theme-accent">{emotion.nameKr}</span>}
-        <time dateTime={diaryData.date} className="flex flex-wrap gap-x-1 text-sm text-theme-text-secondary">
+      <div className="font-title flex min-w-0 flex-col gap-0.5">
+        <time dateTime={diaryData.date} className="flex flex-wrap gap-x-1 text-base font-semibold text-theme-text-primary">
           <span className="whitespace-nowrap">{formattedDate}</span>
           <span className="whitespace-nowrap">{format(dateForDisplay, 'EEEE', { locale: ko })}</span>
         </time>
+        {emotion && <span className="text-base text-theme-text-tertiary tracking-wide">{emotion.nameKr}</span>}
       </div>
       <button
         ref={menuButtonRef}
-        className="-mr-3 ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl text-theme-text-tertiary"
+        className="ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl text-theme-text-tertiary"
         aria-label="일기 메뉴"
         aria-expanded={isMenuOpen}
         onClick={handleToggleMenu}
