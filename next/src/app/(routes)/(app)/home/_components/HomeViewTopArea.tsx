@@ -19,7 +19,7 @@ const GREETING_TEXT = {
   sub: ['감정도 툭, 습관도 툭!', '조금 더 나은 나로 To OK.'],
 };
 
-const AppPageTopArea = ({ initialDate }: { initialDate: string }) => {
+const HomeViewTopArea = ({ initialDate }: { initialDate: string }) => {
   const { emotionIcon } = useSettingsContext();
   const today = format(new Date(initialDate), 'M월 d일 EEEE', { locale: ko });
 
@@ -41,12 +41,12 @@ const AppPageTopArea = ({ initialDate }: { initialDate: string }) => {
           <p>{GREETING_TEXT.sub[1]}</p>
         </div>
       </div>
-      <div className="mb-4 desktop:hidden">
+      <div className="desktop:hidden">
         <TodayRecordSection initialDate={initialDate} />
       </div>
-      <Image src={bottomCat} alt="bottom-cat" className="ml-auto mt-auto block w-full tablet:w-2/3 desktop:w-full" />
+      <Image src={bottomCat} alt="bottom-cat" className="ml-auto mt-auto block w-full tablet:w-2/3 desktop:w-2/3" />
     </div>
   );
 };
 
-export default AppPageTopArea;
+export default HomeViewTopArea;
