@@ -13,7 +13,7 @@ import ToolbarButton from "@/common/components/ui/ToolbarButton";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { AnimatePresence } from 'framer-motion';
-import AppPageTopArea from './_components/AppPageTopArea';
+import HomeViewTopArea from './_components/HomeViewTopArea';
 import DiaryAnalysis from "./_components/DiaryAnalysis";
 import EmotionStats from "./_components/EmotionStats";
 import HabitAnalysis from "./_components/HabitAnalysis";
@@ -57,7 +57,7 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
   return (
     <>
       <AppPageLayout
-        appPageTopArea={<AppPageTopArea initialDate={initialDate} />}
+        appPageTopArea={<HomeViewTopArea initialDate={initialDate} />}
         showScrollToTop
         toolbar={
           <>
