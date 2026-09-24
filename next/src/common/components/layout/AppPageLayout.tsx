@@ -48,7 +48,7 @@ const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassNam
         showScrollFade
         showScrollToTop={showScrollToTop}
       >
-        <div className={cn("flex w-full flex-1 flex-col", contentWrapperClassName)}>
+        <PageContent className={cn("flex min-w-0 w-full flex-1 flex-col", contentWrapperClassName)}>
           {appPageTopArea}
           <div className={twMerge("w-full h-auto flex flex-col max-tablet:pb-[var(--mobileNav)] tablet:pb-9", mainAreaClassName)} >
             {hasToolbar && (
@@ -56,11 +56,9 @@ const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassNam
                 {toolbar}
               </div>
             )}
-            <PageContent className="min-w-0">
-              {appPageMainArea}
-            </PageContent>
+            {appPageMainArea}
           </div>
-        </div>
+        </PageContent>
       </ScrollContainer>
     </div>
   );
