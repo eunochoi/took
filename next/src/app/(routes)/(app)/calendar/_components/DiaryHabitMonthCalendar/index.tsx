@@ -102,7 +102,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
                 ].filter(Boolean).join(', ')}
               >
                 <span>{!hasDecoration && day.dayNumber}</span>
-                <span className="relative w-[90%] tablet:w-[75%] h-[auto] flex items-center justify-center">
+                <span className="relative w-[95%] tablet:w-[75%] h-[auto] flex items-center justify-center">
                   {record?.hasDiary && emotion && (
                     <EmotionImage
                       emotion={emotion}
@@ -120,7 +120,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
                         ? 'motion-safe:animate-calendar-selected-bounce'
                         : 'motion-safe:animate-calendar-selected-badge-bounce'),
                     )}
-                    style={!emotion ? { '--calendar-badge-scale': CALENDAR_BADGE_SCALE } as CSSProperties : undefined}>
+                      style={!emotion ? { '--calendar-badge-scale': CALENDAR_BADGE_SCALE } as CSSProperties : undefined}>
                       {habitCount}
                     </span>
                   )}

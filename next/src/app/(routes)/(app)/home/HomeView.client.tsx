@@ -75,9 +75,9 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
           <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
           <div className="flex flex-col font-title gap-4 desktop:gap-8">
             <span className="m-0 text-2xl font-semibold text-theme-text-primary">{today}</span>
-            <h1 className="flex gap-4 items-center m-0">
+            <h1 className="flex gap-4 items-center m-0 h-10 desktop:h-12">
               <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
-              <EmotionImage emotion={EMOTIONS[6]} alt="greeting emotion icon" className="h-12 mb-1 w-auto animate-rotate-slow" />
+              <EmotionImage emotion={EMOTIONS[1]} alt="greeting emotion icon" className="h-16 mb-4 w-auto animate-rotate-slow" />
             </h1>
             <div className="m-0 text-lg desktop:text-xl desktop:mb-4 leading-relaxed text-theme-text-secondary">
               <p>{GREETING_TEXT.sub[0]}</p>

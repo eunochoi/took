@@ -31,7 +31,7 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
   return (
     <div className="relative flex min-w-0 w-full items-center gap-3">
       {emotion && (
-        <EmotionImage emotion={emotion} width={36} height={36} alt="" className="h-9 w-9 shrink-0 object-contain" />
+        <EmotionImage emotion={emotion} alt="" className="h-12 w-12 shrink-0 object-contain" />
       )}
       <div className="flex min-w-0 flex-col gap-0.5">
         {emotion && <span className="text-lg font-semibold text-theme-accent">{emotion.nameKr}</span>}
