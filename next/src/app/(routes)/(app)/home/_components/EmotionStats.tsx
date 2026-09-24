@@ -3,7 +3,6 @@
 import EmotionImage from '@/common/components/ui/EmotionImage';
 import { useMemo, useState } from "react";
 
-import { AppSurfaceCard } from "@/common/components/ui/AppSection/card";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import { EMOTIONS } from "@/common/constants/emotions";
@@ -56,35 +55,33 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
         onChange={setSelectedHalfYear}
       />
 
-      <AppSurfaceCard>
-        <div className="grid grid-cols-[repeat(5,max-content)] justify-between gap-y-7 my-2">
-          {EMOTIONS.map((emotion) => (
-            <div key={emotion.id} className="flex flex-col min-w-0 justify-center items-center gap-1">
-              <span className="relative">
-                <EmotionImage
-                  className="h-12 w-12 shrink-0 object-contain"
-                  emotion={emotion}
-                  alt={emotion.nameKr}
-                  width={48}
-                  height={48}
-                />
-                {firstPlaceEmotionIds.includes(emotion.id) && (
-                  <span className="absolute -right-3 -top-2 flex h-6 min-w-7 items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent px-1 text-xs font-semibold text-theme-text-on-accent">
-                    1등
-                  </span>
-                )}
-              </span>
-              <div className="flex items-center shrink-0 items-baseline gap-1 font-title tabular-nums">
-                <span className="text-xl font-semibold text-theme-accent">{displayEmotionCounts[emotion.id]}</span>
-                <span className="text-sm text-theme-text-secondary">회</span>
-              </div>
-              <span className="min-w-0 flex-1 text-sm whitespace-nowrap text-theme-text-tertiary">
-                {emotion.nameKr}
-              </span>
+      <div className="grid grid-cols-[repeat(5,max-content)] justify-between gap-y-8 p-2">
+        {EMOTIONS.map((emotion) => (
+          <div key={emotion.id} className="flex flex-col min-w-0 justify-center items-center gap-1">
+            <span className="relative">
+              <EmotionImage
+                className="h-12 w-12 shrink-0 object-contain"
+                emotion={emotion}
+                alt={emotion.nameKr}
+                width={48}
+                height={48}
+              />
+              {firstPlaceEmotionIds.includes(emotion.id) && (
+                <span className="absolute -right-3 -top-2 flex h-6 min-w-7 items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent px-1 text-xs font-semibold text-theme-text-on-accent">
+                  1등
+                </span>
+              )}
+            </span>
+            <div className="flex shrink-0 items-baseline gap-1 font-title tabular-nums">
+              <span className="text-xl font-semibold text-theme-accent">{displayEmotionCounts[emotion.id]}</span>
+              <span className="text-sm text-theme-text-secondary">회</span>
             </div>
-          ))}
-        </div>
-      </AppSurfaceCard>
+            <span className="min-w-0 flex-1 text-sm whitespace-nowrap text-theme-text-tertiary">
+              {emotion.nameKr}
+            </span>
+          </div>
+        ))}
+      </div>
     </AppSection>
   );
 };

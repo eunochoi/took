@@ -24,7 +24,7 @@ const HomeViewTopArea = ({ initialDate }: { initialDate: string }) => {
   const today = format(new Date(initialDate), 'M월 d일 EEEE', { locale: ko });
 
   return (
-    <div className={cn('flex flex-col gap-8', APP_PAGE_CONTENT_PADDING_CLASS_NAME)}>
+    <div className={cn('flex flex-col gap-8 bg-theme-accent-light', APP_PAGE_CONTENT_PADDING_CLASS_NAME)}>
       <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
       <div className="flex flex-col font-title gap-4 desktop:gap-8">
         <span className="m-0 text-2xl font-semibold text-theme-text-secondary">{today}</span>

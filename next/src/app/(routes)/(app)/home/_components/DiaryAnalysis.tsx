@@ -2,10 +2,10 @@
 
 import { DiaryStats } from "@/common/actions/stats";
 
-import { AppCardGrid, AppSurfaceCard } from "@/common/components/ui/AppSection/card";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
-import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
+import { AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
 import { cn } from "@/common/utils/cn";
+import { MdCalendarMonth, MdDescription, MdEmojiEvents } from "react-icons/md";
 
 interface Props {
   stats?: DiaryStats;
@@ -13,6 +13,8 @@ interface Props {
 }
 
 const monthlyBarClass = "min-h-1 w-3 max-w-5 rounded-[3px] transition-[height] duration-200 ease-in-out";
+const statIconClass = "h-6 w-6 text-theme-accent";
+const statBoxClass = "flex min-w-0 flex-col items-center gap-2 py-3";
 
 const DiaryAnalysis = ({ stats, year }: Props) => {
   const formatTextLength = (length: number) => {
@@ -23,11 +25,8 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
   };
 
   const currentStreak = stats?.currentStreak?.days ?? 0;
-  const longestStreak = stats?.longestStreak?.days ?? 0;
   const currentStreakLabel = stats?.streakStatus === 'pending' ? '유지 기록' : '현재 기록';
-  const streakInfoText = stats?.streakStatus === 'pending'
-    ? '* 오늘 일기를 작성하면 유지 중인 기록이 현재 연속 기록으로 이어집니다.'
-    : '* 오늘 일기를 작성하면 오늘 기록까지 포함돼요.';
+  const longestStreak = stats?.longestStreak?.days ?? 0;
   const totalTextLength = stats?.totalTextLength ?? 0;
   const textLengthFormatted = formatTextLength(totalTextLength);
 
@@ -40,34 +39,36 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         <AppSectionMeta>{totalCount}개의 일기</AppSectionMeta>
       </AppSectionHeader>
 
-      <AppCardGrid columns={3}>
-        <AppStatCard>
+      <div className="grid grid-cols-3 divide-x divide-theme-border/60">
+        <div className={statBoxClass}>
+          <MdCalendarMonth className={statIconClass} aria-hidden="true" />
           <AppStatLabel>{currentStreakLabel}</AppStatLabel>
-          <AppStatValueWrapper>
+          <AppStatValueWrapper className="items-baseline gap-1">
             <AppStatValue>{currentStreak}</AppStatValue>
             <AppStatUnit>일</AppStatUnit>
           </AppStatValueWrapper>
-        </AppStatCard>
+        </div>
 
-        <AppStatCard>
+        <div className={statBoxClass}>
+          <MdEmojiEvents className={statIconClass} aria-hidden="true" />
           <AppStatLabel>최고 기록</AppStatLabel>
-          <AppStatValueWrapper>
+          <AppStatValueWrapper className="items-baseline gap-1">
             <AppStatValue>{longestStreak}</AppStatValue>
             <AppStatUnit>일</AppStatUnit>
           </AppStatValueWrapper>
-        </AppStatCard>
+        </div>
 
-        <AppStatCard>
+        <div className={statBoxClass}>
+          <MdDescription className={statIconClass} aria-hidden="true" />
           <AppStatLabel>총 텍스트</AppStatLabel>
-          <AppStatValueWrapper>
+          <AppStatValueWrapper className="items-baseline gap-1">
             <AppStatValue>{textLengthFormatted.value}</AppStatValue>
             <AppStatUnit>{textLengthFormatted.unit}</AppStatUnit>
           </AppStatValueWrapper>
-        </AppStatCard>
-      </AppCardGrid>
-
-      <AppSurfaceCard className="flex flex-col gap-2">
-        <div className="flex flex-row px-2 py-2">
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 p-2">
+        <div className="flex flex-row">
           {(stats?.monthlyCount ?? Array(12).fill(0)).map((count, index) => {
             const maxCount = Math.max(...(stats?.monthlyCount ?? [1]), 1);
             const barHeight = count > 0 ? Math.max((count / maxCount) * 112, 8) : 4;
@@ -102,10 +103,10 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
           })}
         </div>
 
-        <span className="flex justify-center text-sm text-theme-accent">
+        <span className="flex justify-center text-sm text-theme-text-secondary">
           * {year}년 월간 기록 그래프
         </span>
-      </AppSurfaceCard>
+      </div>
     </AppSection >
   );
 };

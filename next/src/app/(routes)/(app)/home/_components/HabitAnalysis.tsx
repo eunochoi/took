@@ -1,8 +1,6 @@
 'use client';
 
 import { HabitStats } from "@/common/actions/stats";
-import { AppCardGrid } from "@/common/components/ui/AppSection/card";
-import { AppInfoCard, AppInfoText } from "@/common/components/ui/AppSection/info";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import HabitIcon from "@/common/components/ui/HabitIcon";
@@ -45,13 +43,13 @@ const HabitAnalysis = ({ stats }: Props) => {
       />
 
       {habits && habits.length > 0 ?
-        <ol className="m-0 list-none divide-y divide-theme-border/70 rounded-theme bg-theme-surface px-4 py-1 shadow-card tablet:px-5">
+        <ol className="m-0 list-none divide-y divide-theme-border/60 p-2">
           {habits.slice(0, 3).map((habit) => (
             <li key={habit.id}>
               <button
                 type="button"
                 onClick={() => handleHabitClick(habit.id)}
-                className="flex w-full min-w-0 items-center gap-6 rounded-lg py-3 text-left tablet:gap-4"
+                className="flex w-full min-w-0 items-center gap-6 rounded-lg py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-theme-accent tablet:gap-4"
               >
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-transparent">
                   <HabitIcon iconKey={habit.iconKey} className="text-4xl" />
@@ -70,17 +68,13 @@ const HabitAnalysis = ({ stats }: Props) => {
             </li>
           ))}
         </ol> :
-        <AppCardGrid columns={1}>
-          <AppInfoCard>
-            <AppInfoText>* 아직 완료한 습관이 없어요 :(</AppInfoText>
-          </AppInfoCard>
-        </AppCardGrid>}
+        <p className="m-0 px-2 py-8 text-center text-sm text-theme-text-secondary text-center">
+          아직 완료한 습관이 없어요.
+        </p>}
 
-      <AppInfoCard>
-        <AppInfoText>
-          * 완료한적 없는 습관은 &apos;Top 3&apos;에 나타나지 않습니다.
-        </AppInfoText>
-      </AppInfoCard>
+      <p className="m-0 px-2 text-sm leading-relaxed text-theme-text-secondary text-center">
+        완료한 적 없는 습관은 &apos;Top 3&apos;에 나타나지 않습니다.
+      </p>
     </AppSection>
   );
 };

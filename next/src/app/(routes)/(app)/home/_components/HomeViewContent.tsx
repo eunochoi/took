@@ -18,7 +18,7 @@ interface Props {
 const HomeViewContent = ({ initialDate, selectedYear, diaryStats, habitStats }: Props) => {
   return (
     <div className={cn("grid flex-1 w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6")}>
-      <div className="hidden desktop:block min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
+      <div className="hidden desktop:block min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start desktop:border-l desktop:border-theme-border/60 desktop:pl-8">
         <TodayRecordSection initialDate={initialDate} />
       </div>
 
