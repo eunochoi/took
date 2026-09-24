@@ -1,10 +1,12 @@
 'use client';
 
 import { ReactNode, RefObject, useEffect, useRef } from "react";
+import { twMerge } from "tailwind-merge";
 
 import { cn } from "@/common/utils/cn";
 import { ScrollContainer } from "../ui/ScrollContainer";
 import { PageContent } from "./PageContent";
+
 
 interface Props {
   appPageTopArea?: ReactNode;
@@ -13,11 +15,12 @@ interface Props {
   pageRef?: RefObject<HTMLDivElement>;
   showScrollToTop?: boolean;
   toolbar?: ReactNode;
+  mainAreaClassName?: string;
 }
 
 export const APP_PAGE_CONTENT_PADDING_CLASS_NAME = "px-[4dvw] pt-8 tablet:px-9 tablet:pt-6 desktop:px-14";
 
-const AppPageLayout = ({ appPageTopArea, children, contentWrapperClassName, pageRef, showScrollToTop = false, toolbar }: Props) => {
+const AppPageLayout = ({ appPageTopArea, children, contentWrapperClassName, pageRef, showScrollToTop = false, toolbar, mainAreaClassName }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const hasToolbar = Boolean(toolbar);
@@ -45,16 +48,18 @@ const AppPageLayout = ({ appPageTopArea, children, contentWrapperClassName, page
         showScrollFade
         showScrollToTop={showScrollToTop}
       >
-        <div className={cn("flex w-full max-w-[650px] flex-1 flex-col desktop:max-w-[1080px]", contentWrapperClassName)}>
+        <div className={cn("flex w-full flex-1 flex-col", contentWrapperClassName)}>
           {appPageTopArea}
-          {hasToolbar && (
-            <div ref={toolbarRef} data-component="pageToolbar" className="sticky top-0 z-[91] mb-4 flex flex-wrap items-center gap-2 py-3">
-              {toolbar}
-            </div>
-          )}
-          <PageContent className="min-w-0">
-            {children}
-          </PageContent>
+          <div className={twMerge("w-full h-auto flex flex-col max-tablet:pb-[var(--mobileNav)] tablet:pb-9", mainAreaClassName)} >
+            {hasToolbar && (
+              <div ref={toolbarRef} data-component="pageToolbar" className={twMerge("sticky top-0 z-[91] mb-4 flex flex-wrap items-center gap-2 py-4")}>
+                {toolbar}
+              </div>
+            )}
+            <PageContent className="min-w-0">
+              {children}
+            </PageContent>
+          </div>
         </div>
       </ScrollContainer>
     </div>

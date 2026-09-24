@@ -12,13 +12,16 @@ import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import ToolbarButton from "@/common/components/ui/ToolbarButton";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
+import { cn } from "@/common/utils/cn";
 import { AnimatePresence } from 'framer-motion';
-import HomeViewTopArea from './_components/HomeViewTopArea';
 import DiaryAnalysis from "./_components/DiaryAnalysis";
 import EmotionStats from "./_components/EmotionStats";
 import HabitAnalysis from "./_components/HabitAnalysis";
+import HomeViewTopArea from './_components/HomeViewTopArea';
 import TodayRecordSection from "./_components/TodayRecordSection";
 import YearFilter from './_components/YearFilter';
+
+const PADDING_X = "px-[4dvw] tablet:px-9 desktop:px-14";
 
 const HomeView = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
@@ -60,14 +63,14 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
         appPageTopArea={<HomeViewTopArea initialDate={initialDate} />}
         showScrollToTop
         toolbar={
-          <>
-            <ToolbarButton onClick={openYearFilter}>
-              <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
-              {selectedYear}년
-            </ToolbarButton>
-          </>
-        }>
-        <div className="grid flex-1 w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6">
+          <ToolbarButton onClick={openYearFilter}>
+            <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
+            {selectedYear}년
+          </ToolbarButton>
+        }
+        mainAreaClassName={`bg-theme-surface ${PADDING_X} py-2 tablet:py-4 desktop:py-8`}
+      >
+        <div className={cn("grid flex-1 w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6")}>
           <div className="hidden desktop:block min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
             <TodayRecordSection initialDate={initialDate} />
           </div>
