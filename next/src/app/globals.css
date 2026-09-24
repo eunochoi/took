@@ -9,6 +9,7 @@
 
 :root {
   --theme-accent: 140 173 226;
+  --theme-accent-light: 240 247 255;
   --theme-accent-deep: 107 137 186;
   --theme-accent-text: color-mix(in srgb, rgb(var(--theme-accent)) 53%, #000);
   --theme-bg-light: 246 248 250;
