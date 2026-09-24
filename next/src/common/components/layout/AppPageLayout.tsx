@@ -15,15 +15,15 @@ interface Props {
   contentProps?: PageContentProps;
   pageRef?: RefObject<HTMLDivElement>;
   showScrollToTop?: boolean;
-  topButton?: ReactNode;
+  toolbar?: ReactNode;
 }
 
 export const APP_PAGE_CONTENT_PADDING_CLASS_NAME = "px-[4dvw] pt-8 tablet:px-9 tablet:pt-6 desktop:px-14";
 
-const AppPageLayout = ({ afterContent, appPageTopArea, beforeToolbar, children, contentWrapperClassName, contentProps, pageRef, showScrollToTop = false, topButton }: Props) => {
+const AppPageLayout = ({ afterContent, appPageTopArea, beforeToolbar, children, contentWrapperClassName, contentProps, pageRef, showScrollToTop = false, toolbar }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
-  const hasToolbar = Boolean(topButton);
+  const hasToolbar = Boolean(toolbar);
 
   useEffect(() => {
     const toolbar = toolbarRef.current;
@@ -52,7 +52,7 @@ const AppPageLayout = ({ afterContent, appPageTopArea, beforeToolbar, children, 
           {appPageTopArea ?? beforeToolbar}
           {hasToolbar && (
             <div ref={toolbarRef} data-component="pageToolbar" className="sticky top-0 z-[91] mb-4 flex flex-wrap items-center gap-2 py-3">
-              {topButton}
+              {toolbar}
             </div>
           )}
           <PageContent {...contentProps} className={cn("min-w-0", contentProps?.className)}>

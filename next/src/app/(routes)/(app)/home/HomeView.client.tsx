@@ -14,7 +14,7 @@ import { MdCalendarMonth } from "react-icons/md";
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
-import TopButton from "@/common/components/ui/TopButton";
+import ToolbarButton from "@/common/components/ui/ToolbarButton";
 import Wordmark from "@/common/components/ui/Wordmark";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -97,12 +97,12 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
         </div>
       }
       showScrollToTop
-      topButton={
+      toolbar={
         <>
-          <TopButton onClick={openYearFilter}>
+          <ToolbarButton onClick={openYearFilter}>
             <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
             {selectedYear}년
-          </TopButton>
+          </ToolbarButton>
         </>
       }
       contentProps={{

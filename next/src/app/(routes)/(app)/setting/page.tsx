@@ -8,7 +8,7 @@ import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { format } from "date-fns";
 
-import TopButton from '@/common/components/ui/TopButton';
+import ToolbarButton from '@/common/components/ui/ToolbarButton';
 import { useRouter } from 'next/navigation';
 import { AccountInfoSection } from "./_components/AccountInfoSection";
 import { ThemeSettingsSection } from "./_components/ThemeSettingsSection";
@@ -38,18 +38,18 @@ const SettingPage = () => {
       }
       contentProps={{ className: "gap-6" }}
       showScrollToTop={false}
-      topButton={<>
-        <TopButton
+      toolbar={<>
+        <ToolbarButton
           onClick={() => router.push('https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share')}>
           <MdShop size={18} className="shrink-0" aria-hidden="true" />
           PlayStore
-        </TopButton>
-        <TopButton
+        </ToolbarButton>
+        <ToolbarButton
           aria-label="개인정보 처리방침"
           onClick={() => router.push('/privacy')}
         >
           <MdPrivacyTip size={18} />
-        </TopButton>
+        </ToolbarButton>
       </>}>
 
 

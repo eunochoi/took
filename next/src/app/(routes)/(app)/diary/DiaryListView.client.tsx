@@ -13,7 +13,7 @@ import { authAction } from "@/common/auth/authAction";
 import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from "@/common/components/layout/AppPageLayout";
 import AppPageTitle from "@/common/components/layout/AppPageTitle";
 import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
-import TopButton from "@/common/components/ui/TopButton";
+import ToolbarButton from "@/common/components/ui/ToolbarButton";
 import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
 import { EMOTIONS } from "@/common/constants/emotions";
 import { EMOTION_UNSELECTED, getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
@@ -82,27 +82,27 @@ const DiaryListView = () => {
       contentProps={{
         className: 'flex-1 gap-3 max-tablet:gap-5 tablet:gap-6',
       }}
-      topButton={<>
-        <TopButton
+      toolbar={<>
+        <ToolbarButton
           aria-label="기간 필터"
           onClick={openMonthFilter}
         >
           <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
           {isPeriodSelected ? selectedPeriodLabel : "전체 기간"}
-        </TopButton>
-        <TopButton
+        </ToolbarButton>
+        <ToolbarButton
           onClick={onToggle}
         >
           <MdSort size={18} className="shrink-0" aria-hidden="true" />
           {sortValue === 'DESC' ? '최신순' : '과거순'}
-        </TopButton>
-        <TopButton
+        </ToolbarButton>
+        <ToolbarButton
           aria-label="감정 필터"
           onClick={openEmotionFilter}
         >
           <MdEmojiEmotions size={18} className="shrink-0" aria-hidden="true" />
           {isEmotionSelected && selectedEmotionLabel}
-        </TopButton>
+        </ToolbarButton>
       </>}
     >
       <AnimatePresence>

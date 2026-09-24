@@ -10,7 +10,7 @@ import { getDiaryByDate } from '@/common/actions/diary';
 import { authAction } from '@/common/auth/authAction';
 import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from '@/common/components/layout/AppPageLayout';
 import AppPageTitle from '@/common/components/layout/AppPageTitle';
-import TopButton from '@/common/components/ui/TopButton';
+import ToolbarButton from '@/common/components/ui/ToolbarButton';
 import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import DiaryHabitMonthCalendar from './_components/DiaryHabitMonthCalendar';
@@ -54,12 +54,12 @@ const CalendarView = ({ initialDate }: Props) => {
     <AppPageLayout
       contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
       appPageTopArea={<AppPageTitle title="월간 기록" description="하루하루 쌓인 마음과 습관을 살펴봐요" />}
-      topButton={
+      toolbar={
         <>
-          <TopButton onClick={openSelectedDiary}>
+          <ToolbarButton onClick={openSelectedDiary}>
             <MdEdit size={18} className="shrink-0" aria-hidden="true" />
             <span>{diaryActionLabel}</span>
-          </TopButton>
+          </ToolbarButton>
         </>
       }
       contentProps={{

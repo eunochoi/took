@@ -6,7 +6,7 @@ import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from "@/common/com
 import AppPageTitle from "@/common/components/layout/AppPageTitle";
 import { AppStatCard } from "@/common/components/ui/AppSection/stat";
 import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
-import TopButton from "@/common/components/ui/TopButton";
+import ToolbarButton from "@/common/components/ui/ToolbarButton";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
@@ -62,15 +62,15 @@ const HabitView = () => {
       appPageTopArea={<AppPageTitle title="습관 만들기" description="작은 실천으로 만들어가는 나의 일상" />}
       pageRef={pageRef}
       showScrollToTop
-      topButton={
+      toolbar={
         <>
-          <TopButton onClick={onToggle}>
+          <ToolbarButton onClick={onToggle}>
             <MdSort size={18} className="shrink-0" aria-hidden="true" />
             {HABIT_SORT_LABELS[sortValue]}
-          </TopButton>
-          <TopButton aria-label="습관 추가" onClick={onAddHabit} title="습관 추가">
+          </ToolbarButton>
+          <ToolbarButton aria-label="습관 추가" onClick={onAddHabit} title="습관 추가">
             <MdAdd className="text-xl" aria-hidden="true" />
-          </TopButton>
+          </ToolbarButton>
         </>
       }>
       <div className="w-full desktop:grid desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:grid-rows-[auto_1fr] desktop:items-start desktop:gap-x-8 desktop:gap-y-0">
