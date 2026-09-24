@@ -26,7 +26,7 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => {
         </div>
       )}
       {message && <span className="text-base text-theme-text-primary">{message}</span>}
-      <Image src={bottomCat} alt="bottom-cat" className='absolute bottom-0 tablet:w-[70dvw] desktop:w-[50dvw]' />
+      <Image priority src={bottomCat} alt="bottom-cat" className='absolute bottom-0 tablet:w-[70dvw] desktop:w-[50dvw]' />
     </div>
   );
 };
