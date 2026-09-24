@@ -32,5 +32,5 @@ export const EMOTIONS: Emotion[] = [
   { id: 6, name: 'sad', nameKr: '슬픔', src: sad, color: '#8fbffb', emoji: '😢' },
   { id: 7, name: 'angry', nameKr: '화남', src: angry, color: '#ff6b66', emoji: '😠' },
   { id: 8, name: 'confused', nameKr: '혼란', src: confused, color: '#ceb1ef', emoji: '😕' },
-  { id: 9, name: 'unknown', nameKr: '모름', src: unknown, color: '#d9dded', emoji: '😐' },
+  { id: 9, name: 'unknown', nameKr: '보통', src: unknown, color: '#d9dded', emoji: '😐' },
 ];
