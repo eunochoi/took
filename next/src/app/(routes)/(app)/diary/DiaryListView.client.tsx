@@ -74,37 +74,62 @@ const DiaryListView = () => {
   }, [sortValue]);
 
   return (
-    <AppPageLayout
-      contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
-      appPageTopArea={<AppPageTitle title="일기 목록" description="차곡차곡 쌓이는 나의 하루" />}
-      pageRef={wrapperRef}
-      showScrollToTop
-      contentProps={{
-        className: 'flex-1 gap-3 max-tablet:gap-5 tablet:gap-6',
-      }}
-      toolbar={<>
-        <ToolbarButton
-          aria-label="기간 필터"
-          onClick={openMonthFilter}
-        >
-          <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
-          {isPeriodSelected ? selectedPeriodLabel : "전체 기간"}
-        </ToolbarButton>
-        <ToolbarButton
-          onClick={onToggle}
-        >
-          <MdSort size={18} className="shrink-0" aria-hidden="true" />
-          {sortValue === 'DESC' ? '최신순' : '과거순'}
-        </ToolbarButton>
-        <ToolbarButton
-          aria-label="감정 필터"
-          onClick={openEmotionFilter}
-        >
-          <MdEmojiEmotions size={18} className="shrink-0" aria-hidden="true" />
-          {isEmotionSelected && selectedEmotionLabel}
-        </ToolbarButton>
-      </>}
-    >
+    <>
+      <AppPageLayout
+        contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
+        appPageTopArea={<AppPageTitle title="일기 목록" description="차곡차곡 쌓이는 나의 하루" />}
+        pageRef={wrapperRef}
+        showScrollToTop
+        contentProps={{
+          className: 'flex-1 gap-3 max-tablet:gap-5 tablet:gap-6',
+        }}
+        toolbar={<>
+          <ToolbarButton
+            aria-label="기간 필터"
+            onClick={openMonthFilter}
+          >
+            <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
+            {isPeriodSelected ? selectedPeriodLabel : "전체 기간"}
+          </ToolbarButton>
+          <ToolbarButton
+            onClick={onToggle}
+          >
+            <MdSort size={18} className="shrink-0" aria-hidden="true" />
+            {sortValue === 'DESC' ? '최신순' : '과거순'}
+          </ToolbarButton>
+          <ToolbarButton
+            aria-label="감정 필터"
+            onClick={openEmotionFilter}
+          >
+            <MdEmojiEmotions size={18} className="shrink-0" aria-hidden="true" />
+            {isEmotionSelected && selectedEmotionLabel}
+          </ToolbarButton>
+        </>}
+      >
+        <div className="grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
+          <div className="flex min-w-0 flex-col gap-4">
+            <div className="flex w-full min-w-0 flex-col gap-4 desktop:self-start">
+              {isDiaryListEmpty ? (
+                <EmptyStateCard
+                  description={hasAppliedFilter ? '필터를 바꾸거나 새로운 일기를 작성해 보세요.' : '오늘의 감정과 생각을 첫 번째 일기로 남겨보세요.'}
+                  icon={<MdMenuBook aria-hidden="true" />}
+                  title={hasAppliedFilter ? '선택한 조건의 일기가 없어요.' : '아직 작성한 일기가 없어요.'}
+                />
+              ) : flatDiaries?.map((diary) => (
+                <div key={diary.id} className="flex w-full items-center justify-center">
+                  <DiaryCard diaryData={diary} />
+                </div>
+              ))}
+              <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
+            </div>
+          </div>
+          <DiaryStatsPanel
+            year={statsYear}
+            onChangeYear={setStatsYear}
+            className="desktop:col-start-2"
+          />
+        </div>
+      </AppPageLayout>
       <AnimatePresence>
         {isEmotionFilterOpen && (
           <EmotionFilter
@@ -124,30 +149,7 @@ const DiaryListView = () => {
           />
         )}
       </AnimatePresence>
-      <div className="grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
-        <div className="flex min-w-0 flex-col gap-4">
-          <div className="flex w-full min-w-0 flex-col gap-4 desktop:self-start">
-            {isDiaryListEmpty ? (
-              <EmptyStateCard
-                description={hasAppliedFilter ? '필터를 바꾸거나 새로운 일기를 작성해 보세요.' : '오늘의 감정과 생각을 첫 번째 일기로 남겨보세요.'}
-                icon={<MdMenuBook aria-hidden="true" />}
-                title={hasAppliedFilter ? '선택한 조건의 일기가 없어요.' : '아직 작성한 일기가 없어요.'}
-              />
-            ) : flatDiaries?.map((diary) => (
-              <div key={diary.id} className="flex w-full items-center justify-center">
-                <DiaryCard diaryData={diary} />
-              </div>
-            ))}
-            <div ref={inViewRef} className="h-[50px] w-full shrink-0" />
-          </div>
-        </div>
-        <DiaryStatsPanel
-          year={statsYear}
-          onChangeYear={setStatsYear}
-          className="desktop:col-start-2"
-        />
-      </div>
-    </AppPageLayout>
+    </>
   );
 }
 
