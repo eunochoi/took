@@ -63,8 +63,8 @@ const HabitAnalysis = ({ stats }: Props) => {
                   <StarRating maxRating={3} rating={habit.priority + 1} className="shrink-0 gap-0.5 text-base opacity-80" />
                 </div>
                 <span className="flex shrink-0 items-baseline gap-1 font-title tabular-nums">
-                  <span className="text-lg font-semibold text-theme-accent">{habit.count}</span>
-                  <span className="text-base text-theme-text-tertiary">회</span>
+                  <span className="text-2xl font-semibold text-theme-accent">{habit.count}</span>
+                  <span className="text-sm text-theme-text-secondary">회</span>
                 </span>
               </button>
             </li>
@@ -78,7 +78,7 @@ const HabitAnalysis = ({ stats }: Props) => {
 
       <AppInfoCard>
         <AppInfoText>
-          *완료한적 없는 습관은 &apos;Top 3&apos;에 나타나지 않습니다.
+          * 완료한적 없는 습관은 &apos;Top 3&apos;에 나타나지 않습니다.
         </AppInfoText>
       </AppInfoCard>
     </AppSection>

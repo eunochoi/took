@@ -75,10 +75,10 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
                 )}
               </span>
               <div className="flex items-center shrink-0 items-baseline gap-1 font-title tabular-nums">
-                <span className="text-lg font-semibold text-theme-accent">{displayEmotionCounts[emotion.id]}</span>
-                <span className="text-base text-theme-text-tertiary">회</span>
+                <span className="text-xl font-semibold text-theme-accent">{displayEmotionCounts[emotion.id]}</span>
+                <span className="text-sm text-theme-text-secondary">회</span>
               </div>
-              <span className="min-w-0 flex-1 text-sm whitespace-nowrap text-theme-text-primary">
+              <span className="min-w-0 flex-1 text-base whitespace-nowrap text-theme-text-tertiary">
                 {emotion.nameKr}
               </span>
             </div>
