@@ -77,7 +77,7 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
         <div className="flex flex-col gap-8">
           <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
           <div className="flex flex-col font-title gap-4 desktop:gap-8">
-            <span className="m-0 text-2xl font-semibold text-theme-text-primary">{today}</span>
+            <span className="m-0 text-2xl font-semibold text-theme-text-secondary">{today}</span>
             <h1 className="flex gap-4 items-center m-0 h-10 desktop:h-12">
               <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
               <EmotionImage
@@ -86,7 +86,7 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
                 className={cn(emotionIcon.style === 'basic' ? "mb-4" : "mb-2",
                   "rotate-[5deg] h-16 w-auto animate-rotate-slow")} />
             </h1>
-            <div className="m-0 text-lg desktop:text-xl desktop:mb-4 leading-relaxed text-theme-text-secondary">
+            <div className="m-0 text-lg font-semibold desktop:text-xl desktop:mb-4 leading-relaxed text-theme-text-secondary">
               <p>{GREETING_TEXT.sub[0]}</p>
               <p>{GREETING_TEXT.sub[1]}</p>
             </div>
