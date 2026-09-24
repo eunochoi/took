@@ -2,7 +2,7 @@
 
 import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
-import AppPageLayout from "@/common/components/layout/AppPageLayout";
+import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from "@/common/components/layout/AppPageLayout";
 import AppPageTitle from "@/common/components/layout/AppPageTitle";
 import { AppStatCard } from "@/common/components/ui/AppSection/stat";
 import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
@@ -58,6 +58,7 @@ const HabitView = () => {
 
   return (
     <AppPageLayout
+      contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
       beforeToolbar={<AppPageTitle title="습관 만들기" description="작은 실천으로 만들어가는 나의 일상" />}
       pageRef={pageRef}
       showScrollToTop

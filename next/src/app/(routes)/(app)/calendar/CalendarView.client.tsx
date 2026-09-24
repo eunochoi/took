@@ -8,7 +8,7 @@ import { MdEdit } from 'react-icons/md';
 
 import { getDiaryByDate } from '@/common/actions/diary';
 import { authAction } from '@/common/auth/authAction';
-import AppPageLayout from '@/common/components/layout/AppPageLayout';
+import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from '@/common/components/layout/AppPageLayout';
 import AppPageTitle from '@/common/components/layout/AppPageTitle';
 import TopButton from '@/common/components/ui/TopButton';
 import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
@@ -52,6 +52,7 @@ const CalendarView = ({ initialDate }: Props) => {
 
   return (
     <AppPageLayout
+      contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
       beforeToolbar={<AppPageTitle title="월간 기록" description="하루하루 쌓인 마음과 습관을 살펴봐요" />}
       topButton={
         <>

@@ -7,16 +7,18 @@ import { ScrollContainer } from "../ui/ScrollContainer";
 import { PageContent, PageContentProps } from "./PageContent";
 
 interface Props {
-  afterContent?: ReactNode;
   beforeToolbar?: ReactNode;
   children: ReactNode;
+  contentWrapperClassName?: string;
   contentProps?: PageContentProps;
   pageRef?: RefObject<HTMLDivElement>;
   showScrollToTop?: boolean;
   topButton?: ReactNode;
 }
 
-const AppPageLayout = ({ afterContent, beforeToolbar, children, contentProps, pageRef, showScrollToTop = false, topButton }: Props) => {
+export const APP_PAGE_CONTENT_PADDING_CLASS_NAME = "px-[4dvw] pt-8 tablet:px-9 tablet:pt-6 desktop:px-14";
+
+const AppPageLayout = ({ beforeToolbar, children, contentWrapperClassName, contentProps, pageRef, showScrollToTop = false, topButton }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const hasToolbar = Boolean(topButton);
@@ -44,10 +46,10 @@ const AppPageLayout = ({ afterContent, beforeToolbar, children, contentProps, pa
         showScrollFade
         showScrollToTop={showScrollToTop}
       >
-        <div className="flex w-full max-w-[650px] flex-1 flex-col px-[4dvw] pt-8 tablet:px-9 tablet:pt-6 desktop:max-w-[1080px] desktop:px-14">
+        <div className={cn("flex w-full max-w-[650px] flex-1 flex-col desktop:max-w-[1080px]", contentWrapperClassName)}>
           {beforeToolbar}
           {hasToolbar && (
-            <div ref={toolbarRef} data-component="pageToolbar" className="sticky top-0 z-[91] -mx-[4dvw] mb-4 flex flex-wrap items-center gap-2 px-[4dvw] py-3 tablet:-mx-9 tablet:px-9 desktop:-mx-14 desktop:px-14">
+            <div ref={toolbarRef} data-component="pageToolbar" className="sticky top-0 z-[91] mb-4 flex flex-wrap items-center gap-2 py-3">
               {topButton}
             </div>
           )}
@@ -55,7 +57,6 @@ const AppPageLayout = ({ afterContent, beforeToolbar, children, contentProps, pa
             {children}
           </PageContent>
         </div>
-        {afterContent}
       </ScrollContainer>
     </div>
   );

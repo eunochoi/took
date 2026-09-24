@@ -10,7 +10,7 @@ import EmotionFilter from "@/app/(routes)/(app)/diary/_components/EmotionFilter"
 import MonthFilter from "@/app/(routes)/(app)/diary/_components/MonthFilter";
 import { getDiaryList } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
-import AppPageLayout from "@/common/components/layout/AppPageLayout";
+import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from "@/common/components/layout/AppPageLayout";
 import AppPageTitle from "@/common/components/layout/AppPageTitle";
 import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
 import TopButton from "@/common/components/ui/TopButton";
@@ -75,6 +75,7 @@ const DiaryListView = () => {
 
   return (
     <AppPageLayout
+      contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
       beforeToolbar={<AppPageTitle title="일기 목록" description="차곡차곡 쌓이는 나의 하루" />}
       pageRef={wrapperRef}
       showScrollToTop

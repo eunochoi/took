@@ -1,7 +1,7 @@
 'use client';
 
 
-import AppPageLayout from "@/common/components/layout/AppPageLayout";
+import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from "@/common/components/layout/AppPageLayout";
 import AppPageTitle from "@/common/components/layout/AppPageTitle";
 import Wordmark from "@/common/components/ui/Wordmark";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
@@ -29,6 +29,7 @@ const SettingPage = () => {
 
   return (
     <AppPageLayout
+      contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
       beforeToolbar={
         <>
           <div className="mb-8 tablet:hidden"><Wordmark className="text-[48px]" /></div>
