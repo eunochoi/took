@@ -17,7 +17,7 @@ export const AppSectionHeader = forwardRef<HTMLDivElement, DivProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn("flex items-center justify-between gap-3 py-2", className)}
+      className={cn("flex items-baseline justify-between gap-3 py-2", className)}
       {...props}
     />
   ),
