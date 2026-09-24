@@ -6,8 +6,11 @@ import DiaryListViewToolbar from "./_components/DiaryListViewToolbar";
 import { AnimatePresence } from "framer-motion";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
+import Image from 'next/image';
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
+
+import bottomCat from '/public/img/bottom-cat.png';
 
 import EmotionFilter from "@/app/(routes)/(app)/diary/_components/EmotionFilter";
 import MonthFilter from "@/app/(routes)/(app)/diary/_components/MonthFilter";
@@ -74,8 +77,13 @@ const DiaryListView = () => {
   return (
     <>
       <AppPageLayout
-        contentWrapperClassName={APP_PAGE_CONTENT_PADDING_CLASS_NAME}
-        appPageTopArea={<AppPageTitle title="일기 목록" description="차곡차곡 쌓이는 나의 하루" />}
+        appPageTopArea={
+          <div className={`bg-theme-accent-light ${APP_PAGE_CONTENT_PADDING_CLASS_NAME}`}>
+            <AppPageTitle title="일기 목록" description="차곡차곡 쌓이는 나의 하루" />
+            <Image src={bottomCat} alt="bottom-cat" className="ml-auto mt-auto block w-full tablet:w-2/3 desktop:w-2/3" />
+          </div>
+        }
+        mainAreaClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
         pageRef={wrapperRef}
         showScrollToTop
         toolbar={

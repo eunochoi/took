@@ -2,7 +2,6 @@
 
 import { getDiaryStats } from '@/common/actions/stats';
 import { authAction } from '@/common/auth/authAction';
-import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
 import { YearRecordHeader } from '@/common/components/ui/AppSection/YearRecordHeader';
 import MonthlyBarChart from '@/common/components/views/HabitInfoView/MonthlyBarChart';
 import { cn } from '@/common/utils/cn';
@@ -26,31 +25,30 @@ const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
 
   return (
     <aside className={cn("hidden w-full flex-col gap-3 desktop:flex desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start", className)}>
-      <AppSurfaceCard className="flex flex-col gap-4">
-        <YearRecordHeader
-          year={year}
-          onPreviousYear={() => onChangeYear(year - 1)}
-          onCurrentYear={() => onChangeYear(new Date().getFullYear())}
-          onNextYear={() => onChangeYear(year + 1)}
-        />
-        <div className="grid grid-cols-2 gap-2">
-          <div className="rounded-theme bg-theme-bg p-3">
-            <span className="text-sm text-theme-text-tertiary">작성된 일기</span>
-            <strong className="mt-1 block text-2xl text-theme-accent">
-              {isPending ? '—' : `${data?.totalCount ?? 0}개`}
-            </strong>
-          </div>
-          <div className="rounded-theme bg-theme-bg p-3">
-            <span className="text-sm text-theme-text-tertiary">총 텍스트</span>
-            <strong className="mt-1 block text-2xl text-theme-accent">
-              {isPending ? '—' : formattedTextLength}
-            </strong>
-          </div>
+      <YearRecordHeader
+        year={year}
+        onPreviousYear={() => onChangeYear(year - 1)}
+        onCurrentYear={() => onChangeYear(new Date().getFullYear())}
+        onNextYear={() => onChangeYear(year + 1)}
+      />
+      <div className="grid grid-cols-2 divide-x divide-theme-border/60 py-3 text-center">
+        <div className="flex min-w-0 flex-col gap-1 px-2">
+          <span className="text-sm text-theme-text-secondary">작성된 일기</span>
+          <strong className="font-title text-3xl text-theme-accent">
+            {isPending ? '—' : `${data?.totalCount ?? 0}개`}
+          </strong>
         </div>
-        <MonthlyBarChart
-          data={data?.monthlyCount}
-        />
-      </AppSurfaceCard>
+        <div className="flex min-w-0 flex-col gap-1 px-2">
+          <span className="text-sm text-theme-text-secondary">총 텍스트</span>
+          <strong className="font-title text-3xl text-theme-accent">
+            {isPending ? '—' : formattedTextLength}
+          </strong>
+        </div>
+      </div>
+      <MonthlyBarChart
+        data={data?.monthlyCount}
+        rootClassName="!rounded-none !bg-transparent !p-0 !shadow-none"
+      />
     </aside>
   );
 };
