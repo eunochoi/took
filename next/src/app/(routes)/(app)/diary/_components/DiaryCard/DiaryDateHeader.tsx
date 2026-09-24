@@ -1,10 +1,10 @@
 import DiaryMenus from '@/common/components/ui/Diary/DiaryMenus';
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { EMOTIONS } from '@/common/constants/emotions';
 import type { DiaryData } from '@/common/types/diary';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { MdMoreVert } from 'react-icons/md';
 
@@ -31,7 +31,7 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
   return (
     <div className="relative flex min-w-0 w-full items-center gap-3">
       {emotion && (
-        <Image src={emotion.src} width={36} height={36} alt="" className="h-9 w-9 shrink-0 object-contain" />
+        <EmotionImage emotion={emotion} width={36} height={36} alt="" className="h-9 w-9 shrink-0 object-contain" />
       )}
       <div className="flex min-w-0 flex-col gap-0.5">
         {emotion && <span className="text-lg font-semibold text-theme-accent">{emotion.nameKr}</span>}

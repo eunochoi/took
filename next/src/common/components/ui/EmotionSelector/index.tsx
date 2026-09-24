@@ -1,7 +1,7 @@
 'use client';
 
-import Image from "next/image";
 
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { EMOTIONS } from "@/common/constants/emotions";
 import { EMOTION_UNSELECTED } from "@/common/constants/filterDefaults";
 import { cn } from "@/common/utils/cn";
@@ -32,12 +32,12 @@ export const EmotionSelector = ({ value, onChange }: EmotionSelectorProps) => {
         onClick={() => handleClick(emotion.id)}
         type="button"
       >
-        <Image
+        <EmotionImage
           className={cn(
             "h-11 w-11 shrink-0 object-contain transition-opacity duration-200 ease-in-out",
             selected ? "opacity-100" : "opacity-50",
           )}
-          src={emotion.src}
+          emotion={emotion}
           alt={emotion.nameKr}
           width={128}
           height={128}

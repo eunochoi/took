@@ -1,8 +1,8 @@
 'use client';
 
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { addMonths, format } from 'date-fns';
-import Image from 'next/image';
 import type { CSSProperties } from 'react';
 import { useEffect } from 'react';
 
@@ -13,8 +13,8 @@ import { CalendarDay } from '@/common/components/ui/Calendar/CalendarDay';
 import { CalendarGrid } from '@/common/components/ui/Calendar/CalendarGrid';
 import { CalendarDayModel, useMonthCalendar } from '@/common/components/ui/Calendar/useMonthCalendar';
 import { useMonthSwipe } from '@/common/components/ui/Calendar/useMonthSwipe';
-import { Emotion, EMOTIONS } from '@/common/constants/emotions';
 import { CALENDAR_BADGE_SCALE } from '@/common/constants/calendar';
+import { Emotion, EMOTIONS } from '@/common/constants/emotions';
 import type { DateKey, DiaryHabitDayData } from '@/common/types/calendar';
 import { cn } from '@/common/utils/cn';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
@@ -104,8 +104,8 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
                 <span>{!hasDecoration && day.dayNumber}</span>
                 <span className="relative w-[90%] tablet:w-[75%] h-[auto] flex items-center justify-center">
                   {record?.hasDiary && emotion && (
-                    <Image
-                      src={emotion.src}
+                    <EmotionImage
+                      emotion={emotion}
                       alt={`${day.dateKey}[${emotion.name}]`}
                       className={cn(
                         'object-contain',

@@ -1,5 +1,5 @@
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import { EMOTIONS } from '@/common/constants/emotions';
 import { useState } from 'react';
 import { MdChevronRight, MdOutlineEmojiEmotions } from 'react-icons/md';
@@ -28,7 +28,7 @@ const DiaryFormEmotionSection = ({
       >
         <span className="flex h-14 w-14 shrink-0 items-center justify-center">
           {selectedEmotion ? (
-            <Image src={selectedEmotion.src} alt="" width={48} height={48} className="h-12 w-12 object-contain" />
+            <EmotionImage emotion={selectedEmotion} alt="" width={48} height={48} className="h-12 w-12 object-contain" />
           ) : (
             <MdOutlineEmojiEmotions aria-hidden="true" className="h-11 w-11 text-theme-text-tertiary" />
           )}

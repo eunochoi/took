@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { MdLowPriority } from "react-icons/md";
 
+import { EmotionIconStyleSelector } from "./EmotionIconStyleSelector";
 import { FontSizeSelector } from "./FontSizeSelector";
 import { FontTypeSelector } from "./FontTypeSelector";
 import { SettingItem } from "./SettingItem";
@@ -16,7 +17,10 @@ export const ThemeSettingsSection = () => {
 
   return (
     <SettingSectionCard>
-      <SettingSubsection title="테마">
+      <SettingSubsection title="감정 아이콘">
+        <EmotionIconStyleSelector />
+      </SettingSubsection>
+      <SettingSubsection title="테마 색상">
         <SettingItem
           settingItemKey="강조 색상"
           settingItemValue={<ThemeColorSelector />}
@@ -26,7 +30,6 @@ export const ThemeSettingsSection = () => {
           settingItemValue={<ThemeModeSelector />}
         />
       </SettingSubsection>
-
       <SettingSubsection title="폰트">
         <SettingItem
           settingItemKey="폰트 크기 선택"

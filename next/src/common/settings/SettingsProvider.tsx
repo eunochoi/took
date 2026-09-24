@@ -9,6 +9,8 @@ import { SettingsContext } from './SettingsContext';
 export function SettingsProvider({ children }: { children: ReactNode }) {
   //load setting value, setter in local storage
   const {
+    emotionIconStyle,
+    setEmotionIconStyle,
     fontSize,
     fontType,
     accent,
@@ -25,6 +27,10 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   });
 
   const value = useMemo(() => ({
+    emotionIcon: {
+      style: emotionIconStyle,
+      setStyle: setEmotionIconStyle,
+    },
     font: {
       size: fontSize,
       type: fontType,
@@ -37,7 +43,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       setAccent,
       setMode,
     }
-  }), [fontSize, fontType, accent, mode, setFontSize, setFontType, setAccent, setMode]);
+  }), [emotionIconStyle, setEmotionIconStyle, fontSize, fontType, accent, mode, setFontSize, setFontType, setAccent, setMode]);
 
   return (
     <SettingsContext.Provider value={value}>

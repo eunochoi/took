@@ -1,7 +1,7 @@
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { DiaryHabits } from "@/common/components/ui/Diary/DiaryHabits";
 import { EMOTIONS } from "@/common/constants/emotions";
 import type { DiaryData } from "@/common/types/diary";
-import Image from "next/image";
 
 interface ZoomViewEntryProps {
   diaryData: DiaryData;
@@ -13,9 +13,9 @@ export const ZoomViewEntry = ({ diaryData }: ZoomViewEntryProps) => {
   return (
     <article className="flex min-w-0 flex-col gap-6 landscape-short:gap-4" aria-label="일기">
       <div className="flex items-center gap-5">
-        <Image
+        <EmotionImage
           className="h-20 w-20 shrink-0 object-contain landscape-short:h-14 landscape-short:w-14"
-          src={emotion.src}
+          emotion={emotion}
           alt=""
           width={80}
           height={80}

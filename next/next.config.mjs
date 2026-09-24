@@ -24,7 +24,7 @@ const withPWA = nextPWA({
       revision: '1',
     },
     {
-      url: '/img/emotion/sad.png',
+      url: '/img/emotion/basic/sad.png',
       revision: '1',
     },
   ],

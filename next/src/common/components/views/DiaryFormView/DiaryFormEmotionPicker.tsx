@@ -1,7 +1,7 @@
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { EMOTIONS } from '@/common/constants/emotions';
 import { cn } from '@/common/utils/cn';
 import { motion, useIsPresent } from 'framer-motion';
-import Image from 'next/image';
 import { useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { MdCheck, MdClose } from 'react-icons/md';
@@ -86,7 +86,7 @@ const DiaryFormEmotionPicker = ({ emotion, onClose, onConfirm }: DiaryFormEmotio
                     draftEmotion === item.id ? 'border-theme-accent bg-theme-accent/10' : 'border-transparent tablet:hover:bg-theme-accent/5',
                   )}
                 >
-                  <Image src={item.src} alt="" width={48} height={48} className="h-11 w-11 max-w-full object-contain tablet:h-12 tablet:w-12" />
+                  <EmotionImage emotion={item} alt="" width={48} height={48} className="h-11 w-11 max-w-full object-contain tablet:h-12 tablet:w-12" />
                   <span className="text-xs font-medium">{item.nameKr}</span>
                   {draftEmotion === item.id && <MdCheck aria-hidden="true" className="absolute -right-1 -top-1 h-5 w-5 rounded-full bg-theme-accent p-0.5 text-theme-text-on-accent" />}
                 </button>

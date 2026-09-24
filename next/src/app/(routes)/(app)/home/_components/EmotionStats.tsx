@@ -1,6 +1,6 @@
 'use client';
 
-import Image from "next/image";
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { useMemo, useState } from "react";
 
 import { AppSurfaceCard } from "@/common/components/ui/AppSection/card";
@@ -61,9 +61,9 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
           {EMOTIONS.map((emotion) => (
             <div key={emotion.id} className="flex flex-col min-w-0 justify-center items-center gap-1">
               <span className="relative">
-                <Image
+                <EmotionImage
                   className="h-12 w-12 shrink-0 object-contain"
-                  src={emotion.src}
+                  emotion={emotion}
                   alt={emotion.nameKr}
                   width={56}
                   height={56}

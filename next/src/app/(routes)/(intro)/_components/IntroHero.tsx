@@ -1,3 +1,4 @@
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import Image from 'next/image';
 
 import Carousel from '@/common/components/ui/Carousel';
@@ -29,7 +30,7 @@ const IntroHero = ({ images }: Props) => {
 
           <div aria-hidden="true" className="flex items-center gap-3">
             {[EMOTIONS[0], EMOTIONS[3], EMOTIONS[2]].map((emotion) => (
-              <Image key={emotion.id} src={emotion.src} alt="" width={44} height={44} />
+              <EmotionImage key={emotion.id} emotion={emotion} alt="" width={44} height={44} />
             ))}
           </div>
 

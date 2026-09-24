@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { MdLockOutline, MdLogin, MdPalette } from 'react-icons/md';
 
 import { ScrollContainer } from '@/common/components/ui/ScrollContainer';
@@ -87,7 +87,7 @@ const IntroView = () => {
         <Wordmark className="text-5xl desktop:text-6xl" />
         <div aria-hidden="true" className="flex items-center gap-3">
           {[EMOTIONS[1], EMOTIONS[3], EMOTIONS[2]].map((emotion) => (
-            <Image key={emotion.id} src={emotion.src} alt="" width={44} height={44} />
+            <EmotionImage key={emotion.id} emotion={emotion} alt="" width={44} height={44} />
           ))}
         </div>
         <h2 className="m-0 break-keep text-center text-3xl font-bold capitalize leading-tight text-theme-text-primary desktop:text-4xl desktop:leading-[1.18]">

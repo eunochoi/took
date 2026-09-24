@@ -1,6 +1,6 @@
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { EMOTIONS } from '@/common/constants/emotions';
 import { cn } from '@/common/utils/cn';
-import Image from 'next/image';
 import { ReactNode } from 'react';
 
 interface Button {
@@ -20,9 +20,10 @@ export const ErrorPage = ({ title, description, buttons = [] }: ErrorPageProps) 
     <div className="flex h-[100dvh] w-[100dvw] items-center justify-center bg-theme-bg p-5 text-theme-text-primary">
       <div className="flex w-full max-w-[420px] flex-col items-center gap-4 rounded-theme bg-theme-surface px-6 py-9 text-center shadow-theme-floating backdrop-blur-xl">
         <div className="flex items-center justify-center leading-none">
-          <Image
+          <EmotionImage
+            unoptimized
             className="h-24 w-24 brightness-110"
-            src={EMOTIONS[6].src}
+            emotion={EMOTIONS[6]}
             alt={EMOTIONS[6].nameKr}
             width={128}
             height={128}

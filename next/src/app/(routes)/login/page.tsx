@@ -1,6 +1,6 @@
 'use client';
 
-import Image from "next/image";
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { FiBookOpen, FiCheckCircle, FiHeart } from "react-icons/fi";
@@ -49,7 +49,7 @@ const Page = () => {
           </div>
           <div aria-hidden="true" className="flex items-center gap-3 mt-4">
             {[EMOTIONS[0], EMOTIONS[6], EMOTIONS[3]].map((emotion) => (
-              <Image key={emotion.id} src={emotion.src} alt="" width={64} height={64} />
+              <EmotionImage key={emotion.id} emotion={emotion} alt="" width={64} height={64} />
             ))}
           </div>
           <p className="mt-6 hidden text-sm tracking-[-0.02em] text-theme-text-secondary desktop:block">

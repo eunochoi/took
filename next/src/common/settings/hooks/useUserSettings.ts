@@ -2,11 +2,12 @@
 
 import { useCurrentUser } from '@/common/hooks/useCurrentUser';
 import { useLocalStorage } from '@/common/hooks/useLocalStorage';
-import { FONT_SIZE_LIST, FONT_TYPE_LIST, FontSize, FontType, LocalSettingValue } from '@/common/types/setting';
+import { DEFAULT_EMOTION_ICON_STYLE, EMOTION_ICON_STYLE_LIST, EmotionIconStyle, FONT_SIZE_LIST, FONT_TYPE_LIST, FontSize, FontType, LocalSettingValue } from '@/common/types/setting';
 import { THEME_LOCAL_STORAGE_KEY, THEME_MODE_LIST, THEME_NAME_LIST, ThemeMode, ThemeName, ThemePreference } from '@/common/types/theme';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export const useUserSettings = () => {
+  const [hasMounted, setHasMounted] = useState(false);
   const { data: user } = useCurrentUser();
   const key = `took:${user?.email}:setting`;
 
@@ -15,6 +16,7 @@ export const useUserSettings = () => {
     setStoredValue: setSetting,
     isStorageReady: isUserSettingStorageReady,
   } = useLocalStorage<LocalSettingValue>(key, {
+    emotionIconStyle: DEFAULT_EMOTION_ICON_STYLE,
     font: {
       size: '보통',
       type: '타입1',
@@ -35,6 +37,19 @@ export const useUserSettings = () => {
   const fontType = setting?.font?.type;
   const accent = setting?.theme?.accent;
   const mode = setting?.theme?.mode;
+  const emotionIconStyle = hasMounted && setting?.emotionIconStyle && EMOTION_ICON_STYLE_LIST.includes(setting.emotionIconStyle)
+    ? setting.emotionIconStyle
+    : DEFAULT_EMOTION_ICON_STYLE;
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  const setEmotionIconStyle = useCallback((style: EmotionIconStyle) => {
+    if (EMOTION_ICON_STYLE_LIST.includes(style)) {
+      setSetting((prev) => ({ ...prev, emotionIconStyle: style }));
+    }
+  }, [setSetting]);
 
   useEffect(() => {
     if (!user?.email || !isUserSettingStorageReady || !mode || !accent) {
@@ -100,6 +115,8 @@ export const useUserSettings = () => {
   }, [setLocalTheme, setSetting]);
 
   return {
+    emotionIconStyle,
+    setEmotionIconStyle,
     fontSize,
     fontType,
     accent,
