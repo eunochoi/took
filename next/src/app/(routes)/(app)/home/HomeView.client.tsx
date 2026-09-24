@@ -1,44 +1,27 @@
 'use client';
 
-import EmotionImage from '@/common/components/ui/EmotionImage';
-import { AnimatePresence } from "framer-motion";
-
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import { MdCalendarMonth } from "react-icons/md";
 
-
-
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import ToolbarButton from "@/common/components/ui/ToolbarButton";
-import Wordmark from "@/common/components/ui/Wordmark";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-
-import { EMOTIONS } from "@/common/constants/emotions";
-import { useSettingsContext } from '@/common/settings/useSettingsContext';
-import { cn } from '@/common/utils/cn';
-import { format } from "date-fns";
-import { ko } from "date-fns/locale";
+import { AnimatePresence } from 'framer-motion';
+import AppPageTopArea from './_components/AppPageTopArea';
 import DiaryAnalysis from "./_components/DiaryAnalysis";
 import EmotionStats from "./_components/EmotionStats";
 import HabitAnalysis from "./_components/HabitAnalysis";
 import TodayRecordSection from "./_components/TodayRecordSection";
-import YearFilter from "./_components/YearFilter";
-
-const GREETING_TEXT = {
-  title: '오늘도 하나씩',
-  sub: ['감정도 툭, 습관도 툭!', '조금 더 나은 나로 To OK.']
-}
+import YearFilter from './_components/YearFilter';
 
 const HomeView = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
-  const { emotionIcon } = useSettingsContext();
-  const today = format(new Date(initialDate), 'M월 d일 EEEE', { locale: ko });
   const currentYear = getYear(new Date());
   const searchParams = useSearchParams();
   const queryYear = Number(searchParams.get('year'));
@@ -72,85 +55,63 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
   }, [availableYears, currentYear]);
 
   return (
-    <AppPageLayout
-      beforeToolbar={
-        <div className="flex flex-col gap-8">
-          <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
-          <div className="flex flex-col font-title gap-4 desktop:gap-8">
-            <span className="m-0 text-2xl font-semibold text-theme-text-secondary">{today}</span>
-            <h1 className="flex gap-4 items-center m-0 h-10 desktop:h-12">
-              <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
-              <EmotionImage
-                emotion={EMOTIONS[1]}
-                alt="greeting emotion icon"
-                className={cn(emotionIcon.style === 'basic' ? "mb-4" : "mb-2",
-                  "rotate-[5deg] h-16 w-auto animate-rotate-slow")} />
-            </h1>
-            <div className="m-0 text-lg font-semibold desktop:text-xl desktop:mb-4 leading-relaxed text-theme-text-secondary">
-              <p>{GREETING_TEXT.sub[0]}</p>
-              <p>{GREETING_TEXT.sub[1]}</p>
-            </div>
-          </div>
-          <div className="mb-4 desktop:hidden">
+    <>
+      <AppPageLayout
+        appPageTopArea={<AppPageTopArea initialDate={initialDate} />}
+        showScrollToTop
+        toolbar={
+          <>
+            <ToolbarButton onClick={openYearFilter}>
+              <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
+              {selectedYear}년
+            </ToolbarButton>
+          </>
+        }
+        contentProps={{
+          className: "flex-1 gap-3 max-tablet:gap-5 tablet:gap-6",
+        }}>
+        <div className="grid w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6">
+          <div className="hidden desktop:block min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
             <TodayRecordSection initialDate={initialDate} />
           </div>
-        </div>
-      }
-      showScrollToTop
-      toolbar={
-        <>
-          <ToolbarButton onClick={openYearFilter}>
-            <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
-            {selectedYear}년
-          </ToolbarButton>
-        </>
-      }
-      contentProps={{
-        className: "flex-1 gap-3 max-tablet:gap-5 tablet:gap-6",
-      }}
-      afterContent={
-        <AnimatePresence>
-          {isYearFilterOpen && (
-            <YearFilter
-              key="year-filter"
-              onClose={() => closeYearFilter()}
-              years={years}
-              selectedYear={selectedYear}
-              onApplyYear={(year) => {
-                const params = new URLSearchParams(searchParams);
-                params.delete('modal');
 
-                if (year === currentYear) params.delete('year');
-                else params.set('year', year.toString());
-
-                closeYearFilter(params);
-              }}
+          <div
+            className="flex min-w-0 flex-col gap-14 desktop:col-start-1 desktop:row-start-1"
+          >
+            <DiaryAnalysis
+              stats={diaryStats}
+              year={selectedYear}
             />
-          )}
-        </AnimatePresence>
-      }>
-      <div className="grid w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6">
-        <div className="hidden desktop:block min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
-          <TodayRecordSection initialDate={initialDate} />
+            <EmotionStats
+              emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+              halfYearEmotionCounts={diaryStats?.halfYearEmotionCounts ?? Array(2).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+            />
+            <HabitAnalysis
+              stats={habitStats}
+            />
+          </div>
         </div>
+      </AppPageLayout>
+      <AnimatePresence>
+        {isYearFilterOpen && (
+          <YearFilter
+            key="year-filter"
+            onClose={() => closeYearFilter()}
+            years={years}
+            selectedYear={selectedYear}
+            onApplyYear={(year) => {
+              const params = new URLSearchParams(searchParams);
+              params.delete('modal');
 
-        <div
-          className="flex min-w-0 flex-col gap-14 desktop:col-start-1 desktop:row-start-1"
-        >
-          <DiaryAnalysis
-            stats={diaryStats}
-            year={selectedYear}
+              if (year === currentYear) params.delete('year');
+              else params.set('year', year.toString());
+
+              closeYearFilter(params);
+            }}
           />
-          <EmotionStats
-            emotionCounts={diaryStats?.emotionCounts ?? [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
-            halfYearEmotionCounts={diaryStats?.halfYearEmotionCounts ?? Array(2).fill(null).map(() => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
-          />
-          <HabitAnalysis
-            stats={habitStats}
-          />
-        </div>
-      </div>
-    </AppPageLayout>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

@@ -7,9 +7,7 @@ import { ScrollContainer } from "../ui/ScrollContainer";
 import { PageContent, PageContentProps } from "./PageContent";
 
 interface Props {
-  afterContent?: ReactNode;
   appPageTopArea?: ReactNode;
-  beforeToolbar?: ReactNode;
   children: ReactNode;
   contentWrapperClassName?: string;
   contentProps?: PageContentProps;
@@ -20,7 +18,7 @@ interface Props {
 
 export const APP_PAGE_CONTENT_PADDING_CLASS_NAME = "px-[4dvw] pt-8 tablet:px-9 tablet:pt-6 desktop:px-14";
 
-const AppPageLayout = ({ afterContent, appPageTopArea, beforeToolbar, children, contentWrapperClassName, contentProps, pageRef, showScrollToTop = false, toolbar }: Props) => {
+const AppPageLayout = ({ appPageTopArea, children, contentWrapperClassName, contentProps, pageRef, showScrollToTop = false, toolbar }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const hasToolbar = Boolean(toolbar);
@@ -49,7 +47,7 @@ const AppPageLayout = ({ afterContent, appPageTopArea, beforeToolbar, children, 
         showScrollToTop={showScrollToTop}
       >
         <div className={cn("flex w-full max-w-[650px] flex-1 flex-col desktop:max-w-[1080px]", contentWrapperClassName)}>
-          {appPageTopArea ?? beforeToolbar}
+          {appPageTopArea}
           {hasToolbar && (
             <div ref={toolbarRef} data-component="pageToolbar" className="sticky top-0 z-[91] mb-4 flex flex-wrap items-center gap-2 py-3">
               {toolbar}
@@ -60,7 +58,6 @@ const AppPageLayout = ({ afterContent, appPageTopArea, beforeToolbar, children, 
           </PageContent>
         </div>
       </ScrollContainer>
-      {afterContent}
     </div>
   );
 };
