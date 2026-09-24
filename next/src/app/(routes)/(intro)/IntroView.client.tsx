@@ -1,16 +1,17 @@
 'use client';
 
-import EmotionImage from '@/common/components/ui/EmotionImage';
 import { MdLockOutline, MdLogin, MdPalette } from 'react-icons/md';
 
 import { ScrollContainer } from '@/common/components/ui/ScrollContainer';
 import Wordmark from '@/common/components/ui/Wordmark';
-import { EMOTIONS } from '@/common/constants/emotions';
+import Image from 'next/image';
 import IntroActionButtons from './_components/IntroActionButtons';
 import IntroHero from './_components/IntroHero';
 import IntroInfoCard from './_components/IntroInfoCard';
 import IntroSection from './_components/IntroSection';
 import { INTRO_IMAGES } from './_constants/images';
+import bottomCat from '/public/img/bottom-cat.png';
+
 
 const HOME_IMAGES = [INTRO_IMAGES.habitinfo1, INTRO_IMAGES.habitinfo2, INTRO_IMAGES.calendar];
 const RECORD_IMAGES = [INTRO_IMAGES.calendar, INTRO_IMAGES.list, INTRO_IMAGES.list2, INTRO_IMAGES.zoom1];
@@ -82,21 +83,13 @@ const IntroView = () => {
         </div>
       </section>
 
-      <section className="flex flex-col items-center gap-5 bg-theme-surface px-5 py-16 desktop:gap-6 desktop:px-6 desktop:py-[82px]">
-        <Wordmark className="text-5xl desktop:text-6xl" />
-        <div aria-hidden="true" className="flex items-center gap-3">
-          {[EMOTIONS[1], EMOTIONS[3], EMOTIONS[2]].map((emotion) => (
-            <EmotionImage key={emotion.id} emotion={emotion} alt="" width={44} height={44} />
-          ))}
-        </div>
-        <h2 className="m-0 break-keep text-center text-3xl font-bold capitalize leading-tight text-theme-text-primary desktop:text-4xl desktop:leading-[1.18]">
-          툭! 오늘도 하나씩 :)
-        </h2>
-        <p className="m-0 flex flex-col gap-1 break-keep text-center text-lg leading-normal text-theme-text-secondary desktop:text-xl desktop:leading-[1.7]">
-          <span>툭, 무심히 습관 발도장을 찍고</span>
-          <span>더 나은 나에게 OK를 건네세요.</span>
-        </p>
+      <section className="flex flex-col items-center gap-5 bg-theme-surface px-5 py-16 !pb-0 desktop:gap-6 desktop:px-6 desktop:py-[82px]">
+        <Wordmark className="!text-6xl desktop:!text-8xl" />
+        <span className="rounded-full bg-theme-bg px-3 py-1 border border-theme-accent/30 text-sm font-semibold tracking-[0.08em] text-theme-accent">
+          EMOTION DIARY & HABIT TRACKER
+        </span>
         <IntroActionButtons className="mt-3 max-w-[620px]" />
+        <Image src={bottomCat} alt="bottom-cat" className='tablet:ml-auto tablet:w-[70dvw] desktop:w-[50dvw]' />
       </section>
     </ScrollContainer>
   );

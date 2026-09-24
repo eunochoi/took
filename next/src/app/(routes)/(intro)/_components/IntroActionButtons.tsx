@@ -17,7 +17,7 @@ interface IntroActionButtonsProps {
 }
 
 const buttonLayoutClass = "inline-flex min-h-[46px] items-center justify-center gap-2 whitespace-nowrap px-4 max-[420px]:flex-[1_1_100%]";
-const buttonThemeClass = "rounded-theme font-title text-base font-medium leading-none text-theme-text-primary shadow-card";
+const buttonThemeClass = "rounded-theme font-title text-base font-medium leading-none text-theme-text-primary shadow-card border border-theme-accent/30";
 const buttonMotionClass = "transition-[transform,background-color] duration-[180ms] active:translate-y-px";
 const buttonClass = cn(buttonLayoutClass, buttonThemeClass, buttonMotionClass);
 const iconClass = "h-5 w-5 shrink-0";
