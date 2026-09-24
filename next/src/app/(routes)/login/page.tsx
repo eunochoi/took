@@ -47,11 +47,6 @@ const Page = () => {
               습관과 감정을 기록하며,<br className="desktop:hidden" /> 나만의 속도로 쌓아가는 하루.
             </p>
           </div>
-          <div aria-hidden="true" className="flex items-center gap-3 mt-4">
-            {[EMOTIONS[0], EMOTIONS[6], EMOTIONS[3]].map((emotion) => (
-              <EmotionImage key={emotion.id} emotion={emotion} alt="" width={64} height={64} />
-            ))}
-          </div>
           <p className="mt-6 hidden text-sm tracking-[-0.02em] text-theme-text-secondary desktop:block">
             완벽하지 않아도 괜찮아요. 오늘도, 조금 더 나답게.
           </p>
@@ -59,32 +54,32 @@ const Page = () => {
 
         <section
           aria-labelledby="login-title"
-          className="flex flex-col items-center bg-theme-surface px-6 py-16">
-          <div className="flex w-full max-w-[340px] flex-1 flex-col items-center justify-center">
-            <div className="text-center desktop:mt-10">
+          className="flex flex-col items-center gap-10 bg-theme-surface px-6 py-16">
+          <div className="flex w-full max-w-[340px] flex-1 flex-col items-center justify-center gap-9 desktop:gap-11">
+            <div className="flex flex-col gap-3 text-center desktop:gap-4">
               <h2 id="login-title" className="text-[24px] font-bold leading-tight tracking-[-0.035em] desktop:text-[28px]">
                 {isSuccess ? '다시 만나서 반가워요' : '나의 하루를 시작해요'}
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-theme-text-secondary desktop:mt-4 desktop:text-base">
+              <p className="text-sm leading-relaxed text-theme-text-secondary desktop:text-base">
                 작은 기록이 모여,<br />
                 더 좋은 나를 만들어 갈 거예요.
               </p>
             </div>
 
-            <div className="mt-7 flex w-full flex-col items-center gap-4 desktop:mt-10">
+            <div className="flex w-full flex-col items-center gap-4">
               {isSuccess ? (
                 <StartButton provider={user.provider as 'google' | 'naver' | 'kakao'} email={user.email} />
               ) : (
                 <LoginButton provider='google' />
               )}
-              <div className="flex h-7 shrink-0 items-center justify-center">
-                {isSuccess && (
+              {isSuccess && (
+                <div className="flex h-7 shrink-0 items-center justify-center">
                   <button className="h-full px-3 text-sm text-theme-text-secondary" onClick={logout} type="button">로그아웃</button>
-                )}
-              </div>
+                </div>
+              )}
             </div>
 
-            <div className="my-7 flex w-full items-center gap-4 desktop:my-9">
+            <div className="flex w-full items-center gap-4">
               <span className="h-px flex-1 bg-theme-border-muted" />
               <span className="text-xs text-theme-text-tertiary">나만의 하루를 한곳에</span>
               <span className="h-px flex-1 bg-theme-border-muted" />
@@ -96,20 +91,26 @@ const Page = () => {
                 { label: '일기', description: '오늘의 감정을', detail: '기록해요.', icon: FiBookOpen },
                 { label: '돌아보기', description: '기록 속 생활 흐름을', detail: '이해해요.', icon: FiHeart },
               ].map(({ label, description, detail, icon: Icon }) => (
-                <li key={label} className="flex flex-col items-center rounded-2xl bg-theme-bg/60 px-2 py-4 desktop:py-5">
-                  <Icon aria-hidden="true" className="mb-3 h-5 w-5 text-theme-accent" />
+                <li key={label} className="flex flex-col items-center gap-3 rounded-2xl bg-theme-bg/60 px-2 py-4 desktop:py-5">
+                  <Icon aria-hidden="true" className="h-5 w-5 text-theme-accent" />
                   <span className="text-sm font-semibold">{label}</span>
-                  <p className="mt-2 text-[11px] leading-relaxed text-theme-text-secondary tablet:text-xs">
+                  <p className="text-[11px] leading-relaxed text-theme-text-secondary tablet:text-xs">
                     {description}<br />{detail}
                   </p>
                 </li>
               ))}
             </ul>
           </div>
-
-          <p className="mt-8 text-center text-xs tracking-[-0.01em] text-theme-text-tertiary desktop:mt-12">
-            오늘도, 조금 더 나다운 나에게.
-          </p>
+          <div className="flex flex-col items-center gap-4">
+            <div aria-hidden="true" className="flex items-center gap-3">
+              {[EMOTIONS[0], EMOTIONS[6], EMOTIONS[3]].map((emotion) => (
+                <EmotionImage key={emotion.id} emotion={emotion} alt="" width={64} height={64} />
+              ))}
+            </div>
+            <p className="text-center text-xs tracking-[-0.01em] text-theme-text-tertiary">
+              오늘도, 조금 더 나다운 나에게.
+            </p>
+          </div>
         </section>
       </div>
     </main>
