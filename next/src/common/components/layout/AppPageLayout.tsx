@@ -44,7 +44,7 @@ const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassNam
         ref={pageRef}
         className="flex min-h-0 flex-1 flex-col items-center justify-start border-none outline-none"
         contentClassName="flex min-h-full flex-col items-center justify-start"
-        scrollAreaClassName={cn("flex h-full w-full flex-col items-center justify-start", hasTopArea && "snap-y snap-mandatory")}
+        scrollAreaClassName={cn("flex h-full w-full flex-col items-center justify-start", hasTopArea && "snap-y snap-always snap-mandatory")}
         showScrollFade
         showScrollToTop={showScrollToTop}
       >
