@@ -32,7 +32,7 @@ import YearFilter from "./_components/YearFilter";
 
 const GREETING_TEXT = {
   title: '오늘도 하나씩',
-  sub: ['감정도 툭, 습관도 툭!', '조금씩 더 나은 나로 To OK.']
+  sub: ['감정도 툭, 습관도 툭!', '조금 더 나은 나로 To OK.']
 }
 
 const HomeView = ({ initialDate }: { initialDate: string }) => {
