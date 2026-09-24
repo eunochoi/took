@@ -1,11 +1,9 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { closeSnackbar, enqueueSnackbar } from 'notistack';
-import { MdInstallMobile, MdLanguage } from 'react-icons/md';
 import { FaGooglePlay } from 'react-icons/fa';
+import { MdInstallMobile, MdLanguage } from 'react-icons/md';
 
-import { SnackBarAction } from '@/common/providers/snackbar/SnackBarAction';
 import { cn } from '@/common/utils/cn';
 import { usePwaInstall } from '../_hooks/usePwaInstall';
 
@@ -27,24 +25,7 @@ const IntroActionButtons = ({ tone = 'light', className }: IntroActionButtonsPro
   const { installPwa } = usePwaInstall();
 
   const startInWeb = () => {
-    const action = () => (
-      <SnackBarAction
-        yesAction={() => {
-          closeSnackbar('startInWeb');
-          router.push('/login');
-        }}
-        noAction={() => closeSnackbar('startInWeb')}
-      />
-    );
-
-    enqueueSnackbar(
-      <div>
-        <p>웹에서 계속 진행하시겠습니까?</p>
-        <p className="mt-2 text-base text-theme-danger">실행 환경에 따라 레이아웃이 어긋날 수 있습니다.</p>
-        <p className="text-base text-theme-danger">원활한 이용을 위해 앱 설치를 권장합니다.</p>
-      </div>,
-      { key: 'startInWeb', persist: false, action, autoHideDuration: 3000 }
-    );
+    router.push('/login');
   };
 
   return (
