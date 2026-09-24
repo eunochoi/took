@@ -35,7 +35,7 @@ export const AppSurfaceCard = forwardRef<HTMLDivElement, DivProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(appCardClass, "w-full p-4 tablet:p-5", className)}
+      className={cn(appCardClass, "w-full p-3.5 tablet:p-5", className)}
       {...props}
     />
   ),
