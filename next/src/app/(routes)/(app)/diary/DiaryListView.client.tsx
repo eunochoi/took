@@ -80,9 +80,6 @@ const DiaryListView = () => {
         appPageTopArea={<AppPageTitle title="일기 목록" description="차곡차곡 쌓이는 나의 하루" />}
         pageRef={wrapperRef}
         showScrollToTop
-        contentProps={{
-          className: 'flex-1 gap-3 max-tablet:gap-5 tablet:gap-6',
-        }}
         toolbar={<>
           <ToolbarButton
             aria-label="기간 필터"
@@ -106,7 +103,7 @@ const DiaryListView = () => {
           </ToolbarButton>
         </>}
       >
-        <div className="grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
+        <div className="grid flex-1 w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
           <div className="flex min-w-0 flex-col gap-4">
             <div className="flex w-full min-w-0 flex-col gap-4 desktop:self-start">
               {isDiaryListEmpty ? (

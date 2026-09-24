@@ -36,7 +36,6 @@ const SettingPage = () => {
           <AppPageTitle title="설정" description="나에게 편안한 기록 공간을 만들어요" />
         </>
       }
-      contentProps={{ className: "gap-6" }}
       showScrollToTop={false}
       toolbar={<>
         <ToolbarButton

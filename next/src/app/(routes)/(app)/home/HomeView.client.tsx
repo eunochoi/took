@@ -66,11 +66,8 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
               {selectedYear}년
             </ToolbarButton>
           </>
-        }
-        contentProps={{
-          className: "flex-1 gap-3 max-tablet:gap-5 tablet:gap-6",
-        }}>
-        <div className="grid w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6">
+        }>
+        <div className="grid flex-1 w-full min-w-0 grid-cols-1 items-start gap-14 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8 desktop:gap-y-6">
           <div className="hidden desktop:block min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start">
             <TodayRecordSection initialDate={initialDate} />
           </div>
