@@ -7,7 +7,6 @@ import { cn } from "@/common/utils/cn";
 import { ScrollContainer } from "../ui/ScrollContainer";
 import { PageContent } from "./PageContent";
 
-
 interface Props {
   appPageTopArea?: ReactNode;
   appPageMainArea: ReactNode;
@@ -24,6 +23,7 @@ const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassNam
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const hasToolbar = Boolean(toolbar);
+  const hasTopArea = Boolean(appPageTopArea);
 
   useEffect(() => {
     const toolbar = toolbarRef.current;
@@ -44,13 +44,15 @@ const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassNam
         ref={pageRef}
         className="flex min-h-0 flex-1 flex-col items-center justify-start border-none outline-none"
         contentClassName="flex min-h-full flex-col items-center justify-start"
-        scrollAreaClassName="flex h-full w-full flex-col items-center justify-start"
+        scrollAreaClassName={cn("flex h-full w-full flex-col items-center justify-start", hasTopArea && "snap-y snap-mandatory")}
         showScrollFade
         showScrollToTop={showScrollToTop}
       >
-        <PageContent className={cn("flex min-w-0 w-full flex-1 flex-col", contentWrapperClassName)}>
-          {appPageTopArea}
-          <div className={twMerge("w-full h-auto flex flex-col max-tablet:pb-[var(--mobileNav)] tablet:pb-9", mainAreaClassName)} >
+        <PageContent className={cn("flex min-w-0 w-full flex-1 flex-col",
+          contentWrapperClassName)}>
+          {hasTopArea && <div className="w-full shrink-0 snap-start">{appPageTopArea}</div>}
+          <div className={twMerge("w-full h-auto flex flex-col max-tablet:pb-[var(--mobileNav)] tablet:pb-9",
+            hasTopArea ? "snap-start" : undefined, mainAreaClassName)} >
             {hasToolbar && (
               <div ref={toolbarRef} data-component="pageToolbar" className={twMerge("sticky top-0 z-[91] mb-4 flex flex-wrap items-center gap-2 py-4")}>
                 {toolbar}
