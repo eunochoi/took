@@ -46,7 +46,7 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
     <AppSection>
       <AppSectionHeader>
         <AppSectionTitle>감정 기록</AppSectionTitle>
-        <AppSectionMeta>전체 {totalCount}개의 감정 기록</AppSectionMeta>
+        <AppSectionMeta>전체 {totalCount}개</AppSectionMeta>
       </AppSectionHeader>
 
       <AppUnderlineTabs
