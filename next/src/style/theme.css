@@ -1,7 +1,7 @@
 .static-theme-blue {
   --theme-accent: 140 173 226;
   --theme-accent-light: 240 247 255;
-  --theme-accent-deep: 107 137 186;
+  --theme-accent-deep: 124 155 206;
   --theme-bg-light: 246 248 250;
   --theme-bg: 246 248 250;
 }
@@ -9,35 +9,35 @@
 html[data-theme-accent='blue'] {
   --theme-accent: 140 173 226;
   --theme-accent-light: 240 247 255;
-  --theme-accent-deep: 107 137 186;
+  --theme-accent-deep: 124 155 206;
 }
 
 html[data-theme-accent='green'] {
   --theme-accent: 131 198 182;
   --theme-accent-light: 238 250 246;
-  --theme-accent-deep: 104 159 146;
+  --theme-accent-deep: 118 179 164;
 }
 
 html[data-theme-accent='purple'] {
   --theme-accent: 151 159 199;
   --theme-accent-light: 237 237 247;
-  --theme-accent-deep: 119 126 161;
+  --theme-accent-deep: 135 143 180;
 }
 
 html[data-theme-accent='pink'] {
   --theme-accent: 237 165 177;
   --theme-accent-light: 249 241 242;
-  --theme-accent-deep: 199 123 135;
+  --theme-accent-deep: 218 144 156;
 }
 
 html[data-theme-accent='yellow'] {
   --theme-accent: 249 199 79;
   --theme-accent-light: 255 250 240;
-  --theme-accent-deep: 202 160 61;
+  --theme-accent-deep: 226 180 70;
 }
 
 html[data-theme-accent='grey'] {
   --theme-accent: 143 143 143;
   --theme-accent-light: 242 242 242;
-  --theme-accent-deep: 114 114 114;
+  --theme-accent-deep: 129 129 129;
 }
