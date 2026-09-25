@@ -14,7 +14,7 @@ interface Props {
 
 const YearFilter = ({ onClose, years, selectedYear, onApplyYear }: Props) => {
   const [tempYear, setTempYear] = useState(selectedYear);
-  const yearGridClass = "grid w-full grid-cols-3 gap-2.5 overflow-y-auto p-1 max-h-[calc(50dvh-120px)] tablet:max-h-[300px]";
+  const yearGridClass = "grid w-full grid-cols-3 gap-x-4 gap-y-2 overflow-y-auto max-h-[calc(50dvh-120px)] tablet:max-h-[300px]";
 
   const onSubmit = () => {
     onApplyYear(tempYear);
@@ -40,9 +40,10 @@ const YearFilter = ({ onClose, years, selectedYear, onApplyYear }: Props) => {
               <button
                 key={year}
                 className={cn(
-                  "rounded-theme px-2 py-3.5 text-base transition-all duration-200 ease-in-out shadow-theme-action",
-                  selected ? "bg-theme-accent font-semibold text-theme-text-on-accent " : "bg-theme-accent/40 font-normal text-theme-text-primary",
+                  "border-b-2 px-2 py-3 text-base transition-colors duration-200",
+                  selected ? "border-theme-accent font-semibold text-theme-accent" : "border-transparent font-normal text-theme-text-primary",
                 )}
+                aria-pressed={selected}
                 onClick={() => setTempYear(year)}
                 type="button"
               >

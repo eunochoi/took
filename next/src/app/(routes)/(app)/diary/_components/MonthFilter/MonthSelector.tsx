@@ -59,8 +59,8 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
             <button
               key={month}
               className={cn(
-                "flex items-center justify-center rounded-theme text-sm transition-colors duration-500",
-                selected ? "bg-theme-accent text-white" : "text-theme-text-primary",
+                "flex items-center justify-center border-b-2 text-sm transition-colors duration-200",
+                selected ? "border-theme-accent font-semibold text-theme-accent" : "border-transparent text-theme-text-primary",
               )}
               aria-pressed={selected}
               onClick={() => selectMonth(month)}
