@@ -47,7 +47,7 @@ const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
       </div>
       <MonthlyBarChart
         data={data?.monthlyCount}
-        rootClassName="!rounded-none !bg-transparent !p-0 !shadow-none"
+        rootClassName="!p-0"
       />
     </aside>
   );

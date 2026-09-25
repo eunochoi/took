@@ -1,8 +1,6 @@
 import { getHabitYearlyStatus } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
-import { AppCardGrid } from "@/common/components/ui/AppSection/card";
 import { AppSection } from "@/common/components/ui/AppSection/section";
-import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
 import { YearRecordHeader } from "@/common/components/ui/AppSection/YearRecordHeader";
 import { useQuery } from "@tanstack/react-query";
 import { addYears, format, isLeapYear, subYears } from "date-fns";
@@ -38,7 +36,7 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
   };
 
   return (
-    <AppSection className="rounded-theme bg-theme-surface p-4 shadow-card">
+    <AppSection className="py-6 px-2">
       <YearRecordHeader
         year={Number(year)}
         onPreviousYear={preYear}
@@ -46,23 +44,20 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
         onNextYear={nextYear}
       />
 
-      <AppCardGrid columns={2}>
-        <AppStatCard className="!min-h-[100px] !bg-theme-bg !shadow-none">
-          <AppStatLabel>실천 횟수</AppStatLabel>
-          <AppStatValueWrapper>
-            <AppStatValue>{count ?? 0}</AppStatValue>
-            <AppStatUnit>회</AppStatUnit>
-          </AppStatValueWrapper>
-        </AppStatCard>
-
-        <AppStatCard className="!min-h-[100px] !bg-theme-bg !shadow-none">
-          <AppStatLabel>실천율</AppStatLabel>
-          <AppStatValueWrapper>
-            <AppStatValue>{completionRate}</AppStatValue>
-            <AppStatUnit>%</AppStatUnit>
-          </AppStatValueWrapper>
-        </AppStatCard>
-      </AppCardGrid>
+      <div className="grid grid-cols-2 divide-x divide-theme-border/60 py-3 text-center">
+        <div className="flex min-w-0 flex-col gap-1 px-2">
+          <span className="text-sm text-theme-text-secondary">실천 횟수</span>
+          <strong className="font-title text-2xl text-theme-accent">
+            {count ?? 0}<span className="ml-0.5 text-sm font-semibold text-theme-text-secondary">회</span>
+          </strong>
+        </div>
+        <div className="flex min-w-0 flex-col gap-1 px-2">
+          <span className="text-sm text-theme-text-secondary">실천율</span>
+          <strong className="font-title text-2xl text-theme-accent">
+            {completionRate}<span className="ml-0.5 text-sm font-semibold text-theme-text-secondary">%</span>
+          </strong>
+        </div>
+      </div>
 
       <MonthlyBarChart
         data={data}

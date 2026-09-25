@@ -5,9 +5,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 import { getHabitMonthData } from '@/common/actions/habit/getHabitMonthData';
 import { authAction } from '@/common/auth/authAction';
-import { AppCardGrid } from '@/common/components/ui/AppSection/card';
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from '@/common/components/ui/AppSection/section';
-import { AppStatCard, AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from '@/common/components/ui/AppSection/stat';
 import { useMonthCalendar } from '@/common/components/ui/Calendar/useMonthCalendar';
 
 import HabitMonthCalendar from './HabitMonthCalendar';
@@ -34,7 +32,7 @@ const MonthInfo = ({ habitId, today }: Props) => {
   ];
 
   return (
-    <AppSection className="rounded-theme bg-theme-surface p-4 shadow-card">
+    <AppSection className="py-6 px-2">
       <AppSectionHeader className="!gap-1 !py-0">
         <AppSectionTitle className="shrink-0 !text-lg">월별 기록</AppSectionTitle>
         <div className="flex shrink-0 items-center text-theme-accent">
@@ -50,17 +48,16 @@ const MonthInfo = ({ habitId, today }: Props) => {
         </div>
       </AppSectionHeader>
 
-      <AppCardGrid columns={3}>
+      <div className="grid grid-cols-3 divide-x divide-theme-border/60 py-3 text-center">
         {stats.map((stat) => (
-          <AppStatCard key={stat.label} className="!min-h-[100px] !bg-theme-bg !shadow-none">
-            <AppStatLabel>{stat.label}</AppStatLabel>
-            <AppStatValueWrapper>
-              <AppStatValue>{stat.value}</AppStatValue>
-              <AppStatUnit>{stat.unit}</AppStatUnit>
-            </AppStatValueWrapper>
-          </AppStatCard>
+          <div key={stat.label} className="flex min-w-0 flex-col gap-1 px-2">
+            <span className="text-sm text-theme-text-secondary">{stat.label}</span>
+            <strong className="font-title text-2xl text-theme-accent">
+              {stat.value}<span className="ml-0.5 text-sm font-semibold text-theme-text-secondary">{stat.unit}</span>
+            </strong>
+          </div>
         ))}
-      </AppCardGrid>
+      </div>
 
       <HabitMonthCalendar
         habitMonthData={habitMonthData}

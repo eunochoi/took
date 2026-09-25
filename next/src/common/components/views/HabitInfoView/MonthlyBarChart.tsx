@@ -10,7 +10,7 @@ const MonthlyBarChart = ({ data, rootClassName }: Props) => {
   const maxCount = Math.max(...(data ?? [1]), 1);
 
   return (
-    <div className={cn("flex w-full flex-col gap-4 rounded-theme bg-theme-surface p-4 shadow-card tablet:p-5", rootClassName)}>
+    <div className={cn("flex w-full flex-col gap-4 px-2 py-4", rootClassName)}>
       <div className="flex min-h-[200px] w-full items-end justify-between">
         {[...Array(12)].map((_, i: number) => {
           const count = data?.[i] ?? 0;

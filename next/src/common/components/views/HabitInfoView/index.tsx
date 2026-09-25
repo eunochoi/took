@@ -43,9 +43,9 @@ const HabitInfoView = ({ habitId, today }: Props) => {
           overlayClassName="z-[99999]"
           variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
-          <ModalHeader title='습관 정보' onBack={() => setIsModalMounted(false)} />
-          <ModalBody withScrollFade>
-            <div className="flex w-full flex-col gap-6 px-[4dvw] pb-6 pt-2 tablet:px-6 tablet:pb-7">
+          <ModalHeader className="bg-theme-surface" title='습관 정보' onBack={() => setIsModalMounted(false)} />
+          <ModalBody withScrollFade className="bg-theme-surface">
+            <div className="flex w-full flex-col bg-theme-surface px-[4dvw] pb-6 tablet:px-6 tablet:pb-7">
               <HabitInfoHeader habitData={habitDataById} />
 
               <MonthInfo
