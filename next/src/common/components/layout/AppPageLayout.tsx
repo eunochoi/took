@@ -49,7 +49,7 @@ const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassNam
         showScrollToTop={showScrollToTop}
       >
         <PageContent className={cn("flex min-w-0 w-full flex-1 flex-col", contentWrapperClassName)}>
-          {hasTopArea && <div className="w-full shrink-0 border-b-[1px] border-theme-accent/30">{appPageTopArea}</div>}
+          {hasTopArea && <div className="w-full shrink-0">{appPageTopArea}</div>}
           <div className={twMerge("w-full h-auto flex flex-col !pb-[var(--bottomSafeArea)]", mainAreaClassName)} >
             <div className="flex flex-col w-full tablet:max-w-[500px] desktop:max-w-[900px] mx-auto">
               {hasToolbar && (
