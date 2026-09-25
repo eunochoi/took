@@ -39,31 +39,38 @@ export const THEME_VALUE: Record<
   ThemeName,
   {
     accent: ThemeAccent;
+    accentLight: string;
     bg: ThemeBG;
   }
 > = {
   blue: {
     accent: '140 173 226',
+    accentLight: '240 247 255',
     bg: THEME_BG,
   },
   green: {
     accent: '131 198 182',
+    accentLight: '238 250 246',
     bg: THEME_BG,
   },
   purple: {
     accent: '151 159 199',
+    accentLight: '237 237 247',
     bg: THEME_BG,
   },
   pink: {
     accent: '237 165 177',
+    accentLight: '249 241 242',
     bg: THEME_BG,
   },
   yellow: {
     accent: '249 199 79',
+    accentLight: '255 250 240',
     bg: THEME_BG,
   },
   grey: {
     accent: '143 143 143',
+    accentLight: '242 242 242',
     bg: THEME_BG,
   },
 } as const;

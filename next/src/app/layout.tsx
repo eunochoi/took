@@ -50,10 +50,10 @@ export default async function RootLayout({
           : 'blue';
         var accent = themeValues[themeName];
         var isDarkMode = preference && preference.mode === '어둡게';
-        var background = isDarkMode
+        var accentLight = isDarkMode
           ? '${THEME_BG_DARK_MODE}'
-          : accent.bg;
-        var themeColor = 'rgb(' + background + ')';
+          : accent.accentLight;
+        var themeColor = 'rgb(' + accentLight + ')';
 
         document.documentElement.dataset.themeAccent = themeName;
         document.documentElement.dataset.themeMode = isDarkMode ? '어둡게' : '밝게';
@@ -61,11 +61,7 @@ export default async function RootLayout({
         document.documentElement.style.setProperty('--loading-indicator', 'rgb(' + accent.accent + ')');
 
         var isFixedLightPage = ['/', '/login', '/privacy', '/account-deletion'].includes(location.pathname);
-        var colorParts = isFixedLightPage
-          ? '240 247 255'
-          : getComputedStyle(document.documentElement).getPropertyValue('--theme-accent-light').trim();
-        colorParts = colorParts || (isDarkMode ? '38 38 38' : '240 247 255');
-        var statusBarColor = 'rgb(' + colorParts.split(/\\s+/).join(', ') + ')';
+        var statusBarColor = isFixedLightPage ? 'rgb(240 247 255)' : themeColor;
         var metaThemeColor = document.getElementById('theme-color');
         if (metaThemeColor) metaThemeColor.setAttribute('content', statusBarColor);
 
@@ -77,7 +73,7 @@ export default async function RootLayout({
           }));
         }
       } catch (error) {
-        document.documentElement.style.setProperty('--loading-background', 'rgb(246 248 250)');
+        document.documentElement.style.setProperty('--loading-background', 'rgb(240 247 255)');
         document.documentElement.style.setProperty('--loading-indicator', 'rgb(140 173 226)');
       }
     })();
