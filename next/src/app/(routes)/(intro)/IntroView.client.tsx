@@ -88,7 +88,7 @@ const IntroView = () => {
         <span className="rounded-full bg-theme-bg px-3 py-1 border border-theme-accent/30 text-sm font-semibold tracking-[0.08em] text-theme-accent">
           EMOTION DIARY & HABIT TRACKER
         </span>
-        <IntroActionButtons className="mt-3" />
+        <IntroActionButtons className="mt-3 max-w-[620px]" />
         <Image src={bottomCat} alt="bottom-cat" className='tablet:ml-auto tablet:w-[70dvw] desktop:w-[50dvw]' />
       </section>
     </ScrollContainer>
