@@ -60,7 +60,7 @@ export default function EmotionImage({ emotion, iconStyle, alt, width = emotion.
         aria-hidden={alt ? undefined : true}
         focusable="false"
       >
-        <text x="50" y="54" textAnchor="middle" dominantBaseline="central" fontSize="84" fontFamily="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif">
+        <text x="50" y="54" textAnchor="middle" dominantBaseline="central" fontSize="76" fontFamily="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif">
           {emotion.emoji}
         </text>
       </svg>
