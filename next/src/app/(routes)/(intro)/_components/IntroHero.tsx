@@ -5,7 +5,7 @@ import IntroActionButtons from './IntroActionButtons';
 import bottomCat from '/public/img/bottom-cat.png';
 
 const heroSectionClass = "flex min-h-[80dvh] w-full flex-col overflow-hidden bg-theme-surface px-5 pt-12 desktop:flex-row desktop:gap-8 desktop:px-[min(6vw,96px)]";
-const heroContentClass = "flex flex-col items-start justify-center gap-16 px-1 py-8 text-start desktop:w-auto desktop:items-start desktop:gap-16 desktop:px-6 desktop:py-16 desktop:text-left";
+const heroContentClass = "flex flex-col items-start justify-center gap-12 px-1 py-6 text-start desktop:w-auto desktop:items-start desktop:gap-16 desktop:px-6 desktop:py-16 desktop:text-left";
 const heroImageClass = "mt-auto flex items-end justify-center tablet:justify-center desktop:flex-1 desktop:shrink-0";
 
 const IntroHero = () => {
@@ -13,7 +13,7 @@ const IntroHero = () => {
     <section className={heroSectionClass}>
       <div className={heroContentClass}>
         <div className="flex flex-col w-full items-start gap-2">
-          <Wordmark className="mb-3 text-8xl" />
+          <Wordmark className="mb-3 text-7xl desktop:8xl" />
           <span className="rounded-full bg-theme-bg px-3 py-1 border border-theme-accent/30 text-xs font-semibold tracking-[0.08em] text-theme-accent">
             EMOTION DIARY & HABIT TRACKER
           </span>

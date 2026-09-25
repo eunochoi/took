@@ -68,7 +68,7 @@ const IntroView = () => {
 
       <section className="flex flex-col items-center gap-[22px] bg-theme-bg px-5 py-16 desktop:px-[min(7vw,112px)] desktop:py-24">
         <div className="flex w-full max-w-[620px] flex-col items-center gap-3 text-center desktop:max-w-[980px]">
-          <h2 className="m-0 break-keep text-3xl capitalize leading-tight text-theme-text-primary desktop:text-4xl">
+          <h2 className="font-semibold m-0 break-keep text-3xl capitalize leading-tight text-theme-text-primary desktop:text-4xl">
             필요한 기본 기능까지
           </h2>
           <span className="whitespace-nowrap text-base font-bold text-theme-accent">

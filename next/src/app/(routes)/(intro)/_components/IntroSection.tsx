@@ -6,6 +6,7 @@ const sectionContentBaseClass = "flex w-full max-w-[620px] flex-col items-center
 const sectionContentDesktopClass = "desktop:max-w-none desktop:items-start desktop:gap-4 desktop:text-left";
 const sectionTitleClass = "m-0 break-keep text-3xl font-semibold capitalize leading-tight text-theme-text-primary desktop:text-4xl";
 const sectionBodyClass = "m-0 max-w-[620px] break-keep text-balance text-center text-base leading-[1.65] text-theme-text-secondary desktop:max-w-none desktop:text-left desktop:text-lg desktop:leading-[1.75]";
+const gradientClass = " bg-theme-accent-light bg-[linear-gradient(to_bottom,rgb(var(--theme-accent-light))_0%,transparent_20%),linear-gradient(to_top_right,rgb(var(--theme-accent)/0.15)_0%,rgb(var(--theme-accent-light))_100%)]";
 
 interface IntroSectionProps {
   background: 'surface' | 'background';
@@ -26,10 +27,11 @@ const IntroSection = ({
   text,
   title,
 }: IntroSectionProps) => (
+
   <section
     className={cn(
       sectionBaseClass,
-      background === 'surface' ? 'bg-theme-surface' : 'bg-theme-accent-light',
+      background === 'surface' ? 'bg-theme-surface' : `bg-theme-accent-light ${gradientClass}`,
     )}
   >
     <div
