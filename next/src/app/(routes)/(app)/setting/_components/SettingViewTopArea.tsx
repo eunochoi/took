@@ -11,7 +11,7 @@ const SettingViewTopArea = () => {
     <div className={`bg-theme-accent-light ${APP_PAGE_CONTENT_PADDING_CLASS_NAME}`}>
       <div className="mb-8 tablet:hidden"><Wordmark className="text-[48px]" /></div>
       <AppPageTitle title="설정" description="나에게 편안한 기록 공간을 만들어요" />
-      <Image src={bottomCat} alt="" className="ml-auto mt-auto block w-full tablet:w-2/3 desktop:w-2/3" />
+      <Image src={bottomCat} alt="" className="ml-auto mt-auto block w-full tablet:w-1/2 desktop:w-1/2" />
     </div>
   );
 };

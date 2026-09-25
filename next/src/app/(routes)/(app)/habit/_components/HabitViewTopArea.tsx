@@ -7,7 +7,7 @@ const HabitViewTopArea = () => {
   return (
     <div className={`bg-theme-accent-light ${APP_PAGE_CONTENT_PADDING_CLASS_NAME}`}>
       <AppPageTitle title="습관 만들기" description="작은 실천으로 만들어가는 나의 일상" />
-      <Image src={bottomCat} alt="bottom-cat" className="ml-auto mt-auto block w-full tablet:w-2/3 desktop:w-2/3" />
+      <Image src={bottomCat} alt="bottom-cat" className="ml-auto mt-auto block w-full tablet:w-1/2 desktop:w-1/2" />
     </div>
   );
 };
