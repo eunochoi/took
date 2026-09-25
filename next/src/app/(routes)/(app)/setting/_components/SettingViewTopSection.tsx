@@ -10,7 +10,7 @@ const SettingViewTopSection = () => {
   return (
     <section className={`${APP_PAGE_TOP_AREA_CLASS} ${APP_PAGE_CONTENT_PADDING_CLASS_NAME}`}>
       <AppPageTitle title="설정" description="나에게 편안한 기록 공간을 만들어요" />
-      <Image src={bottomCat} alt="" className="ml-auto mt-auto block w-full tablet:w-1/2 desktop:w-1/2" />
+      <Image src={bottomCat} alt="" className="ml-auto mt-auto block w-3/4 tablet:w-1/2 desktop:w-1/2" />
     </section>
   );
 };
