@@ -113,7 +113,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
                   )}
                   {habitCount > 0 && (
                     <span className={cn(
-                      "flex items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent h-[24px] w-[24px] text-sm font-semibold text-theme-text-on-accent",
+                      "flex items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent-deep h-[24px] w-[24px] text-sm font-semibold text-theme-text-on-accent",
                       emotion ? "absolute -top-2 -right-2" : "[--calendar-badge-scale:1.3] scale-[var(--calendar-badge-scale)]",
                       isSelected && (emotion
                         ? 'motion-safe:animate-calendar-selected-bounce'
