@@ -13,7 +13,7 @@ import { getTodayString } from '@/common/functions/getTodayString';
 import { useRouter } from 'next/navigation';
 
 const recordStatusClass = 'text-xs font-semibold text-theme-accent desktop:text-sm';
-const recordCardClass = 'flex min-h-14 items-center gap-3 text-left text-sm shadow-none';
+const recordCardClass = 'flex min-h-12 items-center gap-3 text-left text-sm shadow-none !py-2';
 
 const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
   const [today, setToday] = useState(initialDate);

@@ -27,13 +27,13 @@ const HomeViewTopSection = ({ initialDate }: { initialDate: string }) => {
       <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
       <div className="flex flex-col font-title p-2 gap-4 desktop:gap-8">
         <span className="m-0 text-2xl font-semibold text-theme-text-secondary">{today}</span>
-        <h1 className="flex gap-4 items-center m-0 h-10 desktop:h-12">
+        <h1 className="flex gap-2 items-center m-0 h-10 desktop:h-12">
           <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
           <EmotionImage
             emotion={EMOTIONS[1]}
             alt="greeting emotion icon"
             className={cn(emotionIcon.style === 'basic' ? 'mb-4' : 'mb-2',
-              'rotate-[5deg] h-16 w-auto animate-rotate-slow')} />
+              'rotate-[5deg] h-14 w-auto animate-rotate-slow')} />
         </h1>
         <div className="m-0 text-lg font-semibold desktop:text-xl desktop:mb-4 leading-relaxed text-theme-text-secondary">
           <p>{GREETING_TEXT.sub[0]}</p>
