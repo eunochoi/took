@@ -10,7 +10,7 @@ const BottomNav = () => {
   const mainItems = items.slice(0, -1);
   const lastItem = items.at(-1)!;
 
-  const navItemsWrapperClass = 'border-[1px] border-theme-bg pointer-events-auto flex items-center gap-1.5 rounded-full bg-theme-surface/75 shadow-theme-floating backdrop-blur-2xl';
+  const navItemsWrapperClass = 'border-[1px] border-theme-accent-light pointer-events-auto flex items-center gap-1.5 rounded-full bg-theme-surface/75 shadow-theme-floating backdrop-blur-2xl';
   const navItemClass = 'flex cursor-pointer items-center justify-center rounded-full text-xl';
   const activeNavItemClass = 'bg-theme-accent text-theme-text-on-accent';
   const inactiveNavItemClass = "bg-transparent text-theme-text-tertiary";
@@ -31,7 +31,7 @@ const BottomNav = () => {
           </button>
         ))}
       </div>
-      <div className={cn('h-[50px] w-[50px] !border-0', navItemsWrapperClass)}>
+      <div className={cn('h-[50px] w-[50px]', navItemsWrapperClass)}>
         <button
           type="button"
           onClick={() => router.push(lastItem.href)}
