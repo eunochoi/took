@@ -21,7 +21,6 @@ export const viewport: Viewport = {
   maximumScale: 1,
   width: 'device-width',
   userScalable: false,
-  viewportFit: 'cover',
   // interactiveWidget: 'resizes-visual',
   interactiveWidget: 'resizes-content'
 }
@@ -61,10 +60,20 @@ export default async function RootLayout({
         document.documentElement.style.setProperty('--loading-background', themeColor);
         document.documentElement.style.setProperty('--loading-indicator', 'rgb(' + accent.accent + ')');
 
+        var isFixedLightPage = ['/', '/login', '/privacy', '/account-deletion'].includes(location.pathname);
+        var colorParts = isFixedLightPage
+          ? '240 247 255'
+          : getComputedStyle(document.documentElement).getPropertyValue('--theme-accent-light').trim();
+        colorParts = colorParts || (isDarkMode ? '38 38 38' : '240 247 255');
+        var statusBarColor = 'rgb(' + colorParts.split(/\\s+/).join(', ') + ')';
+        var metaThemeColor = document.getElementById('theme-color');
+        if (metaThemeColor) metaThemeColor.setAttribute('content', statusBarColor);
+
         if (window.ReactNativeWebView) {
           window.ReactNativeWebView.postMessage(JSON.stringify({
             type: 'THEME_CHANGE',
-            style: isDarkMode && location.pathname !== '/' && location.pathname !== '/login' ? 'light' : 'dark'
+            color: statusBarColor,
+            style: isDarkMode && !isFixedLightPage ? 'light' : 'dark'
           }));
         }
       } catch (error) {
@@ -77,6 +86,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta id="theme-color" name="theme-color" content="#F0F7FF" />
         <script dangerouslySetInnerHTML={{ __html: localThemeInitScript }} />
         <meta name="google-site-verification" content="MSSWdnca2PMfsNV3MPmssa5cjQqycFJmdrj04DFx5fU" />
         {/* <link rel="manifest" href="/manifest.json" /> */}
@@ -95,7 +105,6 @@ export default async function RootLayout({
 
         {isIosDevice && <meta name="apple-mobile-web-app-capable" content="yes" />}
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
         <meta property="og:title" content="Took" />
         <meta property="og:description" content="감정 일기를 적고 습관을 실천하세요. 당신의 긍정적 변화와 성장을 응원합니다. :)" />

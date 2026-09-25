@@ -11,7 +11,7 @@ const docMainClass = 'flex w-full flex-col bg-theme-surface font-title';
 const DocLayout = ({ children }: Props) => {
   return (
     <ScrollContainer
-      className="safe-page h-[100dvh] w-[100dvw] bg-theme-surface"
+      className="h-[100dvh] w-[100dvw] bg-theme-surface static-theme-blue"
       showScrollFade
       showScrollToTop
     >

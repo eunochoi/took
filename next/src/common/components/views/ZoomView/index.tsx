@@ -55,7 +55,7 @@ const ZoomView = ({ diaryId }: ZoomViewProps) => {
           <ScrollContainer className="flex-1" scrollAreaClassName="overscroll-y-contain">
             <div
               className={cn(
-                "mx-auto grid w-full min-w-0 grid-cols-1 items-start gap-8 px-[4dvw] pt-5 pb-8 tablet:px-6 desktop:gap-16 desktop:pt-10 desktop:pb-16",
+                "mx-auto grid w-full min-w-0 grid-cols-1 items-start gap-8 px-[4dvw] pt-5 pb-[max(2rem,env(safe-area-inset-bottom))] tablet:px-6 desktop:gap-16 desktop:pt-10 desktop:pb-16",
                 "landscape-short:gap-6 landscape-short:pt-2",
                 hasImages
                   ? "max-w-7xl desktop:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] landscape-short:min-[640px]:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]"

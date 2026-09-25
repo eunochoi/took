@@ -97,7 +97,7 @@ export const HabitOrderView = () => {
               )}
             </div>
           </ModalBody>
-          <div className="w-full shrink-0 px-[5dvw] pb-4 pt-3 tablet:px-6">
+          <div className="w-full shrink-0 px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
             <button
               className="flex min-h-14 w-full items-center justify-center rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
               disabled={!hasChanges || isPending || isError}

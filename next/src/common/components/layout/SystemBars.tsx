@@ -3,33 +3,71 @@
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
-/** Keep native system icons readable as the app theme or route changes. */
+const STATIC_THEME_PATHS = new Set([
+  '/',
+  '/login',
+  '/privacy',
+  '/account-deletion',
+]);
+
+const STATIC_THEME_COLOR = '240 247 255';
+
+type WebViewBridge = {
+  postMessage: (message: string) => void;
+};
+
 export const SystemBars = () => {
   const pathname = usePathname();
 
   useEffect(() => {
     const root = document.documentElement;
+
     const applySystemBars = () => {
-      // Intro/login have a fixed light surface even when the saved app theme is dark.
-      const isDark = pathname !== '/' && pathname !== '/login' && root.dataset.themeMode === '어둡게';
-      const bridge = (window as Window & {
-        ReactNativeWebView?: { postMessage: (message: string) => void };
-      }).ReactNativeWebView;
-      bridge?.postMessage(JSON.stringify({
-        type: 'THEME_CHANGE',
-        style: isDark ? 'light' : 'dark',
-      }));
+      const isStaticThemePage = STATIC_THEME_PATHS.has(pathname);
+
+      const colorParts = isStaticThemePage
+        ? STATIC_THEME_COLOR
+        : getComputedStyle(root)
+          .getPropertyValue('--theme-accent-light')
+          .trim();
+
+      const color = `rgb(${colorParts.split(/\s+/).join(', ')})`;
+
+      document
+        .getElementById('theme-color')
+        ?.setAttribute('content', color);
+
+      const bridge = (
+        window as Window & {
+          ReactNativeWebView?: WebViewBridge;
+        }
+      ).ReactNativeWebView;
+
+      if (!bridge) return;
+
+      const useLightStatusBarIcons =
+        !isStaticThemePage &&
+        root.dataset.themeMode === '어둡게';
+
+      bridge.postMessage(
+        JSON.stringify({
+          type: 'THEME_CHANGE',
+          color,
+          style: useLightStatusBarIcons ? 'light' : 'dark',
+        }),
+      );
     };
 
     applySystemBars();
+
     const observer = new MutationObserver(applySystemBars);
+
     observer.observe(root, {
       attributes: true,
-      attributeFilter: ['data-theme-mode'],
+      attributeFilter: ['data-theme-mode', 'data-theme-accent'],
     });
-    return () => {
-      observer.disconnect();
-    };
+
+    return () => observer.disconnect();
   }, [pathname]);
 
   return null;

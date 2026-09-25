@@ -1,9 +1,6 @@
 .notistack-SnackbarContainer,
 .app-snackbar-container {
   z-index: 999999 !important;
-  margin-top: var(--safe-top);
-  margin-left: var(--safe-left);
-  margin-right: var(--safe-right);
 }
 
 .app-snackbar-root,

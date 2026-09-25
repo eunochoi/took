@@ -135,7 +135,7 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
               <p className="text-center text-xs leading-relaxed text-theme-text-secondary">습관은 최대 {MAX_HABIT_COUNT}개까지 만들 수 있어요.</p>
             </fieldset>
           </ModalBody>
-          <div className="w-full shrink-0 bg-theme-surface px-[5dvw] pb-4 pt-3 tablet:px-6">
+          <div className="w-full shrink-0 bg-theme-surface px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
             <button
               type="button"
               onClick={handleSubmit}

@@ -39,16 +39,7 @@
   --pageHeader: 72px;
   --modalHeader: 56px;
   --mobileNav: 80px;
-  --safe-top: var(--native-safe-top, env(safe-area-inset-top, 0px));
-  --safe-right: var(--native-safe-right, env(safe-area-inset-right, 0px));
-  --safe-bottom: var(--native-safe-bottom, env(safe-area-inset-bottom, 0px));
-  --safe-left: var(--native-safe-left, env(safe-area-inset-left, 0px));
-  --mobileBottomSafeArea: calc(100px + var(--safe-bottom));
-}
-
-/* The background still fills the viewport; only page controls are inset. */
-.safe-page {
-  padding: var(--safe-top) var(--safe-right) var(--safe-bottom) var(--safe-left);
+  --mobileBottomSafeArea: 100px;
 }
 
 *:focus {
