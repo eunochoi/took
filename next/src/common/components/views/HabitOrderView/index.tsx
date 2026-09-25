@@ -83,18 +83,7 @@ export const HabitOrderView = () => {
                 <button className="text-theme-text-secondary disabled:opacity-40" disabled={!hasChanges} onClick={onCancelChanges} type="button">변경사항 취소</button>
                 <button className="text-theme-text-secondary disabled:opacity-40" disabled={!tempHabits || (isDefaultOrder && customHabitOrder.length === 0)} onClick={onResetToDefault} type="button">기본 순서로 초기화</button>
               </div>
-              {isError ? (
-                <div className="flex flex-col items-center gap-3 py-8 text-sm text-theme-text-secondary">
-                  <p>습관 목록을 불러오지 못했어요.</p>
-                  <button className="text-theme-accent" onClick={() => void refetch()} type="button">다시 시도</button>
-                </div>
-              ) : isPending || !tempHabits ? (
-                <p className="py-8 text-center text-sm text-theme-text-secondary">습관 목록을 불러오는 중...</p>
-              ) : tempHabits.length === 0 ? (
-                <p className="py-8 text-center text-sm text-theme-text-secondary">순서를 정할 습관이 없어요.</p>
-              ) : (
-                <HabitList tempHabits={tempHabits} onOrderChange={setTempHabits} />
-              )}
+              {tempHabits && <HabitList tempHabits={tempHabits} onOrderChange={setTempHabits} />}
             </div>
           </ModalBody>
           <div className="w-full shrink-0 px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
