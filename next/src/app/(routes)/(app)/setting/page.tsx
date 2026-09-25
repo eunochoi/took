@@ -24,11 +24,11 @@ const SettingPage = () => {
 
   return (
     <AppPageLayout
-      appPageTopSection={<SettingViewTopSection />}
-      mainSectionClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
+      topSection={<SettingViewTopSection />}
+
       showScrollToTop={false}
       toolbar={<SettingViewToolbar />}
-      appPageMainSection={
+      mainSection={
         <SettingViewContent
           email={email}
           provider={provider}

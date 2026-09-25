@@ -54,16 +54,14 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
   return (
     <>
       <AppPageLayout
-        appPageTopSection={<HomeViewTopSection initialDate={initialDate} />}
+        topSection={<HomeViewTopSection initialDate={initialDate} />}
         toolbar={
           <HomeViewToolbar
             selectedYear={selectedYear}
             openYearFilter={openYearFilter}
           />
         }
-        mainSectionClassName={`bg-theme-surface px-[4dvw] tablet:px-9 desktop:px-14 py-2 tablet:py-4 desktop:py-8`}
-
-        appPageMainSection={
+        mainSection={
           <HomeViewContent
             initialDate={initialDate}
             selectedYear={selectedYear}

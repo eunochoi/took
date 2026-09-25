@@ -6,11 +6,9 @@ import Image from 'next/image';
 
 import bottomCat from '/public/img/bottom-cat.png';
 
-import { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from '@/common/components/layout/AppPageLayout';
 import EmotionImage from '@/common/components/ui/EmotionImage';
 import Wordmark from '@/common/components/ui/Wordmark';
 import { EMOTIONS } from '@/common/constants/emotions';
-import { APP_PAGE_TOP_AREA_CLASS } from '@/common/constants/pageStyle';
 import { useSettingsContext } from '@/common/settings/useSettingsContext';
 import { cn } from '@/common/utils/cn';
 import TodayRecordSection from './TodayRecordSection';
@@ -25,7 +23,7 @@ const HomeViewTopSection = ({ initialDate }: { initialDate: string }) => {
   const today = format(new Date(initialDate), 'M월 d일 EEEE', { locale: ko });
 
   return (
-    <section className={cn('flex flex-col gap-8', APP_PAGE_TOP_AREA_CLASS, APP_PAGE_CONTENT_PADDING_CLASS_NAME)}>
+    <section className={cn('flex flex-col gap-8')}>
       <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
       <div className="flex flex-col font-title p-2 gap-4 desktop:gap-8">
         <span className="m-0 text-2xl font-semibold text-theme-text-secondary">{today}</span>

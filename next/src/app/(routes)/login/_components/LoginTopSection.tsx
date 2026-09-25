@@ -1,12 +1,12 @@
+import { TOP_SECTION_WRAPPER_CLASS } from '@/common/components/layout/AppPageLayout';
 import Wordmark from '@/common/components/ui/Wordmark';
-import { APP_PAGE_TOP_AREA_CLASS } from '@/common/constants/pageStyle';
 import Image from 'next/image';
 import bottomCat from '/public/img/bottom-cat.png';
 
 const LoginTopSection = () => (
   <section
     aria-labelledby="login-intro-title"
-    className={`${APP_PAGE_TOP_AREA_CLASS} flex flex-col gap-10 px-6 pt-12 pb-0 tablet:px-10 desktop:gap-24 desktop:px-12 desktop:pt-10 desktop:pb-0 xl:px-20`}>
+    className={`${TOP_SECTION_WRAPPER_CLASS} flex flex-col gap-10 px-6 pt-12 pb-0 tablet:px-10 desktop:gap-24 desktop:px-12 desktop:pt-10 desktop:pb-0 xl:px-20`}>
     <Wordmark className="text-6xl desktop:text-7xl" />
 
     <div className="flex flex-col gap-6">

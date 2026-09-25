@@ -49,8 +49,8 @@ const HabitView = () => {
   return (
     <AppPageLayout
       showScrollToTop
-      appPageTopSection={<HabitViewTopSection />}
-      mainSectionClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
+      topSection={<HabitViewTopSection />}
+
       pageRef={pageRef}
       toolbar={
         <HabitViewToolbar
@@ -59,7 +59,7 @@ const HabitView = () => {
           sortValue={sortValue}
         />
       }
-      appPageMainSection={
+      mainSection={
         <HabitViewContent
           habits={habits}
           totalHabitCount={totalHabitCount}

@@ -51,15 +51,15 @@ const CalendarView = ({ initialDate }: Props) => {
 
   return (
     <AppPageLayout
-      appPageTopSection={<CalendarViewTopSection />}
-      mainSectionClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
+      topSection={<CalendarViewTopSection />}
+
       toolbar={
         <CalendarViewToolbar
           openSelectedDiary={openSelectedDiary}
           diaryActionLabel={diaryActionLabel}
         />
       }
-      appPageMainSection={
+      mainSection={
         <CalendarViewContent
           today={today}
           selectedDate={selectedDate}

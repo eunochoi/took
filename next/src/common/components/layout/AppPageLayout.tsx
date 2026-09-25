@@ -4,26 +4,27 @@ import { ReactNode, RefObject, useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { cn } from "@/common/utils/cn";
+import { BottomSafe } from "../ui/BottomSafe";
 import { ScrollContainer } from "../ui/ScrollContainer";
 import { PageContent } from "./PageContent";
 
 interface Props {
-  appPageTopSection?: ReactNode;
-  appPageMainSection: ReactNode;
-  contentWrapperClassName?: string;
+  topSection?: ReactNode;
+  mainSection: ReactNode;
+  contentWrapperClass?: string;
   pageRef?: RefObject<HTMLDivElement>;
   showScrollToTop?: boolean;
   toolbar?: ReactNode;
-  mainSectionClassName?: string;
+  bottomSectionClass?: string;
 }
 
-export const APP_PAGE_CONTENT_PADDING_CLASS_NAME = "px-[4dvw] pt-8 tablet:px-9 tablet:pt-6 desktop:px-14";
+export const TOP_SECTION_WRAPPER_CLASS = "px-[5dvw] pt-[5dvw] tablet:px-9 tablet:pt-6 desktop:px-14 bg-theme-accent-light bg-[linear-gradient(to_bottom,rgb(var(--theme-accent-light))_0%,transparent_20%),linear-gradient(to_top_right,rgb(var(--theme-accent)/0.15)_0%,rgb(var(--theme-accent-light))_100%)]";
 
-const AppPageLayout = ({ appPageTopSection, appPageMainSection, contentWrapperClassName, pageRef, showScrollToTop = false, toolbar, mainSectionClassName }: Props) => {
+const AppPageLayout = ({ topSection, mainSection, contentWrapperClass, pageRef, showScrollToTop = false, toolbar, bottomSectionClass }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const hasToolbar = Boolean(toolbar);
-  const hasTopSection = Boolean(appPageTopSection);
+  const hasTopSection = Boolean(topSection);
 
   useEffect(() => {
     const toolbar = toolbarRef.current;
@@ -48,17 +49,26 @@ const AppPageLayout = ({ appPageTopSection, appPageMainSection, contentWrapperCl
         showScrollFade
         showScrollToTop={showScrollToTop}
       >
-        <PageContent className={cn("flex min-w-0 w-full flex-1 flex-col", contentWrapperClassName)}>
-          {hasTopSection && <div className="w-full shrink-0">{appPageTopSection}</div>}
-          <div className={twMerge("w-full h-auto flex flex-col !pb-[var(--bottomSafeArea)]", mainSectionClassName)} >
+        <PageContent className={cn("flex min-w-0 w-full flex-1 flex-col", contentWrapperClass)}>
+          {/* top section */}
+          {hasTopSection && <div className={TOP_SECTION_WRAPPER_CLASS}>{topSection}</div>}
+          {/* bottom section : toolbar + main */}
+          <div className={twMerge(
+            // "!pb-[var(--bottomSafeArea)]",
+            "w-full h-auto flex flex-col",
+            "flex-1 bg-theme-surface px-[5dvw] py-2 pb-0 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8",
+            bottomSectionClass)} >
             <div className="flex flex-col w-full tablet:max-w-[500px] desktop:max-w-[900px] mx-auto">
+              {/* toolbar section */}
               {hasToolbar && (
                 <div ref={toolbarRef} data-component="pageToolbar" className={twMerge("sticky top-0 z-[91] mb-4 -mx-1 flex flex-wrap items-center gap-2 py-4")}>
                   {toolbar}
                 </div>
               )}
-              {appPageMainSection}
+              {/* main section */}
+              {mainSection}
             </div>
+            <BottomSafe />
           </div>
         </PageContent>
       </ScrollContainer>

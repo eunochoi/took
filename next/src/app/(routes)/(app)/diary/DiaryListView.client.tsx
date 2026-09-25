@@ -1,8 +1,8 @@
 'use client';
 
-import DiaryListViewTopSection from "./_components/DiaryListViewTopSection";
 import DiaryListViewContent from "./_components/DiaryListViewContent";
 import DiaryListViewToolbar from "./_components/DiaryListViewToolbar";
+import DiaryListViewTopSection from "./_components/DiaryListViewTopSection";
 
 import { AnimatePresence } from "framer-motion";
 
@@ -75,8 +75,8 @@ const DiaryListView = () => {
   return (
     <>
       <AppPageLayout
-        appPageTopSection={<DiaryListViewTopSection />}
-        mainSectionClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
+        topSection={<DiaryListViewTopSection />}
+
         pageRef={wrapperRef}
         showScrollToTop
         toolbar={
@@ -91,7 +91,7 @@ const DiaryListView = () => {
             selectedEmotionLabel={selectedEmotionLabel}
           />
         }
-        appPageMainSection={
+        mainSection={
           <DiaryListViewContent
             flatDiaries={flatDiaries}
             isDiaryListEmpty={isDiaryListEmpty}
