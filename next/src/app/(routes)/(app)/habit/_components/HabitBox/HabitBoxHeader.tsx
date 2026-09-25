@@ -26,7 +26,7 @@ const HabitBoxHeader = ({ id, name, priority, iconKey, isMenuOpen, setMenuOpen, 
         <Link
           href={`/inter/habitInfo?id=${id}`}
           scroll={false}
-          className="flex min-w-0 flex-col items-start gap-2 font-semibold text-theme-text-primary"
+          className="flex min-w-0 flex-col items-center gap-2 font-semibold text-theme-text-primary"
           aria-label={`${name} 습관 정보`}
         >
           <HabitIcon iconKey={iconKey} className="shrink-0 text-3xl" />
