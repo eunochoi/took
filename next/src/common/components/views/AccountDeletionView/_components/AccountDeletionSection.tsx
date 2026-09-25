@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 const DELETE_CONFIRM_TEXT = '회원탈퇴';
 const sectionClass = 'flex min-h-[320px] flex-col items-center justify-center gap-5 px-5 py-10 text-center tablet:min-h-[340px] tablet:px-8';
-const descriptionClass = 'flex w-full max-w-[560px] flex-col text-center text-sm leading-relaxed text-theme-text-secondary tablet:text-base';
+const descriptionClass = 'balance break-keep flex w-full max-w-[560px] flex-col text-center text-sm leading-relaxed text-theme-text-secondary tablet:text-base';
 
 const AccountDeletionSection = () => {
   const { data: user, isPending } = useCurrentUser({
@@ -69,9 +69,7 @@ const AccountDeletionSection = () => {
             <span className="mt-1 block break-all text-base font-medium text-theme-text-primary">{user.email}</span>
           </div>
           <p className={descriptionClass}>
-            <span>회원 탈퇴 시 계정과 데이터가 삭제되며 복구할 수 없습니다.</span>
-            <span>
-              계속하려면 아래에 <strong className="text-theme-text-primary">{DELETE_CONFIRM_TEXT}</strong>를 입력해주세요.
+            <span>회원 탈퇴 시 계정과 데이터가 삭제되며 복구할 수 없습니다. 계속하려면 아래에 <strong className="text-theme-text-primary">{DELETE_CONFIRM_TEXT}</strong>를 입력해주세요.
             </span>
           </p>
           <input
