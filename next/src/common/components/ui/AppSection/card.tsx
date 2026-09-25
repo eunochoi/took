@@ -36,7 +36,7 @@ export const AppSurfaceCard = forwardRef<HTMLDivElement, DivProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={twMerge(appCardClass, "w-full p-3 tablet:p-5", className)}
+      className={twMerge(appCardClass, "w-full p-3 px-4 tablet:p-5", className)}
       {...props}
     />
   ),
