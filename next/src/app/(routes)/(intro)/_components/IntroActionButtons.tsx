@@ -29,7 +29,7 @@ const IntroActionButtons = ({ tone = 'light', className }: IntroActionButtonsPro
   };
 
   return (
-    <div className={cn("flex w-full flex-wrap justify-center gap-3", className)}>
+    <div className={cn("flex w-auto flex-wrap justify-start gap-3", className)}>
       <button
         className={cn(buttonClass, tone === 'dark' ? 'bg-theme-surface/78' : 'bg-theme-bg')}
         type="button"

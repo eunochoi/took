@@ -5,21 +5,21 @@ import IntroActionButtons from './IntroActionButtons';
 import bottomCat from '/public/img/bottom-cat.png';
 
 const heroSectionClass = "flex min-h-[80dvh] w-full flex-col overflow-hidden bg-theme-surface px-5 pt-12 desktop:flex-row desktop:gap-8 desktop:px-[min(6vw,96px)]";
-const heroContentClass = "flex flex-col items-center justify-center gap-16 px-1 py-8 text-center desktop:w-auto desktop:items-start desktop:gap-16 desktop:px-6 desktop:py-16 desktop:text-left";
+const heroContentClass = "flex flex-col items-start justify-center gap-16 px-1 py-8 text-start desktop:w-auto desktop:items-start desktop:gap-16 desktop:px-6 desktop:py-16 desktop:text-left";
 const heroImageClass = "mt-auto flex items-end justify-center tablet:justify-center desktop:flex-1 desktop:shrink-0";
 
 const IntroHero = () => {
   return (
     <section className={heroSectionClass}>
       <div className={heroContentClass}>
-        <div className="flex flex-col items-center gap-2 desktop:items-start">
-          <Wordmark className="mb-3 text-7xl desktop:text-8xl" />
+        <div className="flex flex-col w-full items-start gap-2">
+          <Wordmark className="mb-3 text-8xl" />
           <span className="rounded-full bg-theme-bg px-3 py-1 border border-theme-accent/30 text-sm font-semibold tracking-[0.08em] text-theme-accent">
             EMOTION DIARY & HABIT TRACKER
           </span>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 w-full p-2">
           <h1 className="m-0 break-keep text-3xl font-bold tracking-tight leading-[1.2] text-theme-text-primary desktop:text-5xl desktop:leading-[1.12]">
             감정도 툭! 습관도 툭!<br />조금 더 나은 나로 To OK
           </h1>

@@ -5,7 +5,7 @@ const sectionBaseClass = "flex flex-col items-center gap-[22px] px-5 py-12 deskt
 const sectionContentBaseClass = "flex w-full max-w-[620px] flex-col items-center gap-5 text-center";
 const sectionContentDesktopClass = "desktop:max-w-none desktop:items-start desktop:gap-4 desktop:text-left";
 const sectionTitleClass = "m-0 break-keep text-3xl font-semibold capitalize leading-tight text-theme-text-primary desktop:text-4xl";
-const sectionBodyClass = "m-0 max-w-[620px] break-keep text-center text-base leading-[1.65] text-theme-text-secondary desktop:max-w-none desktop:text-left desktop:text-lg desktop:leading-[1.75]";
+const sectionBodyClass = "m-0 max-w-[620px] break-keep text-balance text-center text-base leading-[1.65] text-theme-text-secondary desktop:max-w-none desktop:text-left desktop:text-lg desktop:leading-[1.75]";
 
 interface IntroSectionProps {
   background: 'surface' | 'background';

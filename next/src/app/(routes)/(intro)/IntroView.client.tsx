@@ -83,12 +83,12 @@ const IntroView = () => {
         </div>
       </section>
 
-      <section className="flex flex-col items-center gap-5 bg-theme-surface px-5 py-16 !pb-0 desktop:gap-6 desktop:px-6 desktop:py-[82px]">
+      <section className="flex flex-col items-center gap-8 bg-theme-surface px-5 py-16 !pb-0 desktop:gap-6 desktop:px-6 desktop:py-[82px]">
         <Wordmark className="!text-6xl desktop:!text-8xl" />
         <span className="rounded-full bg-theme-bg px-3 py-1 border border-theme-accent/30 text-sm font-semibold tracking-[0.08em] text-theme-accent">
           EMOTION DIARY & HABIT TRACKER
         </span>
-        <IntroActionButtons className="mt-3 max-w-[620px]" />
+        <IntroActionButtons className="mt-3" />
         <Image src={bottomCat} alt="bottom-cat" className='tablet:ml-auto tablet:w-[70dvw] desktop:w-[50dvw]' />
       </section>
     </ScrollContainer>
