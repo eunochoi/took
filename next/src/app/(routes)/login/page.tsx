@@ -97,15 +97,15 @@ const Page = () => {
 
             <ul className="grid w-full grid-cols-3 gap-3 text-center">
               {[
-                { label: '습관', description: '작은 실천을', detail: '꾸준히 쌓아요.', icon: FiCheckCircle },
-                { label: '일기', description: '오늘의 감정을', detail: '기록해요.', icon: FiBookOpen },
-                { label: '돌아보기', description: '기록 속 생활 흐름을', detail: '이해해요.', icon: FiHeart },
-              ].map(({ label, description, detail, icon: Icon }) => (
+                { label: '습관', description: '작은 실천을 꾸준히 쌓아요.', icon: FiCheckCircle },
+                { label: '일기', description: '오늘의 감정을 기록해요.', icon: FiBookOpen },
+                { label: '돌아보기', description: '기록 속 생활 흐름을 이해해요.', icon: FiHeart },
+              ].map(({ label, description, icon: Icon }) => (
                 <li key={label} className="flex flex-col items-center gap-3 rounded-2xl bg-theme-bg/60 border-[1px] border-theme-accent/30 px-2 py-4 desktop:py-5">
                   <Icon aria-hidden="true" className="h-5 w-5 text-theme-accent" />
                   <span className="text-sm font-semibold">{label}</span>
-                  <p className="text-[11px] leading-relaxed text-theme-text-secondary tablet:text-xs">
-                    {description}<br />{detail}
+                  <p className="text-balance break-keep text-[11px] leading-relaxed text-theme-text-secondary tablet:text-xs">
+                    {description}
                   </p>
                 </li>
               ))}
