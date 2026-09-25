@@ -39,7 +39,7 @@
   --pageHeader: 72px;
   --modalHeader: 56px;
   --mobileNav: 80px;
-  --mobileBottomSafeArea: 100px;
+  --bottomSafeArea: 100px;
 }
 
 *:focus {
