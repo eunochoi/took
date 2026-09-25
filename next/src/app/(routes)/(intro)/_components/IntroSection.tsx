@@ -29,7 +29,7 @@ const IntroSection = ({
   <section
     className={cn(
       sectionBaseClass,
-      background === 'surface' ? 'bg-theme-surface' : 'bg-theme-bg',
+      background === 'surface' ? 'bg-theme-surface' : 'bg-theme-accent-light',
     )}
   >
     <div

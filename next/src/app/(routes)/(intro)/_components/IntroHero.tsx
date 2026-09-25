@@ -14,13 +14,13 @@ const IntroHero = () => {
       <div className={heroContentClass}>
         <div className="flex flex-col w-full items-start gap-2">
           <Wordmark className="mb-3 text-8xl" />
-          <span className="rounded-full bg-theme-bg px-3 py-1 border border-theme-accent/30 text-sm font-semibold tracking-[0.08em] text-theme-accent">
+          <span className="rounded-full bg-theme-bg px-3 py-1 border border-theme-accent/30 text-xs font-semibold tracking-[0.08em] text-theme-accent">
             EMOTION DIARY & HABIT TRACKER
           </span>
         </div>
 
         <div className="flex flex-col gap-6 w-full p-2">
-          <h1 className="m-0 break-keep text-3xl font-bold tracking-tight leading-[1.2] text-theme-text-primary desktop:text-5xl desktop:leading-[1.12]">
+          <h1 className="m-0 break-keep text-2xl font-bold tracking-tight leading-[1.2] text-theme-text-primary desktop:text-5xl desktop:leading-[1.12]">
             감정도 툭! 습관도 툭!<br />조금 더 나은 나로 To OK
           </h1>
           <p className="m-0 flex flex-col break-keep text-lg text-theme-text-secondary desktop:text-xl">

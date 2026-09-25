@@ -35,12 +35,12 @@ const Page = () => {
   }, [router]);
 
   return (
-    <main className="static-theme-blue h-[100dvh] w-full overflow-y-auto bg-theme-bg font-title text-theme-text-primary [&_*]:!font-title">
+    <main className="static-theme-blue h-[100dvh] w-full overflow-y-auto bg-theme-bg font-title text-theme-text-primary">
       <div className="grid min-h-full desktop:grid-cols-[1.35fr_1fr]">
         <section
           aria-labelledby="login-intro-title"
           className="flex flex-col gap-12 bg-gradient-to-br from-theme-bg to-theme-accent/15 px-6 pt-16 pb-0 tablet:px-10 desktop:gap-24 desktop:px-12 desktop:pt-10 desktop:pb-0 xl:px-20">
-          <Wordmark className="text-[48px]" />
+          <Wordmark className="text-7xl" />
 
           <div className="flex flex-col gap-8">
             <h1 id="login-intro-title" className="flex flex-col gap-3 text-4xl desktop:text-5xl font-bold tracking-[-0.04em]">
@@ -101,7 +101,7 @@ const Page = () => {
                 { label: '일기', description: '오늘의 감정을', detail: '기록해요.', icon: FiBookOpen },
                 { label: '돌아보기', description: '기록 속 생활 흐름을', detail: '이해해요.', icon: FiHeart },
               ].map(({ label, description, detail, icon: Icon }) => (
-                <li key={label} className="flex flex-col items-center gap-3 rounded-2xl bg-theme-bg/60 px-2 py-4 desktop:py-5">
+                <li key={label} className="flex flex-col items-center gap-3 rounded-2xl bg-theme-bg/60 border-[1px] border-theme-accent/30 px-2 py-4 desktop:py-5">
                   <Icon aria-hidden="true" className="h-5 w-5 text-theme-accent" />
                   <span className="text-sm font-semibold">{label}</span>
                   <p className="text-[11px] leading-relaxed text-theme-text-secondary tablet:text-xs">
