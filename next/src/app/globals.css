@@ -97,7 +97,7 @@ html[data-theme-mode='밝게'] {
 }
 
 html[data-theme-mode='어둡게'] {
-  --theme-accent-light: var(--theme-accent);
+  --theme-accent-light: 38 38 38;
   --theme-accent-text: color-mix(in srgb, rgb(var(--theme-accent)) 55%, #fff);
   --theme-bg: 38 38 38;
   --theme-surface: 60 60 60;
