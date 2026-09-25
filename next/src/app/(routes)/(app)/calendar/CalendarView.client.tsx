@@ -1,5 +1,6 @@
 'use client';
 
+import CalendarViewTopArea from "./_components/CalendarViewTopArea";
 import CalendarViewContent from "./_components/CalendarViewContent";
 import CalendarViewToolbar from "./_components/CalendarViewToolbar";
 
@@ -10,12 +11,9 @@ import { useState } from 'react';
 
 import { getDiaryByDate } from '@/common/actions/diary';
 import { authAction } from '@/common/auth/authAction';
-import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from '@/common/components/layout/AppPageLayout';
-import AppPageTitle from '@/common/components/layout/AppPageTitle';
+import AppPageLayout from '@/common/components/layout/AppPageLayout';
 import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
-import Image from "next/image";
-import bottomCat from '/public/img/bottom-cat.png';
 
 interface Props {
   initialDate: string;
@@ -53,12 +51,7 @@ const CalendarView = ({ initialDate }: Props) => {
 
   return (
     <AppPageLayout
-      appPageTopArea={
-        <div className={`bg-theme-accent-light ${APP_PAGE_CONTENT_PADDING_CLASS_NAME}`}>
-          <AppPageTitle title="월간 기록" description="하루하루 쌓인 마음과 습관을 살펴봐요" />
-          <Image src={bottomCat} alt="bottom-cat" className="ml-auto mt-auto block w-full tablet:w-2/3 desktop:w-2/3" />
-        </div>
-      }
+      appPageTopArea={<CalendarViewTopArea />}
       mainAreaClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
       toolbar={
         <CalendarViewToolbar

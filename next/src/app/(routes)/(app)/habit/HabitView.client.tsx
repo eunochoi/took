@@ -1,23 +1,21 @@
 'use client';
 
+import HabitViewTopArea from "./_components/HabitViewTopArea";
 import HabitViewContent from "./_components/HabitViewContent";
 import HabitViewToolbar from "./_components/HabitViewToolbar";
 
 import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
-import AppPageLayout, { APP_PAGE_CONTENT_PADDING_CLASS_NAME } from "@/common/components/layout/AppPageLayout";
-import AppPageTitle from "@/common/components/layout/AppPageTitle";
+import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useEffect, useRef } from "react";
 import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
 import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
-import bottomCat from '/public/img/bottom-cat.png';
 
 const HabitView = () => {
   usePrefetchPage();
@@ -50,12 +48,7 @@ const HabitView = () => {
 
   return (
     <AppPageLayout
-      appPageTopArea={
-        <div className={`bg-theme-accent-light ${APP_PAGE_CONTENT_PADDING_CLASS_NAME}`}>
-          <AppPageTitle title="습관 만들기" description="작은 실천으로 만들어가는 나의 일상" />
-          <Image src={bottomCat} alt="bottom-cat" className="ml-auto mt-auto block w-full tablet:w-2/3 desktop:w-2/3" />
-        </div>
-      }
+      appPageTopArea={<HabitViewTopArea />}
       mainAreaClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
       pageRef={pageRef}
       showScrollToTop
