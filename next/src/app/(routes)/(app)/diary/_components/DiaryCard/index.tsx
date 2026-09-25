@@ -27,7 +27,7 @@ const DiaryCard = ({ diaryData }: Props) => {
   return (
     <article className="box-border flex w-full shrink-0 flex-col gap-4 py-6 first:pt-0">
       <DiaryDateHeader diaryData={diaryData} />
-      <div className='flex flex-col w-full h-auto p-2'>
+      <div className='flex flex-col w-full h-auto p-2 gap-3'>
         <div className="flex flex-col gap-3">
           {hasImages && (
             <Carousel className="aspect-[4/3] rounded-lg">
