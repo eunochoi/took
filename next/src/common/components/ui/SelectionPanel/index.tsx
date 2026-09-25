@@ -34,12 +34,12 @@ export const SelectionPanel = ({
       </div>
       <div className="flex w-full flex-wrap items-center gap-3 border-t border-theme-border/60 pt-6">
         {resetLabel && onReset && (
-          <button className={cn(panelActionButtonClass, "mr-auto flex items-center gap-1 bg-theme-bg text-theme-text-secondary")} onClick={onReset} type="button">
+          <button className={cn(panelActionButtonClass, "mr-auto flex items-center gap-1 text-theme-text-secondary")} onClick={onReset} type="button">
             {resetLabel}
           </button>
         )}
         <div className="ml-auto flex items-center gap-3">
-          <button className={cn(panelActionButtonClass, "bg-theme-bg text-theme-text-secondary")} onClick={onCancel} type="button">취소</button>
+          <button className={cn(panelActionButtonClass, "text-theme-text-secondary")} onClick={onCancel} type="button">취소</button>
           <button
             className={cn(panelActionButtonClass, "bg-theme-accent text-theme-text-on-accent")}
             disabled={submitDisabled}

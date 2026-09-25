@@ -130,14 +130,15 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
           dismissible={!isSubmitting}
           onClose={handleBack}
           overlayClassName="z-[99999]"
+          contentClassName="bg-theme-accent-light"
           variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
           <ModalHeader
-            className="bg-theme-surface"
+            className="bg-theme-accent-light"
             title={headerTitle}
             onBack={handleBack}
           />
-          <ModalBody withScrollFade className="flex w-full flex-col items-stretch bg-theme-surface">
+          <ModalBody withScrollFade className="flex w-full flex-col items-stretch bg-theme-accent-light">
             <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 px-[4dvw] pb-6 pt-2 tablet:px-6">
               <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">
                 오늘의 기록
@@ -162,7 +163,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
               />
             </fieldset>
           </ModalBody>
-          <div className="w-full shrink-0 bg-theme-surface px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
+          <div className="w-full shrink-0 bg-theme-accent-light px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
             <button
               type="button"
               onClick={handleSubmit}

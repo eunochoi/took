@@ -73,10 +73,11 @@ export const HabitOrderView = () => {
           ariaLabel="습관 순서 설정"
           onClose={() => setIsModalMounted(false)}
           overlayClassName="z-[99999]"
+          contentClassName="bg-theme-accent-light"
           variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
-          <ModalHeader title='습관 순서 설정' onBack={() => setIsModalMounted(false)} />
-          <ModalBody withScrollFade={true}>
+          <ModalHeader className="bg-theme-accent-light" title='습관 순서 설정' onBack={() => setIsModalMounted(false)} />
+          <ModalBody withScrollFade={true} className="bg-theme-accent-light">
             <div className="flex w-full flex-col gap-4 px-[4dvw] py-6 tablet:px-6">
               <p className="text-sm text-theme-text-secondary">드래그하거나 방향키로 습관 순서를 변경하세요.</p>
               <div className="flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-sm">
@@ -86,7 +87,7 @@ export const HabitOrderView = () => {
               {tempHabits && <HabitList tempHabits={tempHabits} onOrderChange={setTempHabits} />}
             </div>
           </ModalBody>
-          <div className="w-full shrink-0 px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
+          <div className="w-full shrink-0 bg-theme-accent-light px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
             <button
               className="flex min-h-14 w-full items-center justify-center rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
               disabled={!hasChanges || isPending || isError}

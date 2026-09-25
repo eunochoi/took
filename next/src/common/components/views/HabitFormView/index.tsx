@@ -117,14 +117,15 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
           dismissible={!isSubmitting}
           onClose={handleBack}
           overlayClassName="z-[99999]"
+          contentClassName="bg-theme-accent-light"
           variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
           <ModalHeader
-            className="bg-theme-surface"
+            className="bg-theme-accent-light"
             title={`목표 습관 ${confirmText}`}
             onBack={handleBack}
           />
-          <ModalBody withScrollFade className="flex w-full flex-col items-stretch bg-theme-surface">
+          <ModalBody withScrollFade className="flex w-full flex-col items-stretch bg-theme-accent-light">
             <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 px-[4dvw] pb-6 pt-2 tablet:px-6">
               <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">매일의 약속</h1>
               <div className="flex w-full flex-col gap-6">
@@ -135,7 +136,7 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
               <p className="text-center text-xs leading-relaxed text-theme-text-secondary">습관은 최대 {MAX_HABIT_COUNT}개까지 만들 수 있어요.</p>
             </fieldset>
           </ModalBody>
-          <div className="w-full shrink-0 bg-theme-surface px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
+          <div className="w-full shrink-0 bg-theme-accent-light px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
             <button
               type="button"
               onClick={handleSubmit}

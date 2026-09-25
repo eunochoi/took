@@ -18,11 +18,12 @@ interface ModalProps {
   onClose: () => void;
   variant: ResponsiveModalVariant;
   overlayClassName?: string;
+  contentClassName?: string;
   dismissible?: boolean;
 }
 
 const overlayClass = 'fixed inset-0 bg-theme-overlay/25 backdrop-blur-sm';
-const contentClass = 'flex min-h-0 flex-col overflow-hidden bg-theme-bg';
+const contentClass = 'flex min-h-0 flex-col overflow-hidden';
 
 const baseContentVariantClass: Record<ModalVariant, string> = {
   top: 'absolute inset-x-0 top-0 mx-auto h-fit max-h-[calc(100dvh-var(--modalHeader))] w-full rounded-b-3xl shadow-theme-panel-mobile landscape-short:max-h-[calc(100dvh-12px)]',
@@ -61,6 +62,7 @@ export const Modal = ({
   onClose,
   variant,
   overlayClassName,
+  contentClassName,
   dismissible = true,
 }: ModalProps) => {
   const isPresent = useIsPresent();
@@ -117,6 +119,7 @@ export const Modal = ({
         aria-modal="true"
         className={cn(
           contentClass,
+          contentClassName ?? 'bg-theme-bg',
           baseContentVariantClass[variant.base],
           tabletContentVariantClass[variant.tablet],
           desktopContentVariantClass[variant.desktop],

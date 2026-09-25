@@ -41,11 +41,12 @@ const HabitInfoView = ({ habitId, today }: Props) => {
           ariaLabel="습관 정보"
           onClose={() => setIsModalMounted(false)}
           overlayClassName="z-[99999]"
+          contentClassName="bg-theme-accent-light"
           variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
-          <ModalHeader className="bg-theme-surface" title='습관 정보' onBack={() => setIsModalMounted(false)} />
-          <ModalBody withScrollFade className="bg-theme-surface">
-            <div className="flex w-full flex-col bg-theme-surface px-[4dvw] pb-6 tablet:px-6 tablet:pb-7">
+          <ModalHeader className="bg-theme-accent-light" title='습관 정보' onBack={() => setIsModalMounted(false)} />
+          <ModalBody withScrollFade className="bg-theme-accent-light">
+            <div className="flex w-full flex-col bg-theme-accent-light px-[4dvw] pb-6 tablet:px-6 tablet:pb-7">
               <HabitInfoHeader habitData={habitDataById} />
 
               <MonthInfo

@@ -25,6 +25,7 @@ const YearFilter = ({ onClose, years, selectedYear, onApplyYear }: Props) => {
       ariaLabel="연도 선택"
       onClose={() => onClose()}
       overlayClassName="z-[98] tablet:z-[105]"
+      contentClassName="bg-theme-accent-light"
       variant={{ base: 'top', tablet: 'top', desktop: 'top' }}
     >
       <SelectionPanel

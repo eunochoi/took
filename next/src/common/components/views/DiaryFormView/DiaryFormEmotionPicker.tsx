@@ -61,7 +61,7 @@ const DiaryFormEmotionPicker = ({ emotion, onClose, onConfirm }: DiaryFormEmotio
           exit={{ opacity: 0, y: 'var(--picker-offset)' }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
 
-          className="pointer-events-auto max-h-[85dvh] w-full overflow-y-auto rounded-t-3xl bg-theme-surface shadow-theme-modal [--picker-offset:50px] tablet:w-[440px] tablet:max-w-[calc(100dvw-32px)] tablet:rounded-3xl desktop:[--picker-offset:0px]"
+          className="pointer-events-auto max-h-[85dvh] w-full overflow-y-auto rounded-t-3xl bg-theme-accent-light shadow-theme-modal [--picker-offset:50px] tablet:w-[440px] tablet:max-w-[calc(100dvw-32px)] tablet:rounded-3xl desktop:[--picker-offset:0px]"
         >
           <fieldset disabled={!isPresent} className="relative m-0 min-w-0 border-0 px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-7 tablet:px-7 tablet:pt-9">
             <button
