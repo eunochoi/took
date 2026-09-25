@@ -61,19 +61,9 @@ export default async function RootLayout({
         document.documentElement.style.setProperty('--loading-background', themeColor);
         document.documentElement.style.setProperty('--loading-indicator', 'rgb(' + accent.accent + ')');
 
-        var accentLight = getComputedStyle(document.documentElement)
-          .getPropertyValue('--theme-accent-light').trim();
-        var systemBarColor = accentLight ? 'rgb(' + accentLight + ')' : '#F0F7FF';
-
-        var metaThemeColor = document.getElementById('theme-color');
-        if (metaThemeColor) {
-          metaThemeColor.setAttribute('content', systemBarColor);
-        }
-
         if (window.ReactNativeWebView) {
           window.ReactNativeWebView.postMessage(JSON.stringify({
             type: 'THEME_CHANGE',
-            color: systemBarColor,
             style: isDarkMode && location.pathname !== '/' && location.pathname !== '/login' ? 'light' : 'dark'
           }));
         }
@@ -87,7 +77,6 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta id="theme-color" name="theme-color" content="#F0F7FF" />
         <script dangerouslySetInnerHTML={{ __html: localThemeInitScript }} />
         <meta name="google-site-verification" content="MSSWdnca2PMfsNV3MPmssa5cjQqycFJmdrj04DFx5fU" />
         {/* <link rel="manifest" href="/manifest.json" /> */}
