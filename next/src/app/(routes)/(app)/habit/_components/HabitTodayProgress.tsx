@@ -8,9 +8,9 @@ interface Props {
 
 const HabitTodayProgress = ({ completedCount, rate, totalCount }: Props) => (
   <section className="flex w-full justify-between gap-4">
-    <div className="flex flex-col justify-evenly min-w-0" >
+    <div className="flex flex-col justify-start min-w-0 gap-2" >
       <header className="text-lg font-title font-semibold text-theme-text-primary">오늘의 습관</header>
-      <div className="flex items-baseline">
+      <div className="flex items-baseline p-2">
         <span className="text-2xl text-theme-accent ">{completedCount}</span>
         <span className="ml-1 text-sm font-semibold text-theme-text-tertiary">/ {totalCount} 완료</span>
       </div>
@@ -20,7 +20,7 @@ const HabitTodayProgress = ({ completedCount, rate, totalCount }: Props) => (
       completedCount={completedCount}
       rate={rate}
       totalCount={totalCount}
-      className="h-28 w-28 tablet:h-32 tablet:w-32"
+      className="h-28 w-28 p-2 tablet:h-32 tablet:w-32"
     />
   </section>
 );
