@@ -2,7 +2,7 @@
 
 import HabitViewContent from "./_components/HabitViewContent";
 import HabitViewToolbar from "./_components/HabitViewToolbar";
-import HabitViewTopArea from "./_components/HabitViewTopArea";
+import HabitViewTopSection from "./_components/HabitViewTopSection";
 
 import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
@@ -49,8 +49,8 @@ const HabitView = () => {
   return (
     <AppPageLayout
       showScrollToTop
-      appPageTopArea={<HabitViewTopArea />}
-      mainAreaClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
+      appPageTopSection={<HabitViewTopSection />}
+      mainSectionClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
       pageRef={pageRef}
       toolbar={
         <HabitViewToolbar
@@ -59,7 +59,7 @@ const HabitView = () => {
           sortValue={sortValue}
         />
       }
-      appPageMainArea={
+      appPageMainSection={
         <HabitViewContent
           habits={habits}
           totalHabitCount={totalHabitCount}

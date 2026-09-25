@@ -2,7 +2,7 @@
 
 import SettingViewContent from "./_components/SettingViewContent";
 import SettingViewToolbar from "./_components/SettingViewToolbar";
-import SettingViewTopArea from "./_components/SettingViewTopArea";
+import SettingViewTopSection from "./_components/SettingViewTopSection";
 
 
 
@@ -24,11 +24,11 @@ const SettingPage = () => {
 
   return (
     <AppPageLayout
-      appPageTopArea={<SettingViewTopArea />}
-      mainAreaClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
+      appPageTopSection={<SettingViewTopSection />}
+      mainSectionClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
       showScrollToTop={false}
       toolbar={<SettingViewToolbar />}
-      appPageMainArea={
+      appPageMainSection={
         <SettingViewContent
           email={email}
           provider={provider}

@@ -14,7 +14,7 @@ import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { AnimatePresence } from 'framer-motion';
-import HomeViewTopArea from './_components/HomeViewTopArea';
+import HomeViewTopSection from './_components/HomeViewTopSection';
 import YearFilter from './_components/YearFilter';
 
 const HomeView = ({ initialDate }: { initialDate: string }) => {
@@ -54,16 +54,16 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
   return (
     <>
       <AppPageLayout
-        appPageTopArea={<HomeViewTopArea initialDate={initialDate} />}
+        appPageTopSection={<HomeViewTopSection initialDate={initialDate} />}
         toolbar={
           <HomeViewToolbar
             selectedYear={selectedYear}
             openYearFilter={openYearFilter}
           />
         }
-        mainAreaClassName={`bg-theme-surface px-[4dvw] tablet:px-9 desktop:px-14 py-2 tablet:py-4 desktop:py-8`}
+        mainSectionClassName={`bg-theme-surface px-[4dvw] tablet:px-9 desktop:px-14 py-2 tablet:py-4 desktop:py-8`}
 
-        appPageMainArea={
+        appPageMainSection={
           <HomeViewContent
             initialDate={initialDate}
             selectedYear={selectedYear}

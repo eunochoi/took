@@ -8,22 +8,22 @@ import { ScrollContainer } from "../ui/ScrollContainer";
 import { PageContent } from "./PageContent";
 
 interface Props {
-  appPageTopArea?: ReactNode;
-  appPageMainArea: ReactNode;
+  appPageTopSection?: ReactNode;
+  appPageMainSection: ReactNode;
   contentWrapperClassName?: string;
   pageRef?: RefObject<HTMLDivElement>;
   showScrollToTop?: boolean;
   toolbar?: ReactNode;
-  mainAreaClassName?: string;
+  mainSectionClassName?: string;
 }
 
 export const APP_PAGE_CONTENT_PADDING_CLASS_NAME = "px-[4dvw] pt-8 tablet:px-9 tablet:pt-6 desktop:px-14";
 
-const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassName, pageRef, showScrollToTop = false, toolbar, mainAreaClassName }: Props) => {
+const AppPageLayout = ({ appPageTopSection, appPageMainSection, contentWrapperClassName, pageRef, showScrollToTop = false, toolbar, mainSectionClassName }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const hasToolbar = Boolean(toolbar);
-  const hasTopArea = Boolean(appPageTopArea);
+  const hasTopSection = Boolean(appPageTopSection);
 
   useEffect(() => {
     const toolbar = toolbarRef.current;
@@ -49,15 +49,15 @@ const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassNam
         showScrollToTop={showScrollToTop}
       >
         <PageContent className={cn("flex min-w-0 w-full flex-1 flex-col", contentWrapperClassName)}>
-          {hasTopArea && <div className="w-full shrink-0">{appPageTopArea}</div>}
-          <div className={twMerge("w-full h-auto flex flex-col !pb-[var(--bottomSafeArea)]", mainAreaClassName)} >
+          {hasTopSection && <div className="w-full shrink-0">{appPageTopSection}</div>}
+          <div className={twMerge("w-full h-auto flex flex-col !pb-[var(--bottomSafeArea)]", mainSectionClassName)} >
             <div className="flex flex-col w-full tablet:max-w-[500px] desktop:max-w-[900px] mx-auto">
               {hasToolbar && (
                 <div ref={toolbarRef} data-component="pageToolbar" className={twMerge("sticky top-0 z-[91] mb-4 -mx-1 flex flex-wrap items-center gap-2 py-4")}>
                   {toolbar}
                 </div>
               )}
-              {appPageMainArea}
+              {appPageMainSection}
             </div>
           </div>
         </PageContent>

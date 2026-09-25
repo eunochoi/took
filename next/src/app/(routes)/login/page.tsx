@@ -8,7 +8,7 @@ import { logout } from "@/common/auth/logout";
 import EmotionImage from "@/common/components/ui/EmotionImage";
 import SocialLoginButton from '@/common/components/ui/SocialLoginButton';
 import Wordmark from '@/common/components/ui/Wordmark';
-import { GRADIENT_CLASS } from '@/common/constants/pageStyle';
+import { APP_PAGE_TOP_AREA_CLASS } from '@/common/constants/pageStyle';
 import { EMOTIONS } from "@/common/constants/emotions";
 import { LOGIN_PROVIDERS, type LoginProviderId } from '@/common/constants/loginProviders';
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
@@ -40,7 +40,7 @@ const Page = () => {
       <div className="grid min-h-full desktop:grid-cols-[1.35fr_1fr]">
         <section
           aria-labelledby="login-intro-title"
-          className={`${GRADIENT_CLASS} flex flex-col gap-12 px-6 pt-16 pb-0 tablet:px-10 desktop:gap-24 desktop:px-12 desktop:pt-10 desktop:pb-0 xl:px-20`}>
+          className={`${APP_PAGE_TOP_AREA_CLASS} flex flex-col gap-12 px-6 pt-16 pb-0 tablet:px-10 desktop:gap-24 desktop:px-12 desktop:pt-10 desktop:pb-0 xl:px-20`}>
           <Wordmark className="text-7xl" />
 
           <div className="flex flex-col gap-8">

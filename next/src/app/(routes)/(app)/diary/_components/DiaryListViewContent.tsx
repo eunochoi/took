@@ -17,7 +17,7 @@ interface Props {
 
 const DiaryListViewContent = ({ flatDiaries, isDiaryListEmpty, hasAppliedFilter, inViewRef, statsYear, setStatsYear }: Props) => {
   return (
-    <div className="grid flex-1 w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
+    <section className="grid flex-1 w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
       <div className="flex min-w-0 flex-col">
         {isDiaryListEmpty ? (
           <EmptyStateCard
@@ -38,7 +38,7 @@ const DiaryListViewContent = ({ flatDiaries, isDiaryListEmpty, hasAppliedFilter,
         onChangeYear={setStatsYear}
         className="desktop:col-start-2 desktop:border-l desktop:border-theme-border/60 desktop:pl-8"
       />
-    </div>
+    </section>
   );
 };
 

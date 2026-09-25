@@ -16,7 +16,7 @@ interface Props {
 
 const HabitViewContent = ({ habits, totalHabitCount, todayDoneHabitCount, todayDoneHabitRate }: Props) => {
   return (
-    <div className="w-full desktop:grid desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
+    <section className="w-full desktop:grid desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
       {totalHabitCount > 0 && (
         <aside className="pb-4 border-b border-theme-border/60 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:col-start-2 desktop:row-start-1 desktop:mb-0 desktop:border-b-0 desktop:border-l desktop:pb-0 desktop:pl-8">
           <HabitTodayProgress
@@ -44,7 +44,7 @@ const HabitViewContent = ({ habits, totalHabitCount, todayDoneHabitCount, todayD
           {!!habits?.length && habits.length % 2 === 1 && <div className="bg-theme-surface" aria-hidden="true" />}
         </div>
       </section>
-    </div>
+    </section>
   );
 };
 

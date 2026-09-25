@@ -2,7 +2,7 @@
 
 import CalendarViewContent from "./_components/CalendarViewContent";
 import CalendarViewToolbar from "./_components/CalendarViewToolbar";
-import CalendarViewTopArea from "./_components/CalendarViewTopArea";
+import CalendarViewTopSection from "./_components/CalendarViewTopSection";
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
@@ -51,15 +51,15 @@ const CalendarView = ({ initialDate }: Props) => {
 
   return (
     <AppPageLayout
-      appPageTopArea={<CalendarViewTopArea />}
-      mainAreaClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
+      appPageTopSection={<CalendarViewTopSection />}
+      mainSectionClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
       toolbar={
         <CalendarViewToolbar
           openSelectedDiary={openSelectedDiary}
           diaryActionLabel={diaryActionLabel}
         />
       }
-      appPageMainArea={
+      appPageMainSection={
         <CalendarViewContent
           today={today}
           selectedDate={selectedDate}
