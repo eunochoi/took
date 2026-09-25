@@ -12,8 +12,8 @@ interface ScrollContainerProps extends Omit<HTMLAttributes<HTMLDivElement>, 'chi
   children: ReactNode;
   className?: string;
   contentClassName?: string;
-  fadeSizeClassName?: string;
   scrollAreaClassName?: string;
+  scrollFadeClassName?: string;
   showScrollFade?: boolean;
   showTopFade?: boolean;
   showScrollToTop?: boolean;
@@ -24,8 +24,8 @@ export const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
     children,
     className,
     contentClassName,
-    fadeSizeClassName = "h-24",
     scrollAreaClassName,
+    scrollFadeClassName,
     showScrollFade = false,
     showTopFade = true,
     showScrollToTop = false,
@@ -74,12 +74,12 @@ export const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
             <ScrollEdgeFade
               edge="top"
               visible={showTopFade && isVisibleTopFade}
-              className={cn("absolute inset-x-0 top-0 z-[90]", fadeSizeClassName)}
+              className={cn("absolute inset-x-0 top-0 z-[90] h-24", scrollFadeClassName)}
             />
             <ScrollEdgeFade
               edge="bottom"
               visible={isVisibleBottomFade}
-              className={cn("absolute inset-x-0 bottom-0 z-[90]", fadeSizeClassName)}
+              className={cn("absolute inset-x-0 bottom-0 z-[90] h-24", scrollFadeClassName)}
             />
           </>
         )}

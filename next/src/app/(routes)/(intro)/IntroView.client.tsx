@@ -23,8 +23,8 @@ const IntroView = () => {
   return (
     <ScrollContainer
       className="static-theme-blue h-[100dvh] w-[100dvw] bg-theme-bg font-title"
-      showScrollFade={false}
-      showScrollToTop
+      showScrollFade
+      scrollFadeClassName='desktop:hidden'
     >
       <IntroHero />
 

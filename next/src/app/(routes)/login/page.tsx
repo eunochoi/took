@@ -3,8 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import LoginTopSection from './_components/LoginTopSection';
+import { ScrollContainer } from "@/common/components/ui/ScrollContainer";
 import LoginBottomSection from './_components/LoginBottomSection';
+import LoginTopSection from './_components/LoginTopSection';
 
 
 const Page = () => {
@@ -19,12 +20,16 @@ const Page = () => {
   }, [router]);
 
   return (
-    <main className="static-theme-blue h-[100dvh] w-full overflow-y-auto bg-theme-accent-light font-title text-theme-text-primary">
-      <div className="grid min-h-full desktop:grid-cols-[1.35fr_1fr]">
+    <ScrollContainer
+      className="static-theme-blue h-[100dvh] w-[100dvw] bg-theme-surface font-title text-theme-text-primary"
+      showScrollFade
+      scrollFadeClassName='desktop:hidden'
+    >
+      <div className="grid min-h-[100dvh] desktop:grid-cols-[1.35fr_1fr]">
         <LoginTopSection />
         <LoginBottomSection />
       </div>
-    </main>
+    </ScrollContainer>
   );
 };
 

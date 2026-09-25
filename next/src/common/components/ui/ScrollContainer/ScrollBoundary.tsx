@@ -16,7 +16,7 @@ export const ScrollBoundary = forwardRef<HTMLDivElement, Props>(({ edge }, ref) 
       ref={ref}
       aria-hidden="true"
       className={cn(
-        "pointer-events-none absolute inset-x-0 h-8",
+        "pointer-events-none absolute inset-x-0 h-1",
         positionClass[edge],
       )}
     />
