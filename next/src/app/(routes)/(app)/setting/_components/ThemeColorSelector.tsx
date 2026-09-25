@@ -11,27 +11,25 @@ export const ThemeColorSelector = () => {
   const currentThemeName = theme.accent;
   const setThemeName = theme.setAccent;
   return (
-    <div className="py-3">
-      <div className="flex items-center justify-between gap-2">
-        {THEME_NAME_LIST.map((themeName) => {
-          const selected = themeName === currentThemeName;
+    <div className="flex items-center justify-between gap-2">
+      {THEME_NAME_LIST.map((themeName) => {
+        const selected = themeName === currentThemeName;
 
-          return (
-            <button
-              key={themeName}
-              className={cn(
-                "bg-theme-accent flex h-[24px] w-[24px] items-center justify-center rounded-full transition-transform duration-200 ease-in-out",
-                selected ? "scale-[1.3]" : "scale-100",
-              )}
-              onClick={() => setThemeName(themeName)}
-              style={{ backgroundColor: `rgb(${THEME_VALUE[themeName].accent})` }}
-              type="button"
-            >
-              {selected && <MdCheck className="text-lg text-theme-text-on-accent drop-shadow-[0_1px_1px_rgb(var(--theme-shadow-color)/0.2)]" />}
-            </button>
-          );
-        })}
-      </div>
+        return (
+          <button
+            key={themeName}
+            className={cn(
+              "bg-theme-accent flex h-[24px] w-[24px] items-center justify-center rounded-full transition-transform duration-200 ease-in-out",
+              selected ? "scale-[1.3]" : "scale-100",
+            )}
+            onClick={() => setThemeName(themeName)}
+            style={{ backgroundColor: `rgb(${THEME_VALUE[themeName].accent})` }}
+            type="button"
+          >
+            {selected && <MdCheck className="text-lg text-theme-text-on-accent drop-shadow-[0_1px_1px_rgb(var(--theme-shadow-color)/0.2)]" />}
+          </button>
+        );
+      })}
     </div>
   );
 };

@@ -16,7 +16,7 @@ export const ThemeSettingsSection = () => {
   const router = useRouter();
 
   return (
-    <SettingSectionCard>
+    <SettingSectionCard className="gap-12">
       <SettingSubsection title="감정 아이콘">
         <EmotionIconStyleSelector />
       </SettingSubsection>

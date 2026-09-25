@@ -7,9 +7,9 @@ interface SettingSubsectionProps {
 
 export const SettingSubsection = ({ title, children }: SettingSubsectionProps) => {
   return (
-    <section className="min-w-0 py-6 first:pt-0 last:pb-0">
-      <h2 className="mb-3 text-lg font-semibold text-theme-text-primary">{title}</h2>
-      <div className="p-2">
+    <section className="flex min-w-0 flex-col gap-3">
+      <h2 className="text-lg font-semibold text-theme-text-primary">{title}</h2>
+      <div className="flex min-w-0 flex-col gap-6 p-2">
         {children}
       </div>
     </section>
