@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from "@/common/utils/cn";
+import { AnimatePresence } from "framer-motion";
 import { HTMLAttributes, ReactNode, forwardRef, useImperativeHandle, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { ScrollBoundary } from "./ScrollBoundary";
@@ -82,9 +83,11 @@ export const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
             />
           </>
         )}
-        {showScrollToTop && isVisibleTopFade && (
-          <ScrollToTopButton onClick={scrollToTop} />
-        )}
+        <AnimatePresence>
+          {showScrollToTop && isVisibleTopFade && (
+            <ScrollToTopButton onClick={scrollToTop} />
+          )}
+        </AnimatePresence>
       </div>
     );
   },

@@ -1,21 +1,27 @@
-import { MdArrowUpward } from "react-icons/md";
+import { cn } from "@/common/utils/cn";
+import { motion } from "framer-motion";
+import { FaArrowUp } from "react-icons/fa";
 
 interface Props {
   onClick: () => void;
 }
 
-const scrollToTopButtonClass =
-  "absolute right-[4dvw] z-[91] flex h-10 w-10 items-center justify-center rounded-full bg-theme-surface/80 text-xl text-theme-accent shadow-[0_1px_6px_rgb(var(--theme-shadow-color)/0.06)] backdrop-blur-xl max-tablet:bottom-[calc(var(--mobileNav)+20px)] tablet:max-desktop:bottom-8 desktop:bottom-12";
-
 export const ScrollToTopButton = ({ onClick }: Props) => {
   return (
-    <button
+    <motion.button
       aria-label="맨 위로 이동"
-      className={scrollToTopButtonClass}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+
+      className={cn('absolute right-[4dvw] bottom-[calc(var(--mobileNav)+20px)] tablet:max-desktop:bottom-8 desktop:bottom-12 z-[91]',
+        'h-[50px] w-[50px] items-center justify-center !border-0',
+        'border-[1px] border-theme-bg pointer-events-auto flex items-center gap-1.5 rounded-full bg-theme-surface/75 text-theme-text-tertiary shadow-theme-floating backdrop-blur-2xl')}
       onClick={onClick}
       type="button"
     >
-      <MdArrowUpward />
-    </button>
+      <FaArrowUp />
+    </motion.button>
   );
 };
