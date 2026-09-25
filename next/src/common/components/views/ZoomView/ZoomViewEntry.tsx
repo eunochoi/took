@@ -1,5 +1,5 @@
-import EmotionImage from '@/common/components/ui/EmotionImage';
 import { DiaryHabits } from "@/common/components/ui/Diary/DiaryHabits";
+import EmotionImage from '@/common/components/ui/EmotionImage';
 import { EMOTIONS } from "@/common/constants/emotions";
 import type { DiaryData } from "@/common/types/diary";
 
@@ -28,7 +28,7 @@ export const ZoomViewEntry = ({ diaryData }: ZoomViewEntryProps) => {
         </div>
       </div>
       {diaryData.Habits.length > 0 && <DiaryHabits habits={diaryData.Habits} showCount={false} />}
-      <div className="whitespace-pre-wrap break-words text-base leading-[1.9] text-theme-text-primary">
+      <div className="whitespace-pre-wrap p-2 break-words text-base leading-[1.9] text-theme-text-primary">
         {diaryData.text}
       </div>
     </article>

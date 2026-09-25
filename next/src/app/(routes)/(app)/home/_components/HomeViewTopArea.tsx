@@ -26,7 +26,7 @@ const HomeViewTopArea = ({ initialDate }: { initialDate: string }) => {
   return (
     <div className={cn('flex flex-col gap-8 bg-theme-accent-light', APP_PAGE_CONTENT_PADDING_CLASS_NAME)}>
       <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
-      <div className="flex flex-col font-title gap-4 desktop:gap-8">
+      <div className="flex flex-col font-title p-2 gap-4 desktop:gap-8">
         <span className="m-0 text-2xl font-semibold text-theme-text-secondary">{today}</span>
         <h1 className="flex gap-4 items-center m-0 h-10 desktop:h-12">
           <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
@@ -41,7 +41,7 @@ const HomeViewTopArea = ({ initialDate }: { initialDate: string }) => {
           <p>{GREETING_TEXT.sub[1]}</p>
         </div>
       </div>
-      <div className="desktop:hidden">
+      <div className="desktop:hidden p-1">
         <TodayRecordSection initialDate={initialDate} />
       </div>
       <Image src={bottomCat} alt="bottom-cat" className="ml-auto block w-full tablet:w-1/2 desktop:w-1/2" />
