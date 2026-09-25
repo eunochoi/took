@@ -17,8 +17,8 @@ const SideBar = () => {
       <nav className="flex flex-col gap-2" aria-label="주요 메뉴">
         {items.map(({ key, segment, icon: Icon, href, label }) => (
           <button key={key} type="button" onClick={() => router.push(href)} aria-label={label} aria-current={current === segment ? 'page' : undefined}
-            className={cn("font-semibold flex min-h-12 items-center justify-center gap-3 rounded-xl px-3 text-sm desktop:justify-start",
-              current === segment ? "bg-theme-accent/20 text-theme-accent-deep" : "text-theme-text-secondary desktop:hover:bg-theme-surface/50")}>
+            className={cn("font-semibold flex min-h-12 items-center justify-center gap-3 rounded-xl px-3 text-sm desktop:justify-start border-[1px]",
+              current === segment ? "bg-theme-accent-light border-theme-accent/30 text-theme-accent-deep" : "border-transparent text-theme-text-secondary desktop:hover:bg-theme-surface/50")}>
             <Icon className="shrink-0 text-xl" />
             <span className="hidden desktop:block">{label}</span>
           </button>
