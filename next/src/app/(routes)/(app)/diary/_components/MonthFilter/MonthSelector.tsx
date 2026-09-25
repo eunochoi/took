@@ -14,7 +14,7 @@ const MONTHS = Array.from({ length: 12 }, (_, index) => index + 1);
 
 const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelectedMonth }: Props) => {
   const [touchStartX, setTouchStartX] = useState<number>(0);
-  const yearButtonClass = "px-2 py-[3px] text-base text-theme-text-primary";
+  const yearButtonClass = "px-2 py-[3px] text-base font-semibold text-theme-text-primary";
 
   const goToNextYear = () => {
     setSelectedYear(c => c + 1);
@@ -37,9 +37,11 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
   return (
     <div>
       <div className="flex w-full items-center justify-between p-2">
-        <button className={yearButtonClass} onClick={goToPreYear} type="button"><MdKeyboardArrowLeft /></button>
         <button className={yearButtonClass} onClick={goToCurrentDate} type="button">{selectedYear}</button>
-        <button className={yearButtonClass} onClick={goToNextYear} type="button"><MdKeyboardArrowRight /></button>
+        <div className="flex items-center gap-1">
+          <button className={yearButtonClass} onClick={goToPreYear} aria-label="이전 연도" type="button"><MdKeyboardArrowLeft aria-hidden="true" /></button>
+          <button className={yearButtonClass} onClick={goToNextYear} aria-label="다음 연도" type="button"><MdKeyboardArrowRight aria-hidden="true" /></button>
+        </div>
       </div>
       <div
         className="grid h-[150px] w-full grid-cols-6 grid-rows-2"
@@ -59,8 +61,8 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
             <button
               key={month}
               className={cn(
-                "flex items-center justify-center border-b-2 text-sm transition-colors duration-200",
-                selected ? "border-theme-accent font-semibold text-theme-accent" : "border-transparent text-theme-text-primary",
+                "flex items-center justify-center text-sm transition-colors duration-200 text-theme-text-primary",
+                selected ? "rounded-2xl border p-2 transition-colors border-theme-accent bg-theme-accent/10" : "border-transparent",
               )}
               aria-pressed={selected}
               onClick={() => selectMonth(month)}

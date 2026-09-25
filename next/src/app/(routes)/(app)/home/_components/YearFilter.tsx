@@ -40,8 +40,8 @@ const YearFilter = ({ onClose, years, selectedYear, onApplyYear }: Props) => {
               <button
                 key={year}
                 className={cn(
-                  "border-b-2 px-2 py-3 text-base transition-colors duration-200",
-                  selected ? "border-theme-accent font-semibold text-theme-accent" : "border-transparent font-normal text-theme-text-primary",
+                  "px-2 py-3 text-base transition-colors duration-200 font-normal text-theme-text-primary",
+                  selected ? "rounded-2xl border p-2 transition-colors border-theme-accent bg-theme-accent/10" : "border-transparent",
                 )}
                 aria-pressed={selected}
                 onClick={() => setTempYear(year)}

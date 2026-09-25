@@ -32,7 +32,7 @@ export const SelectionPanel = ({
       <div className="w-full min-w-0">
         {children}
       </div>
-      <div className="flex w-full flex-wrap items-center gap-3 border-t border-theme-border/60 pt-3">
+      <div className="flex w-full flex-wrap items-center gap-3 border-t border-theme-border/60 pt-6">
         {resetLabel && onReset && (
           <button className={cn(panelActionButtonClass, "mr-auto flex items-center gap-1 bg-theme-bg text-theme-text-secondary")} onClick={onReset} type="button">
             {resetLabel}

@@ -45,7 +45,7 @@ export const AppStatValue = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpanE
   ({ className, ...props }, ref) => (
     <span
       ref={ref}
-      className={cn("text-2xl font-extrabold leading-none text-theme-accent tablet:text-xl", className)}
+      className={cn("flex items-baseline text-2xl font-bold leading-none text-theme-accent tablet:text-xl", className)}
       {...props}
     />
   ),
