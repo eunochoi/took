@@ -1,10 +1,10 @@
 'use client';
 
-
 import EmotionImage from '@/common/components/ui/EmotionImage';
 import { EMOTIONS } from "@/common/constants/emotions";
 import { EMOTION_UNSELECTED } from "@/common/constants/filterDefaults";
 import { cn } from "@/common/utils/cn";
+import { MdCheck } from 'react-icons/md';
 
 export interface EmotionSelectorProps {
   value: number;
@@ -12,56 +12,39 @@ export interface EmotionSelectorProps {
 }
 
 export const EmotionSelector = ({ value, onChange }: EmotionSelectorProps) => {
-  const firstRow = EMOTIONS.slice(0, 5);
-  const secondRow = EMOTIONS.slice(5, EMOTIONS.length);
-
-  const isSelected = (id: number) => value === id || value === EMOTION_UNSELECTED;
-
   const handleClick = (id: number) => {
     if (value === id) onChange(EMOTION_UNSELECTED);
     else onChange(id);
   };
 
-  const renderEmotion = (emotion: (typeof EMOTIONS)[number]) => {
-    const selected = isSelected(emotion.id);
-
-    return (
-      <button
-        key={emotion.name}
-        className="flex flex-1 cursor-pointer flex-col items-center gap-2"
-        onClick={() => handleClick(emotion.id)}
-        type="button"
-      >
-        <EmotionImage
-          className={cn(
-            "h-11 w-11 shrink-0 object-contain transition-opacity duration-200 ease-in-out",
-            selected ? "opacity-100" : "opacity-50",
-          )}
-          emotion={emotion}
-          alt={emotion.nameKr}
-          width={128}
-          height={128}
-        />
-        <span
-          className={cn(
-            "text-center text-sm text-theme-text-secondary transition-opacity duration-200 ease-in-out",
-            selected ? "font-semibold opacity-100" : "opacity-50",
-          )}
-        >
-          {emotion.nameKr}
-        </span>
-      </button>
-    );
-  };
-
   return (
-    <div className="flex w-full flex-col gap-3">
-      <div className="flex w-full items-start justify-between">
-        {firstRow.map(renderEmotion)}
-      </div>
-      <div className="flex w-full items-start justify-between">
-        {secondRow.map(renderEmotion)}
-      </div>
+    <div role="group" aria-label="감정 선택" className="grid w-full grid-cols-5 gap-x-1 gap-y-5">
+      {EMOTIONS.map((emotion) => {
+        const selected = value === emotion.id;
+
+        return (
+          <button
+            key={emotion.name}
+            aria-pressed={selected}
+            className={cn(
+              'relative flex min-w-0 flex-col items-center gap-2 rounded-2xl border px-1 py-3 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
+              selected ? 'border-theme-accent bg-theme-accent/10' : 'border-transparent',
+            )}
+            onClick={() => handleClick(emotion.id)}
+            type="button"
+          >
+            <EmotionImage
+              className="h-11 w-11 max-w-full object-contain tablet:h-12 tablet:w-12"
+              emotion={emotion}
+              alt=""
+              width={48}
+              height={48}
+            />
+            <span className="text-xs font-medium text-theme-text-primary">{emotion.nameKr}</span>
+            {selected && <MdCheck aria-hidden="true" className="absolute -right-1 -top-1 h-5 w-5 rounded-full bg-theme-accent p-0.5 text-theme-text-on-accent" />}
+          </button>
+        );
+      })}
     </div>
   );
 };
