@@ -5,7 +5,7 @@ import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
 import { cn } from "@/common/utils/cn";
 import { MdChecklist } from 'react-icons/md';
 import HabitBox from "./HabitBox";
-import HabitTodayProgress from "./HabitTodayProgress";
+import HabitTodayProgressBar from "./HabitTodayProgressBar";
 
 interface Props {
   habits?: HabitData[];
@@ -18,8 +18,8 @@ const HabitViewContent = ({ habits, totalHabitCount, todayDoneHabitCount, todayD
   return (
     <section className="w-full desktop:grid desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
       {totalHabitCount > 0 && (
-        <aside className="pb-4 border-b border-theme-border/60 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:col-start-2 desktop:row-start-1 desktop:mb-0 desktop:border-b-0 desktop:border-l desktop:pb-0 desktop:pl-8">
-          <HabitTodayProgress
+        <aside className="mb-8 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:col-start-2 desktop:row-start-1 desktop:mb-0 desktop:border-b-0 desktop:border-l desktop:pb-0 desktop:pl-8">
+          <HabitTodayProgressBar
             completedCount={todayDoneHabitCount}
             rate={todayDoneHabitRate}
             totalCount={totalHabitCount}

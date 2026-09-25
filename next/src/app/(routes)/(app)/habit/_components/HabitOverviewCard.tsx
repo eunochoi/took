@@ -1,5 +1,5 @@
 import { AppSurfaceCard } from "@/common/components/ui/AppSection/card";
-import HabitTodayProgress from "./HabitTodayProgress";
+import HabitTodayProgressBar from "./HabitTodayProgressBar";
 
 interface Props {
   completedCount: number;
@@ -11,7 +11,7 @@ interface Props {
 const HabitOverviewCard = ({ completedCount, habitCount, maxHabitCount, rate }: Props) => {
   return (
     <AppSurfaceCard className="flex flex-col gap-4">
-      <HabitTodayProgress
+      <HabitTodayProgressBar
         completedCount={completedCount}
         rate={rate}
         totalCount={habitCount}

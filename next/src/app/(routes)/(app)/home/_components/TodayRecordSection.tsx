@@ -68,7 +68,7 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
           onClick={() => router.push('/habit')}
         >
           <MdCheckBox className="shrink-0 text-xl text-theme-accent" />
-          <span className="flex-1 font-base">오늘 습관 진행</span>
+          <span className="flex-1 font-base">오늘의 습관 진척도</span>
           <span className={recordStatusClass} aria-live="polite">
             {habitQuery.isError ? '조회 실패' : habitQuery.isPending ? '확인 중…' : `${completedCount} / ${totalHabitCount} 완료`}
           </span>
