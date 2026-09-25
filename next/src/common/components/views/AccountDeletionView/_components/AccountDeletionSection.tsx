@@ -10,7 +10,7 @@ import { signIn, signOut } from 'next-auth/react';
 import { useState } from 'react';
 
 const DELETE_CONFIRM_TEXT = '회원탈퇴';
-const sectionClass = 'flex min-h-[320px] flex-col items-center justify-center gap-5 p-5 text-center tablet:min-h-[340px] tablet:p-7';
+const sectionClass = 'flex min-h-[320px] flex-col items-center justify-center gap-5 px-5 py-10 text-center tablet:min-h-[340px] tablet:px-8';
 const descriptionClass = 'flex w-full max-w-[560px] flex-col text-center text-sm leading-relaxed text-theme-text-secondary tablet:text-base';
 
 const AccountDeletionSection = () => {
@@ -77,7 +77,7 @@ const AccountDeletionSection = () => {
           <input
             aria-label="회원 탈퇴 확인 문구"
             autoComplete="off"
-            className="h-11 w-full max-w-[520px] rounded-theme bg-theme-surface-muted px-4 text-center text-base shadow-card placeholder:text-theme-text-tertiary"
+            className="h-11 w-full max-w-[520px] border-b border-theme-border bg-transparent px-4 text-center text-base outline-none focus-visible:border-theme-accent placeholder:text-theme-text-tertiary"
             disabled={isProcessing}
             onChange={(event) => {
               setConfirmText(event.target.value);

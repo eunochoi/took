@@ -27,7 +27,7 @@ const AccountDeletionView = () => {
         closing={['다른 사용자가 참조하지 않는 첨부 사진 원본은 별도 저장소 정리 대상입니다.']}
       />
       <AccountDeletionSection />
-      <div className="flex justify-center py-2">
+      <div className="flex justify-center px-5 py-8">
         <Link className="text-sm text-theme-accent" href="/privacy">개인정보처리방침 보기</Link>
       </div>
     </DocLayout>

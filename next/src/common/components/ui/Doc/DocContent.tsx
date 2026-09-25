@@ -14,14 +14,14 @@ interface Props {
   title: string;
 }
 
-const paragraphClass = 'm-0 select-text break-keep';
+const paragraphClass = 'm-0 select-text';
 const listClass = 'flex list-disc flex-col gap-2 pl-5';
-const listItemClass = 'select-text break-keep pl-1';
+const listItemClass = 'select-text pl-1';
 
 const DocContent = ({ closing, list, paragraphs, subsections, title }: Props) => {
   return (
-    <DocCard className="select-text px-5 py-6 tablet:px-8 tablet:py-7">
-      <h2 className="m-0 break-keep text-2xl leading-tight text-theme-text-primary">{title}</h2>
+    <DocCard className="select-text px-5 py-8 tablet:px-8 tablet:py-10">
+      <h2 className="m-0 text-2xl leading-tight text-theme-text-primary">{title}</h2>
       <div className="mt-4 flex flex-col gap-3 text-base leading-[1.8] text-theme-text-secondary">
         {paragraphs?.map((paragraph) => (
           <p key={paragraph} className={paragraphClass}>{paragraph}</p>
@@ -35,7 +35,7 @@ const DocContent = ({ closing, list, paragraphs, subsections, title }: Props) =>
           <p key={paragraph} className={paragraphClass}>{paragraph}</p>
         ))}
         {subsections?.map((subsection, index) => (
-          <div key={`${subsection.title}-${index}`} className="mt-2 flex flex-col gap-2 rounded-theme bg-theme-bg px-6 py-6">
+          <div key={`${subsection.title}-${index}`} className="mt-2 flex flex-col gap-2 py-2 pl-5">
             {subsection.title ? (
               <h3 className="break-keep text-lg font-bold text-theme-text-primary">{subsection.title}</h3>
             ) : null}

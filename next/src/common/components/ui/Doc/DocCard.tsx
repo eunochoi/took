@@ -3,7 +3,7 @@ import type { HTMLAttributes } from 'react';
 
 type Props = HTMLAttributes<HTMLElement>;
 
-const docCardClass = 'rounded-theme bg-theme-surface shadow-card';
+const docCardClass = 'mx-auto w-full max-w-[720px] border-b border-theme-border/60';
 
 const DocCard = ({ className, ...props }: Props) => {
   return <section className={cn(docCardClass, className)} {...props} />;

@@ -6,12 +6,12 @@ interface Props {
   children: ReactNode;
 }
 
-const docMainClass = 'mx-auto flex w-full max-w-[720px] flex-col gap-4 px-5 py-10 font-paperozi tablet:px-8 tablet:py-14';
+const docMainClass = 'flex w-full flex-col bg-theme-surface font-title';
 
 const DocLayout = ({ children }: Props) => {
   return (
     <ScrollContainer
-      className="h-[100dvh] w-[100dvw] bg-theme-bg"
+      className="h-[100dvh] w-[100dvw] bg-theme-surface"
       showScrollFade
       showScrollToTop
     >
