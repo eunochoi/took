@@ -94,7 +94,6 @@ const SelectedDayInfo = ({ date, diaryData, isDiaryPending, isDiaryPlaceholder, 
             onAddDiary={onAddDiary}
             onOpenDiary={onOpenDiary}
           />
-          <span className='w-full h-[1px] bg-theme-border/60'></span>
           <SelectedDayHabitSection
             habitData={habitData}
             pendingHabitId={pendingHabitId}

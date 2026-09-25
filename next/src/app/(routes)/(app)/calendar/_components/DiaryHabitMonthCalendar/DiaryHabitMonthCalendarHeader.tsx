@@ -19,7 +19,7 @@ const DiaryHabitMonthCalendarHeader = ({
   onNextMonth,
   onToday,
 }: Props) => (
-  <header className="font-title flex items-center justify-between gap-3 border-b border-theme-border-muted pb-3">
+  <header className="font-title flex items-center justify-between gap-3 pb-3">
     <div className="min-w-0">
       <h2 className="text-lg font-semibold text-theme-text-primary">{monthLabel}</h2>
       <p className="mt-1 text-sm text-theme-text-tertiary" role="status">
