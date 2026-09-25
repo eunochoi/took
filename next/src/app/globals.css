@@ -38,7 +38,8 @@
   --sidebarWidth: 270px;
   --pageHeader: 72px;
   --modalHeader: 56px;
-  --mobileNav: 81px;
+  --mobileNav: 80px;
+  --mobileBottomSafeArea: 100px;
 }
 
 *:focus {

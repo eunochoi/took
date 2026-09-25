@@ -50,7 +50,7 @@ const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassNam
       >
         <PageContent className={cn("flex min-w-0 w-full flex-1 flex-col", contentWrapperClassName)}>
           {hasTopArea && <div className="w-full shrink-0 border-b-[1px] border-theme-accent/30">{appPageTopArea}</div>}
-          <div className={twMerge("w-full h-auto flex flex-col max-tablet:pb-[var(--mobileNav)] tablet:pb-9", mainAreaClassName)} >
+          <div className={twMerge("w-full h-auto flex flex-col max-tablet:pb-[var(--mobileBottomSafeArea)] tablet:pb-16", mainAreaClassName)} >
             <div className="flex flex-col w-full tablet:max-w-[500px] desktop:max-w-[900px] mx-auto">
               {hasToolbar && (
                 <div ref={toolbarRef} data-component="pageToolbar" className={twMerge("sticky top-0 z-[91] mb-4 -mx-1 flex flex-wrap items-center gap-2 py-4")}>
