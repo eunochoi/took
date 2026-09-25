@@ -15,7 +15,7 @@ interface Props {
 const SettingViewContent = ({ email, provider, createAt, onDeleteAccount }: Props) => {
   return (
     <div className="grid w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
-      <div className="flex min-w-0 flex-col divide-y divide-theme-border/60 desktop:col-start-1 desktop:row-start-1">
+      <div className="flex min-w-0 flex-col desktop:col-start-1 desktop:row-start-1">
         <ThemeSettingsSection />
         <AccountActionSection onDeleteAccount={onDeleteAccount} />
       </div>
@@ -23,7 +23,7 @@ const SettingViewContent = ({ email, provider, createAt, onDeleteAccount }: Prop
         email={email}
         provider={provider}
         createAt={createAt}
-        className="border-t border-theme-border/60 desktop:col-start-2 desktop:row-start-1 desktop:border-l desktop:border-t-0 desktop:pl-8 desktop:pt-0"
+        className="desktop:border-theme-border/60 desktop:col-start-2 desktop:row-start-1 desktop:border-l desktop:pl-8 desktop:pt-0"
       />
     </div>
   );
