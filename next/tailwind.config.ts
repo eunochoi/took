@@ -43,8 +43,8 @@ const config: Config = {
         "brand-kakao-text": "#39181d",
       },
       backgroundImage: {
-        "scroll-fade-top": "linear-gradient(in oklch to bottom, rgb(var(--theme-accent-light)) 0%,  rgb(var(--theme-accent-light) / 0) 100%)",
-        "scroll-fade-bottom": "linear-gradient(in oklch to top, rgb(var(--theme-accent-light)) 0%,  rgb(var(--theme-accent-light) / 0) 100%)",
+        "scroll-fade-top": "linear-gradient(in oklch to bottom, rgb(var(--theme-surface) / 80) 0%,  rgb(var(--theme-surface) / 0) 100%)",
+        "scroll-fade-bottom": "linear-gradient(in oklch to top, rgb(var(--theme-surface) / 80) 0%,  rgb(var(--theme-surface) / 0) 100%)",
       },
       fontFamily: {
         paperozi: ["Paperozi", "sans-serif"],

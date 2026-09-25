@@ -10,7 +10,7 @@ const SideBar = () => {
   const { items, current } = useNavItems();
 
   return (
-    <aside className="flex h-full w-full flex-col font-sans overflow-y-auto border-r border-theme-border/40 px-3 py-8 desktop:px-5">
+    <aside className="bg-theme-bg flex h-full w-full flex-col font-sans overflow-y-auto border-r border-theme-border/40 px-3 py-8 desktop:px-5">
       <button type="button" onClick={() => router.push('/home')} aria-label="TOOK 홈" className="mb-10 self-center rounded-lg desktop:ml-3 desktop:self-start">
         <Wordmark />
       </button>
