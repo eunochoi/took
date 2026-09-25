@@ -82,7 +82,7 @@ body {
   margin: 0;
   padding: 0;
 
-  background-color: rgb(var(--theme-bg));
+  background-color: rgb(var(--theme-accent-light));
   color: rgb(var(--theme-text-primary));
   color-scheme: light;
 }
