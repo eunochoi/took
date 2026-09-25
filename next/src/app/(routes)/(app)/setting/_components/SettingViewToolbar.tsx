@@ -1,20 +1,21 @@
 'use client';
 
 import ToolbarButton from '@/common/components/ui/ToolbarButton';
+import { useRouter } from 'next/navigation';
 
-import { MdPrivacyTip, MdShop } from "react-icons/md";
+import { FaGooglePlay } from 'react-icons/fa';
+import { MdPrivacyTip } from "react-icons/md";
 
-interface Props {
-  onOpenStore: () => void;
-  onOpenPrivacy: () => void;
-}
+const SettingViewToolbar = () => {
+  const router = useRouter();
+  const onOpenStore = () => router.push('https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share');
+  const onOpenPrivacy = () => router.push('/privacy');
 
-const SettingViewToolbar = ({ onOpenStore, onOpenPrivacy }: Props) => {
   return (
     <>
       <ToolbarButton
         onClick={onOpenStore}>
-        <MdShop size={18} className="shrink-0" aria-hidden="true" />
+        <FaGooglePlay size={18} className="shrink-0" aria-hidden="true" />
         PlayStore
       </ToolbarButton>
       <ToolbarButton

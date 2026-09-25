@@ -4,6 +4,8 @@ import SettingViewContent from "./_components/SettingViewContent";
 import SettingViewToolbar from "./_components/SettingViewToolbar";
 import SettingViewTopArea from "./_components/SettingViewTopArea";
 
+
+
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
@@ -25,12 +27,7 @@ const SettingPage = () => {
       appPageTopArea={<SettingViewTopArea />}
       mainAreaClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
       showScrollToTop={false}
-      toolbar={
-        <SettingViewToolbar
-          onOpenStore={() => router.push('https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share')}
-          onOpenPrivacy={() => router.push('/privacy')}
-        />
-      }
+      toolbar={<SettingViewToolbar />}
       appPageMainArea={
         <SettingViewContent
           email={email}
