@@ -1,5 +1,6 @@
 'use server';
 
+import type { Prisma } from '@prisma/client';
 import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
 import type { ActionResult } from '../types';
@@ -12,14 +13,18 @@ export const getHabitList = async ({ sortType, customHabitOrder = [] }: HabitLis
     if (!auth.ok) return createAuthErrorResult(auth);
 
     const orderIds = customHabitOrder.map((id) => Number(id)).filter((id) => Number.isFinite(id));
+    // DESC와 CUSTOM의 기본 순서는 최신 생성 습관부터 표시한다.
+    let orderBy: Prisma.HabitOrderByWithRelationInput | Prisma.HabitOrderByWithRelationInput[] = { createdAt: 'desc' };
+
+    if (sortType === 'ASC') {
+      orderBy = { createdAt: 'asc' };
+    } else if (sortType === 'PRIORITY') {
+      orderBy = [{ priority: 'desc' }, { createdAt: 'asc' }];
+    }
 
     const habits = await prisma.habit.findMany({
       where: { email: auth.email },
-      orderBy: sortType === 'DESC'
-        ? { createdAt: 'desc' }
-        : sortType === 'PRIORITY'
-          ? [{ priority: 'desc' }, { createdAt: 'asc' }]
-          : { createdAt: 'asc' },
+      orderBy,
     });
 
     if (sortType === 'CUSTOM' && orderIds.length > 0) {
@@ -31,7 +36,7 @@ export const getHabitList = async ({ sortType, customHabitOrder = [] }: HabitLis
         if (aOrder !== undefined && bOrder !== undefined) return aOrder - bOrder;
         if (aOrder !== undefined) return -1;
         if (bOrder !== undefined) return 1;
-        return a.createdAt.getTime() - b.createdAt.getTime();
+        return b.createdAt.getTime() - a.createdAt.getTime();
       });
     }
 

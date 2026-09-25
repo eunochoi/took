@@ -10,6 +10,7 @@ import { HabitItemProps } from "./_types";
 export const HabitItem = ({ habit }: HabitItemProps) => {
   const {
     setNodeRef,
+    setActivatorNodeRef,
     attributes,
     listeners,
     transform,
@@ -26,19 +27,21 @@ export const HabitItem = ({ habit }: HabitItemProps) => {
     <div
       ref={setNodeRef}
       className={cn(
-        "shadow-[0_4px_12px_rgb(var(--theme-shadow-color)/0.08)] bg-theme-surface my-1 flex h-12 w-full max-w-[420px] shrink-0 items-center justify-between rounded-theme px-[18px] py-1 text-sm text-theme-text-primary",
-        isDragging && "border-2 border-solid border-theme-accent",
+        "rounded-lg flex min-h-16 w-full min-w-0 shrink-0 items-center gap-3 px-2 py-3 text-sm text-theme-text-primary",
+        isDragging && "relative z-10 bg-theme-accent/10",
       )}
       style={style}
     >
-      <span className='flex w-1/5 justify-center text-base text-theme-accent'>
+      <span className='flex w-20 shrink-0 items-center text-base text-theme-accent'>
         <StarRating maxRating={3} rating={habit?.priority + 1} />
       </span>
-      <span className='flex w-3/5 justify-center overflow-x-scroll'>{habit?.name}</span>
+      <span className='min-w-0 flex-1 truncate font-medium'>{habit?.name}</span>
       <button
-        className="flex w-1/5 touch-none justify-center text-theme-text-tertiary"
+        ref={setActivatorNodeRef}
+        className="flex h-10 w-10 shrink-0 touch-none items-center justify-center text-theme-text-tertiary"
         {...attributes}
         {...listeners}
+        aria-label={`${habit.name} 순서 변경`}
         type="button"
       >
         <MdDragIndicator className='flex items-center justify-center' />

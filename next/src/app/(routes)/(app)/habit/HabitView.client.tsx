@@ -25,15 +25,16 @@ const HabitView = () => {
   const pageRef = useRef<HTMLDivElement | null>(null);
   const { todayDoneHabitCount, todayDoneHabitRate } = useTodayHabitRate();
   const { sortValue, onToggle } = useSortToggle({ sortKey: 'habit' });
-  const { customHabitOrder } = useCustomHabitOrder();
+  const { customHabitOrder, isStorageReady } = useCustomHabitOrder();
 
   useEffect(() => {
     pageRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   }, [sortValue]);
 
   const { data: habits } = useQuery({
-    queryKey: ['habits', 'list', sortValue],
+    queryKey: ['habits', 'list', sortValue, customHabitOrder],
     queryFn: () => authAction(() => getHabitList({ sortType: sortValue, customHabitOrder })),
+    enabled: isStorageReady,
   });
 
   const totalHabitCount = habits?.length ? habits?.length : 0;

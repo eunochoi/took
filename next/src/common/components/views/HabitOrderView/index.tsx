@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import { useCustomHabitOrder } from '@/app/(routes)/(app)/habit/_hooks/useCustomHabitOrder';
 import { Modal } from '@/common/components/ui/Modal';
 import { ModalBody } from '@/common/components/ui/Modal/ModalBody';
-import { ModalFooter } from '@/common/components/ui/Modal/ModalFooter';
 import { ModalHeader } from '@/common/components/ui/Modal/ModalHeader';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
@@ -21,37 +20,50 @@ import { HabitList } from './HabitList';
 export const HabitOrderView = () => {
   const router = useRouter();
   const [isModalMounted, setIsModalMounted] = useState(true);
-  const { customHabitOrder, setCustomHabitOrder } = useCustomHabitOrder();
+  const { customHabitOrder, setCustomHabitOrder, isStorageReady } = useCustomHabitOrder();
 
-  //custom habits data load
-  const { data: customHabits } = useQuery({
-    queryKey: ['habits', 'list', 'CUSTOM'],
+  const { data: customHabits, isPending, isError, refetch } = useQuery({
+    queryKey: ['habits', 'list', 'CUSTOM', customHabitOrder],
     queryFn: () => authAction(() => getHabitList({ sortType: 'CUSTOM', customHabitOrder })),
+    enabled: isStorageReady,
   });
 
-  const [tempHabits, setTempHabits] = useState<Habit[]>([]);
+  const [tempHabits, setTempHabits] = useState<Habit[] | null>(null);
+  const [resetToDefault, setResetToDefault] = useState(false);
+
   useEffect(() => {
     if (customHabits) {
-      setTempHabits(customHabits);
+      setTempHabits((current) => current ?? customHabits);
     }
   }, [customHabits]);
-  const onInitialize = () => {
-    if (customHabits) {
-      setTempHabits(customHabits);
-    }
+
+  const defaultHabits = [...(customHabits ?? [])].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  const currentIds = tempHabits?.map((habit) => habit.id) ?? [];
+  const savedIds = customHabits?.map((habit) => habit.id) ?? [];
+  const isDefaultOrder = currentIds.length === defaultHabits.length
+    && currentIds.every((id, index) => id === defaultHabits[index].id);
+  const hasChanges = tempHabits !== null && customHabits !== undefined && (
+    currentIds.length !== savedIds.length
+    || currentIds.some((id, index) => id !== savedIds[index])
+    || (resetToDefault && isDefaultOrder && customHabitOrder.length > 0)
+  );
+
+  const onCancelChanges = () => {
+    if (!customHabits) return;
+    setTempHabits(customHabits);
+    setResetToDefault(false);
+  };
+
+  const onResetToDefault = () => {
+    setTempHabits(defaultHabits);
+    setResetToDefault(true);
   };
 
   const onSubmit = () => {
-    try {
-      const tempHabitsIdArray = tempHabits.map(e => e.id);
-      setCustomHabitOrder(tempHabitsIdArray);
-      setIsModalMounted(false);
-      setTimeout(() => {
-        enqueueSnackbar('변경 완료');
-      }, 300);
-    } catch (e) {
-      console.error(e);
-    }
+    if (!tempHabits || !hasChanges) return;
+    setCustomHabitOrder(isDefaultOrder ? [] : currentIds);
+    setIsModalMounted(false);
+    setTimeout(() => enqueueSnackbar('습관 순서를 저장했어요.'), 300);
   };
 
   return (
@@ -63,13 +75,38 @@ export const HabitOrderView = () => {
           overlayClassName="z-[99999]"
           variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
-          <ModalHeader title='습관 순서 설정' onBack={() => setIsModalMounted(false)} onConfirm={onSubmit} />
+          <ModalHeader title='습관 순서 설정' onBack={() => setIsModalMounted(false)} />
           <ModalBody withScrollFade={true}>
-            <HabitList tempHabits={tempHabits} setTempHabits={setTempHabits} />
+            <div className="flex w-full flex-col gap-4 px-[4dvw] py-6 tablet:px-6">
+              <p className="text-sm text-theme-text-secondary">드래그하거나 방향키로 습관 순서를 변경하세요.</p>
+              <div className="flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-sm">
+                <button className="text-theme-text-secondary disabled:opacity-40" disabled={!hasChanges} onClick={onCancelChanges} type="button">변경사항 취소</button>
+                <button className="text-theme-text-secondary disabled:opacity-40" disabled={!tempHabits || (isDefaultOrder && customHabitOrder.length === 0)} onClick={onResetToDefault} type="button">기본 순서로 초기화</button>
+              </div>
+              {isError ? (
+                <div className="flex flex-col items-center gap-3 py-8 text-sm text-theme-text-secondary">
+                  <p>습관 목록을 불러오지 못했어요.</p>
+                  <button className="text-theme-accent" onClick={() => void refetch()} type="button">다시 시도</button>
+                </div>
+              ) : isPending || !tempHabits ? (
+                <p className="py-8 text-center text-sm text-theme-text-secondary">습관 목록을 불러오는 중...</p>
+              ) : tempHabits.length === 0 ? (
+                <p className="py-8 text-center text-sm text-theme-text-secondary">순서를 정할 습관이 없어요.</p>
+              ) : (
+                <HabitList tempHabits={tempHabits} onOrderChange={setTempHabits} />
+              )}
+            </div>
           </ModalBody>
-          <ModalFooter>
-            <button className="text-base capitalize text-theme-accent" onClick={onInitialize} type="button">변경사항 취소</button>
-          </ModalFooter>
+          <div className="w-full shrink-0 px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
+            <button
+              className="flex min-h-14 w-full items-center justify-center rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={!hasChanges || isPending || isError}
+              onClick={onSubmit}
+              type="button"
+            >
+              순서 저장하기
+            </button>
+          </div>
         </Modal>
       )}
     </AnimatePresence>

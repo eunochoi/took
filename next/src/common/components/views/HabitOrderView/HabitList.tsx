@@ -1,56 +1,49 @@
 'use client';
 
-import { closestCenter, DndContext, PointerSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { Dispatch, memo, SetStateAction } from "react";
-import { HabitItem } from "./HabitItem";
-import { Habit } from "./_types";
-
 import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { closestCenter, DndContext, DragEndEvent, KeyboardSensor, MouseSensor, TouchSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { Habit } from "./_types";
+import { HabitItem } from "./HabitItem";
 
 interface HabitListProps {
-  // children: ReactNode; //재사용 컴포넌트가 아니기 때문에 children props 사용 X 
   tempHabits: Habit[];
-  setTempHabits: Dispatch<SetStateAction<Habit[]>>;
+  onOrderChange: (habits: Habit[]) => void;
 }
 
-//React.Memo를 이용해서 상위 컴포넌트 useQuery에서 발생하는 리렌더링 방지
-//DndContext가 리렌더링되는 경우 초기사태로 돌아가니 드래그 과정 중 리렌더링 되지 않도로 주의해야한다. 
-export const HabitList = memo(({ tempHabits, setTempHabits }: HabitListProps) => {
-
+export const HabitList = ({ tempHabits, onOrderChange }: HabitListProps) => {
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(TouchSensor)
+    useSensor(MouseSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 180, tolerance: 6 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (over && active.id !== over.id) {
-      setTempHabits((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over.id);
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    }
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = tempHabits.findIndex((item) => item.id === active.id);
+    const newIndex = tempHabits.findIndex((item) => item.id === over.id);
+    if (oldIndex < 0 || newIndex < 0) return;
+    onOrderChange(arrayMove(tempHabits, oldIndex, newIndex));
   };
 
-
-  return (<div className='flex h-full w-full flex-col items-center px-6 py-4'>
+  return (<div className='w-full'>
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
       modifiers={[restrictToVerticalAxis, restrictToParentElement]}
     >
-      <SortableContext items={tempHabits.map((tempHabit: Habit) => tempHabit.id)} strategy={verticalListSortingStrategy}>
-        {tempHabits.map((tempHabit: Habit) => (
-          <HabitItem key={tempHabit.id} habit={tempHabit} />
-        ))}
-      </SortableContext>
+      <div className="w-full divide-y divide-theme-border/60">
+        <SortableContext items={tempHabits.map((habit) => habit.id)} strategy={verticalListSortingStrategy}>
+          {tempHabits.map((tempHabit) => (
+            <HabitItem key={tempHabit.id} habit={tempHabit} />
+          ))}
+        </SortableContext>
+      </div>
 
     </DndContext>
   </div>);
-})
-
-HabitList.displayName = 'HabitList';
+};
