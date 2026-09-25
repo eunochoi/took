@@ -1,5 +1,6 @@
 import { cn } from "@/common/utils/cn";
 import { forwardRef } from "react";
+import { twMerge } from "tailwind-merge";
 import { appCardClass } from "./constants";
 import { AppCardGridProps, DivProps } from "./types";
 
@@ -35,7 +36,7 @@ export const AppSurfaceCard = forwardRef<HTMLDivElement, DivProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn(appCardClass, "w-full p-3.5 tablet:p-5", className)}
+      className={twMerge(appCardClass, "w-full p-3 tablet:p-5", className)}
       {...props}
     />
   ),

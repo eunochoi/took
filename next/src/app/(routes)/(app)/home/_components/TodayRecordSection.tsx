@@ -52,7 +52,7 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
           <AppSectionTitle>오늘의 기록</AppSectionTitle>
         </AppSectionHeader>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3">
         <AppSurfaceCard
           className={recordCardClass}
           onClick={() => router.push('/calendar')}
