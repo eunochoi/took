@@ -55,7 +55,6 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
     <>
       <AppPageLayout
         appPageTopArea={<HomeViewTopArea initialDate={initialDate} />}
-        showScrollToTop
         toolbar={
           <HomeViewToolbar
             selectedYear={selectedYear}

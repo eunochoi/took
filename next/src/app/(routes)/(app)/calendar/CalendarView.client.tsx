@@ -1,8 +1,8 @@
 'use client';
 
-import CalendarViewTopArea from "./_components/CalendarViewTopArea";
 import CalendarViewContent from "./_components/CalendarViewContent";
 import CalendarViewToolbar from "./_components/CalendarViewToolbar";
+import CalendarViewTopArea from "./_components/CalendarViewTopArea";
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';

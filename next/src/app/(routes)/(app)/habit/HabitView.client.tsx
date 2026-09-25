@@ -1,8 +1,8 @@
 'use client';
 
-import HabitViewTopArea from "./_components/HabitViewTopArea";
 import HabitViewContent from "./_components/HabitViewContent";
 import HabitViewToolbar from "./_components/HabitViewToolbar";
+import HabitViewTopArea from "./_components/HabitViewTopArea";
 
 import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
@@ -48,10 +48,10 @@ const HabitView = () => {
 
   return (
     <AppPageLayout
+      showScrollToTop
       appPageTopArea={<HabitViewTopArea />}
       mainAreaClassName="flex-1 bg-theme-surface px-[4dvw] py-2 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8"
       pageRef={pageRef}
-      showScrollToTop
       toolbar={
         <HabitViewToolbar
           onToggle={onToggle}
