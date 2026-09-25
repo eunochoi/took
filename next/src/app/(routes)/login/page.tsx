@@ -21,7 +21,7 @@ const Page = () => {
 
   return (
     <ScrollContainer
-      className="static-theme-blue h-[100dvh] w-[100dvw] bg-theme-surface font-title text-theme-text-primary"
+      className="static-theme-blue bg-theme-accent-light h-[100dvh] w-[100dvw] font-title text-theme-text-primary"
       showScrollFade
       scrollFadeClassName='desktop:hidden'
     >

@@ -9,8 +9,8 @@ const LoginTopSection = () => (
     className={`${APP_PAGE_TOP_AREA_CLASS} flex flex-col gap-12 px-6 pt-16 pb-0 tablet:px-10 desktop:gap-24 desktop:px-12 desktop:pt-10 desktop:pb-0 xl:px-20`}>
     <Wordmark className="text-7xl" />
 
-    <div className="flex flex-col gap-8">
-      <h1 id="login-intro-title" className="flex flex-col gap-3 text-4xl desktop:text-5xl font-bold tracking-[-0.04em]">
+    <div className="flex flex-col gap-6">
+      <h1 id="login-intro-title" className="flex flex-col gap-3 text-3xl desktop:text-4xl font-bold tracking-[-0.04em]">
         <span>오늘의 작은 실천이</span>
         <span>내일의 나를 만듭니다.</span>
       </h1>
