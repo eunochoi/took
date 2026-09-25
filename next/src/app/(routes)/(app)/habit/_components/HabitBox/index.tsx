@@ -91,7 +91,7 @@ const HabitBox = ({ name, id, priority, iconKey }: Props) => {
   const controlsDisabled = isUpdating || isFetching || !recentDateStatus;
 
   return (
-    <article className={cn("relative mx-auto flex h-full w-full max-w-[250px] min-w-0 flex-col gap-4 bg-theme-surface p-2 desktop:p-4", isMenuOpen && "z-10")}>
+    <article className={cn("relative mx-auto flex h-full w-full min-w-0 flex-col gap-4 bg-theme-surface p-2 desktop:p-4", isMenuOpen && "z-10")}>
       <HabitBoxHeader
         id={id}
         name={name}
