@@ -14,8 +14,8 @@ interface ModalHeaderProps {
 }
 
 const modalHeaderClass = "relative flex h-[var(--modalHeader)] w-full shrink-0 items-center justify-between px-[4dvw] tablet:px-6 landscape-short:h-14";
-const modalHeaderButtonClass = "flex items-center justify-center text-theme-accent";
-const modalHeaderTitleClass = "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-title text-base text-theme-text-primary";
+const modalHeaderButtonClass = "text-xl flex items-center justify-center text-theme-accent";
+const modalHeaderTitleClass = "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-title text-base font-semibold text-theme-text-primary";
 
 export const ModalHeader = ({
   className,
