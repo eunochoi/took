@@ -39,7 +39,7 @@ const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassNam
   }, [hasToolbar]);
 
   return (
-    <div ref={layoutRef} className="flex h-[100dvh] w-full min-w-0 flex-col">
+    <div ref={layoutRef} className="flex h-[100dvh] w-full min-w-0 flex-col pt-[var(--safe-top)] [--scroll-bottom-safe:var(--safe-bottom)]">
       <ScrollContainer
         ref={pageRef}
         className="flex min-h-0 flex-1 flex-col items-center justify-start border-none outline-none"
@@ -50,7 +50,7 @@ const AppPageLayout = ({ appPageTopArea, appPageMainArea, contentWrapperClassNam
       >
         <PageContent className={cn("flex min-w-0 w-full flex-1 flex-col", contentWrapperClassName)}>
           {hasTopArea && <div className="w-full shrink-0 border-b-[1px] border-theme-accent/30">{appPageTopArea}</div>}
-          <div className={twMerge("w-full h-auto flex flex-col max-tablet:pb-[var(--mobileBottomSafeArea)] tablet:pb-16", mainAreaClassName)} >
+          <div className={twMerge("w-full h-auto flex flex-col max-tablet:pb-[var(--mobileBottomSafeArea)] tablet:pb-[calc(4rem+var(--safe-bottom))]", mainAreaClassName)} >
             <div className="flex flex-col w-full tablet:max-w-[500px] desktop:max-w-[900px] mx-auto">
               {hasToolbar && (
                 <div ref={toolbarRef} data-component="pageToolbar" className={twMerge("sticky top-0 z-[91] mb-4 -mx-1 flex flex-wrap items-center gap-2 py-4")}>

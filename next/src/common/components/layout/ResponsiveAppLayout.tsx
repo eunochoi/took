@@ -10,15 +10,15 @@ interface Props {
   children: ReactNode;
 }
 
-const layoutClass = "flex w-screen justify-center";
+const layoutClass = "flex w-screen justify-center pl-[var(--safe-left)] pr-[var(--safe-right)]";
 
-const sideBarBaseClass = "hidden h-[100dvh] shrink-0";
+const sideBarBaseClass = "hidden h-[100dvh] shrink-0 pt-[var(--safe-top)] pb-[var(--safe-bottom)]";
 const sideBarTabletClass = "tablet:block tablet:w-32";
 const sideBarDesktopClass = "desktop:w-[200px]";
 
 const contentClass = "flex min-w-0 flex-1 flex-col items-center justify-start";
 
-const bottomNavContainerClass = "pointer-events-none fixed bottom-0 left-0 right-0 z-[95] flex h-[var(--mobileNav)] w-full items-center justify-center tablet:hidden";
+const bottomNavContainerClass = "pointer-events-none fixed bottom-[var(--safe-bottom)] left-[var(--safe-left)] right-[var(--safe-right)] z-[95] flex h-[var(--mobileNav)] items-center justify-center tablet:hidden";
 
 const ResponsiveAppLayout = ({ children }: Props) => {
   return (

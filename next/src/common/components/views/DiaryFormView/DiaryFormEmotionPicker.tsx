@@ -54,7 +54,7 @@ const DiaryFormEmotionPicker = ({ emotion, onClose, onConfirm }: DiaryFormEmotio
         }}
         className="absolute inset-0 bg-black/30 backdrop-blur-sm"
       />
-      <div className="pointer-events-none relative flex h-full items-end justify-center tablet:items-center">
+      <div className="pointer-events-none relative flex h-full pt-[var(--safe-top)] pl-[var(--safe-left)] pr-[var(--safe-right)] items-end justify-center tablet:items-center">
         <motion.div
           initial={{ opacity: 0, y: 'var(--picker-offset)' }}
           animate={{ opacity: 1, y: 0 }}
@@ -63,7 +63,7 @@ const DiaryFormEmotionPicker = ({ emotion, onClose, onConfirm }: DiaryFormEmotio
 
           className="pointer-events-auto max-h-[85dvh] w-full overflow-y-auto rounded-t-3xl bg-theme-surface shadow-theme-modal [--picker-offset:50px] tablet:w-[440px] tablet:max-w-[calc(100dvw-32px)] tablet:rounded-3xl desktop:[--picker-offset:0px]"
         >
-          <fieldset disabled={!isPresent} className="relative m-0 min-w-0 border-0 px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-7 tablet:px-7 tablet:pt-9">
+          <fieldset disabled={!isPresent} className="relative m-0 min-w-0 border-0 px-5 pb-[calc(1.5rem+var(--safe-bottom))] pt-7 tablet:px-7 tablet:pt-9">
             <button
               type="button"
               aria-label="감정 선택 닫기"

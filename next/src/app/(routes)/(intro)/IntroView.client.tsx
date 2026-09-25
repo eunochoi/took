@@ -22,7 +22,7 @@ const RESPONSIVE_IMAGES = [INTRO_IMAGES.list, INTRO_IMAGES.pc_list, INTRO_IMAGES
 const IntroView = () => {
   return (
     <ScrollContainer
-      className="static-theme-blue h-[100dvh] w-[100dvw] bg-theme-bg font-title"
+      className="safe-page static-theme-blue h-[100dvh] w-[100dvw] bg-theme-bg font-title"
       showScrollFade={false}
       showScrollToTop
     >

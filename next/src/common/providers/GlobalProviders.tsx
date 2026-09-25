@@ -4,6 +4,7 @@ import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import OfflineScreen from "../components/ui/OfflineScreen";
+import { SystemBars } from '../components/layout/SystemBars';
 import { ServiceWorkerRegister } from "../utils/ServiceWorker/ServiceWorkerRegister";
 import RQProvider from "./reactQuery/ReactQueryProvider";
 import CustomSnackbarProvider from "./snackbar/CustomSnackbarProvider";
@@ -28,6 +29,7 @@ export const GlobalProviders = ({ children, dehydratedState }: Props) => {
         <CustomSnackbarProvider>
           <HydrationBoundary state={dehydratedState}>
             <ServiceWorkerRegister />
+            <SystemBars />
             <OfflineScreen />
             {children}
           </HydrationBoundary>

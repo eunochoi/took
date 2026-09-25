@@ -162,7 +162,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
               />
             </fieldset>
           </ModalBody>
-          <div className="w-full shrink-0 bg-theme-surface px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
+          <div className="w-full shrink-0 bg-theme-surface px-[5dvw] pb-4 pt-3 tablet:px-6">
             <button
               type="button"
               onClick={handleSubmit}

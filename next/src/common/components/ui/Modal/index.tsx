@@ -24,9 +24,18 @@ interface ModalProps {
 const overlayClass = 'fixed inset-0 bg-theme-overlay/25 backdrop-blur-sm';
 const contentClass = 'flex min-h-0 flex-col overflow-hidden bg-theme-bg';
 
+// Only edges touched by this panel consume the viewport safe area.
+const safeAreaVariantStyle = {
+  top: { paddingTop: 'var(--safe-top)', paddingLeft: 'var(--safe-left)', paddingRight: 'var(--safe-right)' },
+  bottom: { paddingBottom: 'var(--safe-bottom)', paddingLeft: 'var(--safe-left)', paddingRight: 'var(--safe-right)' },
+  'center-base': { maxHeight: 'calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px)' },
+  right: { paddingTop: 'var(--safe-top)', paddingBottom: 'var(--safe-bottom)', paddingLeft: 'var(--safe-left)', paddingRight: 'var(--safe-right)' },
+  full: { paddingTop: 'var(--safe-top)', paddingBottom: 'var(--safe-bottom)', paddingLeft: 'var(--safe-left)', paddingRight: 'var(--safe-right)' },
+};
+
 const baseContentVariantClass: Record<ModalVariant, string> = {
-  top: 'absolute inset-x-0 top-0 mx-auto h-fit max-h-[calc(100dvh-var(--modalHeader))] w-full rounded-b-3xl shadow-theme-panel-mobile landscape-short:max-h-[calc(100dvh-12px)]',
-  bottom: 'absolute inset-x-0 bottom-0 mx-auto h-fit max-h-[calc(100dvh-var(--modalHeader))] w-full rounded-t-3xl shadow-theme-panel-mobile landscape-short:max-h-[calc(100dvh-12px)]',
+  top: 'absolute inset-x-0 top-0 mx-auto h-fit max-h-[calc(100dvh-var(--modalHeader)-var(--safe-bottom))] w-full rounded-b-3xl shadow-theme-panel-mobile landscape-short:max-h-[calc(100dvh-var(--safe-bottom)-12px)]',
+  bottom: 'absolute inset-x-0 bottom-0 mx-auto h-fit max-h-[calc(100dvh-var(--modalHeader)-var(--safe-top))] w-full rounded-t-3xl shadow-theme-panel-mobile landscape-short:max-h-[calc(100dvh-var(--safe-top)-12px)]',
   'center-base': 'absolute inset-0 m-auto h-[85dvh] min-w-[400px] w-[40dvw] max-w-[calc(100dvw-32px)] rounded-theme shadow-theme-panel',
   right: 'absolute inset-0 h-full w-full rounded-none',
   full: 'absolute inset-0 h-full w-full rounded-none',
@@ -115,6 +124,7 @@ export const Modal = ({
         transition={transition}
         aria-label={ariaLabel}
         aria-modal="true"
+        style={safeAreaVariantStyle[activeVariant]}
         className={cn(
           contentClass,
           baseContentVariantClass[variant.base],
