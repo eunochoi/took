@@ -6,12 +6,13 @@ import { FiBookOpen, FiCheckCircle, FiHeart } from "react-icons/fi";
 
 import { logout } from "@/common/auth/logout";
 import EmotionImage from "@/common/components/ui/EmotionImage";
+import SocialLoginButton from '@/common/components/ui/SocialLoginButton';
 import Wordmark from '@/common/components/ui/Wordmark';
 import { EMOTIONS } from "@/common/constants/emotions";
+import { LOGIN_PROVIDERS, type LoginProviderId } from '@/common/constants/loginProviders';
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
-import LoginButton from "./_components/LoginButton";
-import StartButton from "./_components/StartButton";
 import bottomCat from '/public/img/bottom-cat.png';
 
 
@@ -70,9 +71,16 @@ const Page = () => {
 
             <div className="flex w-full flex-col items-center gap-4">
               {isSuccess ? (
-                <StartButton provider={user.provider as 'google' | 'naver' | 'kakao'} email={user.email} />
+                <SocialLoginButton
+                  provider={user.provider as LoginProviderId}
+                  email={user.email}
+                  onClick={() => router.push('/home')}
+                />
               ) : (
-                <LoginButton provider='google' />
+                <SocialLoginButton
+                  provider="google"
+                  onClick={() => signIn('google', { callbackUrl: '/login' }, LOGIN_PROVIDERS.google.signInOptions)}
+                />
               )}
               {isSuccess && (
                 <div className="flex h-7 shrink-0 items-center justify-center">
