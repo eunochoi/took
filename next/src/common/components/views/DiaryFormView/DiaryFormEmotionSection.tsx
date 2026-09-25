@@ -1,6 +1,6 @@
 import EmotionImage from '@/common/components/ui/EmotionImage';
-import { AnimatePresence } from 'framer-motion';
 import { EMOTIONS } from '@/common/constants/emotions';
+import { AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { MdChevronRight, MdOutlineEmojiEmotions } from 'react-icons/md';
 import DiaryFormEmotionPicker from './DiaryFormEmotionPicker';
@@ -34,12 +34,12 @@ const DiaryFormEmotionSection = ({
           )}
         </span>
         <span className="flex min-w-0 flex-1 flex-col gap-1">
-          <span className="text-xs text-theme-text-secondary">오늘의 감정</span>
+          <span className="text-sm text-theme-text-secondary">오늘의 감정</span>
           <span className="font-title text-base font-semibold text-theme-text-primary">
             {selectedEmotion?.nameKr ?? '감정을 골라주세요'}
           </span>
         </span>
-        <span className="flex shrink-0 items-center gap-0.5 text-xs text-theme-text-secondary">
+        <span className="flex shrink-0 items-center gap-0.5 text-base text-theme-text-secondary">
           {selectedEmotion ? '변경' : '선택'}
           <MdChevronRight aria-hidden="true" className="h-5 w-5" />
         </span>

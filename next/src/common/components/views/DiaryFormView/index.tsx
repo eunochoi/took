@@ -133,15 +133,16 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
           variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
           <ModalHeader
+            className="bg-theme-surface"
             title={headerTitle}
             onBack={handleBack}
           />
-          <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
+          <ModalBody withScrollFade className="flex w-full flex-col items-stretch bg-theme-surface">
             <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 px-[4dvw] pb-6 pt-2 tablet:px-6">
               <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">
                 오늘의 기록
               </h1>
-              <div className="w-full rounded-theme bg-theme-surface p-5 shadow-card transition-colors">
+              <div className="w-full">
                 <DiaryFormEmotionSection
                   emotion={emotion}
                   setEmotion={setEmotion}
@@ -161,7 +162,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
               />
             </fieldset>
           </ModalBody>
-          <div className="w-full shrink-0 px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
+          <div className="w-full shrink-0 bg-theme-surface px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
             <button
               type="button"
               onClick={handleSubmit}

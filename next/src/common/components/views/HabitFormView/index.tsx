@@ -120,13 +120,14 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
           variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
           <ModalHeader
+            className="bg-theme-surface"
             title={`목표 습관 ${confirmText}`}
             onBack={handleBack}
           />
-          <ModalBody withScrollFade className="flex w-full flex-col items-stretch">
+          <ModalBody withScrollFade className="flex w-full flex-col items-stretch bg-theme-surface">
             <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 px-[4dvw] pb-6 pt-2 tablet:px-6">
               <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">나를 바꾸는 작은 습관</h1>
-              <div className="flex w-full flex-col gap-6 rounded-theme bg-theme-surface p-5 shadow-card transition-colors">
+              <div className="flex w-full flex-col gap-6">
                 <HabitFormNameSection name={name} setName={setName} />
                 <HabitFormPrioritySection priority={priority} setPriority={setPriority} />
                 <HabitFormIconSection iconKey={iconKey} setIconKey={setIconKey} />
@@ -134,7 +135,7 @@ const HabitFormView = ({ isEdit, habitId }: HabitFormViewProps) => {
               <p className="text-center text-xs leading-relaxed text-theme-text-secondary">습관은 최대 {MAX_HABIT_COUNT}개까지 만들 수 있어요.</p>
             </fieldset>
           </ModalBody>
-          <div className="w-full shrink-0 px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
+          <div className="w-full shrink-0 bg-theme-surface px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
             <button
               type="button"
               onClick={handleSubmit}

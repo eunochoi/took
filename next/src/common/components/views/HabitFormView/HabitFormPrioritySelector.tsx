@@ -12,7 +12,7 @@ const HabitFormPrioritySelector = ({
   priority,
   setPriority,
 }: HabitFormPrioritySelectorProps) => (
-  <div role="radiogroup" aria-labelledby="habit-priority-title" className="grid w-full grid-cols-3 gap-2">
+  <div role="radiogroup" aria-labelledby="habit-priority-title" className="grid w-full grid-cols-3 gap-2 p-2">
     {HABIT_PRIORITY_VALUES.map((value) => (
       <label key={value} className="relative min-w-0">
         <input

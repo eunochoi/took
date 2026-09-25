@@ -8,17 +8,17 @@ interface HabitFormIconSectionProps {
 }
 
 const HabitFormIconSection = ({ iconKey, setIconKey }: HabitFormIconSectionProps) => (
-  <section aria-labelledby="habit-icon-title" className="flex w-full flex-col gap-3 mt-4">
+  <section aria-labelledby="habit-icon-title" className="flex w-full flex-col gap-3">
     <div className="flex items-center justify-between gap-3">
       <div className="flex min-w-0 flex-col gap-2">
         <h2 id="habit-icon-title" className="font-title text-base font-semibold text-theme-text-primary">습관 아이콘</h2>
-        <p className="text-xs leading-relaxed text-theme-text-secondary">습관을 잘 표현하는 아이콘을 골라보세요.</p>
+        <p className="text-sm leading-relaxed text-theme-text-secondary px-2">습관을 잘 표현하는 아이콘을 골라보세요.</p>
       </div>
-      <span aria-label="선택한 습관 아이콘" className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-theme-accent/10">
+      <span aria-label="선택한 습관 아이콘" className="m-2 flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-theme-accent/10">
         <HabitIcon iconKey={iconKey} className="text-4xl" />
       </span>
     </div>
-    <div role="group" aria-labelledby="habit-icon-title" className="grid grid-cols-5 gap-2">
+    <div role="group" aria-labelledby="habit-icon-title" className="grid grid-cols-5 gap-2 p-2">
       {HABIT_ICON_KEYS.map((key, index) => (
         <button
           key={key}

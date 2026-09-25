@@ -13,13 +13,13 @@ const HabitFormNameInput = ({
   const isOverLimit = name.length > HABIT_NAME_MAX_LENGTH;
 
   return (
-    <div className="flex w-full flex-col gap-3">
+    <div className="flex w-full flex-col gap-3 px-2">
       <input
         name="habit-form-name"
         aria-label="습관 이름"
         aria-describedby="habit-name-count"
         aria-invalid={isOverLimit}
-        className="min-h-12 w-full border-none text-base leading-8 text-theme-text-primary outline-none placeholder:text-theme-text-tertiary"
+        className="min-h-12 w-full border-none bg-transparent text-base leading-8 text-theme-text-primary outline-none placeholder:text-theme-text-tertiary"
         maxLength={HABIT_NAME_MAX_LENGTH}
         onChange={(event) => setName(event.currentTarget.value)}
         placeholder="꾸준히 이어가고 싶은 습관을 적어보세요."

@@ -10,13 +10,13 @@ const DiaryFormTextarea = ({ text, setText }: DiaryFormTextareaProps) => {
   const isOverLimit = text.length > DIARY_TEXT_MAX_LENGTH;
 
   return (
-    <div className="flex w-full flex-col gap-3">
+    <div className="flex w-full flex-col gap-3 p-2">
       <textarea
         name="diary-form-text"
         aria-label="일기 내용"
         aria-describedby="diary-text-count"
         aria-invalid={isOverLimit}
-        className="min-h-[170px] w-full resize-y border-none text-base leading-8 text-theme-text-primary outline-none placeholder:text-theme-text-tertiary"
+        className="min-h-[170px] w-full resize-y border-none bg-transparent text-base leading-8 text-theme-text-primary outline-none placeholder:text-theme-text-tertiary"
         onChange={(event) => setText(event.target.value)}
         value={text}
         maxLength={DIARY_TEXT_MAX_LENGTH}
