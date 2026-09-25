@@ -3,7 +3,7 @@ import Image from 'next/image';
 import bottomCatTail from '/public/img/bottom-cat-tail.png';
 
 const CONTAINER_CLASS =
-  'mt-8 mb-24 flex flex-col items-center tablet:hidden';
+  'mt-16 mb-24 flex flex-col items-center tablet:hidden';
 
 const TAIL_IMAGE_CLASS =
   '-mb-1 h-auto w-1/2';
@@ -17,9 +17,9 @@ const BOX_TOP_FOLD_CLASS =
 export const BottomSafe = () => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.5 }}
+      initial={{ opacity: 0, scale: 0 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
       className={CONTAINER_CLASS}>
       <Image
         className={TAIL_IMAGE_CLASS}
