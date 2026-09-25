@@ -2,6 +2,16 @@ import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
 import { CALENDAR_BADGE_SCALE } from "./src/common/constants/calendar";
 
+const scrollFadeStops = [
+  "rgb(var(--theme-accent-light) / 1) 0%",
+  "rgb(var(--theme-accent-light) / 0.97) 10%",
+  "rgb(var(--theme-accent-light) / 0.84) 25%",
+  "rgb(var(--theme-accent-light) / 0.5) 50%",
+  "rgb(var(--theme-accent-light) / 0.16) 75%",
+  "rgb(var(--theme-accent-light) / 0.03) 90%",
+  "rgb(var(--theme-accent-light) / 0) 100%",
+].join(", ");
+
 const config: Config = {
   future: {
     hoverOnlyWhenSupported: true,
@@ -43,8 +53,8 @@ const config: Config = {
         "brand-kakao-text": "#39181d",
       },
       backgroundImage: {
-        "scroll-fade-top": "linear-gradient(in oklch to bottom, rgb(var(--theme-accent-light) / 80) 0%,  rgb(var(--theme-accent-light) / 0) 100%)",
-        "scroll-fade-bottom": "linear-gradient(in oklch to top, rgb(var(--theme-accent-light) / 80) 0%,  rgb(var(--theme-accent-light) / 0) 100%)",
+        "scroll-fade-top": `linear-gradient(in oklch to bottom, ${scrollFadeStops})`,
+        "scroll-fade-bottom": `linear-gradient(in oklch to top, ${scrollFadeStops})`,
       },
       fontFamily: {
         paperozi: ["Paperozi", "sans-serif"],
