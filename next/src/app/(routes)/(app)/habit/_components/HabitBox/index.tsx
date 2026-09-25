@@ -112,8 +112,8 @@ const HabitBox = ({ name, id, priority, iconKey }: Props) => {
         disabled={controlsDisabled || todayCompleted}
         onClick={() => onToggleHabit(true, todayString)}
         className={cn(
-          "w-full min-h-10 mt-auto self-start rounded-xl px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent disabled:cursor-not-allowed",
-          todayCompleted ? "bg-theme-bg text-theme-text-secondary" : "bg-theme-accent/75 text-theme-text-on-accent disabled:opacity-50",
+          "w-full min-h-10 mt-auto self-start rounded-xl px-3 py-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed",
+          todayCompleted ? "bg-theme-bg text-theme-text-secondary" : "bg-theme-accent/75 text-theme-text-on-accent",
         )}
       >
         {todayCompleted ? <span className="flex justify-center items-center gap-2"><MdCheck className="shrink-0" />오늘 완료했어요</span> : '오늘 완료하기'}
