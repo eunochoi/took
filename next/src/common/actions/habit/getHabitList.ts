@@ -13,7 +13,7 @@ export const getHabitList = async ({ sortType, customHabitOrder = [] }: HabitLis
     if (!auth.ok) return createAuthErrorResult(auth);
 
     const orderIds = customHabitOrder.map((id) => Number(id)).filter((id) => Number.isFinite(id));
-    // DESC와 CUSTOM의 기본 순서는 최신 생성 습관부터 표시한다.
+    // default orderBy : createdAt: 'desc'
     let orderBy: Prisma.HabitOrderByWithRelationInput | Prisma.HabitOrderByWithRelationInput[] = { createdAt: 'desc' };
 
     if (sortType === 'ASC') {
