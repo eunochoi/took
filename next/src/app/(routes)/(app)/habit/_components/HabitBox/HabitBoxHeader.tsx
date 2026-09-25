@@ -30,7 +30,7 @@ const HabitBoxHeader = ({ id, name, priority, iconKey, isMenuOpen, setMenuOpen, 
           aria-label={`${name} 습관 정보`}
         >
           <HabitIcon iconKey={iconKey} className="shrink-0 text-3xl" />
-          <span className="w-full truncate text-base">{name}</span>
+          <span className="w-full truncate text-base text-center">{name}</span>
         </Link>
         <button
           ref={menuAnchorRef}
@@ -53,7 +53,7 @@ const HabitBoxHeader = ({ id, name, priority, iconKey, isMenuOpen, setMenuOpen, 
           vertical
         />
       </div>
-      <div className="flex flex-wrap items-center gap-x-1.5 text-sm text-theme-accent" aria-label={`우선순위 ${priority + 1}점`}>
+      <div className="flex flex-wrap justify-center items-center gap-x-1.5 text-sm text-theme-accent" aria-label={`우선순위 ${priority + 1}점`}>
         <span>우선순위</span>
         <StarRating maxRating={3} rating={priority + 1} className="gap-0.5 text-sm" />
       </div>
