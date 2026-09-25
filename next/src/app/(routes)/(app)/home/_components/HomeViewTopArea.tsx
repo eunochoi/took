@@ -45,7 +45,7 @@ const HomeViewTopArea = ({ initialDate }: { initialDate: string }) => {
       <div className="desktop:hidden p-1">
         <TodayRecordSection initialDate={initialDate} />
       </div>
-      <Image src={bottomCat} alt="bottom-cat" className="ml-auto block w-full tablet:w-1/2 desktop:w-1/2" />
+      <Image src={bottomCat} alt="bottom-cat" className="ml-auto block w-3/4 tablet:w-1/2 desktop:w-1/2" />
     </div>
   );
 };

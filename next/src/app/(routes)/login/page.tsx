@@ -53,7 +53,7 @@ const Page = () => {
               <p>나만의 속도로 하루를 쌓아가요.</p>
             </div>
           </div>
-          <Image src={bottomCat} alt="bottom-cat" className="ml-auto mt-auto block w-full tablet:w-2/3 desktop:w-full" />
+          <Image src={bottomCat} alt="bottom-cat" className="ml-auto mt-auto block w-3/4 tablet:w-2/3 desktop:w-full" />
         </section>
 
         <section
