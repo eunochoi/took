@@ -2,8 +2,27 @@
   --theme-accent: 140 173 226;
   --theme-accent-light: 240 247 255;
   --theme-accent-deep: 124 155 206;
+  --theme-accent-text: color-mix(in srgb, rgb(var(--theme-accent)) 53%, #000);
   --theme-bg-light: 246 248 250;
   --theme-bg: 246 248 250;
+  --theme-surface: 255 255 255;
+  --theme-surface-muted: 245 245 245;
+  --theme-surface-elevated: 255 255 255;
+  --theme-text-primary: 88 88 88;
+  --theme-text-secondary: 117 117 117;
+  --theme-text-tertiary: 158 158 158;
+  --theme-text-disabled: 190 190 190;
+  --theme-text-on-accent: 255 255 255;
+  --theme-border: 225 225 225;
+  --theme-border-muted: 240 240 240;
+  --theme-overlay: 75 75 75;
+  --theme-danger: 210 67 67;
+  --theme-warning: 220 150 40;
+  --theme-success: 45 150 105;
+  --theme-calendar-saturday: 124 143 204;
+  --theme-calendar-sunday: 232 118 109;
+  --theme-shadow-color: 0 0 0;
+  color-scheme: light;
 }
 
 html[data-theme-accent='blue'] {
