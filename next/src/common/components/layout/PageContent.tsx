@@ -1,32 +1,43 @@
 'use client';
 
-import { cn } from "@/common/utils/cn";
-import { HTMLMotionProps, motion, useReducedMotion } from "framer-motion";
-import { usePathname } from "next/navigation";
-import { forwardRef } from "react";
+import { cn } from '@/common/utils/cn';
+import {
+  HTMLMotionProps,
+  motion,
+  useReducedMotion,
+} from 'framer-motion';
+import { forwardRef } from 'react';
 
 export type PageContentProps = HTMLMotionProps<'div'>;
 
-export const PageContent = forwardRef<HTMLDivElement, PageContentProps>(
-  ({ className, ...props }, ref) => {
-    const pathname = usePathname();
-    const prefersReducedMotion = useReducedMotion();
-    const shouldReduceMotion = prefersReducedMotion ?? false;
+export const PageContent = forwardRef<
+  HTMLDivElement,
+  PageContentProps
+>(({ className, ...props }, ref) => {
+  const prefersReducedMotion = useReducedMotion();
 
-    return (
-      <motion.div
-        ref={ref}
-        // key={pathname ?? 'page-content'}
-        className={cn(
-          "flex h-auto w-full flex-col",
-          className,
-        )}
-        initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
-        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-        transition={{ duration: shouldReduceMotion ? 0.2 : 0.3, ease: 'easeOut' }}
-        {...props}
-      />
-    );
-  },
-);
-PageContent.displayName = "PageContent";
+  return (
+    <motion.div
+      ref={ref}
+      className={cn(
+        'flex h-auto w-full flex-col',
+        className,
+      )}
+      initial={
+        prefersReducedMotion
+          ? false
+          : { y: -12 }
+      }
+      animate={{
+        y: 0
+      }}
+      transition={{
+        duration: 0.4,
+        ease: 'easeOut',
+      }}
+      {...props}
+    />
+  );
+});
+
+PageContent.displayName = 'PageContent';
