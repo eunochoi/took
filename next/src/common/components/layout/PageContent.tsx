@@ -26,13 +26,13 @@ export const PageContent = forwardRef<
       initial={
         prefersReducedMotion
           ? false
-          : { y: -12 }
+          : { y: 16 }
       }
       animate={{
         y: 0
       }}
       transition={{
-        duration: 0.4,
+        duration: 0.5,
         ease: 'easeOut',
       }}
       {...props}
