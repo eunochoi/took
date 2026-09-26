@@ -46,7 +46,7 @@ const HabitMonthCalendar = ({
                 'flex h-7 w-7 items-center justify-center',
                 (isCompleted || isMissed) && 'rounded-full',
                 isCompleted && 'bg-theme-accent text-theme-text-on-accent',
-                isMissed && 'bg-theme-surface-muted text-theme-text-secondary',
+                isMissed && 'border border-theme-accent text-theme-text-secondary',
               )}>
                 {day.dayNumber}
               </span>
