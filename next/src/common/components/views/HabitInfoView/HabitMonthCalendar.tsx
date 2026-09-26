@@ -43,7 +43,7 @@ const HabitMonthCalendar = ({
               ].filter(Boolean).join(', ')}
             >
               <span className={cn(
-                'flex h-7 w-7 items-center justify-center',
+                'flex aspect-square w-[60%] items-center justify-center',
                 (isCompleted || isMissed) && 'rounded-full',
                 isCompleted && 'bg-theme-accent text-theme-text-on-accent',
                 isMissed && 'border border-theme-accent text-theme-text-secondary',

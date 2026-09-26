@@ -61,7 +61,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
 
   return (
     <section className="flex w-full min-w-0 shrink-0 flex-col">
-      <div className="flex min-w-0 flex-col gap-4 desktop:self-start">
+      <div className="flex w-full min-w-0 flex-col gap-4">
         <DiaryHabitMonthCalendarHeader
           monthLabel={calendar.monthLabel}
           diaryCount={diaryHabitMonthData?.summary.diaryCount}
