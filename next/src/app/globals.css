@@ -38,8 +38,23 @@
   --sidebarWidth: 270px;
   --pageHeader: 72px;
   --modalHeader: 56px;
+  --panel-header-height: 56px;
   --mobileNav: 80px;
   --bottomSafeArea: 100px;
+}
+
+dialog {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-width: none;
+  max-height: none;
+  background: transparent;
+  color: inherit;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0);
 }
 
 *:focus {

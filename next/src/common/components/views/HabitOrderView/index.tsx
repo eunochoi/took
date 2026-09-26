@@ -7,9 +7,11 @@ import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 import { useCustomHabitOrder } from '@/app/(routes)/(app)/habit/_hooks/useCustomHabitOrder';
-import { Modal } from '@/common/components/ui/Modal';
-import { ModalBody } from '@/common/components/ui/Modal/ModalBody';
-import { ModalHeader } from '@/common/components/ui/Modal/ModalHeader';
+import { PanelDialog } from '@/common/components/ui/PanelDialog';
+import { PanelBody } from '@/common/components/ui/PanelDialog/PanelBody';
+import { PanelFooter } from '@/common/components/ui/PanelDialog/PanelFooter';
+import { PanelHeader } from '@/common/components/ui/PanelDialog/PanelHeader';
+import { PanelSubmitButton } from '@/common/components/ui/PanelDialog/PanelSubmitButton';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { Habit } from './_types';
@@ -19,7 +21,7 @@ import { HabitList } from './HabitList';
 
 export const HabitOrderView = () => {
   const router = useRouter();
-  const [isModalMounted, setIsModalMounted] = useState(true);
+  const [isDialogMounted, setIsDialogMounted] = useState(true);
   const { customHabitOrder, setCustomHabitOrder, isStorageReady } = useCustomHabitOrder();
 
   const { data: customHabits, isPending, isError, refetch } = useQuery({
@@ -62,23 +64,20 @@ export const HabitOrderView = () => {
   const onSubmit = () => {
     if (!tempHabits || !hasChanges) return;
     setCustomHabitOrder(isDefaultOrder ? [] : currentIds);
-    setIsModalMounted(false);
+    setIsDialogMounted(false);
     setTimeout(() => enqueueSnackbar('습관 순서를 저장했어요.'), 300);
   };
 
   return (
     <AnimatePresence onExitComplete={() => router.back()}>
-      {isModalMounted && (
-        <Modal
+      {isDialogMounted && (
+        <PanelDialog
           ariaLabel="습관 순서 설정"
-          onClose={() => setIsModalMounted(false)}
-          overlayClassName="z-[99999]"
-          contentClassName="bg-theme-accent-light"
-          variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
+          onClose={() => setIsDialogMounted(false)}
         >
-          <ModalHeader className="bg-theme-accent-light" title='습관 순서 설정' onBack={() => setIsModalMounted(false)} />
-          <ModalBody withScrollFade={true} className="bg-theme-accent-light">
-            <div className="flex w-full flex-col gap-4 px-[4dvw] py-6 tablet:px-6">
+          <PanelHeader title='습관 순서 설정' onBack={() => setIsDialogMounted(false)} />
+          <PanelBody showScrollFade>
+            <div className="flex w-full flex-col gap-4 py-6">
               <p className="text-sm text-theme-text-secondary">드래그하거나 방향키로 습관 순서를 변경하세요.</p>
               <div className="flex flex-wrap items-center justify-end gap-x-5 gap-y-2 text-sm">
                 <button className="text-theme-text-secondary disabled:opacity-40" disabled={!hasChanges} onClick={onCancelChanges} type="button">변경사항 취소</button>
@@ -86,18 +85,17 @@ export const HabitOrderView = () => {
               </div>
               {tempHabits && <HabitList tempHabits={tempHabits} onOrderChange={setTempHabits} />}
             </div>
-          </ModalBody>
-          <div className="w-full shrink-0 bg-theme-accent-light px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
-            <button
-              className="flex min-h-14 w-full items-center justify-center rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
+          </PanelBody>
+          <PanelFooter>
+            <PanelSubmitButton
               disabled={!hasChanges || isPending || isError}
               onClick={onSubmit}
               type="button"
             >
               순서 저장하기
-            </button>
-          </div>
-        </Modal>
+            </PanelSubmitButton>
+          </PanelFooter>
+        </PanelDialog>
       )}
     </AnimatePresence>
   );

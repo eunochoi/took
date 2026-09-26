@@ -14,9 +14,11 @@ import { AnimatePresence } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
-import { Modal } from '../../ui/Modal';
-import { ModalBody } from '../../ui/Modal/ModalBody';
-import { ModalHeader } from '../../ui/Modal/ModalHeader';
+import { PanelDialog } from '../../ui/PanelDialog';
+import { PanelBody } from '../../ui/PanelDialog/PanelBody';
+import { PanelFooter } from '../../ui/PanelDialog/PanelFooter';
+import { PanelHeader } from '../../ui/PanelDialog/PanelHeader';
+import { PanelSubmitButton } from '../../ui/PanelDialog/PanelSubmitButton';
 import DiaryFormEmotionSection from './DiaryFormEmotionSection';
 import DiaryFormImagesSection from './DiaryFormImagesSection';
 import DiaryFormTextSection from './DiaryFormTextSection';
@@ -35,7 +37,7 @@ interface DiaryFormViewProps {
 
 const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
   const router = useRouter();
-  const [isModalMounted, setIsModalMounted] = useState(true);
+  const [isDialogMounted, setIsDialogMounted] = useState(true);
   const searchParams = useSearchParams();
   const {
     data: diaryData,
@@ -102,7 +104,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
     saveDiary,
     successMessage: isEdit ? '일기 수정 완료' : '일기 작성 완료',
     failureMessage: isEdit ? '일기 수정 실패' : '일기 작성 실패',
-    onSuccess: () => setIsModalMounted(false),
+    onSuccess: () => setIsDialogMounted(false),
   });
 
   const handleBack = () => {
@@ -111,7 +113,7 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
       return;
     }
 
-    setIsModalMounted(false);
+    setIsDialogMounted(false);
   };
 
   const shouldHideEditForm = isEdit && (
@@ -124,22 +126,18 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
 
   return (
     <AnimatePresence onExitComplete={() => router.back()}>
-      {isModalMounted && (
-        <Modal
+      {isDialogMounted && (
+        <PanelDialog
           ariaLabel={headerTitle}
           dismissible={!isSubmitting}
           onClose={handleBack}
-          overlayClassName="z-[99999]"
-          contentClassName="bg-theme-accent-light"
-          variant={{ base: 'full', tablet: 'right', desktop: 'right' }}
         >
-          <ModalHeader
-            className="bg-theme-accent-light"
+          <PanelHeader
             title={headerTitle}
             onBack={handleBack}
           />
-          <ModalBody withScrollFade className="flex w-full flex-col items-stretch bg-theme-accent-light">
-            <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 px-[4dvw] pb-6 pt-2 tablet:px-6">
+          <PanelBody showScrollFade>
+            <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 pb-6 pt-2">
               <h1 className="text-center font-title text-2xl font-semibold tracking-tight text-theme-text-primary">
                 오늘의 기록
               </h1>
@@ -162,22 +160,22 @@ const DiaryFormView = ({ isEdit, diaryId }: DiaryFormViewProps) => {
                 isLoading={isSubmitting}
               />
             </fieldset>
-          </ModalBody>
-          <div className="w-full shrink-0 bg-theme-accent-light px-[5dvw] pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 tablet:px-6">
-            <button
+          </PanelBody>
+          <PanelFooter>
+            <PanelSubmitButton
               type="button"
               onClick={handleSubmit}
               disabled={isSubmitting || text.length > DIARY_TEXT_MAX_LENGTH}
               aria-busy={isSubmitting}
-              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-theme-accent px-5 font-title text-base font-semibold text-white shadow-theme-soft transition-opacity disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting && <span aria-hidden="true" className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent motion-reduce:animate-none" />}
               {isSubmitting ? '저장 중...' : isEdit ? '수정한 기록 저장하기' : '기록 저장하기'}
-            </button>
-          </div>
-        </Modal>
-      )}
-    </AnimatePresence>
+            </PanelSubmitButton>
+          </PanelFooter>
+        </PanelDialog>
+      )
+      }
+    </AnimatePresence >
   );
 };
 

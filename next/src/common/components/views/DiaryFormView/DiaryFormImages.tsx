@@ -76,7 +76,8 @@ const DiaryFormImages = ({ diaryImages, handleImageChange, getImageUrl, handleRe
   const [overlayContainer, setOverlayContainer] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    setOverlayContainer(document.body);
+    const dialog = fileInputRef.current?.closest('dialog');
+    setOverlayContainer(dialog instanceof HTMLElement ? dialog : document.body);
   }, []);
   const sensors = useSensors(
     useSensor(MouseSensor),
@@ -135,9 +136,9 @@ const DiaryFormImages = ({ diaryImages, handleImageChange, getImageUrl, handleRe
         )}
       </div>
       <input ref={fileInputRef} type="file" accept={DIARY_IMAGE_ALLOWED_MIME_TYPES.join(',')} name="image" multiple hidden disabled={isLoading} onChange={handleImageChange} />
-      {/* Match dnd-kit's viewport coordinates, outside the transformed modal. */}
+      {/* Keep the preview in the dialog top layer, outside the animated panel. */}
       {overlayContainer && createPortal(
-        <DragOverlay dropAnimation={null} zIndex={100000} style={{ pointerEvents: 'none' }}>
+        <DragOverlay dropAnimation={null} style={{ pointerEvents: 'none' }}>
           {activeItem && (
             <div className={cn(tileClass, 'ring-2 ring-theme-accent shadow-theme-floating')}>
               <Image src={activeItem.src} alt="이동 중인 사진" width={192} height={224} unoptimized draggable={false} className="h-full w-full object-cover" />
