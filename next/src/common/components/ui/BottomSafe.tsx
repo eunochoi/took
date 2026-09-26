@@ -17,9 +17,9 @@ const BOX_TOP_FOLD_CLASS =
 export const BottomSafe = () => {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0 }}
+      initial={{ opacity: 0, scale: 0.2 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3, ease: "easeOut" }}
+      transition={{ delay: 2, duration: 0.3, ease: "easeOut" }}
       className={CONTAINER_CLASS}>
       <Image
         className={TAIL_IMAGE_CLASS}
