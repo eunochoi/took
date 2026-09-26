@@ -15,7 +15,7 @@ interface Props {
 
 const CalendarViewContent = ({ today, selectedDate, setSelectedDate, selectedDiaryQuery }: Props) => {
   return (
-    <section className="grid flex-1 w-full min-w-0 grid-cols-1 items-start gap-5 tablet:gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8">
+    <section className="pt-3 grid flex-1 w-full min-w-0 grid-cols-1 items-start gap-5 tablet:gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8">
       <DiaryHabitMonthCalendar
         today={today}
         selectedDate={selectedDate}

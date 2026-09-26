@@ -1,7 +1,6 @@
 'use client';
 
 import CalendarViewContent from "./_components/CalendarViewContent";
-import CalendarViewToolbar from "./_components/CalendarViewToolbar";
 import CalendarViewTopSection from "./_components/CalendarViewTopSection";
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
@@ -52,13 +51,6 @@ const CalendarClientPage = ({ initialDate }: Props) => {
   return (
     <AppPageLayout
       topSection={<CalendarViewTopSection />}
-
-      toolbar={
-        <CalendarViewToolbar
-          openSelectedDiary={openSelectedDiary}
-          diaryActionLabel={diaryActionLabel}
-        />
-      }
       mainSection={
         <CalendarViewContent
           today={today}
