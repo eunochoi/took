@@ -6,21 +6,20 @@ import { twMerge } from "tailwind-merge";
 import { cn } from "@/common/utils/cn";
 import { BottomSafe } from "../ui/BottomSafe";
 import { ScrollContainer } from "../ui/ScrollContainer";
-import { PageContent } from "./PageContent";
+import { EnterMotion } from "./EnterMotion";
 
 interface Props {
   topSection?: ReactNode;
   mainSection: ReactNode;
-  contentWrapperClass?: string;
   pageRef?: RefObject<HTMLDivElement>;
   showScrollToTop?: boolean;
   toolbar?: ReactNode;
   bottomSectionClass?: string;
 }
 
-export const TOP_SECTION_WRAPPER_CLASS = "px-[5dvw] pt-[5dvw] tablet:px-9 tablet:pt-6 desktop:px-14 bg-theme-accent-light bg-[linear-gradient(to_bottom,rgb(var(--theme-accent-light))_0%,transparent_20%),linear-gradient(to_top_right,rgb(var(--theme-accent)/0.15)_0%,rgb(var(--theme-accent-light))_100%)]";
+export const TOP_SECTION_WRAPPER_CLASS = "w-full px-[5dvw] pt-[5dvw] tablet:px-9 tablet:pt-6 desktop:px-14 bg-theme-accent-light bg-[linear-gradient(to_bottom,rgb(var(--theme-accent-light))_0%,transparent_20%),linear-gradient(to_top_right,rgb(var(--theme-accent)/0.15)_0%,rgb(var(--theme-accent-light))_100%)]";
 
-const AppPageLayout = ({ topSection, mainSection, contentWrapperClass, pageRef, showScrollToTop = false, toolbar, bottomSectionClass }: Props) => {
+const AppPageLayout = ({ topSection, mainSection, pageRef, showScrollToTop = false, toolbar, bottomSectionClass }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const hasToolbar = Boolean(toolbar);
@@ -49,28 +48,28 @@ const AppPageLayout = ({ topSection, mainSection, contentWrapperClass, pageRef, 
         showScrollFade
         showScrollToTop={showScrollToTop}
       >
-        <PageContent className={cn("flex min-w-0 w-full flex-1 flex-col", contentWrapperClass)}>
-          {/* top section */}
-          {hasTopSection && <div className={TOP_SECTION_WRAPPER_CLASS}>{topSection}</div>}
-          {/* bottom section : toolbar + main */}
-          <div className={twMerge(
-            // "!pb-[var(--bottomSafeArea)]",
-            "w-full h-auto flex flex-col",
-            "flex-1 bg-theme-surface px-[5dvw] py-2 pb-0 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8",
-            bottomSectionClass)} >
-            <div className="flex flex-col w-full tablet:max-w-[500px] desktop:max-w-[900px] mx-auto">
-              {/* toolbar section */}
-              {hasToolbar && (
-                <div ref={toolbarRef} data-component="pageToolbar" className={twMerge("sticky top-0 z-[91] mb-4 -mx-1 flex flex-wrap items-center gap-2 py-4")}>
-                  {toolbar}
-                </div>
-              )}
-              {/* main section */}
+        {/* top section */}
+        {hasTopSection && <div className={TOP_SECTION_WRAPPER_CLASS}>{topSection}</div>}
+        {/* bottom section : toolbar + main */}
+        <div className={twMerge(
+          "w-full h-auto flex flex-col",
+          "flex-1 bg-theme-surface px-[5dvw] py-2 pb-0 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8",
+          bottomSectionClass)} >
+          {/* bottom section container for max width */}
+          <div className="flex flex-col w-full tablet:max-w-[500px] desktop:max-w-[900px] mx-auto">
+            {/* toolbar section */}
+            {hasToolbar && (
+              <div ref={toolbarRef} data-component="pageToolbar" className={twMerge("sticky top-0 z-[91] mb-4 -mx-1 flex flex-wrap items-center gap-2 py-4")}>
+                {toolbar}
+              </div>
+            )}
+            {/* main section */}
+            <EnterMotion>
               {mainSection}
-            </div>
-            <BottomSafe />
+            </EnterMotion>
           </div>
-        </PageContent>
+          <BottomSafe />
+        </div>
       </ScrollContainer>
     </div>
   );

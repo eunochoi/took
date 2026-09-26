@@ -8,11 +8,11 @@ import {
 } from 'framer-motion';
 import { forwardRef } from 'react';
 
-export type PageContentProps = HTMLMotionProps<'div'>;
+export type EnterMotionProps = HTMLMotionProps<'div'>;
 
-export const PageContent = forwardRef<
+export const EnterMotion = forwardRef<
   HTMLDivElement,
-  PageContentProps
+  EnterMotionProps
 >(({ className, ...props }, ref) => {
   const prefersReducedMotion = useReducedMotion();
 
@@ -40,4 +40,4 @@ export const PageContent = forwardRef<
   );
 });
 
-PageContent.displayName = 'PageContent';
+EnterMotion.displayName = 'EnterMotion';
