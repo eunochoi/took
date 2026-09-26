@@ -13,13 +13,13 @@ import { useInView } from "react-intersection-observer";
 
 
 import DiaryListPageEmotionPicker from "@/app/(routes)/(app)/diary/_components/DiaryListPageEmotionPicker";
-import DiaryListPageMonthPicker from "@/app/(routes)/(app)/diary/_components/DiaryListPageMonthPicker";
+import DiaryListPagePeriodPicker from "@/app/(routes)/(app)/diary/_components/DiaryListPagePeriodPicker";
 import { getDiaryList } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
 import { EMOTIONS } from "@/common/constants/emotions";
-import { EMOTION_UNSELECTED, getDefaultYear, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
+import { EMOTION_UNSELECTED, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
@@ -40,27 +40,29 @@ const DiaryClientPage = () => {
 
   const { selectedYear, selectedMonth, emotionToggle, setSelectedYear, setSelectedMonth, setEmotionToggle } = useDiaryListFilter();
   const [isEmotionPickerOpen, setIsEmotionPickerOpen] = useState(false);
-  const [isMonthPickerOpen, setIsMonthPickerOpen] = useState(false);
+  const [isPeriodPickerOpen, setIsPeriodPickerOpen] = useState(false);
   const { sortValue, onToggle } = useSortToggle({ sortKey: 'diary' });
   const [statsYear, setStatsYear] = useState(new Date().getFullYear());
   const isEmotionSelected = emotionToggle !== EMOTION_UNSELECTED;
-  const isPeriodSelected = selectedYear !== getDefaultYear() || selectedMonth !== MONTH_UNSELECTED;
+  const isPeriodSelected = selectedYear !== null;
   const selectedEmotionLabel = EMOTIONS[emotionToggle]?.nameKr ?? '';
-  const selectedPeriodLabel = selectedMonth === MONTH_UNSELECTED ? `${selectedYear}년` : `${selectedYear}년 ${selectedMonth}월`;
+  const selectedPeriodLabel = selectedYear === null
+    ? '전체 기간'
+    : selectedMonth === MONTH_UNSELECTED ? `${selectedYear}년` : `${selectedYear}년 ${selectedMonth}월`;
 
-  const handleApplyPeriod = (year: number, month: number) => {
+  const handleApplyPeriod = (year: number | null, month: number) => {
     const params = new URLSearchParams(searchParams);
 
-    if (year !== getDefaultYear()) params.set('year', year.toString());
+    if (year !== null) params.set('year', year.toString());
     else params.delete('year');
-    if (month !== MONTH_UNSELECTED) params.set('month', month.toString());
+    if (year !== null && month !== MONTH_UNSELECTED) params.set('month', month.toString());
     else params.delete('month');
 
     const query = params.toString();
     router.replace(query ? `${pathname}?${query}` : pathname);
     setSelectedYear(year);
-    setSelectedMonth(month);
-    setIsMonthPickerOpen(false);
+    setSelectedMonth(year === null ? MONTH_UNSELECTED : month);
+    setIsPeriodPickerOpen(false);
 
     setTimeout(() => {
       wrapperRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
@@ -119,7 +121,7 @@ const DiaryClientPage = () => {
         showScrollToTop
         toolbar={
           <DiaryListViewToolbar
-            openMonthFilter={() => setIsMonthPickerOpen(true)}
+            openPeriodFilter={() => setIsPeriodPickerOpen(true)}
             isPeriodSelected={isPeriodSelected}
             selectedPeriodLabel={selectedPeriodLabel}
             onToggle={onToggle}
@@ -149,12 +151,12 @@ const DiaryClientPage = () => {
             onApply={handleApplyEmotion}
           />
         )}
-        {isMonthPickerOpen && (
-          <DiaryListPageMonthPicker
-            key="month-picker"
+        {isPeriodPickerOpen && (
+          <DiaryListPagePeriodPicker
+            key="period-picker"
             selectedYear={selectedYear}
             selectedMonth={selectedMonth}
-            onClose={() => setIsMonthPickerOpen(false)}
+            onClose={() => setIsPeriodPickerOpen(false)}
             onApply={handleApplyPeriod}
           />
         )}

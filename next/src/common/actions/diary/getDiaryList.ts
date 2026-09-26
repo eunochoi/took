@@ -21,17 +21,20 @@ export const getDiaryList = async ({
     const page = Math.max(0, Number(pageParam) || 0);
     const limitNum = Math.min(100, Math.max(1, Number(limit) || 10));
     const offset = page * limitNum;
-    const nYear = Number(selectedYear);
+    const nYear = selectedYear === null ? null : Number(selectedYear);
     const nMonth = Number(selectedMonth);
 
     let rangeStart = '0000-01-01';
     let rangeEnd = '9999-12-31';
 
-    if (nYear && nMonth && nMonth !== 0) {
+    if (nYear !== null && nMonth !== 0) {
       const monthStr = String(nMonth).padStart(2, '0');
       const lastDay = new Date(nYear, nMonth, 0).getDate();
       rangeStart = `${nYear}-${monthStr}-01`;
       rangeEnd = `${nYear}-${monthStr}-${String(lastDay).padStart(2, '0')}`;
+    } else if (nYear !== null) {
+      rangeStart = `${nYear}-01-01`;
+      rangeEnd = `${nYear}-12-31`;
     }
 
     const emotionFilter = Number(search);

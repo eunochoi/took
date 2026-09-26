@@ -6,7 +6,7 @@ import ToolbarButton from "@/common/components/ui/ToolbarButton";
 import { MdCalendarMonth, MdEmojiEmotions, MdSort } from 'react-icons/md';
 
 interface Props {
-  openMonthFilter: () => void;
+  openPeriodFilter: () => void;
   isPeriodSelected: boolean;
   selectedPeriodLabel: string;
   onToggle: () => void;
@@ -16,12 +16,12 @@ interface Props {
   selectedEmotionLabel: string;
 }
 
-const DiaryListViewToolbar = ({ openMonthFilter, isPeriodSelected, selectedPeriodLabel, onToggle, sortValue, openEmotionFilter, isEmotionSelected, selectedEmotionLabel }: Props) => {
+const DiaryListViewToolbar = ({ openPeriodFilter, isPeriodSelected, selectedPeriodLabel, onToggle, sortValue, openEmotionFilter, isEmotionSelected, selectedEmotionLabel }: Props) => {
   return (
     <>
       <ToolbarButton
         aria-label="기간 필터"
-        onClick={openMonthFilter}
+        onClick={openPeriodFilter}
       >
         <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
         {isPeriodSelected ? selectedPeriodLabel : "전체 기간"}

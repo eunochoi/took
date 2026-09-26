@@ -3,14 +3,13 @@ import { useEffect, useState } from "react";
 
 import {
   EMOTION_UNSELECTED,
-  getDefaultYear,
   MONTH_UNSELECTED,
 } from "@/common/constants/filterDefaults";
 
 export const useDiaryListFilter = () => {
   const searchParams = useSearchParams();
 
-  const [selectedYear, setSelectedYear] = useState<number>(getDefaultYear());
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const [selectedMonth, setSelectedMonth] = useState<number>(MONTH_UNSELECTED);
   const [emotionToggle, setEmotionToggle] = useState<number>(EMOTION_UNSELECTED);
 
@@ -19,9 +18,9 @@ export const useDiaryListFilter = () => {
   const queryParamsEmotion = searchParams.get('emotion');
 
   useEffect(() => {
-    if (queryParamsYear != null && queryParamsYear !== '') setSelectedYear(Number(queryParamsYear));
-    else setSelectedYear(getDefaultYear());
-    if (queryParamsMonth != null && queryParamsMonth !== '') setSelectedMonth(Number(queryParamsMonth));
+    if (queryParamsYear != null && /^\d{4}$/.test(queryParamsYear)) setSelectedYear(Number(queryParamsYear));
+    else setSelectedYear(null);
+    if (queryParamsYear != null && /^\d{4}$/.test(queryParamsYear) && queryParamsMonth != null && /^(?:[1-9]|1[0-2])$/.test(queryParamsMonth)) setSelectedMonth(Number(queryParamsMonth));
     else setSelectedMonth(MONTH_UNSELECTED);
     if (queryParamsEmotion != null && queryParamsEmotion !== '') setEmotionToggle(Number(queryParamsEmotion));
     else setEmotionToggle(EMOTION_UNSELECTED);

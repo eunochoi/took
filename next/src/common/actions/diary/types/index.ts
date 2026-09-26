@@ -55,7 +55,7 @@ export type DiaryListParams = {
   limit: number;
   pageParam: number;
   selectedMonth: number;
-  selectedYear: number;
+  selectedYear: number | null;
 };
 
 export type DiaryWithRelations = Prisma.DiaryGetPayload<{

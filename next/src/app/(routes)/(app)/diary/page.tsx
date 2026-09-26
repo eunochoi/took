@@ -1,7 +1,6 @@
 import { getDiaryList } from "@/common/actions/diary";
 import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
 import { EMOTION_TOTAL_COUNT, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
-import { getCurrentYearInUserTimezone } from "@/common/utils/date/userTimezone";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import DiaryClientPage from "./DiaryClientPage";
 
@@ -10,7 +9,7 @@ export const dynamic = 'force-dynamic';
 //page for data prefetch
 const DiaryListPage = async () => {
   const queryClient = new QueryClient();
-  const selectedYear = await getCurrentYearInUserTimezone();
+  const selectedYear = null;
 
   // Prefetch diary list data for all emotions and sort directions.
   for (let i = 0; i < EMOTION_TOTAL_COUNT; i++) {
