@@ -89,7 +89,7 @@ const IntroClientPage = () => {
           EMOTION DIARY & HABIT TRACKER
         </span>
         <IntroActionButtons className="mt-3 max-w-[620px]" />
-        <Image src={bottomCat} alt="bottom-cat" sizes="(min-width: 1024px) 50vw, (min-width: 480px) 70vw, calc(100vw - 40px)" className='tablet:ml-auto tablet:w-[70dvw] desktop:w-[50dvw]' />
+        <Image priority src={bottomCat} alt="bottom-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 70vw, calc(100vw - 40px)" className='tablet:ml-auto tablet:w-[70dvw] desktop:w-[50dvw]' />
       </section>
     </ScrollContainer>
   );

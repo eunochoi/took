@@ -31,7 +31,7 @@ const IntroHero = () => {
         <IntroActionButtons className="p-0 desktop:justify-start" />
       </div>
       <div className={heroImageClass}>
-        <Image src={bottomCat} alt="bottom-cat" sizes="(min-width: 1024px) 45vw, (min-width: 480px) 66vw, calc(100vw - 40px)" className="tablet:w-2/3 desktop:w-full" />
+        <Image priority src={bottomCat} alt="bottom-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 66vw, calc(100vw - 40px)" className="tablet:w-2/3 desktop:w-full" />
       </div>
     </section>
   );
