@@ -7,11 +7,11 @@ import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 import { useCustomHabitOrder } from '@/app/(routes)/(app)/habit/_hooks/useCustomHabitOrder';
-import { PanelDialog } from '@/common/components/ui/PanelDialog';
-import { PanelBody } from '@/common/components/ui/PanelDialog/PanelBody';
-import { PanelFooter } from '@/common/components/ui/PanelDialog/PanelFooter';
-import { PanelHeader } from '@/common/components/ui/PanelDialog/PanelHeader';
-import { PanelSubmitButton } from '@/common/components/ui/PanelDialog/PanelSubmitButton';
+import { PanelDialog } from '@/common/components/ui/Dialog/PanelDialog';
+import { PanelBody } from '@/common/components/ui/Dialog/PanelDialog/PanelBody';
+import { PanelFooter } from '@/common/components/ui/Dialog/PanelDialog/PanelFooter';
+import { PanelHeader } from '@/common/components/ui/Dialog/PanelDialog/PanelHeader';
+import { PanelSubmitButton } from '@/common/components/ui/Dialog/PanelDialog/PanelSubmitButton';
 import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import { Habit } from './_types';

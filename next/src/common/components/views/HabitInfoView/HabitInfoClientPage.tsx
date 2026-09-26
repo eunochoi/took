@@ -7,9 +7,9 @@ import { AnimatePresence } from "framer-motion";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { PanelDialog } from "../../ui/PanelDialog";
-import { PanelBody } from "../../ui/PanelDialog/PanelBody";
-import { PanelHeader } from "../../ui/PanelDialog/PanelHeader";
+import { PanelDialog } from "../../ui/Dialog/PanelDialog";
+import { PanelBody } from "../../ui/Dialog/PanelDialog/PanelBody";
+import { PanelHeader } from "../../ui/Dialog/PanelDialog/PanelHeader";
 import HabitInfoHeader from "./HabitInfoHeader";
 import MonthInfo from "./MonthInfo";
 import YearInfo from "./YearInfo";

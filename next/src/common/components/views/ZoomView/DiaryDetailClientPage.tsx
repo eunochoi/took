@@ -2,9 +2,9 @@
 
 import { getDiaryById } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
-import { PanelDialog } from "@/common/components/ui/PanelDialog";
-import { PanelBody } from "@/common/components/ui/PanelDialog/PanelBody";
-import { PanelHeader } from "@/common/components/ui/PanelDialog/PanelHeader";
+import { PanelDialog } from "@/common/components/ui/Dialog/PanelDialog";
+import { PanelBody } from "@/common/components/ui/Dialog/PanelDialog/PanelBody";
+import { PanelHeader } from "@/common/components/ui/Dialog/PanelDialog/PanelHeader";
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";

@@ -2,6 +2,8 @@
 
 import { motion, useIsPresent, useReducedMotion } from 'framer-motion';
 import { ReactNode, useLayoutEffect, useRef } from 'react';
+import { DialogBackdrop } from '../DialogBackdrop';
+import { DIALOG_ROOT_CLASS } from '../constants';
 
 interface PickerDialogProps {
   children: ReactNode;
@@ -39,19 +41,14 @@ export const PickerDialog = ({ children, labelledBy, describedBy, onClose }: Pic
       ref={dialogRef}
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
-      className="fixed inset-0 h-[100dvh] w-full overflow-hidden"
+      className={DIALOG_ROOT_CLASS}
       onCancel={(event) => {
         event.preventDefault();
         event.stopPropagation();
         if (isPresent) onClose();
       }}
     >
-      <motion.div
-        aria-hidden="true"
-        className="absolute inset-0 bg-theme-overlay/25 backdrop-blur-sm"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0, pointerEvents: 'none' }}
+      <DialogBackdrop
         transition={transition}
         onClick={() => {
           if (isPresent) onClose();

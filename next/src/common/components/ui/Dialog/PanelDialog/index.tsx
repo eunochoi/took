@@ -2,6 +2,8 @@
 
 import { motion, useIsPresent, useReducedMotion } from 'framer-motion';
 import { ReactNode, useLayoutEffect, useRef } from 'react';
+import { DialogBackdrop } from '../DialogBackdrop';
+import { DIALOG_ROOT_CLASS } from '../constants';
 
 interface PanelDialogProps {
   ariaLabel: string;
@@ -43,18 +45,13 @@ export const PanelDialog = ({
     <dialog
       ref={dialogRef}
       aria-label={ariaLabel}
-      className="fixed inset-0 h-[100dvh] w-full overflow-hidden"
+      className={DIALOG_ROOT_CLASS}
       onCancel={(event) => {
         event.preventDefault();
         if (dismissible && isPresent) onClose();
       }}
     >
-      <motion.div
-        aria-hidden="true"
-        className="absolute inset-0 bg-theme-overlay/25 backdrop-blur-sm"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0, pointerEvents: 'none' }}
+      <DialogBackdrop
         transition={transition}
         onClick={() => {
           if (dismissible && isPresent) onClose();
