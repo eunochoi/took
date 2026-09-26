@@ -16,6 +16,8 @@ interface Props {
 }
 
 const DiaryListViewContent = ({ flatDiaries, isDiaryListEmpty, hasAppliedFilter, inViewRef, statsYear, setStatsYear }: Props) => {
+  const firstImageDiaryIndex = flatDiaries?.findIndex((diary) => diary.Images.length > 0) ?? -1;
+
   return (
     <section className="grid flex-1 w-full gap-6 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
       <div className="flex min-w-0 flex-col">
@@ -28,7 +30,7 @@ const DiaryListViewContent = ({ flatDiaries, isDiaryListEmpty, hasAppliedFilter,
           />
         ) : (
           <div className="flex w-full min-w-0 flex-col divide-y divide-theme-border/60">
-            {flatDiaries?.map((diary) => <DiaryCard key={diary.id} diaryData={diary} />)}
+            {flatDiaries?.map((diary, index) => <DiaryCard key={diary.id} diaryData={diary} priorityImage={index === firstImageDiaryIndex} />)}
           </div>
         )}
         <div ref={inViewRef} className="h-[50px] w-full shrink-0" />

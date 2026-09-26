@@ -27,7 +27,7 @@ const SIMPLE_EMOTION_ICONS = [
   FaFaceMeh,
 ];
 
-export default function EmotionImage({ emotion, iconStyle, alt, width = emotion.src.width, height = emotion.src.height, className, style, ...props }: EmotionImageProps) {
+export default function EmotionImage({ emotion, iconStyle, alt, width = emotion.src.width, height = emotion.src.height, sizes, className, style, ...props }: EmotionImageProps) {
   const settings = useContext(SettingsContext);
   const selectedStyle = iconStyle ?? settings?.emotionIcon.style ?? DEFAULT_EMOTION_ICON_STYLE;
 
@@ -74,6 +74,7 @@ export default function EmotionImage({ emotion, iconStyle, alt, width = emotion.
       src={emotion.src}
       width={width}
       height={height}
+      sizes={sizes ?? (width === emotion.src.width ? '64px' : `${width}px`)}
       className={className}
       style={style}
     />

@@ -25,6 +25,7 @@ export const BottomSafe = () => {
         className={TAIL_IMAGE_CLASS}
         src={bottomCatTail}
         alt="bottom-cat-tail"
+        sizes="45vw"
       />
 
       <div className={BOX_CLASS}>

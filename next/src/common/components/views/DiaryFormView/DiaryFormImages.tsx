@@ -39,7 +39,7 @@ const SortableDiaryImage = ({ id, src, index, disabled, onRemove }: {
       className={cn(tileClass, isDragging ? 'bg-theme-accent/10' : 'shadow-card')}
     >
       <div className={cn('relative h-full w-full touch-auto', isDragging && 'opacity-0')}>
-        <Image src={src} alt={`첨부 사진 ${index + 1}`} width={192} height={224} unoptimized draggable={false} className="h-full w-full object-cover" />
+        <Image src={src} alt={`첨부 사진 ${index + 1}`} width={192} height={224} sizes="96px" unoptimized={src.startsWith('blob:')} draggable={false} className="h-full w-full object-cover" />
         <span className={cn('absolute bottom-2 left-2 text-xs', imageControlClass)}>{index + 1}</span>
       </div>
       <button
@@ -141,7 +141,7 @@ const DiaryFormImages = ({ diaryImages, handleImageChange, getImageUrl, handleRe
         <DragOverlay dropAnimation={null} style={{ pointerEvents: 'none' }}>
           {activeItem && (
             <div className={cn(tileClass, 'ring-2 ring-theme-accent shadow-theme-floating')}>
-              <Image src={activeItem.src} alt="이동 중인 사진" width={192} height={224} unoptimized draggable={false} className="h-full w-full object-cover" />
+              <Image src={activeItem.src} alt="이동 중인 사진" width={192} height={224} sizes="96px" unoptimized={activeItem.src.startsWith('blob:')} draggable={false} className="h-full w-full object-cover" />
             </div>
           )}
         </DragOverlay>,

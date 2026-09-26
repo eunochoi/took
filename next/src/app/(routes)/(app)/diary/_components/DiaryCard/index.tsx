@@ -10,9 +10,10 @@ import DiaryDateHeader from './DiaryDateHeader';
 
 interface Props {
   diaryData: DiaryData;
+  priorityImage?: boolean;
 }
 
-const DiaryCard = ({ diaryData }: Props) => {
+const DiaryCard = ({ diaryData, priorityImage = false }: Props) => {
   const router = useRouter();
   const { Images: images } = diaryData;
   const hasImages = images.length > 0;
@@ -40,11 +41,12 @@ const DiaryCard = ({ diaryData }: Props) => {
                   className="h-full w-full focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-theme-accent"
                 >
                   <Image
-                    priority={index === 0}
+                    priority={priorityImage && index === 0}
                     className="h-full w-full object-cover"
                     src={image.src}
                     width={800}
                     height={480}
+                    sizes="(min-width: 1024px) 460px, (min-width: 480px) min(484px, calc(100vw - 88px)), calc(90vw - 16px)"
                     alt={`일기 사진 ${index + 1}`}
                     draggable={false}
                   />

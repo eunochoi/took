@@ -63,13 +63,12 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
               >
                 {images.map((image, index) => (
                   <Image
-                    priority={index === 0}
                     className="h-full w-full object-cover"
                     key={image.id}
                     src={image.src}
                     width={600}
                     height={600}
-                    sizes="25vw"
+                    sizes="(min-width: 1024px) 140px, (min-width: 480px) min(200px, calc(40vw - 35px)), calc(36vw - 6px)"
                     alt={`일기 이미지 ${index + 1}`}
                   />
                 ))}
