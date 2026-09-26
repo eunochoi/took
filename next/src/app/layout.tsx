@@ -60,7 +60,7 @@ export default async function RootLayout({
         document.documentElement.style.setProperty('--loading-background', themeColor);
         document.documentElement.style.setProperty('--loading-indicator', 'rgb(' + accent.accent + ')');
 
-        var isFixedLightPage = ['/', '/login', '/privacy', '/account-deletion'].includes(location.pathname);
+        var isFixedLightPage = ['/', '/login', '/intro', '/privacy', '/account-deletion'].includes(location.pathname);
         var statusBarColor = isFixedLightPage ? 'rgb(240 247 255)' : themeColor;
         var metaThemeColor = document.getElementById('theme-color');
         if (metaThemeColor) metaThemeColor.setAttribute('content', statusBarColor);

@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 const STATIC_THEME_PATHS = new Set([
   '/',
   '/login',
+  '/intro',
   '/privacy',
   '/account-deletion',
 ]);

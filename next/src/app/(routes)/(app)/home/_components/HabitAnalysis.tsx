@@ -26,7 +26,7 @@ const HabitAnalysis = ({ stats }: Props) => {
 
   const habits = habitTab === 'top' ? stats?.topHabits : stats?.bottomHabits;
   const handleHabitClick = (habitId: number) => {
-    router.push(`/inter/habitInfo?id=${habitId}`, { scroll: false });
+    router.push(`/habit/${habitId}`, { scroll: false });
   };
 
   return (

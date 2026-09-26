@@ -48,7 +48,7 @@ export const PickerDialog = ({ children, labelledBy, describedBy, onClose }: Pic
     >
       <motion.div
         aria-hidden="true"
-        className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+        className="absolute inset-0 bg-theme-overlay/25 backdrop-blur-sm"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0, pointerEvents: 'none' }}

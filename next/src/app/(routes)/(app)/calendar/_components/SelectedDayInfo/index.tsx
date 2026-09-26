@@ -124,14 +124,14 @@ const SelectedDayInfo = ({
 
   const onOpenDiary = () => {
     if (diaryData?.id) {
-      router.push(`/inter/zoom?id=${diaryData.id}`, {
+      router.push(`/diary/${diaryData.id}`, {
         scroll: false,
       });
     }
   };
 
   const onAddDiary = () => {
-    router.push(`/inter/input/addDiary?date=${date}`, {
+    router.push(`/diary/new?date=${date}`, {
       scroll: false,
     });
   };

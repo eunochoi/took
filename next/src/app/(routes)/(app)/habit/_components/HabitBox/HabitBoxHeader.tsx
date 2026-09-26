@@ -24,7 +24,7 @@ const HabitBoxHeader = ({ id, name, priority, iconKey, isMenuOpen, setMenuOpen, 
     <div className="min-w-0">
       <div className="relative mb-2 min-w-0">
         <Link
-          href={`/inter/habitInfo?id=${id}`}
+          href={`/habit/${id}`}
           scroll={false}
           className="flex min-w-0 flex-col items-center gap-2 font-semibold text-theme-text-primary"
           aria-label={`${name} 습관 정보`}
@@ -48,7 +48,7 @@ const HabitBoxHeader = ({ id, name, priority, iconKey, isMenuOpen, setMenuOpen, 
           isMenuOpen={isMenuOpen}
           setMenuOpen={setMenuOpen}
           anchorRef={menuAnchorRef}
-          onEdit={() => router.push(`/inter/input/editHabit?id=${id}`, { scroll: false })}
+          onEdit={() => router.push(`/habit/${id}/edit`, { scroll: false })}
           onDelete={onDeleteHabit}
           vertical
         />

@@ -4,7 +4,7 @@ import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/action
 import { getDiaryByDate } from "@/common/actions/diary";
 import { getTodayHabitStat } from "@/common/actions/habit";
 import { getTodayStringInUserTimezone } from "@/common/utils/date/userTimezone";
-import HomeView from "./HomeView.client";
+import HomeClientPage from "./HomeClientPage";
 
 export const dynamic = 'force-dynamic';
 
@@ -70,7 +70,7 @@ const HomePage = async ({ searchParams }: Props) => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <HomeView initialDate={initialDate} />
+      <HomeClientPage initialDate={initialDate} />
     </HydrationBoundary>
   );
 };

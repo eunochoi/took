@@ -9,10 +9,10 @@ import { AppProviders } from "@/common/providers/AppProviders";
 
 interface Props {
   children: ReactNode;
-  modal: ReactNode;
+  panel: ReactNode;
 }
 
-const AppLayout = ({ children, modal }: Props) => {
+const AppLayout = ({ children, panel }: Props) => {
   const { user, isLoading } = useAuthRoute();
 
   const [isMinimumLoading, setIsMinimumLoading] = useState(true);
@@ -36,7 +36,7 @@ const AppLayout = ({ children, modal }: Props) => {
   return (
     <AppProviders>
       <ResponsiveAppLayout>
-        {modal}
+        {panel}
         {children}
       </ResponsiveAppLayout>
     </AppProviders>

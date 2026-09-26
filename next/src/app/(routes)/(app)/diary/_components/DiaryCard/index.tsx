@@ -18,10 +18,10 @@ const DiaryCard = ({ diaryData }: Props) => {
   const hasImages = images.length > 0;
 
   const navigateToZoom = () => {
-    router.push(`/inter/zoom?id=${diaryData.id}`, { scroll: false });
+    router.push(`/diary/${diaryData.id}`, { scroll: false });
   };
   const handleHabitClick = (habitId: number) => {
-    router.push(`/inter/habitInfo?id=${habitId}`, { scroll: false });
+    router.push(`/habit/${habitId}`, { scroll: false });
   };
 
   return (

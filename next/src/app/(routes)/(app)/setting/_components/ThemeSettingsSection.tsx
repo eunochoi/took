@@ -47,7 +47,7 @@ export const ThemeSettingsSection = () => {
           settingItemValue={
             <button
               onClick={() => {
-                router.push("/inter/habitOrder", { scroll: false });
+                router.push("/habit/order", { scroll: false });
               }}
               type="button"
             >

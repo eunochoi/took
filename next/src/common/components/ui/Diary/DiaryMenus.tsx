@@ -42,7 +42,7 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) =>
     enqueueSnackbar(`${format(parseLocalDate(diaryData.date), 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: false, action, autoHideDuration: 3000 });
   };
   const onClickEdit = () => {
-    router.push(`/inter/input/editDiary?id=${diaryData.id}`, { scroll: false });
+    router.push(`/diary/${diaryData.id}/edit`, { scroll: false });
   };
 
   return (

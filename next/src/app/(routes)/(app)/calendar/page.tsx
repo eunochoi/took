@@ -4,7 +4,7 @@ import { getDiaryByDate } from '@/common/actions/diary';
 import { getDiaryHabitMonthData } from '@/common/actions/diary/getDiaryHabitMonthData';
 import { getHabitsByDate } from '@/common/actions/habit';
 import { getTodayStringInUserTimezone } from '@/common/utils/date/userTimezone';
-import CalendarView from './CalendarView.client';
+import CalendarClientPage from './CalendarClientPage';
 
 export const dynamic = 'force-dynamic';
 
@@ -46,7 +46,7 @@ const CalendarPage = async () => {
   // 실패한 프리패치는 제외되고, 해당 데이터는 클라이언트에서 다시 조회한다.
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <CalendarView initialDate={initialDate} />
+      <CalendarClientPage initialDate={initialDate} />
     </HydrationBoundary>
   );
 };

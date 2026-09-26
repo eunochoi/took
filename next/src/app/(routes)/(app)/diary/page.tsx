@@ -3,7 +3,7 @@ import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
 import { EMOTION_TOTAL_COUNT, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { getCurrentYearInUserTimezone } from "@/common/utils/date/userTimezone";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
-import DiaryListView from "./DiaryListView.client";
+import DiaryClientPage from "./DiaryClientPage";
 
 export const dynamic = 'force-dynamic';
 
@@ -53,7 +53,7 @@ const DiaryListPage = async () => {
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <DiaryListView />
+      <DiaryClientPage />
     </HydrationBoundary>
   );
 }

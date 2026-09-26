@@ -44,7 +44,7 @@ const SelectedDayHabitSection = ({
   const canExpand = extraHabits.length > 0;
 
   const onOpenHabitInfo = (habitId: number) => {
-    router.push(`/inter/habitInfo?id=${habitId}`, {
+    router.push(`/habit/${habitId}`, {
       scroll: false,
     });
   };
