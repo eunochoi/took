@@ -36,15 +36,13 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
 
   return (
     <div>
-      <div className="flex w-full items-center justify-between p-2">
+      <div className="mb-3 flex w-full items-center justify-between px-2">
+        <button className={yearButtonClass} onClick={goToPreYear} aria-label="이전 연도" type="button"><MdKeyboardArrowLeft aria-hidden="true" /></button>
         <button className={yearButtonClass} onClick={goToCurrentDate} type="button">{selectedYear}</button>
-        <div className="flex items-center gap-1">
-          <button className={yearButtonClass} onClick={goToPreYear} aria-label="이전 연도" type="button"><MdKeyboardArrowLeft aria-hidden="true" /></button>
-          <button className={yearButtonClass} onClick={goToNextYear} aria-label="다음 연도" type="button"><MdKeyboardArrowRight aria-hidden="true" /></button>
-        </div>
+        <button className={yearButtonClass} onClick={goToNextYear} aria-label="다음 연도" type="button"><MdKeyboardArrowRight aria-hidden="true" /></button>
       </div>
       <div
-        className="grid h-[150px] w-full grid-cols-6 grid-rows-2"
+        className="grid w-full grid-cols-6 gap-1.5"
         onTouchStart={(e) => {
           setTouchStartX(e.changedTouches[0].clientX);
         }}
@@ -61,8 +59,8 @@ const MonthSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelect
             <button
               key={month}
               className={cn(
-                "flex items-center justify-center text-sm transition-colors duration-200 text-theme-text-primary",
-                selected ? "rounded-2xl border p-2 transition-colors border-theme-accent bg-theme-accent/10" : "border-transparent",
+                "flex min-h-14 items-center justify-center rounded-2xl border px-1 text-sm text-theme-text-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent",
+                selected ? "border-theme-accent bg-theme-accent/10" : "border-transparent",
               )}
               aria-pressed={selected}
               onClick={() => selectMonth(month)}
