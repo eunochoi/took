@@ -5,25 +5,37 @@ import HomeViewToolbar from "./_components/HomeViewToolbar";
 
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
-import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
 
 import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
-import { useModalParam } from "@/common/hooks/useModalParam";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { AnimatePresence } from 'framer-motion';
+import HomePageYearPicker from './_components/HomePageYearPicker';
 import HomeViewTopSection from './_components/HomeViewTopSection';
-import YearFilter from './_components/YearFilter';
 
 const HomeView = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
   const currentYear = getYear(new Date());
+  const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const queryYear = Number(searchParams.get('year'));
   const selectedYear = Number.isInteger(queryYear) && queryYear > 0 ? queryYear : currentYear;
-  const { isOpen: isYearFilterOpen, open: openYearFilter, close: closeYearFilter } = useModalParam('year-filter');
+  const [isYearPickerOpen, setIsYearPickerOpen] = useState(false);
+
+  const handleApplyYear = (year: number) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (year === currentYear) params.delete('year');
+    else params.set('year', year.toString());
+
+    const query = params.toString();
+    router.replace(query ? `${pathname}?${query}` : pathname);
+    setIsYearPickerOpen(false);
+  };
 
   const { data: availableYears } = useQuery({
     queryKey: ['stats', 'years'],
@@ -58,7 +70,7 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
         toolbar={
           <HomeViewToolbar
             selectedYear={selectedYear}
-            openYearFilter={openYearFilter}
+            openYearFilter={() => setIsYearPickerOpen(true)}
           />
         }
         mainSection={
@@ -71,21 +83,13 @@ const HomeView = ({ initialDate }: { initialDate: string }) => {
         }
       />
       <AnimatePresence>
-        {isYearFilterOpen && (
-          <YearFilter
-            key="year-filter"
-            onClose={() => closeYearFilter()}
+        {isYearPickerOpen && (
+          <HomePageYearPicker
+            key="year-picker"
+            onClose={() => setIsYearPickerOpen(false)}
             years={years}
             selectedYear={selectedYear}
-            onApplyYear={(year) => {
-              const params = new URLSearchParams(searchParams);
-              params.delete('modal');
-
-              if (year === currentYear) params.delete('year');
-              else params.set('year', year.toString());
-
-              closeYearFilter(params);
-            }}
+            onApplyYear={handleApplyYear}
           />
         )}
       </AnimatePresence>
