@@ -28,7 +28,7 @@ const HomeViewTopSection = ({ initialDate }: { initialDate: string }) => {
       <div className="flex flex-col font-title p-2 gap-6 desktop:gap-8">
         <div className='flex flex-col gap-2'>
           <span className="m-0 text-2xl font-semibold text-theme-text-secondary">{today}</span>
-          <h1 className="flex gap-2 items-end m-0 h-10 desktop:h-12">
+          <h1 className="-ml-1 flex gap-2 items-end m-0 h-10 desktop:h-12">
             <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
             <EmotionImage
               emotion={EMOTIONS[1]}
