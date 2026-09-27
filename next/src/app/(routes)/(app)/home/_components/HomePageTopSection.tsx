@@ -25,7 +25,7 @@ const HomePageTopSection = ({ initialDate }: { initialDate: string }) => {
   return (
     <section className={cn('flex flex-col gap-8')}>
       <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
-      <div className="flex flex-col font-title p-2 gap-6 desktop:gap-8">
+      <div className="flex flex-col p-2 gap-6 desktop:gap-8">
         <div className='flex flex-col gap-2'>
           <span className="m-0 text-2xl font-semibold text-theme-text-secondary">{today}</span>
           <h1 className="-ml-1 flex gap-2 items-end m-0 h-10 desktop:h-12">

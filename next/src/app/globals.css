@@ -132,24 +132,26 @@ html[data-theme-mode='어둡게'] {
 
 /* app font type */
 html[data-font-type='타입1'] {
-  --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
+  --app-font-family: 'SUIT';
 }
 
 html[data-font-type='타입2'] {
-  --app-font-family: 'Pretendard';
+  --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
 }
 
 html[data-font-type='타입3'] {
-  --app-font-family: 'Paperozi';
+  --app-font-family: 'Pretendard';
 }
 
 html[data-font-type='타입4'] {
-  --app-font-family: 'MaruBuri';
+  --app-font-family: 'Paperozi';
 }
 
 html[data-font-type='타입5'] {
-  --app-font-family: 'SUIT';
+  --app-font-family: 'MaruBuri';
 }
+
+
 
 /* app font size */
 html[data-font-size='작게'] {

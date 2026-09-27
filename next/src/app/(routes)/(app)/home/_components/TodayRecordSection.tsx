@@ -12,7 +12,7 @@ import { AppSection, AppSectionHeader, AppSectionTitle } from '@/common/componen
 import { getTodayString } from '@/common/functions/getTodayString';
 import { useRouter } from 'next/navigation';
 
-const recordStatusClass = 'text-xs font-semibold text-theme-accent desktop:text-sm';
+const recordStatusClass = 'text-sm font-semibold text-theme-accent desktop:text-sm';
 const recordCardClass = 'flex min-h-12 items-center gap-3 text-left text-sm shadow-none !py-2';
 
 const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
@@ -44,6 +44,18 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
   });
   const completedCount = habitQuery.data?.todayDoneHabits ?? 0;
   const totalHabitCount = habitQuery.data?.createdHabits ?? 0;
+  const hasDiary = diaryQuery.data?.visible === true;
+
+  const openTodayDiary = () => {
+    if (diaryQuery.isPending) return;
+    if (diaryQuery.isError) {
+      void diaryQuery.refetch();
+      return;
+    }
+
+    const diary = diaryQuery.data;
+    router.push(diary?.visible ? `/diary/${diary.id}` : `/diary/new?date=${today}`, { scroll: false });
+  };
 
   return (
     <AppSection className="min-w-0 text-left">
@@ -55,11 +67,13 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
       <div className="flex flex-col gap-3">
         <AppSurfaceCard
           className={recordCardClass}
-          onClick={() => router.push('/calendar')}
+          onClick={openTodayDiary}
         >
           <MdMenuBook className="shrink-0 text-xl text-theme-accent" />
           <span className="flex-1 font-base">오늘의 감정 일기</span>
-          <span className={recordStatusClass} aria-live="polite">{diaryQuery.data?.visible ? '작성 완료' : '아직 작성 전'}</span>
+          <span className={recordStatusClass} aria-live="polite">
+            {diaryQuery.isError ? '다시 시도' : diaryQuery.isPending ? '확인 중…' : hasDiary ? '일기 확인하기' : '일기 작성하기'}
+          </span>
           <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" />
         </AppSurfaceCard>
 
