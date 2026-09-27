@@ -35,7 +35,7 @@ const HabitBoxRecentDays = ({ name, recentDateStatus, controlsDisabled, onToggle
             <span className={cn(
               "mt-1 flex h-5 w-5 items-center justify-center rounded-md border-[1.5px] transition-colors duration-150 motion-reduce:transition-none",
               checked
-                ? "border-theme-accent bg-theme-accent text-theme-text-on-accent"
+                ? "border-theme-accent/75 bg-theme-accent/75 text-theme-text-on-accent"
                 : "border-theme-text-disabled/60 bg-theme-surface",
             )}>
               <MdCheck className={cn("h-3.5 w-3.5 transition-opacity motion-reduce:transition-none", checked ? "opacity-100" : "opacity-0")} aria-hidden="true" />

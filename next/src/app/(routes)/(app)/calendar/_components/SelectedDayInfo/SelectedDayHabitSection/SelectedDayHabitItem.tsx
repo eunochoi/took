@@ -30,7 +30,7 @@ const SelectedDayHabitItem = ({ habit, canEdit, pendingHabitId, onOpenHabitInfo,
           className={cn(
             'flex h-5 w-5 shrink-0 items-center justify-center rounded-md border-[1.5px] transition-colors duration-150 motion-reduce:transition-none',
             habit.completed
-              ? 'border-theme-accent bg-theme-accent text-theme-text-on-accent'
+              ? 'border-theme-accent/75 bg-theme-accent/75 text-theme-text-on-accent'
               : 'border-theme-text-disabled/60 bg-theme-surface',
           )}
         >
