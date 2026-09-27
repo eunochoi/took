@@ -1,6 +1,6 @@
 'use client';
 
-import { MdArrowForward, MdCalendarMonth } from "react-icons/md";
+import { FaArrowRight } from "react-icons/fa";
 
 interface Props {
   onOpenYearPicker: () => void;
@@ -16,9 +16,8 @@ const HomeYearChangePrompt = ({ onOpenYearPicker }: Props) => {
       <button
         onClick={onOpenYearPicker}
         className="mr-2 desktop:mr-6 mt-4 self-end flex shrink-0 items-center gap-2 text-lg desktop:text-base font-medium text-theme-accent">
-        <MdCalendarMonth className="mt-0.5 shrink-0 text-theme-accent" aria-hidden="true" />
-        <span >연도 선택</span>
-        <MdArrowForward aria-hidden="true" />
+        <span>연도 선택</span>
+        <FaArrowRight aria-hidden="true" />
       </button>
     </div>
   );
