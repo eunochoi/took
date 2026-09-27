@@ -1,4 +1,4 @@
-export const PICKER_CONTENT_CLASS = 'flex flex-col gap-6 relative w-full px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-7 tablet:px-7 tablet:pt-9';
+export const PICKER_CONTENT_CLASS = 'flex flex-col gap-12 relative w-full px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-7 tablet:px-7 tablet:pt-9';
 export const PICKER_CLOSE_BUTTON_CLASS = 'absolute right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent';
 export const PICKER_TITLE_CLASS = 'text-center  text-xl font-semibold tracking-tight text-theme-text-primary';
 export const PICKER_DESCRIPTION_CLASS = 'min-h-6 flex justify-center items-center text-base text-theme-text-secondary';
