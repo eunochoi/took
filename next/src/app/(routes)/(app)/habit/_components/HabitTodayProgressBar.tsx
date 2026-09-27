@@ -13,10 +13,10 @@ const HabitTodayProgressBar = ({ completedCount, rate, totalCount }: Props) => {
   const rateValue = Math.min(Math.max(Number(rate) || 0, 0), 100);
 
   return (
-    <section className="flex w-full min-w-0 flex-col gap-4 my-4 px-2">
+    <section className="flex w-full min-w-0 flex-col gap-4 px-2">
       <div className="flex w-full items-center justify-between gap-3">
         <div className='flex flex-col gap-2'>
-          <h2 className="font-title text-lg font-semibold text-theme-text-primary">오늘의 습관 진척도</h2>
+          <h2 className="font-title text-xl font-semibold text-theme-text-primary">오늘의 습관 진척도</h2>
           <span className="shrink-0 font-title text-base font-semibold text-theme-text-tertiary">
             {completedCount}/{totalCount} 완료
           </span>
