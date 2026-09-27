@@ -3,7 +3,9 @@
 import { AccountInfoSection } from "./AccountInfoSection";
 import { ThemeSettingsSection } from "./ThemeSettingsSection";
 
+import { cn } from "@/common/utils/cn";
 import { AccountActionSection } from "./AccountActionSection";
+import SettingPageLinks from "./SettingPageLinks";
 
 interface Props {
   email: string;
@@ -14,17 +16,22 @@ interface Props {
 
 const SettingViewContent = ({ email, provider, createAt, onDeleteAccount }: Props) => {
   return (
-    <section className="grid w-full gap-12 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
+    <section className="pt-3 grid w-full gap-12 desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
       <div className="flex min-w-0 flex-col gap-12 desktop:col-start-1 desktop:row-start-1">
         <ThemeSettingsSection />
         <AccountActionSection onDeleteAccount={onDeleteAccount} />
       </div>
-      <AccountInfoSection
-        email={email}
-        provider={provider}
-        createAt={createAt}
-        className="desktop:border-theme-border/60 desktop:col-start-2 desktop:row-start-1 desktop:border-l desktop:pl-8"
-      />
+      <div className={cn(
+        "desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)]",
+        "flex min-w-0 flex-col gap-12 desktop:border-theme-border/60 desktop:col-start-2 desktop:row-start-1 desktop:border-l desktop:pl-8"
+      )}>
+        <SettingPageLinks />
+        <AccountInfoSection
+          email={email}
+          provider={provider}
+          createAt={createAt}
+        />
+      </div>
     </section>
   );
 };

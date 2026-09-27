@@ -1,4 +1,3 @@
-import { cn } from "@/common/utils/cn";
 import { SettingItem } from "./SettingItem";
 import { SettingSectionCard } from "./SettingSectionCard";
 import { SettingSubsection } from "./SettingSubsection";
@@ -12,7 +11,7 @@ interface AccountInfoSectionProps {
 
 export const AccountInfoSection = ({ email, provider, createAt, className }: AccountInfoSectionProps) => {
   return (
-    <SettingSectionCard className={cn("desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start desktop:[&_.text-base]:text-sm", className)}>
+    <SettingSectionCard>
       <SettingSubsection title="가입 정보">
         <SettingItem settingItemKey="이메일" settingItemValue={<span className="text-theme-text-tertiary">{email}</span>} />
         <SettingItem settingItemKey="계정 타입" settingItemValue={<span className="text-theme-text-tertiary">{provider}</span>} />

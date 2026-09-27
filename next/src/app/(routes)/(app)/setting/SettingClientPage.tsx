@@ -6,7 +6,6 @@ import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import SettingViewContent from './_components/SettingViewContent';
-import SettingViewToolbar from './_components/SettingViewToolbar';
 import SettingViewTopSection from './_components/SettingViewTopSection';
 
 const SettingClientPage = () => {
@@ -22,7 +21,6 @@ const SettingClientPage = () => {
     <AppPageLayout
       topSection={<SettingViewTopSection />}
       showScrollToTop={false}
-      toolbar={<SettingViewToolbar />}
       mainSection={
         <SettingViewContent
           email={email}
