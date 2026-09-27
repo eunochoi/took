@@ -1,4 +1,4 @@
-import DiaryFormClientPage from '@/common/components/views/DiaryFormView/DiaryFormClientPage';
+import DiaryFormClientPage from '@/common/components/features/DiaryForm/DiaryFormClientPage';
 
 const DiaryCreateEntry = () => <DiaryFormClientPage isEdit={false} />;
 

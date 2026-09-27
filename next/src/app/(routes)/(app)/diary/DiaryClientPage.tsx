@@ -1,8 +1,8 @@
 'use client';
 
-import DiaryListViewContent from "./_components/DiaryListViewContent";
-import DiaryListViewToolbar from "./_components/DiaryListViewToolbar";
-import DiaryListViewTopSection from "./_components/DiaryListViewTopSection";
+import DiaryPageContent from "./_components/DiaryPageContent";
+import DiaryPageToolbar from "./_components/DiaryPageToolbar";
+import DiaryPageTopSection from "./_components/DiaryPageTopSection";
 
 import { AnimatePresence } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -116,12 +116,12 @@ const DiaryClientPage = () => {
   return (
     <>
       <AppPageLayout
-        topSection={<DiaryListViewTopSection />}
+        topSection={<DiaryPageTopSection />}
 
         pageRef={wrapperRef}
         showScrollToTop
         toolbar={
-          <DiaryListViewToolbar
+          <DiaryPageToolbar
             openPeriodFilter={() => setIsPeriodPickerOpen(true)}
             isPeriodSelected={isPeriodSelected}
             selectedPeriodLabel={selectedPeriodLabel}
@@ -133,7 +133,7 @@ const DiaryClientPage = () => {
           />
         }
         mainSection={
-          <DiaryListViewContent
+          <DiaryPageContent
             flatDiaries={flatDiaries}
             isDiaryListEmpty={isDiaryListEmpty}
             hasAppliedFilter={hasAppliedFilter}

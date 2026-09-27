@@ -1,8 +1,8 @@
 'use client';
 
-import HabitViewContent from "./_components/HabitViewContent";
-import HabitViewToolbar from "./_components/HabitViewToolbar";
-import HabitViewTopSection from "./_components/HabitViewTopSection";
+import HabitPageContent from "./_components/HabitPageContent";
+import HabitPageToolbar from "./_components/HabitPageToolbar";
+import HabitPageTopSection from "./_components/HabitPageTopSection";
 
 import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
@@ -48,11 +48,11 @@ const HabitClientPage = () => {
   return (
     <AppPageLayout
       showScrollToTop
-      topSection={<HabitViewTopSection />}
+      topSection={<HabitPageTopSection />}
 
       pageRef={pageRef}
       toolbar={
-        <HabitViewToolbar
+        <HabitPageToolbar
           onToggle={onToggleSort}
           onTogglePriorityFirst={onTogglePriorityFirst}
           onAddHabit={onAddHabit}
@@ -61,7 +61,7 @@ const HabitClientPage = () => {
         />
       }
       mainSection={
-        <HabitViewContent
+        <HabitPageContent
           habits={habits}
           totalHabitCount={totalHabitCount}
           todayDoneHabitCount={todayDoneHabitCount}

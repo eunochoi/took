@@ -3,7 +3,7 @@
 import { getDiaryStats } from '@/common/actions/stats';
 import { authAction } from '@/common/auth/authAction';
 import { YearRecordHeader } from '@/common/components/ui/AppSection/YearRecordHeader';
-import MonthlyBarChart from '@/common/components/views/HabitInfoView/MonthlyBarChart';
+import MonthlyBarChart from '@/common/components/features/HabitDetail/MonthlyBarChart';
 import { cn } from '@/common/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 

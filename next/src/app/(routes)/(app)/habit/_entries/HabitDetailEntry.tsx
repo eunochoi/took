@@ -1,5 +1,5 @@
 import { getHabitById } from '@/common/actions/habit';
-import HabitInfoClientPage from '@/common/components/views/HabitInfoView/HabitInfoClientPage';
+import HabitDetailClientPage from '@/common/components/features/HabitDetail/HabitDetailClientPage';
 import { getTodayStringInUserTimezone } from '@/common/utils/date/userTimezone';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
@@ -18,7 +18,7 @@ const HabitDetailEntry = async ({ habitId }: { habitId: string }) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <HabitInfoClientPage habitId={habitId} today={today} />
+      <HabitDetailClientPage habitId={habitId} today={today} />
     </HydrationBoundary>
   );
 };

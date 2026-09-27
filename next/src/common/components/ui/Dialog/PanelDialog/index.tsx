@@ -12,7 +12,7 @@ interface PanelDialogProps {
   dismissible?: boolean;
 }
 
-// 라우트 기반 화면을 패널로 표시한다. 닫힌 뒤의 라우트 이동은 상위 View가 처리한다.
+// 라우트 기반 화면을 패널로 표시한다. 닫힌 뒤의 라우트 이동은 상위 컴포넌트가 처리한다.
 export const PanelDialog = ({
   ariaLabel,
   children,

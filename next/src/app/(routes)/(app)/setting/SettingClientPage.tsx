@@ -5,8 +5,8 @@ import { useCurrentUser } from '@/common/hooks/useCurrentUser';
 import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
-import SettingViewContent from './_components/SettingViewContent';
-import SettingViewTopSection from './_components/SettingViewTopSection';
+import SettingPageContent from './_components/SettingPageContent';
+import SettingPageTopSection from './_components/SettingPageTopSection';
 
 const SettingClientPage = () => {
   usePrefetchPage();
@@ -19,10 +19,10 @@ const SettingClientPage = () => {
 
   return (
     <AppPageLayout
-      topSection={<SettingViewTopSection />}
+      topSection={<SettingPageTopSection />}
       showScrollToTop={false}
       mainSection={
-        <SettingViewContent
+        <SettingPageContent
           email={email}
           provider={provider}
           createAt={createAt}

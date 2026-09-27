@@ -1,5 +1,5 @@
 import { getDiaryById } from '@/common/actions/diary';
-import DiaryFormClientPage from '@/common/components/views/DiaryFormView/DiaryFormClientPage';
+import DiaryFormClientPage from '@/common/components/features/DiaryForm/DiaryFormClientPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 const DiaryEditEntry = async ({ diaryId }: { diaryId: string }) => {

@@ -1,0 +1,52 @@
+'use client';
+
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
+import Image from 'next/image';
+
+import bottomCat from '/public/img/bottom-cat.png';
+
+import EmotionImage from '@/common/components/ui/EmotionImage';
+import Wordmark from '@/common/components/ui/Wordmark';
+import { EMOTIONS } from '@/common/constants/emotions';
+import { useSettingsContext } from '@/common/settings/useSettingsContext';
+import { cn } from '@/common/utils/cn';
+import TodayRecordSection from './TodayRecordSection';
+
+const GREETING_TEXT = {
+  title: '오늘도 하나씩',
+  sub: ['감정도 툭, 습관도 툭!', '조금 더 나은 나로 To OK.'],
+};
+
+const HomePageTopSection = ({ initialDate }: { initialDate: string }) => {
+  const { emotionIcon } = useSettingsContext();
+  const today = format(new Date(initialDate), 'M월 d일 EEEE', { locale: ko });
+
+  return (
+    <section className={cn('flex flex-col gap-8')}>
+      <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
+      <div className="flex flex-col font-title p-2 gap-6 desktop:gap-8">
+        <div className='flex flex-col gap-2'>
+          <span className="m-0 text-2xl font-semibold text-theme-text-secondary">{today}</span>
+          <h1 className="-ml-1 flex gap-2 items-end m-0 h-10 desktop:h-12">
+            <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
+            <EmotionImage
+              emotion={EMOTIONS[1]}
+              alt="greeting emotion icon"
+              className={cn('rotate-[5deg] h-14 w-auto animate-rotate-slow')} />
+          </h1>
+        </div>
+        <div className="m-0 text-lg desktop:text-xl desktop:mb-4 leading-relaxed text-theme-text-secondary">
+          <p>{GREETING_TEXT.sub[0]}</p>
+          <p>{GREETING_TEXT.sub[1]}</p>
+        </div>
+      </div>
+      <div className="desktop:hidden p-1">
+        <TodayRecordSection initialDate={initialDate} />
+      </div>
+      <Image priority src={bottomCat} alt="bottom-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) calc(50vw - 36px), 68vw" className="ml-auto block w-3/4 tablet:w-1/2 desktop:w-1/2" />
+    </section>
+  );
+};
+
+export default HomePageTopSection;

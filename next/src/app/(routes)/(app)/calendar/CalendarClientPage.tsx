@@ -1,7 +1,7 @@
 'use client';
 
-import CalendarViewContent from "./_components/CalendarViewContent";
-import CalendarViewTopSection from "./_components/CalendarViewTopSection";
+import CalendarPageContent from "./_components/CalendarPageContent";
+import CalendarPageTopSection from "./_components/CalendarPageTopSection";
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
@@ -50,10 +50,10 @@ const CalendarClientPage = ({ initialDate }: Props) => {
 
   return (
     <AppPageLayout
-      topSection={<CalendarViewTopSection />}
+      topSection={<CalendarPageTopSection />}
       bottomSafeClassName="desktop:hidden"
       mainSection={
-        <CalendarViewContent
+        <CalendarPageContent
           today={today}
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}

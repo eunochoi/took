@@ -12,7 +12,7 @@ interface PickerDialogProps {
   onClose: () => void;
 }
 
-// 히스토리에 남기지 않는 임시 선택 UI다. 열림 상태와 적용된 값은 상위 View가 관리한다.
+// 히스토리에 남기지 않는 임시 선택 UI다. 열림 상태와 적용된 값은 상위 컴포넌트가 관리한다.
 export const PickerDialog = ({ children, labelledBy, describedBy, onClose }: PickerDialogProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);

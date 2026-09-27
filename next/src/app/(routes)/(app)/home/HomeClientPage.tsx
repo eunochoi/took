@@ -1,6 +1,6 @@
 'use client';
 
-import HomeViewContent from "./_components/HomeViewContent";
+import HomePageContent from "./_components/HomePageContent";
 
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
@@ -13,7 +13,7 @@ import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { AnimatePresence } from 'framer-motion';
 import HomePageYearPicker from './_components/HomePageYearPicker';
-import HomeViewTopSection from './_components/HomeViewTopSection';
+import HomePageTopSection from './_components/HomePageTopSection';
 
 const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
@@ -65,9 +65,9 @@ const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
   return (
     <>
       <AppPageLayout
-        topSection={<HomeViewTopSection initialDate={initialDate} />}
+        topSection={<HomePageTopSection initialDate={initialDate} />}
         mainSection={
-          <HomeViewContent
+          <HomePageContent
             initialDate={initialDate}
             selectedYear={selectedYear}
             diaryStats={diaryStats}

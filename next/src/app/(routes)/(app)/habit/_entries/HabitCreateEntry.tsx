@@ -1,4 +1,4 @@
-import HabitFormClientPage from '@/common/components/views/HabitFormView/HabitFormClientPage';
+import HabitFormClientPage from '@/common/components/features/HabitForm/HabitFormClientPage';
 
 const HabitCreateEntry = () => <HabitFormClientPage isEdit={false} />;
 

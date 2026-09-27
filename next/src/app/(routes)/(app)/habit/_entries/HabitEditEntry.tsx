@@ -1,5 +1,5 @@
 import { getHabitById } from '@/common/actions/habit';
-import HabitFormClientPage from '@/common/components/views/HabitFormView/HabitFormClientPage';
+import HabitFormClientPage from '@/common/components/features/HabitForm/HabitFormClientPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 const HabitEditEntry = async ({ habitId }: { habitId: string }) => {

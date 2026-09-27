@@ -1,5 +1,5 @@
 import { getDiaryById } from '@/common/actions/diary';
-import DiaryDetailClientPage from '@/common/components/views/ZoomView/DiaryDetailClientPage';
+import DiaryDetailClientPage from '@/common/components/features/DiaryDetail/DiaryDetailClientPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 const DiaryDetailEntry = async ({ diaryId }: { diaryId: string }) => {
