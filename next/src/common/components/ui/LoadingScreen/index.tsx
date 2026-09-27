@@ -1,8 +1,7 @@
 'use client';
 
-import Wordmark from '@/common/components/ui/Wordmark';
-import Image from 'next/image';
-import hidingCat from '/public/img/hiding-cat.png';
+import { BottomSafe } from '../BottomSafe';
+import Wordmark from '../Wordmark';
 
 interface LoadingScreenProps {
   message?: string;
@@ -16,9 +15,10 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => {
       style={{ backgroundColor: 'var(--loading-background)' }}
     >
       {showLogo && (
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-12">
           <Wordmark accentColor="var(--loading-indicator)" className="text-[48px]" />
-          <div className="flex gap-2">
+          <BottomSafe animation={false} className='!m-0' />
+          <div className="flex gap-3">
             <div className="h-4 w-4 animate-pulse rounded-full" style={{ backgroundColor: 'var(--loading-indicator)' }} />
             <div className="h-4 w-4 animate-pulse rounded-full [animation-delay:0.2s]" style={{ backgroundColor: 'var(--loading-indicator)' }} />
             <div className="h-4 w-4 animate-pulse rounded-full [animation-delay:0.4s]" style={{ backgroundColor: 'var(--loading-indicator)' }} />
@@ -26,7 +26,7 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => {
         </div>
       )}
       {message && <span className="text-base text-theme-text-primary">{message}</span>}
-      <Image priority src={hidingCat} alt="hiding-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 70vw, 75vw" className='absolute bottom-0 right-0 w-3/4 tablet:w-[70dvw] desktop:w-[50dvw]' />
+      {/* <Image priority src={hidingCat} alt="hiding-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 70vw, 75vw" className='absolute bottom-0 right-0 w-3/4 tablet:w-[70dvw] desktop:w-[50dvw]' /> */}
     </div>
   );
 };
