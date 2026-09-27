@@ -107,7 +107,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
                       emotion={emotion}
                       alt={`${day.dateKey}[${emotion.name}]`}
                       className={cn(
-                        'object-contain scale-[1.1]',
+                        'object-contain scale-[1.05]',
                         isSelected && 'motion-safe:animate-calendar-selected-bounce',
                       )} />
                   )}
