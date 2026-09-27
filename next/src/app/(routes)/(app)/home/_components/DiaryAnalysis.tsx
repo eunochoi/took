@@ -5,7 +5,7 @@ import { DiaryStats } from "@/common/actions/stats";
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
 import { AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
 import { cn } from "@/common/utils/cn";
-import { MdCalendarMonth, MdDescription, MdEmojiEvents } from "react-icons/md";
+import { MdCalendarMonth, MdEmojiEvents } from "react-icons/md";
 
 interface Props {
   stats?: DiaryStats;
@@ -17,18 +17,8 @@ const statIconClass = "h-6 w-6 text-theme-accent";
 const statBoxClass = "flex min-w-0 flex-col items-center gap-2 py-3";
 
 const DiaryAnalysis = ({ stats, year }: Props) => {
-  const formatTextLength = (length: number) => {
-    if (length < 1000) return { value: length, unit: '자' };
-    if (length < 10000) return { value: (length / 1000).toFixed(1), unit: '천자' };
-    if (length < 100000000) return { value: (length / 10000).toFixed(1), unit: '만자' };
-    return { value: (length / 100000000).toFixed(1), unit: '억자' }
-  };
-
   const currentStreak = stats?.currentStreak?.days ?? 0;
-  const currentStreakLabel = stats?.streakStatus === 'pending' ? '유지 기록' : '현재 기록';
   const longestStreak = stats?.longestStreak?.days ?? 0;
-  const totalTextLength = stats?.totalTextLength ?? 0;
-  const textLengthFormatted = formatTextLength(totalTextLength);
 
   const totalCount = stats?.totalCount ?? 0;
 
@@ -39,10 +29,10 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
         <AppSectionMeta>{year}년 전체 {totalCount}개</AppSectionMeta>
       </AppSectionHeader>
 
-      <div className="grid grid-cols-3 divide-x divide-theme-border/60">
+      <div className="grid grid-cols-2 divide-x divide-theme-border/60">
         <div className={statBoxClass}>
           <MdCalendarMonth className={statIconClass} aria-hidden="true" />
-          <AppStatLabel>{currentStreakLabel}</AppStatLabel>
+          <AppStatLabel>현재 연속 기록</AppStatLabel>
           <AppStatValueWrapper className="items-baseline gap-1">
             <AppStatValue>{currentStreak}</AppStatValue>
             <AppStatUnit>일</AppStatUnit>
@@ -51,19 +41,10 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
 
         <div className={statBoxClass}>
           <MdEmojiEvents className={statIconClass} aria-hidden="true" />
-          <AppStatLabel>최고 기록</AppStatLabel>
+          <AppStatLabel>역대 최고 기록</AppStatLabel>
           <AppStatValueWrapper className="items-baseline gap-1">
             <AppStatValue>{longestStreak}</AppStatValue>
             <AppStatUnit>일</AppStatUnit>
-          </AppStatValueWrapper>
-        </div>
-
-        <div className={statBoxClass}>
-          <MdDescription className={statIconClass} aria-hidden="true" />
-          <AppStatLabel>총 텍스트</AppStatLabel>
-          <AppStatValueWrapper className="items-baseline gap-1">
-            <AppStatValue>{textLengthFormatted.value}</AppStatValue>
-            <AppStatUnit>{textLengthFormatted.unit}</AppStatUnit>
           </AppStatValueWrapper>
         </div>
       </div>

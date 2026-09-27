@@ -17,7 +17,6 @@ export interface DiaryStats {
   hasYesterdayDiary: boolean;
   streakStatus: 'current' | 'pending' | 'none';
   monthlyCount: number[];
-  totalTextLength: number;
   halfYearEmotionCounts: number[][];
 }
 

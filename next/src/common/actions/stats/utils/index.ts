@@ -1,8 +1,5 @@
-import CryptoJS from 'crypto-js';
-
 import { prisma } from '../../../../../lib/prisma';
 import type { AuthResult } from '../../../auth/getAuth';
-import { getEnvValue } from '../../../utils/getEnvValue';
 import { computeDiaryStreakByEmail } from '../../streak';
 import type { ActionResult } from '../../types';
 
@@ -37,10 +34,6 @@ export const getYearRange = (year: number) => {
     startDate: `${year}-01-01`,
     endDate: `${year}-12-31`,
   };
-};
-
-export const decryptDiaryText = (text: string) => {
-  return CryptoJS.AES.decrypt(text, getEnvValue('DATA_SECRET_KEY')).toString(CryptoJS.enc.Utf8);
 };
 
 export const getOrComputeStreak = async (email: string) => {

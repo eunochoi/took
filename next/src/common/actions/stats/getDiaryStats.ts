@@ -4,7 +4,7 @@ import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
 import type { ActionResult } from '../types';
 import type { DiaryStats, YearParams } from './types';
-import { createAuthErrorResult, createServerErrorResult, daysToUnits, decryptDiaryText, getOrComputeStreak, getYearRange } from './utils';
+import { createAuthErrorResult, createServerErrorResult, daysToUnits, getOrComputeStreak, getYearRange } from './utils';
 
 export const getDiaryStats = async ({ year }: YearParams): Promise<ActionResult<DiaryStats>> => {
   try {
@@ -24,7 +24,6 @@ export const getDiaryStats = async ({ year }: YearParams): Promise<ActionResult<
       select: {
         date: true,
         emotion: true,
-        text: true,
       },
       orderBy: { date: 'asc' },
     });
@@ -37,7 +36,6 @@ export const getDiaryStats = async ({ year }: YearParams): Promise<ActionResult<
     const emotionCounts = Array(10).fill(0);
     const monthlyCount = Array(12).fill(0);
     const halfYearEmotionCounts = Array(2).fill(null).map(() => Array(10).fill(0));
-    let totalTextLength = 0;
 
     diaries.forEach((diary) => {
       if (diary.emotion >= 0 && diary.emotion <= 9) {
@@ -49,12 +47,6 @@ export const getDiaryStats = async ({ year }: YearParams): Promise<ActionResult<
       if (diary.emotion >= 0 && diary.emotion <= 9) {
         const halfYear = Math.floor(month / 6);
         halfYearEmotionCounts[halfYear][diary.emotion] += 1;
-      }
-
-      try {
-        totalTextLength += decryptDiaryText(diary.text).length;
-      } catch (error) {
-        console.error('Failed to decrypt text:', error);
       }
     });
 
@@ -69,7 +61,6 @@ export const getDiaryStats = async ({ year }: YearParams): Promise<ActionResult<
         hasYesterdayDiary: streak.hasYesterdayDiary,
         streakStatus: streak.status,
         monthlyCount,
-        totalTextLength,
         halfYearEmotionCounts,
       },
     };
