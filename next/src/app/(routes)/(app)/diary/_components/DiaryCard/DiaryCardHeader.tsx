@@ -12,7 +12,7 @@ interface Props {
   diaryData: DiaryData;
 }
 
-const DiaryDateHeader = ({ diaryData }: Props) => {
+const DiaryCardHeader = ({ diaryData }: Props) => {
   const dateForDisplay = parseLocalDate(diaryData.date);
   const formattedDate = format(dateForDisplay, 'yy년 M월 d일', { locale: ko });
   const week = format(dateForDisplay, 'EEEE', { locale: ko });
@@ -37,7 +37,7 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
         <time dateTime={diaryData.date} className="flex flex-wrap gap-x-1 text-lg font-semibold text-theme-text-primary">
           <span className="whitespace-nowrap">{formattedDate}</span>
         </time>
-        <div className='flex gap-1 text-base text-theme-text-tertiary'>
+        <div className='flex gap-1 text-sm text-theme-text-tertiary'>
           <time>{week}</time>
           {emotion && <span>·</span>}
           {emotion && <span>{emotion.nameKr}</span>}
@@ -61,4 +61,4 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
   );
 };
 
-export default DiaryDateHeader;
+export default DiaryCardHeader;

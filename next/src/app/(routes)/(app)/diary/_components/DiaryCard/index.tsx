@@ -6,7 +6,7 @@ import type { DiaryData } from '@/common/types/diary';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { MdCheck } from 'react-icons/md';
-import DiaryDateHeader from './DiaryDateHeader';
+import DiaryCardHeader from './DiaryCardHeader';
 
 interface Props {
   diaryData: DiaryData;
@@ -27,7 +27,7 @@ const DiaryCard = ({ diaryData, priorityImage = false }: Props) => {
 
   return (
     <article className="box-border flex w-full shrink-0 flex-col gap-4 py-6 first:pt-0">
-      <DiaryDateHeader diaryData={diaryData} />
+      <DiaryCardHeader diaryData={diaryData} />
       <div className='flex flex-col w-full h-auto p-2 gap-3'>
         <div className="flex flex-col gap-3">
           {hasImages && (
