@@ -69,9 +69,8 @@ export const getHabitStats = async ({ year }: YearParams): Promise<ActionResult<
     });
 
     const sortedHabits = Object.values(habitCounts)
-      .filter((habit) => habit.count > 0)
       .sort((a, b) => b.count - a.count);
-    const topHabits = sortedHabits.slice(0, 5);
+    const topHabits = sortedHabits.filter((habit) => habit.count > 0).slice(0, 5);
     const bottomHabits = sortedHabits.length > 5
       ? sortedHabits.slice(-5).reverse()
       : sortedHabits.slice().reverse();

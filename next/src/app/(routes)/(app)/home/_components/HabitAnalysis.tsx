@@ -71,10 +71,6 @@ const HabitAnalysis = ({ stats }: Props) => {
         <p className="m-0 px-2 py-8 text-center text-sm text-theme-text-secondary text-center">
           아직 완료한 습관이 없어요.
         </p>}
-
-      <p className="m-0 px-2 text-sm leading-relaxed text-theme-text-secondary text-center">
-        완료한 적 없는 습관은 &apos;Top 3&apos;에 나타나지 않습니다.
-      </p>
     </AppSection>
   );
 };
