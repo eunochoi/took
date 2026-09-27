@@ -1,5 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
-import { ReactNode, useId, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import { MdClose } from 'react-icons/md';
 import { PickerDialog } from '../Dialog/PickerDialog';
 import {
@@ -8,21 +8,19 @@ import {
   PICKER_CONFIRM_BUTTON_CLASS,
   PICKER_CONTENT_CLASS,
   PICKER_DANGER_BUTTON_CLASS,
-  PICKER_DESCRIPTION_CLASS,
-  PICKER_TITLE_CLASS,
+  PICKER_TITLE_CLASS
 } from '../Dialog/PickerDialog/constants';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   title: string;
-  content?: ReactNode;
   message: string;
   onEdit: () => void;
   onDelete: () => void;
 }
 
-const Menus = ({ isOpen, onClose, title, content, message, onEdit, onDelete }: Props) => {
+const Menus = ({ isOpen, onClose, title, message, onEdit, onDelete }: Props) => {
   const id = useId();
   const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
   const pendingAction = useRef<'edit' | 'delete' | null>(null);
@@ -45,11 +43,9 @@ const Menus = ({ isOpen, onClose, title, content, message, onEdit, onDelete }: P
             </button>
             <div className="flex flex-col">
               <h2 id={titleId} className={`${PICKER_TITLE_CLASS} break-words`}>{title}</h2>
-              {content}
-              <p id={messageId} className={PICKER_DESCRIPTION_CLASS} aria-live="polite">
-                {isConfirmingDelete ? '정말 삭제하시겠어요? 삭제한 뒤에는 되돌릴 수 없어요.' : message}
-              </p>
+              <span id={messageId} aria-live="polite" className='pt-2 text-center text-base text-theme-text-primary'>{isConfirmingDelete ? '정말 삭제하시겠어요? 삭제한 뒤에는 되돌릴 수 없어요.' : message}</span>
             </div>
+
             <div className={`${PICKER_ACTIONS_CLASS} flex gap-3`}>
               <button
                 type="button"

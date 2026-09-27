@@ -25,4 +25,4 @@ export interface DiaryData {
   visible: boolean;
 }
 
-export type DiaryMenuData = Pick<DiaryData, 'date' | 'id'>;
+export type DiaryMenuData = Pick<DiaryData, 'date' | 'id' | 'emotion'>;

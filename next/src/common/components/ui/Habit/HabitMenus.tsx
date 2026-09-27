@@ -2,7 +2,6 @@ import { deleteHabit } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
 import Menus from '@/common/components/ui/Menus';
 import { showNotice } from '@/common/components/ui/Notice/notice';
-import { StarRating } from '@/common/components/ui/StarRating';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
@@ -36,22 +35,14 @@ const HabitMenus = ({ habitId, habitName, priority, isMenuOpen, setMenuOpen, onD
     }
   };
 
+  const starText = priority === 0 ? '★' : priority === 1 ? '★★' : '★★★';
+
   return (
     <Menus
       isOpen={isMenuOpen}
       onClose={() => setMenuOpen(false)}
-      title="습관 메뉴"
-      message="이 습관을 수정하거나 삭제할 수 있어요."
-      content={(
-        <div className="mt-2 flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-base text-theme-text-primary" aria-label={`${habitName}, 중요도 ${priority + 1}점`}>
-          <span className="min-w-0 break-words">{habitName}</span>
-          <div className="inline-flex items-center gap-1 whitespace-nowrap" aria-hidden="true">
-            <span>(</span>
-            <StarRating maxRating={3} rating={priority + 1} className="gap-0.5 text-base" />
-            <span>)</span>
-          </div>
-        </div>
-      )}
+      title={`${habitName} (${starText})`}
+      message="목표가 바뀌었다면 언제든 수정하거나 삭제해 보세요"
       onEdit={() => router.push(`/habit/${habitId}/edit`, { scroll: false })}
       onDelete={onDelete}
     />
