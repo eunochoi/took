@@ -2,6 +2,7 @@
 
 import { getDiaryById } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
+import DiaryMenus from "@/common/components/ui/Diary/DiaryMenus";
 import { PanelDialog } from "@/common/components/ui/Dialog/PanelDialog";
 import { PanelBody } from "@/common/components/ui/Dialog/PanelDialog/PanelBody";
 import { PanelHeader } from "@/common/components/ui/Dialog/PanelDialog/PanelHeader";
@@ -12,6 +13,7 @@ import { ko } from "date-fns/locale";
 import { AnimatePresence } from "framer-motion";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { MdMoreVert } from 'react-icons/md';
 import { ZoomViewEntry } from "./ZoomViewEntry";
 import { ZoomViewGallery } from "./ZoomViewGallery";
 
@@ -22,6 +24,7 @@ interface DiaryDetailClientPageProps {
 const DiaryDetailClientPage = ({ diaryId }: DiaryDetailClientPageProps) => {
   const router = useRouter();
   const [isDialogMounted, setIsDialogMounted] = useState(true);
+  const [isMenuOpen, setMenuOpen] = useState(false);
   const { data: diaryData, isError } = useQuery({
     queryKey: ['diary', 'id', diaryId],
     queryFn: () => authAction(() => getDiaryById({ id: diaryId })),
@@ -29,8 +32,8 @@ const DiaryDetailClientPage = ({ diaryId }: DiaryDetailClientPageProps) => {
   });
 
   useEffect(() => {
-    if (isError) notFound();
-  }, [isError]);
+    if (isError && isDialogMounted) notFound();
+  }, [isError, isDialogMounted]);
 
   if (!diaryData) return null;
 
@@ -48,6 +51,25 @@ const DiaryDetailClientPage = ({ diaryId }: DiaryDetailClientPageProps) => {
             title={headerTitle}
             onBack={() => setIsDialogMounted(false)}
             backLabel="뒤로가기"
+            rightAction={(
+              <>
+                <button
+                  className="-mr-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl text-theme-text-tertiary"
+                  aria-label="일기 메뉴"
+                  aria-expanded={isMenuOpen}
+                  onClick={() => setMenuOpen((prev) => !prev)}
+                  type="button"
+                >
+                  <MdMoreVert />
+                </button>
+                <DiaryMenus
+                  isMenuOpen={isMenuOpen}
+                  setMenuOpen={setMenuOpen}
+                  diaryData={diaryData}
+                  onDeleted={() => setIsDialogMounted(false)}
+                />
+              </>
+            )}
           />
           <PanelBody>
             <div className="flex w-full min-w-0 flex-col gap-8 pt-5 pb-[max(2rem,env(safe-area-inset-bottom))] landscape-short:gap-6 landscape-short:pt-2">

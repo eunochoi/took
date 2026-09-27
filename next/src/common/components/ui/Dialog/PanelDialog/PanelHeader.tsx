@@ -1,6 +1,7 @@
 'use client';
 
 import { cn } from "@/common/utils/cn";
+import type { ReactNode } from 'react';
 import { MdArrowBackIos } from 'react-icons/md';
 import { PANEL_HORIZONTAL_PADDING_CLASS } from './constants';
 
@@ -8,6 +9,7 @@ interface PanelHeaderProps {
   title?: string;
   onBack?: () => void;
   backLabel?: string;
+  rightAction?: ReactNode;
 }
 
 const panelHeaderClass = "relative flex h-[var(--panel-header-height)] w-full shrink-0 items-center justify-between";
@@ -18,6 +20,7 @@ export const PanelHeader = ({
   title,
   onBack,
   backLabel = '패널 닫기',
+  rightAction,
 }: PanelHeaderProps) => {
   return (
     <div
@@ -41,6 +44,7 @@ export const PanelHeader = ({
           {title}
         </span>
       ) : null}
+      {rightAction ?? <span />}
     </div>
   );
 };

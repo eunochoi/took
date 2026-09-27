@@ -2,10 +2,12 @@
 
 import { getHabitById } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
+import HabitMenus from "@/common/components/ui/Habit/HabitMenus";
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import { notFound, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { MdMoreVert } from 'react-icons/md';
 
 import { PanelDialog } from "../../ui/Dialog/PanelDialog";
 import { PanelBody } from "../../ui/Dialog/PanelDialog/PanelBody";
@@ -22,6 +24,7 @@ interface Props {
 const HabitInfoClientPage = ({ habitId, today }: Props) => {
   const router = useRouter();
   const [isDialogMounted, setIsDialogMounted] = useState(true);
+  const [isMenuOpen, setMenuOpen] = useState(false);
   const [chartDate, setChartDate] = useState<Date>(new Date());
 
   const { data: habitDataById, isError } = useQuery({
@@ -31,8 +34,8 @@ const HabitInfoClientPage = ({ habitId, today }: Props) => {
   });
 
   useEffect(() => {
-    if (isError) notFound();
-  }, [isError]);
+    if (isError && isDialogMounted) notFound();
+  }, [isError, isDialogMounted]);
 
   return (
     <AnimatePresence onExitComplete={() => router.back()}>
@@ -41,7 +44,31 @@ const HabitInfoClientPage = ({ habitId, today }: Props) => {
           ariaLabel="습관 정보"
           onClose={() => setIsDialogMounted(false)}
         >
-          <PanelHeader title='습관 정보' onBack={() => setIsDialogMounted(false)} />
+          <PanelHeader
+            title="습관 정보"
+            onBack={() => setIsDialogMounted(false)}
+            rightAction={habitDataById && (
+              <>
+                <button
+                  className="-mr-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl text-theme-text-tertiary"
+                  aria-label={`${habitDataById.name} 수정·삭제 메뉴`}
+                  aria-expanded={isMenuOpen}
+                  onClick={() => setMenuOpen((open) => !open)}
+                  type="button"
+                >
+                  <MdMoreVert aria-hidden="true" />
+                </button>
+                <HabitMenus
+                  habitId={habitDataById.id}
+                  habitName={habitDataById.name}
+                  priority={habitDataById.priority}
+                  isMenuOpen={isMenuOpen}
+                  setMenuOpen={setMenuOpen}
+                  onDeleted={() => setIsDialogMounted(false)}
+                />
+              </>
+            )}
+          />
           <PanelBody showScrollFade>
             <div className="flex w-full flex-col pb-6 tablet:pb-7">
               <HabitInfoHeader habitData={habitDataById} />
