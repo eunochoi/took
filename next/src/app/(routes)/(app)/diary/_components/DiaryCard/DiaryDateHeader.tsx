@@ -14,7 +14,8 @@ interface Props {
 
 const DiaryDateHeader = ({ diaryData }: Props) => {
   const dateForDisplay = parseLocalDate(diaryData.date);
-  const formattedDate = format(dateForDisplay, 'M월 d일 EEEE', { locale: ko });
+  const formattedDate = format(dateForDisplay, 'yy년 M월 d일', { locale: ko });
+  const week = format(dateForDisplay, 'EEEE', { locale: ko });
   const emotion = EMOTIONS[diaryData.emotion];
 
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -36,7 +37,11 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
         <time dateTime={diaryData.date} className="flex flex-wrap gap-x-1 text-lg font-semibold text-theme-text-primary">
           <span className="whitespace-nowrap">{formattedDate}</span>
         </time>
-        {emotion && <span className="text-base text-theme-text-tertiary tracking-wide">{emotion.nameKr}</span>}
+        <div className='flex gap-1 text-base text-theme-text-tertiary'>
+          <time>{week}</time>
+          {emotion && <span>·</span>}
+          {emotion && <span>{emotion.nameKr}</span>}
+        </div>
       </div>
       <button
         className="ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl text-theme-text-tertiary"
