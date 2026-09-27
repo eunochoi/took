@@ -4,8 +4,7 @@ import { getHabitById } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
 import { showNotice } from '@/common/components/ui/Notice/notice';
 import {
-  HABIT_NAME_MAX_LENGTH,
-  MAX_HABIT_COUNT,
+  HABIT_NAME_MAX_LENGTH
 } from '@/common/constants/habit';
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence } from 'framer-motion';
@@ -125,13 +124,11 @@ const HabitFormClientPage = ({ isEdit, habitId }: HabitFormClientPageProps) => {
           />
           <PanelBody showScrollFade>
             <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 pb-6 pt-2">
-              <h1 className="text-center  text-2xl font-semibold tracking-tight text-theme-text-primary">매일의 약속</h1>
               <div className="flex w-full flex-col gap-6">
                 <HabitFormNameSection name={name} setName={setName} />
                 <HabitFormPrioritySection priority={priority} setPriority={setPriority} />
                 <HabitFormIconSection iconKey={iconKey} setIconKey={setIconKey} />
               </div>
-              <p className="text-center text-xs leading-relaxed text-theme-text-secondary">습관은 최대 {MAX_HABIT_COUNT}개까지 만들 수 있어요.</p>
             </fieldset>
           </PanelBody>
           <PanelFooter>

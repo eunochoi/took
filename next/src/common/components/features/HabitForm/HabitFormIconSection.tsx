@@ -11,8 +11,8 @@ const HabitFormIconSection = ({ iconKey, setIconKey }: HabitFormIconSectionProps
   <section aria-labelledby="habit-icon-title" className="flex w-full flex-col gap-3">
     <div className="flex items-center justify-between gap-3">
       <div className="flex min-w-0 flex-col gap-2">
-        <h2 id="habit-icon-title" className=" text-base font-semibold text-theme-text-primary">습관 아이콘</h2>
-        <p className="text-sm leading-relaxed text-theme-text-secondary px-2">습관을 잘 표현하는 아이콘을 골라보세요.</p>
+        <h2 id="habit-icon-title" className=" text-lg font-semibold text-theme-text-primary">습관 아이콘</h2>
+        {/* <p className="text-sm leading-relaxed text-theme-text-secondary px-2">습관을 잘 표현하는 아이콘을 골라보세요.</p> */}
       </div>
       <span aria-label="선택한 습관 아이콘" className="m-2 flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-theme-accent/10">
         <HabitIcon iconKey={iconKey} className="text-4xl" />
@@ -27,7 +27,7 @@ const HabitFormIconSection = ({ iconKey, setIconKey }: HabitFormIconSectionProps
           aria-pressed={iconKey === key}
           onClick={() => setIconKey(key)}
           className={cn(
-            'flex min-h-14 min-w-0 items-center justify-center rounded-2xl border p-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent disabled:cursor-not-allowed disabled:opacity-50',
+            'flex min-w-0 aspect-square items-center justify-center rounded-2xl border p-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent disabled:cursor-not-allowed disabled:opacity-50',
             iconKey === key
               ? 'border-theme-accent bg-theme-accent/10'
               : 'border-transparent bg-transparent',

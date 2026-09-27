@@ -10,7 +10,7 @@ const HabitFormPrioritySection = ({
   setPriority,
 }: HabitFormPrioritySectionProps) => (
   <section aria-labelledby="habit-priority-title" className="flex w-full flex-col gap-3">
-    <h2 id="habit-priority-title" className=" text-base font-semibold text-theme-text-primary">우선순위</h2>
+    <h2 id="habit-priority-title" className=" text-lg font-semibold text-theme-text-primary">우선순위</h2>
     <HabitFormPrioritySelector priority={priority} setPriority={setPriority} />
   </section>
 );
