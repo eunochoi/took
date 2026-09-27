@@ -13,7 +13,10 @@ export const getAvailableYears = async (): Promise<ActionResult<number[]>> => {
     const diaries = await prisma.diary.findMany({
       where: {
         email: auth.email,
-        visible: true,
+        OR: [
+          { visible: true },
+          { habits: { some: {} } },
+        ],
       },
       select: { date: true },
     });

@@ -17,11 +17,14 @@ import { MdClose } from 'react-icons/md';
 interface Props {
   onClose: () => void;
   years: number[];
+  isPending: boolean;
+  isError: boolean;
+  onRetry: () => void;
   selectedYear: number;
   onApplyYear: (year: number) => void;
 }
 
-const HomePageYearPicker = ({ onClose, years, selectedYear, onApplyYear }: Props) => {
+const HomePageYearPicker = ({ onClose, years, isPending, isError, onRetry, selectedYear, onApplyYear }: Props) => {
   const [tempYear, setTempYear] = useState(selectedYear);
   const yearGridClass = "grid w-full max-h-[30dvh] gap-2 overflow-y-auto tablet:max-h-[300px]";
 
@@ -39,28 +42,39 @@ const HomePageYearPicker = ({ onClose, years, selectedYear, onApplyYear }: Props
           <h2 id="home-year-picker-title" className={PICKER_TITLE_CLASS}>어느 해의 기록을 볼까요?</h2>
           <p id="home-year-picker-description" className={PICKER_DESCRIPTION_CLASS}>선택한 연도의 기록을 보여드려요</p>
         </div>
-        <div className={cn(PICKER_BODY_CLASS, yearGridClass, years.length === 1 ? "grid-cols-1" : years.length === 2 ? "grid-cols-2" : "grid-cols-3")}>
-          {years.map((year) => {
-            const selected = year === tempYear;
-            return (
-              <button
-                key={year}
-                className={cn(
-                  "min-h-14 rounded-2xl border px-2 py-3 text-base text-theme-text-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent",
-                  selected ? "border-theme-accent bg-theme-accent/10" : "border-transparent",
-                )}
-                aria-pressed={selected}
-                onClick={() => setTempYear(year)}
-                type="button"
-              >
-                {year}년
-              </button>
-            );
-          })}
-        </div>
-        <div className={PICKER_ACTIONS_CLASS}>
-          <button className={PICKER_CONFIRM_BUTTON_CLASS} onClick={onSubmit} type="button">적용하기</button>
-        </div>
+        {isError ? (
+          <div role="status" className="py-8 text-center text-theme-text-secondary">
+            <p>선택할 수 있는 연도를 불러오지 못했어요.</p>
+            <button type="button" className="mt-3 text-theme-accent" onClick={onRetry}>다시 시도</button>
+          </div>
+        ) : isPending ? (
+          <p role="status" className="py-8 text-center text-theme-text-secondary">연도를 불러오는 중이에요.</p>
+        ) : (
+          <>
+            <div className={cn(PICKER_BODY_CLASS, yearGridClass, years.length === 1 ? "grid-cols-1" : years.length === 2 ? "grid-cols-2" : "grid-cols-3")}>
+              {years.map((year) => {
+                const selected = year === tempYear;
+                return (
+                  <button
+                    key={year}
+                    className={cn(
+                      "min-h-14 rounded-2xl border px-2 py-3 text-base text-theme-text-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent",
+                      selected ? "border-theme-accent bg-theme-accent/10" : "border-transparent",
+                    )}
+                    aria-pressed={selected}
+                    onClick={() => setTempYear(year)}
+                    type="button"
+                  >
+                    {year}년
+                  </button>
+                );
+              })}
+            </div>
+            <div className={PICKER_ACTIONS_CLASS}>
+              <button className={PICKER_CONFIRM_BUTTON_CLASS} onClick={onSubmit} type="button">적용하기</button>
+            </div>
+          </>
+        )}
       </div>
     </PickerDialog>
   );

@@ -3,7 +3,6 @@
 import HomePageContent from "./_components/HomePageContent";
 
 import { useQuery } from "@tanstack/react-query";
-import { getYear } from "date-fns";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
@@ -17,12 +16,12 @@ import HomePageTopSection from './_components/HomePageTopSection';
 
 const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
   usePrefetchPage();
-  const currentYear = getYear(new Date());
+  const currentYear = Number(initialDate.slice(0, 4));
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const queryYear = Number(searchParams.get('year'));
-  const selectedYear = Number.isInteger(queryYear) && queryYear > 0 ? queryYear : currentYear;
+  const selectedYear = Number.isInteger(queryYear) && queryYear >= 1900 && queryYear <= 2100 ? queryYear : currentYear;
   const [isYearPickerOpen, setIsYearPickerOpen] = useState(false);
 
   const handleApplyYear = (year: number) => {
@@ -36,19 +35,19 @@ const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
     setIsYearPickerOpen(false);
   };
 
-  const { data: availableYears } = useQuery({
+  const { data: availableYears, isPending: isYearsPending, isError: isYearsError, refetch: refetchYears } = useQuery({
     queryKey: ['stats', 'years'],
     queryFn: () => authAction(getAvailableYears),
     staleTime: 5 * 60 * 1000,
   });
 
-  const { data: diaryStats } = useQuery({
+  const { data: diaryStats, isError: isDiaryStatsError, refetch: refetchDiaryStats } = useQuery({
     queryKey: ['stats', 'diary', selectedYear],
     queryFn: () => authAction(() => getDiaryStats({ year: selectedYear })),
     staleTime: 60 * 1000,
   });
 
-  const { data: habitStats } = useQuery({
+  const { data: habitStats, isError: isHabitStatsError, refetch: refetchHabitStats } = useQuery({
     queryKey: ['stats', 'habit', selectedYear],
     queryFn: () => authAction(() => getHabitStats({ year: selectedYear })),
     staleTime: 60 * 1000,
@@ -72,6 +71,10 @@ const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
             selectedYear={selectedYear}
             diaryStats={diaryStats}
             habitStats={habitStats}
+            isDiaryStatsError={isDiaryStatsError}
+            isHabitStatsError={isHabitStatsError}
+            onRetryDiaryStats={() => { void refetchDiaryStats(); }}
+            onRetryHabitStats={() => { void refetchHabitStats(); }}
             onOpenYearPicker={() => setIsYearPickerOpen(true)}
           />
         }
@@ -82,6 +85,9 @@ const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
             key="year-picker"
             onClose={() => setIsYearPickerOpen(false)}
             years={years}
+            isPending={isYearsPending}
+            isError={isYearsError}
+            onRetry={() => { void refetchYears(); }}
             selectedYear={selectedYear}
             onApplyYear={handleApplyYear}
           />

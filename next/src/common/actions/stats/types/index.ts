@@ -31,5 +31,4 @@ export interface HabitCount {
 export interface HabitStats {
   topHabits: HabitCount[];
   bottomHabits: HabitCount[];
-  totalHabits: number;
 }

@@ -12,8 +12,7 @@ export const getHabitStats = async ({ year }: YearParams): Promise<ActionResult<
     if (!auth.ok) return createAuthErrorResult(auth);
 
     const { startDate, endDate } = getYearRange(year);
-    const [totalHabits, allHabits, diaries] = await Promise.all([
-      prisma.habit.count({ where: { email: auth.email } }),
+    const [allHabits, diaries] = await Promise.all([
       prisma.habit.findMany({
         where: { email: auth.email },
         select: {
@@ -69,8 +68,9 @@ export const getHabitStats = async ({ year }: YearParams): Promise<ActionResult<
     });
 
     const sortedHabits = Object.values(habitCounts)
+      .filter((habit) => habit.count > 0)
       .sort((a, b) => b.count - a.count);
-    const topHabits = sortedHabits.filter((habit) => habit.count > 0).slice(0, 5);
+    const topHabits = sortedHabits.slice(0, 5);
     const bottomHabits = sortedHabits.length > 5
       ? sortedHabits.slice(-5).reverse()
       : sortedHabits.slice().reverse();
@@ -80,7 +80,6 @@ export const getHabitStats = async ({ year }: YearParams): Promise<ActionResult<
       data: {
         topHabits,
         bottomHabits,
-        totalHabits,
       },
     };
   } catch (error) {

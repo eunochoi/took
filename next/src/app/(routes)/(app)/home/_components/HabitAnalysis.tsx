@@ -34,7 +34,7 @@ const HabitAnalysis = ({ stats, year }: Props) => {
     <AppSection>
       <AppSectionHeader>
         <AppSectionTitle>습관 기록</AppSectionTitle>
-        <AppSectionMeta>{year}년 전체 {stats?.totalHabits ?? 0}개</AppSectionMeta>
+        <AppSectionMeta>{year}년</AppSectionMeta>
       </AppSectionHeader>
 
       <AppUnderlineTabs
@@ -70,7 +70,7 @@ const HabitAnalysis = ({ stats, year }: Props) => {
           ))}
         </ol> :
         <p className="m-0 px-2 py-8 text-center text-sm text-theme-text-secondary text-center">
-          아직 완료한 습관이 없어요.
+          {year}년에 완료한 습관이 없어요.
         </p>}
     </AppSection>
   );

@@ -19,7 +19,7 @@ const HomePage = async ({ searchParams }: Props) => {
   const initialDate = await getTodayStringInUserTimezone();
   const currentYear = Number(initialDate.slice(0, 4));
   const parsedYear = Number(searchParams?.year);
-  const selectedYear = Number.isInteger(parsedYear) && parsedYear > 0 ? parsedYear : currentYear;
+  const selectedYear = Number.isInteger(parsedYear) && parsedYear >= 1900 && parsedYear <= 2100 ? parsedYear : currentYear;
 
   await Promise.all([
     queryClient.prefetchQuery({
