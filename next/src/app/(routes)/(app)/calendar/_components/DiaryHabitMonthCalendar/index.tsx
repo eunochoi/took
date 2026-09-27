@@ -64,8 +64,6 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
       <div className="flex w-full min-w-0 flex-col gap-4">
         <DiaryHabitMonthCalendarHeader
           monthLabel={calendar.monthLabel}
-          diaryCount={diaryHabitMonthData?.summary.diaryCount}
-          completedHabitCount={diaryHabitMonthData?.summary.completedHabitCount}
           onPreviousMonth={calendar.goPreviousMonth}
           onNextMonth={calendar.goNextMonth}
           onToday={() => selectDate(today)}
