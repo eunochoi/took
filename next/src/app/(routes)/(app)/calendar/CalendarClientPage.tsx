@@ -51,6 +51,7 @@ const CalendarClientPage = ({ initialDate }: Props) => {
   return (
     <AppPageLayout
       topSection={<CalendarViewTopSection />}
+      bottomSafeClassName="desktop:hidden"
       mainSection={
         <CalendarViewContent
           today={today}

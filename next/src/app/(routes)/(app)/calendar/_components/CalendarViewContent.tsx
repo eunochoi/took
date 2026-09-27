@@ -20,7 +20,7 @@ const CalendarViewContent = ({ today, selectedDate, setSelectedDate, selectedDia
         today={today}
         selectedDate={selectedDate}
         onSelectDate={setSelectedDate} />
-      <div className="min-w-0 border-t border-theme-border/60 pt-6 tablet:pt-6 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start desktop:border-t-0 desktop:border-l desktop:pl-8 desktop:pt-0">
+      <div className="min-w-0 border-t border-theme-border/60 pt-6 tablet:pt-6 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[max(112px,calc(var(--page-toolbar-height,0px)+24px))] desktop:self-start desktop:border-t-0 desktop:border-l desktop:pl-8 desktop:pt-0">
         <SelectedDayInfo
           date={selectedDate}
           diaryData={selectedDiaryQuery.data}

@@ -24,7 +24,7 @@ const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
     : `${((data?.totalTextLength ?? 0) / 1000).toFixed(1)}천자`;
 
   return (
-    <aside className={cn("hidden w-full flex-col gap-3 desktop:flex desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:self-start", className)}>
+    <aside className={cn("hidden w-full flex-col gap-3 desktop:flex desktop:sticky desktop:top-[max(112px,calc(var(--page-toolbar-height,0px)+24px))] desktop:self-start", className)}>
       <YearRecordHeader
         year={year}
         onPreviousYear={() => onChangeYear(year - 1)}

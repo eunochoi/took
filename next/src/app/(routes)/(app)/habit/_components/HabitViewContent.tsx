@@ -18,7 +18,7 @@ const HabitViewContent = ({ habits, totalHabitCount, todayDoneHabitCount, todayD
   return (
     <section className="w-full desktop:grid desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
       {totalHabitCount > 0 && (
-        <aside className="mb-8 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:col-start-2 desktop:row-start-1 desktop:mb-0 desktop:border-b-0 desktop:border-l desktop:pb-0 desktop:pl-8">
+        <aside className="mb-8 desktop:sticky desktop:top-[max(112px,calc(var(--page-toolbar-height,0px)+24px))] desktop:col-start-2 desktop:row-start-1 desktop:mb-0 desktop:border-b-0 desktop:border-l desktop:pb-0 desktop:pl-8 desktop:self-start">
           <HabitTodayProgressBar
             completedCount={todayDoneHabitCount}
             rate={todayDoneHabitRate}

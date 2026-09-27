@@ -20,7 +20,7 @@ interface Props {
 const HomeViewContent = ({ initialDate, selectedYear, diaryStats, habitStats, onOpenYearPicker }: Props) => {
   return (
     <section className={cn("pt-3 grid flex-1 w-full min-w-0 grid-cols-1 items-start desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8")}>
-      <div className="hidden min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[calc(var(--page-toolbar-height,68px)+24px)] desktop:flex desktop:flex-col desktop:gap-12 desktop:self-start desktop:border-l desktop:border-theme-border/60 desktop:pl-8">
+      <div className="hidden min-w-0 desktop:col-start-2 desktop:row-start-1 desktop:sticky desktop:top-[max(112px,calc(var(--page-toolbar-height,0px)+24px))] desktop:flex desktop:flex-col desktop:gap-12 desktop:self-start desktop:border-l desktop:border-theme-border/60 desktop:pl-8">
         <TodayRecordSection initialDate={initialDate} />
         <HomeYearChangePrompt onOpenYearPicker={onOpenYearPicker} />
       </div>

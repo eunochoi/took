@@ -15,11 +15,12 @@ interface Props {
   showScrollToTop?: boolean;
   toolbar?: ReactNode;
   bottomSectionClass?: string;
+  bottomSafeClassName?: string;
 }
 
 export const TOP_SECTION_WRAPPER_CLASS = "w-full px-[5dvw] pt-[5dvw] tablet:px-9 tablet:pt-6 desktop:px-14 bg-theme-accent-light bg-[linear-gradient(to_bottom,rgb(var(--theme-accent-light))_0%,transparent_20%),linear-gradient(to_top_right,rgb(var(--theme-accent)/0.15)_0%,rgb(var(--theme-accent-light))_100%)]";
 
-const AppPageLayout = ({ topSection, mainSection, pageRef, showScrollToTop = false, toolbar, bottomSectionClass }: Props) => {
+const AppPageLayout = ({ topSection, mainSection, pageRef, showScrollToTop = false, toolbar, bottomSectionClass, bottomSafeClassName }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const toolbarRef = useRef<HTMLDivElement>(null);
   const hasToolbar = Boolean(toolbar);
@@ -68,7 +69,7 @@ const AppPageLayout = ({ topSection, mainSection, pageRef, showScrollToTop = fal
               {mainSection}
             </EnterMotion>
           </div>
-          <BottomSafe />
+          <BottomSafe className={bottomSafeClassName} />
         </div>
       </ScrollContainer>
     </div>
