@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-const toolbarButtonClass = "shadow-theme-soft flex w-auto items-center justify-center gap-1.5 rounded-xl bg-theme-accent px-3 py-3 font-sans text-sm font-medium leading-snug text-theme-text-on-accent transition-colors disabled:cursor-not-allowed disabled:opacity-50";
+const toolbarButtonClass = "shadow-theme-soft flex w-auto items-center justify-center gap-1.5 rounded-xl bg-theme-accent px-3.5 py-2.5 font-title text-sm font-medium leading-snug text-theme-text-on-accent transition-colors disabled:cursor-not-allowed disabled:opacity-50";
 
 interface Props {
   'aria-label'?: string;

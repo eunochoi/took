@@ -19,15 +19,19 @@ interface Props {
 
 const HabitViewToolbar = ({ onToggle, onAddHabit, sortValue }: Props) => {
   return (
-    <>
-      <ToolbarButton onClick={onToggle}>
-        <MdSort size={18} className="shrink-0" aria-hidden="true" />
-        {HABIT_SORT_LABELS[sortValue]}
-      </ToolbarButton>
-      <ToolbarButton aria-label="습관 추가" onClick={onAddHabit} title="습관 추가">
-        <MdAdd className="text-xl" aria-hidden="true" />
-      </ToolbarButton>
-    </>
+    <div className='w-full flex justify-between'>
+      <div className='flex gap-2'>
+        <ToolbarButton onClick={onToggle}>
+          <MdSort size={18} className="shrink-0" aria-hidden="true" />
+          {HABIT_SORT_LABELS[sortValue]}
+        </ToolbarButton>
+      </div>
+      <div className='flex gap-2'>
+        <ToolbarButton aria-label="습관 추가" onClick={onAddHabit} title="습관 추가">
+          <MdAdd className="text-xl" aria-hidden="true" />
+        </ToolbarButton>
+      </div>
+    </div>
   );
 };
 
