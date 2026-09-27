@@ -46,7 +46,7 @@ const HabitMenus = ({ habitId, habitName, priority, isMenuOpen, setMenuOpen, onD
         <div className="mt-2 flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 text-base text-theme-text-primary" aria-label={`${habitName}, 중요도 ${priority + 1}점`}>
           <span className="min-w-0 break-words">{habitName}</span>
           <div className="inline-flex items-center gap-1 whitespace-nowrap" aria-hidden="true">
-            <span>(중요도</span>
+            <span>(</span>
             <StarRating maxRating={3} rating={priority + 1} className="gap-0.5 text-base" />
             <span>)</span>
           </div>
