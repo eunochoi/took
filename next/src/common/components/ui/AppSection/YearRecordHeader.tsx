@@ -11,7 +11,7 @@ interface Props {
 export const YearRecordHeader = ({ year, onPreviousYear, onCurrentYear, onNextYear }: Props) => {
   return (
     <AppSectionHeader className="!gap-1 !py-0">
-      <AppSectionTitle className="shrink-0 !text-lg">연도별 기록</AppSectionTitle>
+      <AppSectionTitle className="shrink-0 !text-xl">연도별 기록</AppSectionTitle>
       <div className="flex shrink-0 items-center text-theme-accent">
         <button type="button" onClick={onPreviousYear} aria-label="이전 연도" className="flex h-9 w-8 items-center justify-center">
           <MdKeyboardArrowLeft size={22} />
