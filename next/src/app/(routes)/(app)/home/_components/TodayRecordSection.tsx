@@ -12,7 +12,7 @@ import { AppSection, AppSectionHeader, AppSectionTitle } from '@/common/componen
 import { getTodayString } from '@/common/functions/getTodayString';
 import { useRouter } from 'next/navigation';
 
-const recordStatusClass = 'text-sm font-semibold text-theme-accent desktop:text-sm';
+const recordStatusClass = 'text-sm text-theme-accent desktop:text-sm';
 const recordCardClass = 'flex min-h-12 items-center gap-3 text-left text-sm shadow-none !py-2';
 
 const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
