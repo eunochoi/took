@@ -10,6 +10,7 @@ import { useState } from "react";
 
 interface Props {
   stats?: HabitStats;
+  year: number;
 }
 
 type HabitTab = 'top' | 'bottom';
@@ -19,7 +20,7 @@ const HABIT_TAB_OPTIONS: Array<{ label: string; value: HabitTab }> = [
   { label: '하위 Top 3', value: 'bottom' },
 ];
 
-const HabitAnalysis = ({ stats }: Props) => {
+const HabitAnalysis = ({ stats, year }: Props) => {
   const router = useRouter();
 
   const [habitTab, setHabitTab] = useState<HabitTab>('top');
@@ -33,7 +34,7 @@ const HabitAnalysis = ({ stats }: Props) => {
     <AppSection>
       <AppSectionHeader>
         <AppSectionTitle>습관 기록</AppSectionTitle>
-        <AppSectionMeta>전체 {stats?.totalHabits ?? 0}개</AppSectionMeta>
+        <AppSectionMeta>{year}년 전체 {stats?.totalHabits ?? 0}개</AppSectionMeta>
       </AppSectionHeader>
 
       <AppUnderlineTabs

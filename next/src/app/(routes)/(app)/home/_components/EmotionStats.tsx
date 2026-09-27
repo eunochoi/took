@@ -8,6 +8,7 @@ import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import { EMOTIONS } from "@/common/constants/emotions";
 
 interface Props {
+  year: number;
   emotionCounts: number[];
   halfYearEmotionCounts: number[][];
 }
@@ -15,7 +16,7 @@ interface Props {
 const HALF_YEAR_OPTIONS = ['전체', '전반기', '후반기'];
 const HALF_YEAR_TAB_OPTIONS = HALF_YEAR_OPTIONS.map((label, value) => ({ label, value }));
 
-const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
+const EmotionStats = ({ year, emotionCounts, halfYearEmotionCounts }: Props) => {
   const [selectedHalfYear, setSelectedHalfYear] = useState<number>(0);
 
   const displayEmotionCounts = useMemo(() => {
@@ -46,7 +47,7 @@ const EmotionStats = ({ emotionCounts, halfYearEmotionCounts }: Props) => {
     <AppSection>
       <AppSectionHeader>
         <AppSectionTitle>감정 기록</AppSectionTitle>
-        <AppSectionMeta>전체 {totalCount}개</AppSectionMeta>
+        <AppSectionMeta>{year}년 전체 {totalCount}개</AppSectionMeta>
       </AppSectionHeader>
 
       <AppUnderlineTabs

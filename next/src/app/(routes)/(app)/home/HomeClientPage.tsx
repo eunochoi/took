@@ -1,7 +1,6 @@
 'use client';
 
 import HomeViewContent from "./_components/HomeViewContent";
-import HomeViewToolbar from "./_components/HomeViewToolbar";
 
 import { useQuery } from "@tanstack/react-query";
 import { getYear } from "date-fns";
@@ -67,18 +66,13 @@ const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
     <>
       <AppPageLayout
         topSection={<HomeViewTopSection initialDate={initialDate} />}
-        toolbar={
-          <HomeViewToolbar
-            selectedYear={selectedYear}
-            openYearFilter={() => setIsYearPickerOpen(true)}
-          />
-        }
         mainSection={
           <HomeViewContent
             initialDate={initialDate}
             selectedYear={selectedYear}
             diaryStats={diaryStats}
             habitStats={habitStats}
+            onOpenYearPicker={() => setIsYearPickerOpen(true)}
           />
         }
       />

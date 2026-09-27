@@ -36,7 +36,7 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
     <AppSection>
       <AppSectionHeader>
         <AppSectionTitle>일기 기록</AppSectionTitle>
-        <AppSectionMeta>전체 {totalCount}개</AppSectionMeta>
+        <AppSectionMeta>{year}년 전체 {totalCount}개</AppSectionMeta>
       </AppSectionHeader>
 
       <div className="grid grid-cols-3 divide-x divide-theme-border/60">
