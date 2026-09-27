@@ -44,7 +44,7 @@ const HabitBoxHeader = ({ id, name, priority, iconKey, isMenuOpen, setMenuOpen }
           setMenuOpen={setMenuOpen}
         />
       </div>
-      <div className="flex flex-wrap justify-center items-center gap-x-1.5 text-sm text-theme-accent" aria-label={`우선순위 ${priority + 1}점`}>
+      <div className="flex flex-wrap justify-center items-center gap-x-5 text-sm text-theme-accent" aria-label={`우선순위 ${priority + 1}점`}>
         <span>우선순위</span>
         <StarRating maxRating={3} rating={priority + 1} className="gap-0.5 text-sm" />
       </div>
