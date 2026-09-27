@@ -1,7 +1,7 @@
 'use client';
 
 import { HabitStats } from "@/common/actions/stats";
-import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
+import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection";
 import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import HabitIcon from "@/common/components/ui/HabitIcon";
 import { StarRating } from "@/common/components/ui/StarRating";

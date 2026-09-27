@@ -1,7 +1,7 @@
 import { getHabitYearlyStatus } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
-import { AppSection } from "@/common/components/ui/AppSection/section";
-import { YearRecordHeader } from "@/common/components/ui/AppSection/YearRecordHeader";
+import { AppSection } from "@/common/components/ui/AppSection";
+import { YearRecordHeader } from "@/common/components/ui/YearRecordHeader";
 import { useQuery } from "@tanstack/react-query";
 import { addYears, format, isLeapYear, subYears } from "date-fns";
 import { Dispatch, SetStateAction } from "react";

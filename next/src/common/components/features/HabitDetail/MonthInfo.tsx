@@ -5,7 +5,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
 import { getHabitMonthData } from '@/common/actions/habit/getHabitMonthData';
 import { authAction } from '@/common/auth/authAction';
-import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from '@/common/components/ui/AppSection/section';
+import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from '@/common/components/ui/AppSection';
 import { useMonthCalendar } from '@/common/components/ui/Calendar/useMonthCalendar';
 
 import HabitMonthCalendar from './HabitMonthCalendar';

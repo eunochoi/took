@@ -1,4 +1,4 @@
-import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
+import { AppSurfaceCard } from '@/common/components/ui/AppSurfaceCard';
 import { cn } from '@/common/utils/cn';
 import type { ReactNode } from 'react';
 

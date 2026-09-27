@@ -2,8 +2,7 @@
 
 import { DiaryStats } from "@/common/actions/stats";
 
-import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
-import { AppStatLabel, AppStatUnit, AppStatValue, AppStatValueWrapper } from "@/common/components/ui/AppSection/stat";
+import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection";
 import { cn } from "@/common/utils/cn";
 import { MdCalendarMonth, MdEmojiEvents } from "react-icons/md";
 
@@ -32,20 +31,20 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
       <div className="grid grid-cols-2 divide-x divide-theme-border/60">
         <div className={statBoxClass}>
           <MdCalendarMonth className={statIconClass} aria-hidden="true" />
-          <AppStatLabel>현재 연속 기록</AppStatLabel>
-          <AppStatValueWrapper className="items-baseline gap-1">
-            <AppStatValue>{currentStreak}</AppStatValue>
-            <AppStatUnit>일</AppStatUnit>
-          </AppStatValueWrapper>
+          <p className="m-0 text-center text-sm text-theme-text-secondary">현재 연속 기록</p>
+          <div className="flex items-baseline justify-center gap-1">
+            <span className="flex items-baseline text-2xl font-bold leading-none text-theme-accent tablet:text-xl">{currentStreak}</span>
+            <span className="text-sm font-bold text-theme-text-secondary">일</span>
+          </div>
         </div>
 
         <div className={statBoxClass}>
           <MdEmojiEvents className={statIconClass} aria-hidden="true" />
-          <AppStatLabel>역대 최고 기록</AppStatLabel>
-          <AppStatValueWrapper className="items-baseline gap-1">
-            <AppStatValue>{longestStreak}</AppStatValue>
-            <AppStatUnit>일</AppStatUnit>
-          </AppStatValueWrapper>
+          <p className="m-0 text-center text-sm text-theme-text-secondary">역대 최고 기록</p>
+          <div className="flex items-baseline justify-center gap-1">
+            <span className="flex items-baseline text-2xl font-bold leading-none text-theme-accent tablet:text-xl">{longestStreak}</span>
+            <span className="text-sm font-bold text-theme-text-secondary">일</span>
+          </div>
         </div>
       </div>
       <div className="flex flex-col gap-3 p-2">

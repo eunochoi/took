@@ -1,0 +1,13 @@
+import { forwardRef, HTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
+
+export const AppSurfaceCard = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+  ({ className, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={twMerge("rounded-theme bg-theme-surface shadow-card w-full p-3 px-4 tablet:p-2", className)}
+      {...props}
+    />
+  ),
+);
+AppSurfaceCard.displayName = "AppSurfaceCard";

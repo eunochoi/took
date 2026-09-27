@@ -3,7 +3,7 @@
 import EmotionImage from '@/common/components/ui/EmotionImage';
 import { useMemo, useState } from "react";
 
-import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection/section";
+import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from "@/common/components/ui/AppSection";
 import AppUnderlineTabs from "@/common/components/ui/AppUnderlineTabs";
 import { EMOTIONS } from "@/common/constants/emotions";
 

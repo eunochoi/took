@@ -1,5 +1,5 @@
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
-import { AppSectionHeader, AppSectionMeta, AppSectionTitle } from './section';
+import { AppSectionHeader, AppSectionMeta, AppSectionTitle } from './AppSection';
 
 interface Props {
   year: number;

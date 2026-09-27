@@ -7,8 +7,8 @@ import { MdCheckBox, MdChevronRight, MdMenuBook } from 'react-icons/md';
 import { getDiaryByDate } from '@/common/actions/diary';
 import { getTodayHabitStat } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
-import { AppSurfaceCard } from '@/common/components/ui/AppSection/card';
-import { AppSection, AppSectionHeader, AppSectionTitle } from '@/common/components/ui/AppSection/section';
+import { AppSurfaceCard } from '@/common/components/ui/AppSurfaceCard';
+import { AppSection, AppSectionHeader, AppSectionTitle } from '@/common/components/ui/AppSection';
 import { getTodayString } from '@/common/functions/getTodayString';
 import { useRouter } from 'next/navigation';
 

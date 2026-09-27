@@ -1,8 +1,7 @@
 import { cn } from "@/common/utils/cn";
 import { HTMLAttributes, forwardRef } from "react";
-import { AppSectionProps, DivProps } from "./types";
 
-export const AppSection = forwardRef<HTMLElement, AppSectionProps>(
+export const AppSection = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>(
   ({ className, ...props }, ref) => (
     <section
       ref={ref}
@@ -13,7 +12,7 @@ export const AppSection = forwardRef<HTMLElement, AppSectionProps>(
 );
 AppSection.displayName = "AppSection";
 
-export const AppSectionHeader = forwardRef<HTMLDivElement, DivProps>(
+export const AppSectionHeader = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
@@ -45,25 +44,3 @@ export const AppSectionMeta = forwardRef<HTMLSpanElement, HTMLAttributes<HTMLSpa
   ),
 );
 AppSectionMeta.displayName = "AppSectionMeta";
-
-export const AppSubsection = forwardRef<HTMLDivElement, DivProps>(
-  ({ className, ...props }, ref) => (
-    <div
-      ref={ref}
-      className={cn("flex flex-col gap-3", className)}
-      {...props}
-    />
-  ),
-);
-AppSubsection.displayName = "AppSubsection";
-
-export const AppSubsectionTitle = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
-  ({ className, ...props }, ref) => (
-    <h3
-      ref={ref}
-      className={cn("m-0 text-base font-bold text-theme-text-primary", className)}
-      {...props}
-    />
-  ),
-);
-AppSubsectionTitle.displayName = "AppSubsectionTitle";
