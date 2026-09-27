@@ -1,7 +1,7 @@
 import type { DiaryData } from '@/common/types/diary';
 import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
 import { useQueryClient } from '@tanstack/react-query';
-import { enqueueSnackbar } from 'notistack';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useState } from 'react';
 import { uploadDiaryImagesAndCollectIds } from '../functions/uploadDiaryImagesAndCollectIds';
 import type { DiaryImageDraft } from '../types';
@@ -32,15 +32,15 @@ export const useDiarySubmission = ({
     if (isSubmitting) return;
 
     if (emotion < 0 || emotion > 9) {
-      enqueueSnackbar('감정을 선택해주세요');
+      showNotice('감정을 선택해주세요');
       return;
     }
     if (text.trim().length === 0) {
-      enqueueSnackbar('내용을 입력해주세요');
+      showNotice('내용을 입력해주세요');
       return;
     }
     if (text.length > DIARY_TEXT_MAX_LENGTH) {
-      enqueueSnackbar(`일기 내용은 ${DIARY_TEXT_MAX_LENGTH.toLocaleString()}자까지 입력할 수 있습니다.`);
+      showNotice(`일기 내용은 ${DIARY_TEXT_MAX_LENGTH.toLocaleString()}자까지 입력할 수 있습니다.`);
       return;
     }
 
@@ -63,10 +63,10 @@ export const useDiarySubmission = ({
       const completedMessage = duplicateImageCount > 0
         ? `${successMessage}. 이미 추가된 사진은 한 장만 저장되었습니다.`
         : successMessage;
-      setTimeout(() => enqueueSnackbar(completedMessage), 300);
+      setTimeout(() => showNotice(completedMessage), 300);
     } catch (error) {
       console.error(failureMessage, error);
-      enqueueSnackbar(failureMessage);
+      showNotice(failureMessage);
     } finally {
       setIsSubmitting(false);
     }

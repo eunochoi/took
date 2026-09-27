@@ -12,7 +12,7 @@ import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { enqueueSnackbar } from 'notistack';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useState } from 'react';
 import { PanelDialog } from '../../ui/Dialog/PanelDialog';
 import { PanelBody } from '../../ui/Dialog/PanelDialog/PanelBody';
@@ -109,7 +109,7 @@ const DiaryFormClientPage = ({ isEdit, diaryId }: DiaryFormClientPageProps) => {
 
   const handleBack = () => {
     if (isSubmitting) {
-      enqueueSnackbar('저장이 진행 중입니다. 완료될 때까지 기다려주세요.');
+      showNotice('저장이 진행 중입니다. 완료될 때까지 기다려주세요.');
       return;
     }
 

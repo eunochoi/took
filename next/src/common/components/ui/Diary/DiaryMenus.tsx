@@ -6,7 +6,7 @@ import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
-import { enqueueSnackbar } from "notistack";
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
@@ -25,10 +25,10 @@ const DiaryMenus = ({ isMenuOpen, setMenuOpen, diaryData, onDeleted }: Props) =>
       queryClient.invalidateQueries({ queryKey: ['diary'] });
       queryClient.invalidateQueries({ queryKey: ['diary-habit', 'month'] });
       queryClient.invalidateQueries({ queryKey: ['stats'] });
-      enqueueSnackbar('일기 삭제 완료');
+      showNotice('일기 삭제 완료');
       onDeleted?.();
     } catch (error) {
-      enqueueSnackbar(error instanceof Error ? error.message : '일기 삭제 실패');
+      showNotice(error instanceof Error ? error.message : '일기 삭제 실패');
     }
   };
   const dateLabel = format(parseLocalDate(diaryData.date), 'yyyy년 M월 d일 작성 일기');

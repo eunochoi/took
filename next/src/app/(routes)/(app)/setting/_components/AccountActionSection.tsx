@@ -1,5 +1,9 @@
+"use client";
+
+import { logout } from "@/common/auth/logout";
+import { ConfirmDialog } from "@/common/components/ui/Dialog/ConfirmDialog";
+import { useState } from "react";
 import { MdDeleteForever, MdLogout } from "react-icons/md";
-import { onLogout } from "../_functions/onLogout";
 import { SettingItem } from "./SettingItem";
 import { SettingSectionCard } from "./SettingSectionCard";
 import { SettingSubsection } from "./SettingSubsection";
@@ -9,26 +13,41 @@ interface Props {
 }
 
 export const AccountActionSection = ({ onDeleteAccount }: Props) => {
+  const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = useState(false);
+
   return (
-    <SettingSectionCard>
-      <SettingSubsection title="계정 관리">
-        <SettingItem
-          settingItemKey="로그아웃"
-          settingItemValue={
-            <button onClick={onLogout} type="button">
-              <MdLogout className="text-xl" />
-            </button>
-          }
-        />
-        <SettingItem
-          settingItemKey="회원 탈퇴"
-          settingItemValue={
-            <button onClick={onDeleteAccount} type="button">
-              <MdDeleteForever className="text-xl" />
-            </button>
-          }
-        />
-      </SettingSubsection>
-    </SettingSectionCard>
+    <>
+      <SettingSectionCard>
+        <SettingSubsection title="계정 관리">
+          <SettingItem
+            settingItemKey="로그아웃"
+            settingItemValue={
+              <button onClick={() => setIsLogoutConfirmOpen(true)} type="button">
+                <MdLogout className="text-xl" />
+              </button>
+            }
+          />
+          <SettingItem
+            settingItemKey="회원 탈퇴"
+            settingItemValue={
+              <button onClick={onDeleteAccount} type="button">
+                <MdDeleteForever className="text-xl" />
+              </button>
+            }
+          />
+        </SettingSubsection>
+      </SettingSectionCard>
+      <ConfirmDialog
+        isOpen={isLogoutConfirmOpen}
+        title="로그아웃"
+        message="로그아웃 하시겠습니까?"
+        confirmLabel="로그아웃"
+        onClose={() => setIsLogoutConfirmOpen(false)}
+        onConfirm={() => {
+          setIsLogoutConfirmOpen(false);
+          logout();
+        }}
+      />
+    </>
   );
 };

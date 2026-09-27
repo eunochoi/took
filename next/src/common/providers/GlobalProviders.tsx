@@ -4,10 +4,10 @@ import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import OfflineScreen from "../components/ui/OfflineScreen";
+import { NoticeHost } from "../components/ui/Notice/NoticeHost";
 import { SystemBars } from '../components/layout/SystemBars';
 import { ServiceWorkerRegister } from "../utils/ServiceWorker/ServiceWorkerRegister";
 import RQProvider from "./reactQuery/ReactQueryProvider";
-import CustomSnackbarProvider from "./snackbar/CustomSnackbarProvider";
 
 interface Props {
   children: ReactNode;
@@ -18,7 +18,7 @@ interface Props {
  * 전역 Provider 모음
  * - SessionProvider: 인증 (next-auth)
  * - RQProvider: React Query 상태 관리
- * - CustomSnackbarProvider: 토스트 알림
+ * - NoticeHost: 한 번에 하나의 알림 표시
  * - HydrationBoundary: 서버 데이터 hydration
  * - OfflineScreen: 오프라인 상태 화면
  */
@@ -26,14 +26,13 @@ export const GlobalProviders = ({ children, dehydratedState }: Props) => {
   return (
     <SessionProvider>
       <RQProvider>
-        <CustomSnackbarProvider>
-          <HydrationBoundary state={dehydratedState}>
-            <ServiceWorkerRegister />
-            <SystemBars />
-            <OfflineScreen />
-            {children}
-          </HydrationBoundary>
-        </CustomSnackbarProvider>
+        <NoticeHost />
+        <HydrationBoundary state={dehydratedState}>
+          <ServiceWorkerRegister />
+          <SystemBars />
+          <OfflineScreen />
+          {children}
+        </HydrationBoundary>
       </RQProvider>
     </SessionProvider>
   );

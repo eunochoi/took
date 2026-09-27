@@ -13,7 +13,7 @@ import { PanelFooter } from '@/common/components/ui/Dialog/PanelDialog/PanelFoot
 import { PanelHeader } from '@/common/components/ui/Dialog/PanelDialog/PanelHeader';
 import { PanelSubmitButton } from '@/common/components/ui/Dialog/PanelDialog/PanelSubmitButton';
 import { useRouter } from 'next/navigation';
-import { enqueueSnackbar } from 'notistack';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { Habit } from './_types';
 import { HabitList } from './HabitList';
 
@@ -65,7 +65,7 @@ export const HabitOrderClientPage = () => {
     if (!tempHabits || !hasChanges) return;
     setCustomHabitOrder(isDefaultOrder ? [] : currentIds);
     setIsDialogMounted(false);
-    setTimeout(() => enqueueSnackbar('습관 순서를 저장했어요.'), 300);
+    setTimeout(() => showNotice('습관 순서를 저장했어요.'), 300);
   };
 
   return (

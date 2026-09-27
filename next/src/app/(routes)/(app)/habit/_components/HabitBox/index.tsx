@@ -5,7 +5,7 @@ import { authAction } from "@/common/auth/authAction";
 import { getTodayString } from "@/common/functions/getTodayString";
 import { cn } from "@/common/utils/cn";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { enqueueSnackbar } from "notistack";
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useRef, useState } from "react";
 
 import { MdCheck } from "react-icons/md";
@@ -55,7 +55,7 @@ const HabitBox = ({ name, id, priority, iconKey }: Props) => {
         queryClient.invalidateQueries({ queryKey: ['stats', 'years'] }),
       ]);
     } catch (error) {
-      enqueueSnackbar(error instanceof Error ? error.message : '습관 체크 변경 실패');
+      showNotice(error instanceof Error ? error.message : '습관 체크 변경 실패');
     } finally {
       updatingRef.current = false;
       setUpdating(false);

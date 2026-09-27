@@ -1,6 +1,6 @@
 import type { HabitData } from '@/common/actions/habit';
 import { useRouter } from 'next/navigation';
-import { enqueueSnackbar } from 'notistack';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useEffect, useRef } from 'react';
 
 type UseHandleHabitFormLoadFailureParams = {
@@ -38,7 +38,7 @@ export const useHandleHabitFormLoadFailure = ({
         ? '습관을 불러오지 못했습니다.'
         : '수정할 습관을 찾을 수 없습니다.';
 
-    window.setTimeout(() => enqueueSnackbar(errorMessage), 300);
+    window.setTimeout(() => showNotice(errorMessage), 300);
   }, [habitId, isError, isHabitLoadFailure, router]);
 
   return isHabitLoadFailure;

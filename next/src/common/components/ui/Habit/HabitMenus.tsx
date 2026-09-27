@@ -1,10 +1,10 @@
 import { deleteHabit } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
 import Menus from '@/common/components/ui/Menus';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { StarRating } from '@/common/components/ui/StarRating';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { enqueueSnackbar } from 'notistack';
 import { Dispatch, SetStateAction } from 'react';
 
 interface Props {
@@ -30,9 +30,9 @@ const HabitMenus = ({ habitId, habitName, priority, isMenuOpen, setMenuOpen, onD
       queryClient.invalidateQueries({ queryKey: ['diary-habit', 'month'] });
       queryClient.invalidateQueries({ queryKey: ['stats', 'habit'] });
       queryClient.invalidateQueries({ queryKey: ['stats', 'years'] });
-      enqueueSnackbar('습관 항목 삭제 완료');
+      showNotice('습관 항목 삭제 완료');
     } catch (error) {
-      enqueueSnackbar(error instanceof Error ? error.message : '습관 항목 삭제 실패');
+      showNotice(error instanceof Error ? error.message : '습관 항목 삭제 실패');
     }
   };
 

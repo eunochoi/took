@@ -15,7 +15,7 @@ import {
 } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { enqueueSnackbar } from 'notistack';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useState } from 'react';
 import DayInfoDiarySection from './DayInfoDiarySection';
 import DayInfoHabitSection from './DayInfoHabitSection';
@@ -112,7 +112,7 @@ const DayInfo = ({
         }),
       ]);
     } catch (error) {
-      enqueueSnackbar(
+      showNotice(
         error instanceof Error
           ? error.message
           : '습관 체크 변경 실패',

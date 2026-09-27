@@ -6,7 +6,7 @@ import {
   HABIT_PRIORITY_MIN,
 } from '@/common/constants/habit';
 import { useQueryClient } from '@tanstack/react-query';
-import { enqueueSnackbar } from 'notistack';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useState } from 'react';
 
 type UseHabitSubmissionParams = {
@@ -37,7 +37,7 @@ export const useHabitSubmission = ({
       trimmedName.length < HABIT_NAME_MIN_LENGTH
       || trimmedName.length > HABIT_NAME_MAX_LENGTH
     ) {
-      enqueueSnackbar(
+      showNotice(
         `습관 이름은 ${HABIT_NAME_MIN_LENGTH}~${HABIT_NAME_MAX_LENGTH}자로 입력해주세요.`,
       );
       return;
@@ -47,7 +47,7 @@ export const useHabitSubmission = ({
       || priority < HABIT_PRIORITY_MIN
       || priority > HABIT_PRIORITY_MAX
     ) {
-      enqueueSnackbar('습관 우선순위가 올바르지 않습니다.');
+      showNotice('습관 우선순위가 올바르지 않습니다.');
       return;
     }
 
@@ -62,10 +62,10 @@ export const useHabitSubmission = ({
         queryClient.invalidateQueries({ queryKey: ['stats'] }),
       ]);
       onSuccess();
-      setTimeout(() => enqueueSnackbar(successMessage), 300);
+      setTimeout(() => showNotice(successMessage), 300);
     } catch (error) {
       console.error(failureMessage, error);
-      enqueueSnackbar(failureMessage);
+      showNotice(failureMessage);
     } finally {
       setIsSubmitting(false);
     }

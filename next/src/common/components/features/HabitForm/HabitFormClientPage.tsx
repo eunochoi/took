@@ -9,7 +9,7 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { enqueueSnackbar } from 'notistack';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useState } from 'react';
 import { PanelDialog } from '../../ui/Dialog/PanelDialog';
 import { PanelBody } from '../../ui/Dialog/PanelDialog/PanelBody';
@@ -96,7 +96,7 @@ const HabitFormClientPage = ({ isEdit, habitId }: HabitFormClientPageProps) => {
 
   const handleBack = () => {
     if (isSubmitting) {
-      enqueueSnackbar('저장이 진행 중입니다. 완료될 때까지 기다려주세요.');
+      showNotice('저장이 진행 중입니다. 완료될 때까지 기다려주세요.');
       return;
     }
 

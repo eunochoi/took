@@ -4,7 +4,7 @@ import {
   DIARY_IMAGE_MAX_SIZE_BYTES,
   DIARY_IMAGE_MAX_SIZE_MB,
 } from '@/common/constants/image';
-import { enqueueSnackbar } from 'notistack';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useEffect, useRef } from 'react';
 import type { DiaryImageDraft } from '../types';
@@ -46,7 +46,7 @@ export const useDiaryImages = ({
       diaryImages.length + newImageFiles.length >
       DIARY_IMAGE_MAX_COUNT
     ) {
-      enqueueSnackbar(
+      showNotice(
         `이미지 파일은 최대 ${DIARY_IMAGE_MAX_COUNT}개까지 삽입 가능합니다.`,
       );
       event.target.value = '';
@@ -61,7 +61,7 @@ export const useDiaryImages = ({
     );
 
     if (hasInvalidType) {
-      enqueueSnackbar('이미지 파일만 업로드 가능합니다.');
+      showNotice('이미지 파일만 업로드 가능합니다.');
       event.target.value = '';
       return;
     }
@@ -71,7 +71,7 @@ export const useDiaryImages = ({
     );
 
     if (hasOversizedFile) {
-      enqueueSnackbar(
+      showNotice(
         `선택된 이미지 중 ${DIARY_IMAGE_MAX_SIZE_MB}MB를 초과하는 이미지가 존재합니다.`,
       );
       event.target.value = '';

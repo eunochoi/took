@@ -11,7 +11,7 @@ import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { enqueueSnackbar } from "notistack";
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useEffect, useRef } from "react";
 import { useHabitSortPreferences } from "./_hooks/useHabitSortPreferences";
 import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
@@ -38,7 +38,7 @@ const HabitClientPage = () => {
 
   const onAddHabit = () => {
     if (habits && habits.length >= MAX_HABIT_COUNT) {
-      enqueueSnackbar(`습관은 최대 ${MAX_HABIT_COUNT}개 생성 가능합니다.`);
+      showNotice(`습관은 최대 ${MAX_HABIT_COUNT}개 생성 가능합니다.`);
     }
     else {
       router.push('/habit/new', { scroll: false });
