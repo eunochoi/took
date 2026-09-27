@@ -2,7 +2,7 @@ import { CalendarDay } from '@/common/components/ui/Calendar/CalendarDay';
 import { CalendarGrid } from '@/common/components/ui/Calendar/CalendarGrid';
 import type { CalendarDayModel } from '@/common/components/ui/Calendar/useMonthCalendar';
 import type { HabitMonthData } from '@/common/types/calendar';
-import { cn } from '@/common/utils/cn';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
   habitMonthData?: HabitMonthData;
@@ -42,11 +42,11 @@ const HabitMonthCalendar = ({
                 isFuture ? '미래 날짜' : '',
               ].filter(Boolean).join(', ')}
             >
-              <span className={cn(
+              <span className={twMerge(
                 'flex aspect-square w-[60%] items-center justify-center',
                 (isCompleted || isMissed) && 'rounded-full',
                 isCompleted && 'bg-theme-accent text-theme-text-on-accent',
-                isMissed && 'border border-theme-accent text-theme-text-secondary',
+                isMissed && 'bg-theme-calendar-sunday text-theme-text-on-accent',
               )}>
                 {day.dayNumber}
               </span>
