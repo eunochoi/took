@@ -43,7 +43,7 @@ const Menus = ({ isOpen, onClose, title, message, onEdit, onDelete }: Props) => 
             </button>
             <div className="flex flex-col">
               <h2 id={titleId} className={`${PICKER_TITLE_CLASS} break-words`}>{title}</h2>
-              <span id={messageId} aria-live="polite" className='pt-2 text-center text-base text-theme-text-primary'>{isConfirmingDelete ? '정말 삭제하시겠어요? 삭제한 뒤에는 되돌릴 수 없어요.' : message}</span>
+              <span id={messageId} aria-live="polite" className='pt-2 text-center text-base text-theme-text-primary text-balance break-keep'>{isConfirmingDelete ? '정말 삭제하시겠어요? 삭제한 뒤에는 되돌릴 수 없어요.' : message}</span>
             </div>
 
             <div className={`${PICKER_ACTIONS_CLASS} flex gap-3`}>
