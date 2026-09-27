@@ -10,7 +10,7 @@ import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useEffect, useRef } from "react";
@@ -33,6 +33,7 @@ const HabitClientPage = () => {
     queryKey: ['habits', 'list', sortValue, customHabitOrder],
     queryFn: () => authAction(() => getHabitList({ sortType: sortValue, customHabitOrder })),
     enabled: isStorageReady,
+    placeholderData: keepPreviousData,
   });
 
   const totalHabitCount = habits?.length ? habits?.length : 0;

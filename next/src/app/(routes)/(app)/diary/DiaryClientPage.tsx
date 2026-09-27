@@ -7,7 +7,7 @@ import DiaryListViewTopSection from "./_components/DiaryListViewTopSection";
 import { AnimatePresence } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -85,7 +85,7 @@ const DiaryClientPage = () => {
     }, 200);
   };
 
-  const { data: flatDiaries, fetchNextPage, isFetching, hasNextPage } = useInfiniteQuery({
+  const { data: flatDiaries, fetchNextPage, isFetching, isPlaceholderData, hasNextPage } = useInfiniteQuery({
     queryKey: ['diary', 'diaryList', 'emotion', emotionToggle, 'sort', sortValue, 'year', selectedYear, 'month', selectedMonth],
     queryFn: ({ pageParam }) => authAction(() => {
       return getDiaryList({
@@ -98,6 +98,7 @@ const DiaryClientPage = () => {
       });
     }),
     initialPageParam: 0,
+    placeholderData: keepPreviousData,
     select: (data) => data.pages.flat() as DiaryData[],
     getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
@@ -105,8 +106,8 @@ const DiaryClientPage = () => {
   const hasAppliedFilter = isEmotionSelected || isPeriodSelected;
 
   useEffect(() => {
-    if (currentUserEmail && !isFetching && hasNextPage && inView) fetchNextPage();
-  }, [inView, hasNextPage, isFetching, currentUserEmail, fetchNextPage])
+    if (currentUserEmail && !isFetching && !isPlaceholderData && hasNextPage && inView) fetchNextPage();
+  }, [inView, hasNextPage, isFetching, isPlaceholderData, currentUserEmail, fetchNextPage])
 
   useEffect(() => {
     wrapperRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
