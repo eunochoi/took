@@ -82,10 +82,6 @@ const DiaryAnalysis = ({ stats, year }: Props) => {
             );
           })}
         </div>
-
-        <span className="flex justify-center text-sm text-theme-text-secondary">
-          * {year}년 월간 기록 그래프
-        </span>
       </div>
     </AppSection >
   );
