@@ -2,6 +2,7 @@
 
 import { getHabitById } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import {
   HABIT_NAME_MAX_LENGTH,
   MAX_HABIT_COUNT,
@@ -9,7 +10,6 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useState } from 'react';
 import { PanelDialog } from '../../ui/Dialog/PanelDialog';
 import { PanelBody } from '../../ui/Dialog/PanelDialog/PanelBody';

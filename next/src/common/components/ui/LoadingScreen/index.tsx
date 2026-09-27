@@ -26,7 +26,6 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => {
         </div>
       )}
       {message && <span className="text-base text-theme-text-primary">{message}</span>}
-      {/* <Image priority src={hidingCat} alt="hiding-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 70vw, 75vw" className='absolute bottom-0 right-0 w-3/4 tablet:w-[70dvw] desktop:w-[50dvw]' /> */}
     </div>
   );
 };

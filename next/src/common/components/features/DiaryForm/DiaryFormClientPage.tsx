@@ -2,6 +2,7 @@
 
 import { getDiaryById } from '@/common/actions/diary';
 import { authAction } from '@/common/auth/authAction';
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
 import type { DiaryData } from '@/common/types/diary';
 import { isValidLocalDateString } from '@/common/utils/date/isValidLocalDateString';
@@ -12,7 +13,6 @@ import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useState } from 'react';
 import { PanelDialog } from '../../ui/Dialog/PanelDialog';
 import { PanelBody } from '../../ui/Dialog/PanelDialog/PanelBody';

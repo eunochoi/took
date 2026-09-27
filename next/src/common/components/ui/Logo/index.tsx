@@ -1,8 +1,8 @@
 'use client';
 
-import { cn } from '@/common/utils/cn';
 import EmotionImage from '@/common/components/ui/EmotionImage';
 import { EMOTIONS } from '@/common/constants/emotions';
+import { cn } from '@/common/utils/cn';
 
 interface LogoProps {
   withText?: boolean;
