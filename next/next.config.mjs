@@ -25,7 +25,7 @@ const withPWA = nextPWA({
     },
     {
       url: '/img/emotion/basic/sad.png',
-      revision: '1',
+      revision: '3',
     },
   ],
   runtimeCaching: [
