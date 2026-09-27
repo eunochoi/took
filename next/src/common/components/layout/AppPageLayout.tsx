@@ -54,7 +54,7 @@ const AppPageLayout = ({ topSection, mainSection, pageRef, showScrollToTop = fal
         {/* bottom section : toolbar + main */}
         <div className={twMerge(
           "w-full h-auto flex flex-col",
-          "flex-1 bg-theme-surface px-[5dvw] py-2 pb-0 tablet:px-9 tablet:py-4 desktop:px-14 desktop:py-8",
+          "flex-1 bg-theme-surface px-[5dvw] py-2 pb-0 tablet:px-9 tablet:py-4 desktop:px-14 desktop:pt-6 desktop:pb-24 ",
           bottomSectionClass)} >
           {/* bottom section container for max width */}
           <div className="flex flex-col w-full tablet:max-w-[500px] desktop:max-w-[900px] mx-auto">
