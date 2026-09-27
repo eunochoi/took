@@ -2,6 +2,7 @@
 
 import { prisma } from '../../../../lib/prisma';
 import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
+import { getTodayStringInUserTimezone } from '@/common/utils/date/userTimezone';
 import { getAuth } from '../../auth/getAuth';
 import type { ActionResult } from '../types';
 import type { CreateDiaryParams, DiaryData } from './types';
@@ -22,6 +23,9 @@ export const createDiary = async ({
     }
     if (!validateDateFormat(date)) {
       return { ok: false, code: 'INVALID_DIARY_INPUT', message: '날짜를 확인해주세요.' };
+    }
+    if (date > await getTodayStringInUserTimezone()) {
+      return { ok: false, code: 'FUTURE_DIARY_DATE', message: '미래 날짜의 일기는 작성할 수 없습니다.' };
     }
     if (!isValidDiaryText(text)) {
       return { ok: false, code: 'INVALID_DIARY_INPUT', message: `일기 내용은 공백만 입력할 수 없으며 ${DIARY_TEXT_MAX_LENGTH}자까지 입력할 수 있습니다.` };

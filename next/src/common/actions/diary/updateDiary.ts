@@ -2,6 +2,7 @@
 
 import { prisma } from '../../../../lib/prisma';
 import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
+import { getTodayStringInUserTimezone } from '@/common/utils/date/userTimezone';
 import { getAuth } from '../../auth/getAuth';
 import type { ActionResult } from '../types';
 import type { DiaryData, UpdateDiaryParams } from './types';
@@ -27,6 +28,7 @@ export const updateDiary = async ({
     if (!isValidDiaryText(text)) {
       return { ok: false, code: 'INVALID_DIARY_INPUT', message: `일기 내용은 공백만 입력할 수 없으며 ${DIARY_TEXT_MAX_LENGTH}자까지 입력할 수 있습니다.` };
     }
+    const today = await getTodayStringInUserTimezone();
 
     const diary = await prisma.$transaction(async (tx) => {
       const user = await tx.user.findUnique({
@@ -41,6 +43,7 @@ export const updateDiary = async ({
       });
 
       if (!foundDiary) throw new Error('DIARY_NOT_FOUND');
+      if (foundDiary.date > today) throw new Error('FUTURE_DIARY_DATE');
 
       // 기존 이미지 연결을 삭제하기 전에 모든 새 이미지의 소유권을 확인한다.
       await validateAccessibleImageContents(tx, imageContentIds, auth.userId);
@@ -85,6 +88,9 @@ export const updateDiary = async ({
 
     return { ok: true, data: await formatDiaryData(diary) };
   } catch (error) {
+    if (error instanceof Error && error.message === 'FUTURE_DIARY_DATE') {
+      return { ok: false, code: 'FUTURE_DIARY_DATE', message: '미래 날짜의 일기는 수정할 수 없습니다.' };
+    }
     if (error instanceof Error && error.message === 'USER_NOT_FOUND') {
       return { ok: false, code: 'USER_NOT_FOUND', message: '유저가 존재하지 않습니다.' };
     }
