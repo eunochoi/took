@@ -56,7 +56,7 @@ export const PickerDialog = ({ children, labelledBy, describedBy, onClose }: Pic
       />
       <motion.div
         ref={contentRef}
-        className="absolute inset-x-0 bottom-0 max-h-[85dvh] w-full overflow-y-auto rounded-t-3xl bg-theme-accent-light shadow-theme-modal [--picker-offset:50px] tablet:inset-0 tablet:m-auto tablet:h-fit tablet:w-[440px] tablet:max-w-[calc(100dvw-32px)] tablet:rounded-3xl desktop:[--picker-offset:0px]"
+        className="py-6 absolute inset-x-0 bottom-0 max-h-[85dvh] w-full overflow-y-auto rounded-t-3xl bg-theme-accent-light shadow-theme-modal [--picker-offset:50px] tablet:inset-0 tablet:m-auto tablet:h-fit tablet:w-[440px] tablet:max-w-[calc(100dvw-32px)] tablet:rounded-3xl desktop:[--picker-offset:0px]"
         initial={{ opacity: 0, y: offset }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: offset }}
