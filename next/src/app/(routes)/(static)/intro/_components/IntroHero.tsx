@@ -5,7 +5,7 @@ import IntroActionButtons from './IntroActionButtons';
 import hidingCat from '/public/img/hiding-cat.png';
 
 const heroSectionClass = "flex min-h-[80dvh] w-full flex-col overflow-hidden bg-theme-surface px-5 pt-12 desktop:flex-row desktop:gap-8 desktop:px-[min(6vw,96px)]";
-const heroContentClass = "flex flex-col items-start justify-center gap-12 px-1 py-6 text-start desktop:w-auto desktop:items-start desktop:gap-16 desktop:px-6 desktop:py-16 desktop:text-left";
+const heroContentClass = "flex flex-col items-start justify-between gap-12 px-1 py-6 text-start desktop:w-auto desktop:items-start desktop:gap-16 desktop:px-6 desktop:py-16 desktop:text-left";
 const heroImageClass = "mt-auto flex items-end justify-center tablet:justify-center desktop:flex-1 desktop:shrink-0";
 
 const IntroHero = () => {
@@ -20,10 +20,11 @@ const IntroHero = () => {
         </div>
 
         <div className="flex flex-col gap-6 w-full p-2">
-          <h1 className="m-0 break-keep text-2xl font-bold tracking-tight leading-[1.2] text-theme-text-primary desktop:text-5xl desktop:leading-[1.12]">
-            감정도 툭! 습관도 툭!<br />조금 더 나은 나로 To OK
+          <h1 className="flex flex-col gap-2 m-0 break-keep text-2xl font-bold tracking-tight leading-[1.2] text-theme-text-primary desktop:text-5xl desktop:leading-[1.12]">
+            <span>감정도 툭! 습관도 툭!</span>
+            <span>조금 더 나은 나로 To OK</span>
           </h1>
-          <p className="m-0 flex flex-col break-keep text-lg text-theme-text-secondary desktop:text-xl">
+          <p className="m-0 flex flex-col gap-1 break-keep text-lg text-theme-text-secondary desktop:text-xl">
             <span>습관과 감정을 기록하고</span>
             <span>나만의 속도로 하루를 쌓아가요.</span>
           </p>

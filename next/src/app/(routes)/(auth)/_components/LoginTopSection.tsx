@@ -10,11 +10,11 @@ const LoginTopSection = () => (
     <Wordmark className="text-6xl desktop:text-7xl" />
 
     <div className="flex flex-col gap-8">
-      <h1 id="login-intro-title" className="flex flex-col gap-1 text-3xl desktop:text-4xl font-bold tracking-[-0.04em]">
+      <h1 id="login-intro-title" className="flex flex-col gap-2 text-3xl desktop:text-4xl font-bold tracking-[-0.04em]">
         <span>오늘의 작은 실천이</span>
         <span>내일의 나를 만듭니다.</span>
       </h1>
-      <div className="flex flex-col text-lg desktop:text-2xl text-theme-text-secondary">
+      <div className="flex flex-col text-lg desktop:text-2xl gap-1 text-theme-text-secondary">
         <p>습관과 감정을 기록하며</p>
         <p>나만의 속도로 하루를 쌓아가요.</p>
       </div>
