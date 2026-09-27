@@ -138,9 +138,6 @@ const DiaryFormClientPage = ({ isEdit, diaryId }: DiaryFormClientPageProps) => {
           />
           <PanelBody showScrollFade>
             <fieldset disabled={isSubmitting} className="m-0 flex min-w-0 w-full flex-col gap-7 border-0 pb-6 pt-2">
-              <h1 className="text-center  text-2xl font-semibold tracking-tight text-theme-text-primary">
-                오늘의 기록
-              </h1>
               <div className="w-full">
                 <DiaryFormEmotionSection
                   emotion={emotion}
