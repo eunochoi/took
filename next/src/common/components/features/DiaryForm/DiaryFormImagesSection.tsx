@@ -22,7 +22,7 @@ const DiaryFormImagesSection = ({
 }: DiaryFormImagesSectionProps) => (
   <section aria-labelledby="diary-images-title" className="flex w-full flex-col gap-3">
     <div className="flex items-center justify-between">
-      <h2 id="diary-images-title" className="font-title text-base font-semibold text-theme-text-primary">오늘의 장면</h2>
+      <h2 id="diary-images-title" className=" text-base font-semibold text-theme-text-primary">오늘의 장면</h2>
       <span className="text-xs tabular-nums text-theme-text-secondary">{diaryImages.length} / {DIARY_IMAGE_MAX_COUNT}장</span>
     </div>
     <div className='flex flex-col p-2 gap-1'>

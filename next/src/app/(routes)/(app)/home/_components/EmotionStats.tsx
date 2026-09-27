@@ -73,7 +73,7 @@ const EmotionStats = ({ year, emotionCounts, halfYearEmotionCounts }: Props) => 
                 </span>
               )}
             </span>
-            <div className="flex shrink-0 items-baseline gap-1 font-title tabular-nums">
+            <div className="flex shrink-0 items-baseline gap-1  tabular-nums">
               <span className="text-xl font-semibold text-theme-accent">{displayEmotionCounts[emotion.id]}</span>
               <span className="text-sm text-theme-text-secondary">회</span>
             </div>

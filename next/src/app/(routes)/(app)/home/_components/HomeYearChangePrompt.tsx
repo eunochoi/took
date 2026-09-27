@@ -11,7 +11,7 @@ const HomeYearChangePrompt = ({ onOpenYearPicker }: Props) => {
     <div
       className="flex w-full flex-col gap-2"
     >
-      <span className="font-title text-xl font-semibold text-theme-text-primary">다른 연도도 확인해 볼까요?</span>
+      <span className=" text-xl font-semibold text-theme-text-primary">다른 연도도 확인해 볼까요?</span>
       <span className="text-base text-theme-text-secondary">연도를 바꿔 다른 해의 기록도 살펴보세요.</span>
       <button
         onClick={onOpenYearPicker}

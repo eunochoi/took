@@ -32,7 +32,7 @@ const HabitFormPrioritySelector = ({
           <span aria-hidden="true">
             <StarRating maxRating={3} rating={value + 1} />
           </span>
-          <span className="font-title text-sm font-medium">{HABIT_PRIORITY_LABELS[value]}</span>
+          <span className=" text-sm font-medium">{HABIT_PRIORITY_LABELS[value]}</span>
         </span>
       </label>
     ))}

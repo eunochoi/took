@@ -44,7 +44,7 @@ export const ConfirmDialog = ({
             <div className={`${PICKER_ACTIONS_CLASS} flex gap-3`}>
               <button
                 type="button"
-                className="flex min-h-12 w-full items-center justify-center rounded-full bg-theme-surface px-5 font-title text-base font-semibold text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent"
+                className="flex min-h-12 w-full items-center justify-center rounded-full bg-theme-surface px-5  text-base font-semibold text-theme-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent"
                 onClick={onClose}
               >
                 취소

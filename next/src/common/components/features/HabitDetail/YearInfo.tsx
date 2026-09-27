@@ -47,13 +47,13 @@ const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
       <div className="grid grid-cols-2 divide-x divide-theme-border/60 py-3 text-center">
         <div className="flex min-w-0 flex-col gap-1 px-2">
           <span className="text-sm text-theme-text-secondary">실천 횟수</span>
-          <strong className="font-title text-2xl text-theme-accent">
+          <strong className=" text-2xl text-theme-accent">
             {count ?? 0}<span className="ml-0.5 text-sm font-semibold text-theme-text-secondary">회</span>
           </strong>
         </div>
         <div className="flex min-w-0 flex-col gap-1 px-2">
           <span className="text-sm text-theme-text-secondary">실천율</span>
-          <strong className="font-title text-2xl text-theme-accent">
+          <strong className=" text-2xl text-theme-accent">
             {completionRate}<span className="ml-0.5 text-sm font-semibold text-theme-text-secondary">%</span>
           </strong>
         </div>

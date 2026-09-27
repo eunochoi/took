@@ -17,7 +17,7 @@ const DiaryHabitMonthCalendarHeader = ({
   onNextMonth,
   onToday,
 }: Props) => (
-  <header className="font-title flex justify-between gap-3">
+  <header className=" flex justify-between gap-3">
     <div className="min-w-0 py-2">
       <h2 className="text-xl font-semibold text-theme-text-primary">{monthLabel}</h2>
     </div>

@@ -15,7 +15,7 @@ export const DiaryDetailGallery = ({ images }: DiaryDetailGalleryProps) => {
 
   return (
     <section className="min-w-0" aria-label="첨부 사진">
-      <h2 className="mb-4 flex items-center gap-2 font-title text-sm text-theme-text-secondary landscape-short:mb-2">
+      <h2 className="mb-4 flex items-center gap-2  text-sm text-theme-text-secondary landscape-short:mb-2">
         <IoMdImage aria-hidden="true" className="shrink-0 text-lg text-theme-accent-text" />
         함께 남긴 장면
       </h2>

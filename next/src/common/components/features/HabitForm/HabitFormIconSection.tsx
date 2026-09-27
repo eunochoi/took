@@ -11,7 +11,7 @@ const HabitFormIconSection = ({ iconKey, setIconKey }: HabitFormIconSectionProps
   <section aria-labelledby="habit-icon-title" className="flex w-full flex-col gap-3">
     <div className="flex items-center justify-between gap-3">
       <div className="flex min-w-0 flex-col gap-2">
-        <h2 id="habit-icon-title" className="font-title text-base font-semibold text-theme-text-primary">습관 아이콘</h2>
+        <h2 id="habit-icon-title" className=" text-base font-semibold text-theme-text-primary">습관 아이콘</h2>
         <p className="text-sm leading-relaxed text-theme-text-secondary px-2">습관을 잘 표현하는 아이콘을 골라보세요.</p>
       </div>
       <span aria-label="선택한 습관 아이콘" className="m-2 flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-theme-accent/10">

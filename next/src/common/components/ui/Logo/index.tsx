@@ -18,7 +18,7 @@ const Logo = ({ withText = false, rootClassName, logoClassName, textClassName }:
         <EmotionImage emotion={EMOTIONS[6]} className={logoClassName} alt="TOOK Logo" priority />
       </div>
       {withText && <span
-        className={cn('uppercase font-title leading-[1.2] text-theme-text-primary', textClassName)}
+        className={cn('uppercase  leading-[1.2] text-theme-text-primary', textClassName)}
       >
         TOOK
       </span>}

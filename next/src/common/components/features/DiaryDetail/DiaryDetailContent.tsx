@@ -20,7 +20,7 @@ export const DiaryDetailContent = ({ diaryData }: DiaryDetailContentProps) => {
           width={80}
           height={80}
         />
-        <div className="font-title">
+        <div className="">
           <p className="text-sm text-theme-accent-text">오늘의 마음</p>
           <h2 className="mt-1 text-2xl font-medium text-theme-text-primary landscape-short:text-xl">
             {emotion.nameKr}

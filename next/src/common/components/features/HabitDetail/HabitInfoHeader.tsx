@@ -12,7 +12,7 @@ const HabitInfoHeader = ({ habitData }: Props) => {
     <header className="flex w-full min-w-0 flex-col gap-4 py-6">
       <div className="flex flex-col min-w-0 justify-center items-center gap-4">
         <HabitIcon iconKey={habitData?.iconKey} className="shrink-0 text-4xl" />
-        <h1 className="m-0 min-w-0 break-words font-title text-3xl font-semibold leading-tight text-theme-text-primary">
+        <h1 className="m-0 min-w-0 break-words  text-3xl font-semibold leading-tight text-theme-text-primary">
           {habitData?.name ?? '-'}
         </h1>
       </div>

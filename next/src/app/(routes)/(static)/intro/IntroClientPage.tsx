@@ -22,7 +22,7 @@ const RESPONSIVE_IMAGES = [INTRO_IMAGES.list, INTRO_IMAGES.pc_list, INTRO_IMAGES
 const IntroClientPage = () => {
   return (
     <ScrollContainer
-      className="static-theme-blue bg-theme-accent-light h-[100dvh] w-[100dvw] font-title"
+      className="static-theme-blue bg-theme-accent-light h-[100dvh] w-[100dvw] "
       showScrollFade
       scrollFadeClassName='desktop:hidden'
     >

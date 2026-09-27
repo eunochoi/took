@@ -23,6 +23,8 @@
   --theme-calendar-sunday: 232 118 109;
   --theme-shadow-color: 0 0 0;
   color-scheme: light;
+  --app-font-family: 'SUIT';
+  font-family: var(--app-font-family);
 }
 
 html[data-theme-accent='blue'] {

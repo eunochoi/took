@@ -14,7 +14,7 @@ interface PanelHeaderProps {
 
 const panelHeaderClass = "relative flex h-[var(--panel-header-height)] w-full shrink-0 items-center justify-between";
 const panelHeaderButtonClass = "text-xl flex items-center justify-center text-theme-accent";
-const panelHeaderTitleClass = "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-title text-base font-semibold text-theme-text-primary";
+const panelHeaderTitleClass = "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  text-base font-semibold text-theme-text-primary";
 
 export const PanelHeader = ({
   title,

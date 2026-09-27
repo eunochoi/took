@@ -6,7 +6,7 @@ interface Props {
   children: ReactNode;
 }
 
-const docMainClass = 'flex w-full flex-col bg-theme-surface font-title';
+const docMainClass = 'flex w-full flex-col bg-theme-surface ';
 
 const DocLayout = ({ children }: Props) => {
   return (

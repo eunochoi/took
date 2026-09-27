@@ -31,7 +31,7 @@ const DocHeader = ({ description, subtitle, title }: Props) => {
         </button>
         <Wordmark className="text-5xl tablet:text-6xl" />
         <div className="flex flex-col gap-3">
-          <h1 className="m-0 break-keep font-title text-3xl leading-tight text-theme-text-primary tablet:text-4xl">{title}</h1>
+          <h1 className="m-0 break-keep  text-3xl leading-tight text-theme-text-primary tablet:text-4xl">{title}</h1>
           <p className="m-0 text-base font-bold text-theme-accent">{subtitle}</p>
         </div>
         {description ? (

@@ -52,7 +52,7 @@ const MonthInfo = ({ habitId, today }: Props) => {
         {stats.map((stat) => (
           <div key={stat.label} className="flex min-w-0 flex-col gap-1 px-2">
             <span className="text-sm text-theme-text-secondary">{stat.label}</span>
-            <strong className="font-title text-2xl text-theme-accent">
+            <strong className=" text-2xl text-theme-accent">
               {stat.value}<span className="ml-0.5 text-sm font-semibold text-theme-text-secondary">{stat.unit}</span>
             </strong>
           </div>
