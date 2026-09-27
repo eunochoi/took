@@ -5,6 +5,7 @@ export type MonthKey = string; // yyyy-MM
 export interface DiaryHabitDayData {
   hasDiary: boolean;
   emotion: number | null;
+  diaryCreatedAt: number | null;
   completedHabitCount: number;
 }
 

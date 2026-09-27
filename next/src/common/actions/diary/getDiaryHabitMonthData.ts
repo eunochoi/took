@@ -28,6 +28,7 @@ export const getDiaryHabitMonthData = async ({ month }: {
         date: true,
         visible: true,
         emotion: true,
+        createdAt: true,
         _count: { select: { habits: true } },
       },
     });
@@ -43,6 +44,7 @@ export const getDiaryHabitMonthData = async ({ month }: {
       daysByDate[diary.date] = {
         hasDiary: diary.visible,
         emotion: diary.visible ? diary.emotion : null,
+        diaryCreatedAt: diary.visible ? diary.createdAt.getTime() : null,
         completedHabitCount: habitCount,
       };
       if (diary.visible) diaryCount += 1;

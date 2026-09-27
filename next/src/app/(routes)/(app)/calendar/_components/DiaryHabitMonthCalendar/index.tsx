@@ -80,6 +80,8 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
           {calendar.days.map((day: CalendarDayModel) => {
             const record: DiaryHabitDayData | undefined = day.isOutsideMonth ? undefined : diaryHabitMonthData?.daysByDate[day.dateKey];
             const emotion: Emotion | undefined = record?.emotion == null ? undefined : EMOTIONS[record.emotion];
+            const rotationStep = record?.diaryCreatedAt == null ? 0 : record.diaryCreatedAt % 10;
+            const rotationDegrees = -10 + rotationStep * (20 / 9);
             const habitCount = record?.completedHabitCount ?? 0;
             const hasDecoration = Boolean(record?.hasDiary && emotion) || habitCount > 0;
             const isSelected = day.dateKey === selectedDate;
@@ -107,7 +109,8 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
                       className={cn(
                         'object-contain scale-[1.05]',
                         isSelected && 'motion-safe:animate-calendar-selected-bounce',
-                      )} />
+                      )}
+                      style={{ rotate: `${rotationDegrees}deg` }} />
                   )}
                   {habitCount > 0 && (
                     <span className={cn(
