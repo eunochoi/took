@@ -9,12 +9,11 @@ import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
-import { useSortToggle } from "@/common/hooks/useSortToggle";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { enqueueSnackbar } from "notistack";
 import { useEffect, useRef } from "react";
-import { useCustomHabitOrder } from "./_hooks/useCustomHabitOrder";
+import { useHabitSortPreferences } from "./_hooks/useHabitSortPreferences";
 import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
 
 const HabitClientPage = () => {
@@ -22,16 +21,15 @@ const HabitClientPage = () => {
   const router = useRouter();
   const pageRef = useRef<HTMLDivElement | null>(null);
   const { todayDoneHabitCount, todayDoneHabitRate } = useTodayHabitRate();
-  const { sortValue, onToggle } = useSortToggle({ sortKey: 'habit' });
-  const { customHabitOrder, isStorageReady } = useCustomHabitOrder();
+  const { sortValue, priorityFirst, onToggleSort, onTogglePriorityFirst, customHabitOrder, isStorageReady } = useHabitSortPreferences();
 
   useEffect(() => {
     pageRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [sortValue]);
+  }, [sortValue, priorityFirst]);
 
   const { data: habits } = useQuery({
-    queryKey: ['habits', 'list', sortValue, customHabitOrder],
-    queryFn: () => authAction(() => getHabitList({ sortType: sortValue, customHabitOrder })),
+    queryKey: ['habits', 'list', sortValue, priorityFirst, customHabitOrder],
+    queryFn: () => authAction(() => getHabitList({ sortType: sortValue, priorityFirst, customHabitOrder })),
     enabled: isStorageReady,
     placeholderData: keepPreviousData,
   });
@@ -55,9 +53,11 @@ const HabitClientPage = () => {
       pageRef={pageRef}
       toolbar={
         <HabitViewToolbar
-          onToggle={onToggle}
+          onToggle={onToggleSort}
+          onTogglePriorityFirst={onTogglePriorityFirst}
           onAddHabit={onAddHabit}
           sortValue={sortValue}
+          priorityFirst={priorityFirst}
         />
       }
       mainSection={

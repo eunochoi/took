@@ -7,20 +7,16 @@ import type { ActionResult } from '../types';
 import type { HabitData, HabitListParams } from './types';
 import { createAuthErrorResult, createServerErrorResult, formatHabitData } from './utils';
 
-export const getHabitList = async ({ sortType, customHabitOrder = [] }: HabitListParams): Promise<ActionResult<HabitData[]>> => {
+export const getHabitList = async ({ sortType, priorityFirst = false, customHabitOrder = [] }: HabitListParams): Promise<ActionResult<HabitData[]>> => {
   try {
     const auth = await getAuth();
     if (!auth.ok) return createAuthErrorResult(auth);
 
     const orderIds = customHabitOrder.map((id) => Number(id)).filter((id) => Number.isFinite(id));
-    // default orderBy : createdAt: 'desc'
-    let orderBy: Prisma.HabitOrderByWithRelationInput | Prisma.HabitOrderByWithRelationInput[] = { createdAt: 'desc' };
-
-    if (sortType === 'ASC') {
-      orderBy = { createdAt: 'asc' };
-    } else if (sortType === 'PRIORITY') {
-      orderBy = [{ priority: 'desc' }, { createdAt: 'asc' }];
-    }
+    const dateOrder = sortType === 'ASC' ? 'asc' : 'desc';
+    const orderBy: Prisma.HabitOrderByWithRelationInput[] = priorityFirst && sortType !== 'CUSTOM'
+      ? [{ priority: 'desc' }, { createdAt: dateOrder }, { id: 'asc' }]
+      : [{ createdAt: dateOrder }, { id: 'asc' }];
 
     const habits = await prisma.habit.findMany({
       where: { email: auth.email },
@@ -36,7 +32,7 @@ export const getHabitList = async ({ sortType, customHabitOrder = [] }: HabitLis
         if (aOrder !== undefined && bOrder !== undefined) return aOrder - bOrder;
         if (aOrder !== undefined) return -1;
         if (bOrder !== undefined) return 1;
-        return b.createdAt.getTime() - a.createdAt.getTime();
+        return b.createdAt.getTime() - a.createdAt.getTime() || a.id - b.id;
       });
     }
 

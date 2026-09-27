@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-import { useCustomHabitOrder } from '@/app/(routes)/(app)/habit/_hooks/useCustomHabitOrder';
+import { useHabitSortPreferences } from '@/app/(routes)/(app)/habit/_hooks/useHabitSortPreferences';
 import { PanelDialog } from '@/common/components/ui/Dialog/PanelDialog';
 import { PanelBody } from '@/common/components/ui/Dialog/PanelDialog/PanelBody';
 import { PanelFooter } from '@/common/components/ui/Dialog/PanelDialog/PanelFooter';
@@ -22,7 +22,7 @@ import { HabitList } from './HabitList';
 export const HabitOrderClientPage = () => {
   const router = useRouter();
   const [isDialogMounted, setIsDialogMounted] = useState(true);
-  const { customHabitOrder, setCustomHabitOrder, isStorageReady } = useCustomHabitOrder();
+  const { customHabitOrder, setCustomHabitOrder, isStorageReady } = useHabitSortPreferences();
 
   const { data: customHabits, isPending, isError, refetch } = useQuery({
     queryKey: ['habits', 'list', 'CUSTOM', customHabitOrder],

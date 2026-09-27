@@ -33,7 +33,7 @@ const DiaryListViewToolbar = ({ openPeriodFilter, isPeriodSelected, selectedPeri
           onClick={openPeriodFilter}
         >
           <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
-          {isPeriodSelected ? selectedPeriodLabel : "전체 기간"}
+          {isPeriodSelected && selectedPeriodLabel}
         </ToolbarButton>
 
         <ToolbarButton

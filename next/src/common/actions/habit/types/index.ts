@@ -8,6 +8,7 @@ export type IdParams = {
 
 export type HabitListParams = {
   sortType: HabitSort;
+  priorityFirst?: boolean;
   customHabitOrder?: number[];
 };
 

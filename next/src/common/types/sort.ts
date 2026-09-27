@@ -1,5 +1,5 @@
 export const DIARY_SORT_OPTIONS = ['ASC', 'DESC'] as const;
-export const HABIT_SORT_OPTIONS = ['ASC', 'DESC', 'PRIORITY', 'CUSTOM'] as const;
+export const HABIT_SORT_OPTIONS = ['DESC', 'ASC', 'CUSTOM'] as const;
 
 export type DiarySort = typeof DIARY_SORT_OPTIONS[number];
 export type HabitSort = typeof HABIT_SORT_OPTIONS[number];
@@ -26,5 +26,6 @@ export const DEFAULT_SORT_BY_KEY = {
 export interface SortPreferences {
   diary?: DiarySort;
   habit?: HabitSort;
+  habitPriorityFirst?: boolean;
   habitCustom?: number[];
 }
