@@ -4,7 +4,7 @@ import { DIARY_TEXT_PREVIEW_LINE_COUNT } from '@/common/constants/diary';
 import type { DiaryData } from '@/common/types/diary';
 import { cn } from '@/common/utils/cn';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdChevronRight, MdMenuBook, MdMoreVert } from 'react-icons/md';
 import SelectedDaySectionHeader from '../SelectedDaySectionHeader';
 import SelectedDayDiaryEmptyState from './SelectedDayDiaryEmptyState';
@@ -20,7 +20,6 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
   const hasDiary = diaryData?.visible === true;
   const images = diaryData?.Images ?? [];
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -31,7 +30,6 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
       <SelectedDaySectionHeader title="감정 일기" icon={<MdMenuBook />}>
         {hasDiary && (
           <button
-            ref={menuButtonRef}
             className="flex cursor-pointer items-center gap-2 text-xl text-theme-text-tertiary"
             onClick={() => setMenuOpen((prev) => !prev)}
             type="button"
@@ -46,7 +44,6 @@ const SelectedDayDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary 
         <DiaryMenus
           isMenuOpen={isMenuOpen}
           setMenuOpen={setMenuOpen}
-          anchorRef={menuButtonRef}
           diaryData={diaryData}
         />
       )}

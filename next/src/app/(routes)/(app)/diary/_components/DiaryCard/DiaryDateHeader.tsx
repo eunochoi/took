@@ -5,7 +5,7 @@ import type { DiaryData } from '@/common/types/diary';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdMoreVert } from 'react-icons/md';
 
 interface Props {
@@ -18,7 +18,6 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
   const emotion = EMOTIONS[diaryData.emotion];
 
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleToggleMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -40,7 +39,6 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
         {emotion && <span className="text-base text-theme-text-tertiary tracking-wide">{emotion.nameKr}</span>}
       </div>
       <button
-        ref={menuButtonRef}
         className="ml-auto flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-xl text-theme-text-tertiary"
         aria-label="일기 메뉴"
         aria-expanded={isMenuOpen}
@@ -52,7 +50,6 @@ const DiaryDateHeader = ({ diaryData }: Props) => {
       <DiaryMenus
         isMenuOpen={isMenuOpen}
         setMenuOpen={setMenuOpen}
-        anchorRef={menuButtonRef}
         diaryData={diaryData}
       />
     </div>

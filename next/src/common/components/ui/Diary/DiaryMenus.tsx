@@ -1,58 +1,47 @@
 import { deleteDiary } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
+import Menus from '@/common/components/ui/Menus';
 import type { DiaryMenuData } from "@/common/types/diary";
-import EditDeleteMenu from "@/common/components/ui/EditDeleteMenu";
 import { parseLocalDate } from "@/common/utils/date/parseLocalDate";
 import { useQueryClient } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
-import { closeSnackbar, enqueueSnackbar } from "notistack";
-import { Dispatch, RefObject, SetStateAction } from "react";
-import { SnackBarAction } from "../../../providers/snackbar/SnackBarAction";
+import { enqueueSnackbar } from "notistack";
+import { Dispatch, SetStateAction } from "react";
 
 interface Props {
   isMenuOpen: boolean;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
-  anchorRef: RefObject<HTMLElement>;
   diaryData: DiaryMenuData;
+  onDeleted?: () => void;
 }
 
-const DiaryMenus = ({ isMenuOpen, setMenuOpen, anchorRef, diaryData }: Props) => {
+const DiaryMenus = ({ isMenuOpen, setMenuOpen, diaryData, onDeleted }: Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
-  const onClickDeleteButton = () => {
-    const action = () => (
-      <SnackBarAction
-        yesAction={async () => {
-          closeSnackbar('diaryDelete');
-          try {
-            await authAction(() => deleteDiary({ id: diaryData.id }));
-            queryClient.invalidateQueries({ queryKey: ['diary'] });
-            queryClient.invalidateQueries({ queryKey: ['diary-habit', 'month'] });
-            queryClient.invalidateQueries({ queryKey: ['stats'] });
-            enqueueSnackbar('일기 삭제 완료');
-          } catch (error) {
-            enqueueSnackbar(error instanceof Error ? error.message : '일기 삭제 실패');
-          }
-        }}
-        noAction={() => {
-          closeSnackbar('diaryDelete');
-        }} />
-    );
-    enqueueSnackbar(`${format(parseLocalDate(diaryData.date), 'yy년 M월 d일')} 일기를 지우시겠습니까?`, { key: 'diaryDelete', persist: false, action, autoHideDuration: 3000 });
+  const onDelete = async () => {
+    try {
+      await authAction(() => deleteDiary({ id: diaryData.id }));
+      queryClient.invalidateQueries({ queryKey: ['diary'] });
+      queryClient.invalidateQueries({ queryKey: ['diary-habit', 'month'] });
+      queryClient.invalidateQueries({ queryKey: ['stats'] });
+      enqueueSnackbar('일기 삭제 완료');
+      onDeleted?.();
+    } catch (error) {
+      enqueueSnackbar(error instanceof Error ? error.message : '일기 삭제 실패');
+    }
   };
-  const onClickEdit = () => {
-    router.push(`/diary/${diaryData.id}/edit`, { scroll: false });
-  };
+  const dateLabel = format(parseLocalDate(diaryData.date), 'yyyy년 M월 d일 작성 일기');
 
   return (
-    <EditDeleteMenu
-      isMenuOpen={isMenuOpen}
-      setMenuOpen={setMenuOpen}
-      anchorRef={anchorRef}
-      onEdit={onClickEdit}
-      onDelete={onClickDeleteButton}
-      vertical
+    <Menus
+      isOpen={isMenuOpen}
+      onClose={() => setMenuOpen(false)}
+      title="일기 메뉴"
+      content={<p className="mt-2 text-center text-base text-theme-text-primary">{dateLabel}</p>}
+      message="이 날짜의 일기를 수정하거나 삭제할 수 있어요."
+      onEdit={() => router.push(`/diary/${diaryData.id}/edit`, { scroll: false })}
+      onDelete={onDelete}
     />
   );
 };
