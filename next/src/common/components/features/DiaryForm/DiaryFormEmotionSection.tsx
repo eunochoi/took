@@ -34,8 +34,8 @@ const DiaryFormEmotionSection = ({
           )}
         </span>
         <span className="flex min-w-0 flex-1 flex-col gap-1">
-          <span className="text-sm text-theme-text-secondary">오늘의 감정</span>
-          <span className=" text-base font-semibold text-theme-text-primary">
+          <span className="text-lg font-semibold text-theme-text-primary">오늘의 감정</span>
+          <span className=" text-sm text-theme-text-secondary">
             {selectedEmotion?.nameKr ?? '감정을 골라주세요'}
           </span>
         </span>
