@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import bottomCatTail from '/public/img/bottom-cat-tail.png';
+import hidingCatTail from '/public/img/hiding-cat-tail.png';
 import { cn } from '@/common/utils/cn';
 
 const CONTAINER_CLASS =
@@ -24,8 +24,8 @@ export const BottomSafe = ({ className }: { className?: string }) => {
       className={cn(CONTAINER_CLASS, className)}>
       <Image
         className={TAIL_IMAGE_CLASS}
-        src={bottomCatTail}
-        alt="bottom-cat-tail"
+        src={hidingCatTail}
+        alt="hiding-cat-tail"
         sizes="45vw"
       />
 

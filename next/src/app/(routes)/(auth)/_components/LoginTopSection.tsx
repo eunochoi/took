@@ -1,7 +1,7 @@
 import { TOP_SECTION_WRAPPER_CLASS } from '@/common/components/layout/AppPageLayout';
 import Wordmark from '@/common/components/ui/Wordmark';
 import Image from 'next/image';
-import bottomCat from '/public/img/bottom-cat.png';
+import hidingCat from '/public/img/hiding-cat.png';
 
 const LoginTopSection = () => (
   <section
@@ -19,7 +19,7 @@ const LoginTopSection = () => (
         <p>나만의 속도로 하루를 쌓아가요.</p>
       </div>
     </div>
-    <Image priority src={bottomCat} alt="bottom-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 60vw, 68vw" className="ml-auto mt-auto block w-3/4 tablet:w-2/3 desktop:w-full" />
+    <Image priority src={hidingCat} alt="hiding-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 60vw, 68vw" className="ml-auto mt-auto block w-3/4 tablet:w-2/3 desktop:w-full" />
   </section>
 );
 

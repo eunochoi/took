@@ -4,7 +4,7 @@ import Wordmark from '@/common/components/ui/Wordmark';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { MdArrowBackIos } from 'react-icons/md';
-import bottomCat from '/public/img/bottom-cat.png';
+import hidingCat from '/public/img/hiding-cat.png';
 
 interface Props {
   description?: string;
@@ -37,7 +37,7 @@ const DocHeader = ({ description, subtitle, title }: Props) => {
         {description ? (
           <p className="m-0 max-w-[520px] text-balance break-keep text-sm leading-relaxed text-theme-text-secondary tablet:text-base">{description}</p>
         ) : null}
-        <Image src={bottomCat} alt="" sizes="(min-width: 784px) 360px, (min-width: 480px) calc(50vw - 32px), calc(100vw - 40px)" className="ml-auto block w-full tablet:w-1/2" />
+        <Image src={hidingCat} alt="" sizes="(min-width: 784px) 360px, (min-width: 480px) calc(50vw - 32px), calc(100vw - 40px)" className="ml-auto block w-full tablet:w-1/2" />
       </div>
     </header>
   );

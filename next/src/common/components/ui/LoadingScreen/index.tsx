@@ -2,7 +2,7 @@
 
 import Wordmark from '@/common/components/ui/Wordmark';
 import Image from 'next/image';
-import bottomCat from '/public/img/bottom-cat.png';
+import hidingCat from '/public/img/hiding-cat.png';
 
 interface LoadingScreenProps {
   message?: string;
@@ -26,7 +26,7 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => {
         </div>
       )}
       {message && <span className="text-base text-theme-text-primary">{message}</span>}
-      <Image priority src={bottomCat} alt="bottom-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 70vw, 75vw" className='absolute bottom-0 right-0 w-3/4 tablet:w-[70dvw] desktop:w-[50dvw]' />
+      <Image priority src={hidingCat} alt="hiding-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 70vw, 75vw" className='absolute bottom-0 right-0 w-3/4 tablet:w-[70dvw] desktop:w-[50dvw]' />
     </div>
   );
 };

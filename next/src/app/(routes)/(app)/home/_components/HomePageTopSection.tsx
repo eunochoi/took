@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import Image from 'next/image';
 
-import bottomCat from '/public/img/bottom-cat.png';
+import hidingCat from '/public/img/hiding-cat.png';
 
 import EmotionImage from '@/common/components/ui/EmotionImage';
 import Wordmark from '@/common/components/ui/Wordmark';
@@ -44,7 +44,7 @@ const HomePageTopSection = ({ initialDate }: { initialDate: string }) => {
       <div className="desktop:hidden p-1">
         <TodayRecordSection initialDate={initialDate} />
       </div>
-      <Image priority src={bottomCat} alt="bottom-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) calc(50vw - 36px), 68vw" className="ml-auto block w-3/4 tablet:w-1/2 desktop:w-1/2" />
+      <Image priority src={hidingCat} alt="hiding-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) calc(50vw - 36px), 68vw" className="ml-auto block w-3/4 tablet:w-1/2 desktop:w-1/2" />
     </section>
   );
 };

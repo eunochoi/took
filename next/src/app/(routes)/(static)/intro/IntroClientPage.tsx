@@ -10,7 +10,7 @@ import IntroHero from './_components/IntroHero';
 import IntroInfoCard from './_components/IntroInfoCard';
 import IntroSection from './_components/IntroSection';
 import { INTRO_IMAGES } from './_constants/images';
-import bottomCat from '/public/img/bottom-cat.png';
+import hidingCat from '/public/img/hiding-cat.png';
 
 
 const HOME_IMAGES = [INTRO_IMAGES.habitinfo1, INTRO_IMAGES.habitinfo2, INTRO_IMAGES.calendar];
@@ -89,7 +89,7 @@ const IntroClientPage = () => {
           EMOTION DIARY & HABIT TRACKER
         </span>
         <IntroActionButtons className="mt-3 max-w-[620px]" />
-        <Image priority src={bottomCat} alt="bottom-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 70vw, calc(100vw - 40px)" className='tablet:ml-auto tablet:w-[70dvw] desktop:w-[50dvw]' />
+        <Image priority src={hidingCat} alt="hiding-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 70vw, calc(100vw - 40px)" className='tablet:ml-auto tablet:w-[70dvw] desktop:w-[50dvw]' />
       </section>
     </ScrollContainer>
   );

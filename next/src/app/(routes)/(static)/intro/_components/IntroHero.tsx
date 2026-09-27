@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import Wordmark from '@/common/components/ui/Wordmark';
 import IntroActionButtons from './IntroActionButtons';
-import bottomCat from '/public/img/bottom-cat.png';
+import hidingCat from '/public/img/hiding-cat.png';
 
 const heroSectionClass = "flex min-h-[80dvh] w-full flex-col overflow-hidden bg-theme-surface px-5 pt-12 desktop:flex-row desktop:gap-8 desktop:px-[min(6vw,96px)]";
 const heroContentClass = "flex flex-col items-start justify-center gap-12 px-1 py-6 text-start desktop:w-auto desktop:items-start desktop:gap-16 desktop:px-6 desktop:py-16 desktop:text-left";
@@ -31,7 +31,7 @@ const IntroHero = () => {
         <IntroActionButtons className="p-0 desktop:justify-start" />
       </div>
       <div className={heroImageClass}>
-        <Image priority src={bottomCat} alt="bottom-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 66vw, calc(100vw - 40px)" className="tablet:w-2/3 desktop:w-full" />
+        <Image priority src={hidingCat} alt="hiding-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 66vw, calc(100vw - 40px)" className="tablet:w-2/3 desktop:w-full" />
       </div>
     </section>
   );
