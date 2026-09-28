@@ -34,7 +34,7 @@ const HabitAnalysis = ({ stats, year }: Props) => {
     <AppSection>
       <AppSectionHeader>
         <AppSectionTitle>습관 기록</AppSectionTitle>
-        <AppSectionMeta>{year}년</AppSectionMeta>
+        <AppSectionMeta>{year}년 기준</AppSectionMeta>
       </AppSectionHeader>
 
       <AppUnderlineTabs

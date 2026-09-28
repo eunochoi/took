@@ -5,8 +5,7 @@ import {
   PICKER_CLOSE_BUTTON_CLASS,
   PICKER_CONFIRM_BUTTON_CLASS,
   PICKER_CONTENT_CLASS,
-  PICKER_DESCRIPTION_CLASS,
-  PICKER_TITLE_CLASS,
+  PICKER_TITLE_CLASS
 } from '@/common/components/ui/Dialog/PickerDialog/constants';
 import { EmotionPicker } from '@/common/components/ui/EmotionPicker';
 import { EMOTIONS } from '@/common/constants/emotions';
@@ -37,7 +36,6 @@ const DiaryFormEmotionPicker = ({ emotion, onClose, onConfirm }: DiaryFormEmotio
           </button>
           <div className="flex flex-col">
             <h2 id="diary-emotion-picker-title" className={PICKER_TITLE_CLASS}>오늘의 감정을 골라주세요</h2>
-            <p id="diary-emotion-picker-description" className={PICKER_DESCRIPTION_CLASS}>하루를 가장 잘 표현하는 감정 하나</p>
           </div>
           <div className={PICKER_BODY_CLASS}>
             <EmotionPicker value={draftEmotion} onChange={setDraftEmotion} />

@@ -129,22 +129,6 @@ html[data-theme-mode='어둡게'] {
   color-scheme: dark;
 }
 
-.calendar-top-cat-light {
-  display: block;
-}
-
-.calendar-top-cat-dark {
-  display: none;
-}
-
-html[data-theme-mode='어둡게'] .calendar-top-cat-light {
-  display: none;
-}
-
-html[data-theme-mode='어둡게'] .calendar-top-cat-dark {
-  display: block;
-}
-
 /* app font type */
 html[data-font-type='타입1'] {
   --app-font-family: 'TmoneyRoundWind';

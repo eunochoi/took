@@ -27,6 +27,27 @@
   font-family: var(--app-font-family);
 }
 
+html[data-theme-accent="green"] .theme-filtered-img {
+  filter: sepia(0.8) hue-rotate(110deg) saturate(1.35) brightness(0.88) contrast(1.02);
+}
+
+html[data-theme-accent="pink"] .theme-filtered-img {
+  filter: sepia(1) hue-rotate(-60deg) saturate(1.14) brightness(0.88) contrast(1.1);
+}
+
+html[data-theme-accent="purple"] .theme-filtered-img {
+  filter: sepia(0.81) hue-rotate(-168deg) saturate(1.60) brightness(0.82) contrast(1.07);
+}
+
+html[data-theme-accent="yellow"] .theme-filtered-img {
+  filter: sepia(0.9) hue-rotate(4deg) saturate(2.8) brightness(0.95) contrast(1.06);
+}
+
+html[data-theme-accent="grey"] .theme-filtered-img {
+  filter: grayscale(1) brightness(0.87);
+}
+
+
 html[data-theme-accent='blue'] {
   --theme-accent: 140 173 226;
   --theme-accent-light: 240 247 255;

@@ -9,6 +9,7 @@ import hidingCat from '/public/img/hiding-cat.png';
 import EmotionImage from '@/common/components/ui/EmotionImage';
 import Wordmark from '@/common/components/ui/Wordmark';
 import { EMOTIONS } from '@/common/constants/emotions';
+import { TopSectionCatClass, TopSectionCatSize } from '@/common/constants/TopSectionCat';
 import { useSettingsContext } from '@/common/settings/useSettingsContext';
 import { cn } from '@/common/utils/cn';
 import TodayRecordSection from './TodayRecordSection';
@@ -44,7 +45,7 @@ const HomePageTopSection = ({ initialDate }: { initialDate: string }) => {
       <div className="desktop:hidden p-1">
         <TodayRecordSection initialDate={initialDate} />
       </div>
-      <Image priority src={hidingCat} alt="hiding-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) calc(50vw - 36px), 68vw" className="ml-auto block w-3/4 tablet:w-1/3 desktop:w-1/3" />
+      <Image priority src={hidingCat} alt="hiding-cat" sizes={TopSectionCatSize} className={TopSectionCatClass} />
     </section>
   );
 };

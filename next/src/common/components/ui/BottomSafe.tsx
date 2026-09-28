@@ -6,7 +6,7 @@ import hidingCatTail from '/public/img/hiding-cat-tail-no-pawprints.png';
 const CONTAINER_CLASS =
   'desktop:hidden w-[180px] self-center mt-16 desktop:mt-24 mb-24 flex flex-col';
 const TAIL_IMAGE_CLASS =
-  '-mb-1 h-auto w-full';
+  'theme-filtered-img -mb-1 h-auto w-full';
 const BOX_CLASS =
   'relative h-24 w-full rotate-[-1deg] bg-theme-text-tertiary shadow-md [clip-path:polygon(4%_3%,95%_0%,100%_82%,93%_100%,8%_95%,0%_14%)]';
 const BOX_TOP_FOLD_CLASS =
