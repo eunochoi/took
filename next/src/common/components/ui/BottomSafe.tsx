@@ -4,7 +4,7 @@ import Image from 'next/image';
 import hidingCatTail from '/public/img/hiding-cat-tail-no-pawprints.png';
 
 const CONTAINER_CLASS =
-  'desktop:hidden w-[180px] self-center mt-16 desktop:mt-24 mb-24 flex flex-col';
+  'w-[180px] self-center mt-16 desktop:mt-24 mb-24 flex flex-col';
 const TAIL_IMAGE_CLASS =
   'theme-filtered-img -mb-1 h-auto w-full';
 const BOX_CLASS =
