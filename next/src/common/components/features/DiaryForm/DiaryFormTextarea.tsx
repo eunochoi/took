@@ -20,7 +20,7 @@ const DiaryFormTextarea = ({ text, setText }: DiaryFormTextareaProps) => {
         onChange={(event) => setText(event.target.value)}
         value={text}
         maxLength={DIARY_TEXT_MAX_LENGTH}
-        placeholder="오늘 기억하고 싶은 순간을 남겨보세요."
+        placeholder="기억하고 싶은 순간을 남겨보세요."
       />
       <div id="diary-text-count" className={cn('flex flex-wrap items-center justify-end gap-x-3 gap-y-1 text-xs tabular-nums', isOverLimit ? 'text-theme-danger' : 'text-theme-text-tertiary')}>
         {isOverLimit && <span role="alert">저장하려면 {text.length - DIARY_TEXT_MAX_LENGTH}자를 줄여주세요.</span>}

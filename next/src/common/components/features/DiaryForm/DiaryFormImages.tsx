@@ -117,7 +117,7 @@ const DiaryFormImages = ({ diaryImages, handleImageChange, getImageUrl, handleRe
         if (from >= 0 && to >= 0) onReorder(from, to);
       }}
     >
-      <div className="flex w-full gap-3 overflow-x-auto py-1">
+      <div className="flex w-full gap-3 overflow-x-auto py-2">
         <SortableContext items={items.map((item) => item.id)} strategy={horizontalListSortingStrategy}>
           {items.map((item, index) => (
             <SortableDiaryImage key={item.id} {...item} index={index} disabled={isLoading} onRemove={() => handleRemoveImage(index)} />
