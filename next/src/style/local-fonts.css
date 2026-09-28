@@ -10,14 +10,22 @@
 .font-wordmark {
   font-family: 'Fredoka', sans-serif;
   font-weight: 550;
-  font-stretch: 97%;
+  font-stretch: 95%;
 }
 
 @font-face {
-  font-family: 'Pretendard';
-  src: url('/fonts/PretendardVariable.woff2') format('woff2');
+  font-family: 'TmoneyRoundWind';
+  src: url('/fonts/TmoneyRoundWindRegular.otf') format('opentype');
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TmoneyRoundWind';
+  src: url('/fonts/TmoneyRoundWindExtraBold.otf') format('opentype');
+  font-style: normal;
+  font-weight: 800;
   font-display: swap;
 }
 

@@ -68,7 +68,7 @@ const EmotionStats = ({ year, emotionCounts, halfYearEmotionCounts }: Props) => 
                 height={48}
               />
               {firstPlaceEmotionIds.includes(emotion.id) && (
-                <span className="absolute -right-3 -top-2 flex h-6 min-w-7 items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent px-1 text-xs font-semibold text-theme-text-on-accent">
+                <span className="absolute -right-3 -top-2 flex h-7 min-w-8 items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent px-1 text-xs font-semibold text-theme-text-on-accent">
                   1등
                 </span>
               )}

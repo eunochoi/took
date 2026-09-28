@@ -27,7 +27,7 @@ const HomePageTopSection = ({ initialDate }: { initialDate: string }) => {
       <div className="tablet:hidden"><Wordmark className="text-[48px]" /></div>
       <div className="flex flex-col p-2 gap-6 desktop:gap-8">
         <div className='flex flex-col gap-3'>
-          <span className="m-0 text-2xl font-semibold text-theme-text-secondary">{today}</span>
+          <span className="m-0 text-xl font-semibold text-theme-accent-deep">{today}</span>
           <h1 className="-ml-1 flex gap-2 items-end m-0 h-10 desktop:h-12">
             <span className="text-4xl desktop:text-5xl font-bold text-theme-text-primary">{GREETING_TEXT.title}</span>
             <EmotionImage

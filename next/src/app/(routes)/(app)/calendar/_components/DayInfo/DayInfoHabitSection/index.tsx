@@ -61,7 +61,7 @@ const DayInfoHabitSection = ({
             기록 전
           </span>
         ) : habitData?.canEdit ? (
-          <span className="text-xs font-semibold text-theme-accent desktop:text-sm">
+          <span className="text-xs text-theme-accent desktop:text-sm">
             {completedHabitCount}/{habits.length} 완료
           </span>
         ) : (
@@ -136,7 +136,7 @@ const DayInfoHabitSection = ({
 
             {canExpand && (
               <button
-                className="flex min-h-8 w-full items-center justify-center gap-1 text-xs font-semibold text-theme-accent desktop:text-sm"
+                className="flex min-h-8 w-full items-center justify-center gap-1 text-xs text-theme-accent desktop:text-sm"
                 onClick={() =>
                   setIsExpanded(
                     (previousIsExpanded) => !previousIsExpanded,

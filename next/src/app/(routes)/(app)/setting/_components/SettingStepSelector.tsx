@@ -39,7 +39,7 @@ export const SettingStepSelector = <T extends string>({
       >
         <MdChevronLeft />
       </button>
-      <span className="min-w-12 text-center text-base font-semibold text-theme-accent">{displayValue}</span>
+      <span className="min-w-12 text-center text-base text-theme-accent">{displayValue}</span>
       <button
         className={stepButtonClass}
         onClick={increase}

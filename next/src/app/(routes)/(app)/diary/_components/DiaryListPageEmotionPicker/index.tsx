@@ -7,8 +7,7 @@ import {
   PICKER_CLOSE_BUTTON_CLASS,
   PICKER_CONFIRM_BUTTON_CLASS,
   PICKER_CONTENT_CLASS,
-  PICKER_DESCRIPTION_CLASS,
-  PICKER_TITLE_CLASS,
+  PICKER_TITLE_CLASS
 } from '@/common/components/ui/Dialog/PickerDialog/constants';
 import { EmotionPicker } from "@/common/components/ui/EmotionPicker";
 import { useState } from "react";
@@ -39,7 +38,6 @@ const DiaryListPageEmotionPicker = ({
         </button>
         <div className="flex flex-col">
           <h2 id="diary-emotion-picker-title" className={PICKER_TITLE_CLASS}>어떤 감정의 기록을 볼까요?</h2>
-          <p id="diary-emotion-picker-description" className={PICKER_DESCRIPTION_CLASS}>감정을 골라 해당 일기만 모아보세요</p>
         </div>
         <div className={PICKER_BODY_CLASS}>
           <EmotionPicker value={tempEmotion} onChange={setTempEmotion} allowDeselect />

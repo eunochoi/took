@@ -83,7 +83,7 @@ const DayInfoDiarySection = ({ diaryData, isFuture, onAddDiary, onOpenDiary }: P
               >
                 {diaryData.text}
               </p>
-              <button className="flex items-center self-end text-xs font-semibold text-theme-accent desktop:text-sm" type="button">
+              <button className="flex items-center self-end text-xs text-theme-accent desktop:text-sm" type="button">
                 일기 전체 보기 <MdChevronRight className="text-lg" />
               </button>
             </div>

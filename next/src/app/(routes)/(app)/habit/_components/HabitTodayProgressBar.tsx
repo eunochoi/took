@@ -17,7 +17,7 @@ const HabitTodayProgressBar = ({ completedCount, rate, totalCount }: Props) => {
       <div className="flex w-full items-center justify-between gap-3">
         <div className='flex flex-col gap-2'>
           <h2 className=" text-xl font-semibold text-theme-text-primary">오늘의 습관</h2>
-          <span className="shrink-0  text-base font-semibold text-theme-text-tertiary">
+          <span className="shrink-0  text-base text-theme-text-tertiary">
             {completedCount}/{totalCount} 완료
           </span>
         </div>

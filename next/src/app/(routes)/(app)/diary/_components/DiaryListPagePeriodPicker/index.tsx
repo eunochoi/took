@@ -7,8 +7,7 @@ import {
   PICKER_CLOSE_BUTTON_CLASS,
   PICKER_CONFIRM_BUTTON_CLASS,
   PICKER_CONTENT_CLASS,
-  PICKER_DESCRIPTION_CLASS,
-  PICKER_TITLE_CLASS,
+  PICKER_TITLE_CLASS
 } from '@/common/components/ui/Dialog/PickerDialog/constants';
 import { MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useState } from "react";
@@ -43,7 +42,6 @@ const DiaryListPagePeriodPicker = ({
         </button>
         <div className="flex flex-col">
           <h2 id="diary-period-picker-title" className={PICKER_TITLE_CLASS}>어느 기간의 기록을 볼까요?</h2>
-          <p id="diary-period-picker-description" className={PICKER_DESCRIPTION_CLASS}>선택한 연도나 월을 다시 누르면 해당 선택이 해제돼요</p>
         </div>
         <div className={PICKER_BODY_CLASS}>
           <PeriodSelector

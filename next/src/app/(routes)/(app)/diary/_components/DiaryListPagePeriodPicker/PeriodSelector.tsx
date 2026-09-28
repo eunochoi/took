@@ -43,7 +43,7 @@ const PeriodSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelec
                 setSelectedMonth(MONTH_UNSELECTED);
               } else selectYear(displayYear);
             }}
-            className={cn("min-w-0 flex-1 font-semibold", optionClass, selectedYear === displayYear && "bg-theme-accent/10 ring-1 ring-inset ring-theme-accent")}
+            className={cn("min-w-0 flex-1 !text-base font-semibold", optionClass, selectedYear === displayYear && "bg-theme-accent/10 ring-1 ring-inset ring-theme-accent")}
           >
             {displayYear}년
           </button>

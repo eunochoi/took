@@ -2,10 +2,10 @@
 
 import { checkHabit as checkHabitAction, getHabitRecentStatus, uncheckHabit as uncheckHabitAction } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
+import { showNotice } from '@/common/components/ui/Notice/notice';
 import { getTodayString } from "@/common/functions/getTodayString";
 import { cn } from "@/common/utils/cn";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { showNotice } from '@/common/components/ui/Notice/notice';
 import { useRef, useState } from "react";
 
 import { MdCheck } from "react-icons/md";
@@ -85,7 +85,7 @@ const HabitBox = ({ name, id, priority, iconKey }: Props) => {
         disabled={controlsDisabled || todayCompleted}
         onClick={() => onToggleHabit(true, todayString)}
         className={cn(
-          "w-full min-h-10 mt-auto self-start rounded-xl px-3 py-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed",
+          "w-full min-h-10 mt-auto self-start rounded-xl px-3 py-2 text-sm transition-colors disabled:cursor-not-allowed",
           todayCompleted ? "bg-theme-bg text-theme-text-secondary" : "bg-theme-accent/75 text-theme-text-on-accent",
         )}
       >

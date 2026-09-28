@@ -22,7 +22,7 @@ const HabitBoxRecentDays = ({ name, recentDateStatus, controlsDisabled, onToggle
         const dateString = format(date, 'yyyy-MM-dd');
         return (
           <label key={dateString} className="flex cursor-pointer flex-col items-center gap-1 text-sm text-theme-text-secondary">
-            <span className={i === 0 ? 'text-theme-accent font-semibold' : ''}>{format(date, 'eee', { locale: ko })}</span>
+            <span>{format(date, 'eee', { locale: ko })}</span>
             <span>{format(date, 'd')}</span>
             <input
               className="peer sr-only"

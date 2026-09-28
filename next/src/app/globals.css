@@ -31,7 +31,7 @@
   --theme-calendar-sunday: 232 118 109;
   --theme-shadow-color: 0 0 0;
   --app-font-size: 15px;
-  --app-font-family: 'SUIT';
+  --app-font-family: 'TmoneyRoundWind';
 
   --sidebarWidth: 270px;
   --pageHeader: 72px;
@@ -147,15 +147,15 @@ html[data-theme-mode='어둡게'] .calendar-top-cat-dark {
 
 /* app font type */
 html[data-font-type='타입1'] {
-  --app-font-family: 'SUIT';
+  --app-font-family: 'TmoneyRoundWind';
 }
 
 html[data-font-type='타입2'] {
-  --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
+  --app-font-family: 'SUIT';
 }
 
 html[data-font-type='타입3'] {
-  --app-font-family: 'Pretendard';
+  --app-font-family: 'HakgyoansimGeurimilgiTTF-R';
 }
 
 html[data-font-type='타입4'] {

@@ -12,7 +12,7 @@ const LoadingScreen = ({ message, showLogo = true }: LoadingScreenProps) => {
   return (
     <div
       className="relative flex h-[100dvh] w-[100dvw] flex-col items-center justify-center gap-6"
-      style={{ backgroundColor: 'var(--loading-background)', fontFamily: 'SUIT' }}
+      style={{ backgroundColor: 'var(--loading-background)', fontFamily: 'TmoneyRoundWind' }}
     >
       {showLogo && (
         <div className="flex flex-col items-center gap-12">

@@ -34,7 +34,7 @@ const DiaryCardHeader = ({ diaryData }: Props) => {
         <EmotionImage emotion={emotion} alt="" className="h-12 w-12 shrink-0 object-contain" />
       )}
       <div className=" flex min-w-0 flex-col gap-0.5">
-        <time dateTime={diaryData.date} className="flex flex-wrap gap-x-1 text-lg font-semibold text-theme-text-primary">
+        <time dateTime={diaryData.date} className="flex flex-wrap gap-x-1 text-base font-semibold text-theme-text-primary">
           <span className="whitespace-nowrap">{formattedDate}</span>
         </time>
         <div className='flex gap-1 text-sm text-theme-text-tertiary'>
