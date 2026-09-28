@@ -11,7 +11,7 @@ interface Props {
   provider: LoginProviderId;
 }
 
-const buttonClass = 'flex h-12 items-center justify-between gap-4 rounded-full border-[1px] border-theme-border px-4 disabled:cursor-not-allowed disabled:opacity-50';
+const buttonClass = 'w-auto min-w-60 max-w-[90dvw] flex h-12 items-center justify-between gap-4 rounded-full border-[1px] border-theme-border px-4 disabled:cursor-not-allowed disabled:opacity-50';
 
 const SocialLoginButton = ({ disabled = false, email, label, onClick, provider }: Props) => {
   const providerConfig = LOGIN_PROVIDERS[provider];
@@ -20,7 +20,6 @@ const SocialLoginButton = ({ disabled = false, email, label, onClick, provider }
     <button
       className={cn(
         buttonClass,
-        email ? 'w-auto min-w-60 max-w-[300px]' : 'w-60',
         providerConfig.bgColor,
       )}
       disabled={disabled}

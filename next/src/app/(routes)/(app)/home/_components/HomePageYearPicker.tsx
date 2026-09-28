@@ -7,8 +7,7 @@ import {
   PICKER_CLOSE_BUTTON_CLASS,
   PICKER_CONFIRM_BUTTON_CLASS,
   PICKER_CONTENT_CLASS,
-  PICKER_DESCRIPTION_CLASS,
-  PICKER_TITLE_CLASS,
+  PICKER_TITLE_CLASS
 } from '@/common/components/ui/Dialog/PickerDialog/constants';
 import { cn } from "@/common/utils/cn";
 import { useState } from "react";
@@ -40,7 +39,6 @@ const HomePageYearPicker = ({ onClose, years, isPending, isError, onRetry, selec
         </button>
         <div className="flex flex-col">
           <h2 id="home-year-picker-title" className={PICKER_TITLE_CLASS}>어느 해의 기록을 볼까요?</h2>
-          <p id="home-year-picker-description" className={PICKER_DESCRIPTION_CLASS}>선택한 연도의 기록을 보여드려요</p>
         </div>
         {isError ? (
           <div role="status" className="py-8 text-center text-theme-text-secondary">
