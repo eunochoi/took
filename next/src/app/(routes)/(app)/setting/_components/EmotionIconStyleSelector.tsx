@@ -18,7 +18,7 @@ export const EmotionIconStyleSelector = () => {
             key={style}
             className={cn(
               'relative flex min-w-0 cursor-pointer flex-col items-center gap-3 border px-2 py-6 rounded-theme transition-colors',
-              emotionIcon.style === style ? 'border-theme-accent bg-theme-accent/10' : 'border-transparent bg-theme-surface',
+              emotionIcon.style === style ? 'border-theme-accent bg-theme-accent/10' : 'border-0',
             )}
           >
             <input
