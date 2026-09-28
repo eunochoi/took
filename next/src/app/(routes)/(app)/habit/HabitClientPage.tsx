@@ -28,8 +28,12 @@ const HabitClientPage = () => {
   }, [sortValue, priorityFirst]);
 
   const { data: habits } = useQuery({
-    queryKey: ['habits', 'list', sortValue, priorityFirst, customHabitOrder],
-    queryFn: () => authAction(() => getHabitList({ sortType: sortValue, priorityFirst, customHabitOrder })),
+    queryKey: ['habits', 'list', sortValue, priorityFirst, sortValue === 'CUSTOM' ? customHabitOrder : []],
+    queryFn: () => authAction(() => getHabitList({
+      sortType: sortValue,
+      priorityFirst,
+      customHabitOrder: sortValue === 'CUSTOM' ? customHabitOrder : [],
+    })),
     enabled: isStorageReady,
     placeholderData: keepPreviousData,
   });

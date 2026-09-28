@@ -1,60 +1,52 @@
 import { getDiaryList } from "@/common/actions/diary";
 import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
-import { EMOTION_TOTAL_COUNT, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
+import { EMOTION_UNSELECTED, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import DiaryClientPage from "./DiaryClientPage";
 
 export const dynamic = 'force-dynamic';
 
-//page for data prefetch
-const DiaryListPage = async () => {
-  const queryClient = new QueryClient();
-  const selectedYear = null;
-
-  // Prefetch diary list data for all emotions and sort directions.
-  for (let i = 0; i < EMOTION_TOTAL_COUNT; i++) {
-    await queryClient.prefetchInfiniteQuery({
-      queryKey: ['diary', 'diaryList', 'emotion', i, 'sort', 'ASC', 'year', selectedYear, 'month', MONTH_UNSELECTED],
-      queryFn: async ({ pageParam }) => {
-        const result = await getDiaryList({
-          sortType: 'ASC',
-          search: i,
-          pageParam,
-          limit: DIARY_LIST_PAGE_SIZE,
-          selectedYear: selectedYear,
-          selectedMonth: MONTH_UNSELECTED
-        });
-        if (!result.ok) throw new Error(result.message);
-        return result.data;
-      },
-      initialPageParam: 0,
-    })
-    await queryClient.prefetchInfiniteQuery({
-      queryKey: ['diary', 'diaryList', 'emotion', i, 'sort', 'DESC', 'year', selectedYear, 'month', MONTH_UNSELECTED],
-      queryFn: async ({ pageParam }) => {
-        const result = await getDiaryList({
-          sortType: 'DESC',
-          search: i,
-          pageParam,
-          limit: DIARY_LIST_PAGE_SIZE,
-          selectedYear: selectedYear,
-          selectedMonth: MONTH_UNSELECTED
-        });
-        if (!result.ok) throw new Error(result.message);
-        return result.data;
-      },
-      initialPageParam: 0,
-    })
+interface Props {
+  searchParams?: {
+    year?: string;
+    month?: string;
+    emotion?: string;
   };
+}
 
+const DiaryListPage = async ({ searchParams }: Props) => {
+  const queryClient = new QueryClient();
+  const selectedYear = searchParams?.year && /^\d{4}$/.test(searchParams.year)
+    ? Number(searchParams.year) : null;
+  const selectedMonth = selectedYear !== null && searchParams?.month && /^(?:[1-9]|1[0-2])$/.test(searchParams.month)
+    ? Number(searchParams.month) : MONTH_UNSELECTED;
+  const emotionToggle = searchParams?.emotion && searchParams.emotion !== ''
+    ? Number(searchParams.emotion) : EMOTION_UNSELECTED;
 
-  const dehydratedState = dehydrate(queryClient)
+  await Promise.all((['ASC', 'DESC'] as const).map((sortType) =>
+    queryClient.prefetchInfiniteQuery({
+      queryKey: ['diary', 'diaryList', 'emotion', emotionToggle, 'sort', sortType, 'year', selectedYear, 'month', selectedMonth],
+      queryFn: async ({ pageParam }) => {
+        const result = await getDiaryList({
+          sortType,
+          search: emotionToggle,
+          pageParam,
+          limit: DIARY_LIST_PAGE_SIZE,
+          selectedYear,
+          selectedMonth,
+        });
+        if (!result.ok) throw new Error(result.message);
+        return result.data;
+      },
+      initialPageParam: 0,
+    }),
+  ));
 
   return (
-    <HydrationBoundary state={dehydratedState}>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <DiaryClientPage />
     </HydrationBoundary>
   );
-}
+};
 
 export default DiaryListPage;

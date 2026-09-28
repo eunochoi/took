@@ -8,23 +8,24 @@ import {
 
 export const useDiaryListFilter = () => {
   const searchParams = useSearchParams();
-
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
-  const [selectedMonth, setSelectedMonth] = useState<number>(MONTH_UNSELECTED);
-  const [emotionToggle, setEmotionToggle] = useState<number>(EMOTION_UNSELECTED);
-
   const queryParamsYear = searchParams.get('year');
   const queryParamsMonth = searchParams.get('month');
   const queryParamsEmotion = searchParams.get('emotion');
+  const parsedYear = queryParamsYear != null && /^\d{4}$/.test(queryParamsYear) ? Number(queryParamsYear) : null;
+  const parsedMonth = parsedYear !== null && queryParamsMonth != null && /^(?:[1-9]|1[0-2])$/.test(queryParamsMonth)
+    ? Number(queryParamsMonth) : MONTH_UNSELECTED;
+  const parsedEmotion = queryParamsEmotion != null && queryParamsEmotion !== ''
+    ? Number(queryParamsEmotion) : EMOTION_UNSELECTED;
+
+  const [selectedYear, setSelectedYear] = useState<number | null>(parsedYear);
+  const [selectedMonth, setSelectedMonth] = useState<number>(parsedMonth);
+  const [emotionToggle, setEmotionToggle] = useState<number>(parsedEmotion);
 
   useEffect(() => {
-    if (queryParamsYear != null && /^\d{4}$/.test(queryParamsYear)) setSelectedYear(Number(queryParamsYear));
-    else setSelectedYear(null);
-    if (queryParamsYear != null && /^\d{4}$/.test(queryParamsYear) && queryParamsMonth != null && /^(?:[1-9]|1[0-2])$/.test(queryParamsMonth)) setSelectedMonth(Number(queryParamsMonth));
-    else setSelectedMonth(MONTH_UNSELECTED);
-    if (queryParamsEmotion != null && queryParamsEmotion !== '') setEmotionToggle(Number(queryParamsEmotion));
-    else setEmotionToggle(EMOTION_UNSELECTED);
-  }, [queryParamsYear, queryParamsMonth, queryParamsEmotion]);
+    setSelectedYear(parsedYear);
+    setSelectedMonth(parsedMonth);
+    setEmotionToggle(parsedEmotion);
+  }, [parsedYear, parsedMonth, parsedEmotion]);
 
   return {
     selectedYear,

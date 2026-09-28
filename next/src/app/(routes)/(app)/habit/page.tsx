@@ -4,34 +4,25 @@ import HabitClientPage from "./HabitClientPage";
 
 export const dynamic = 'force-dynamic';
 
-//page for data prefetch
 const HabitPage = async () => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ['habits', 'list', 'ASC'],
-    queryFn: async () => {
-      const result = await getHabitList({ sortType: 'ASC' });
-      if (!result.ok) throw new Error(result.message);
-      return result.data;
-    },
-  })
-  await queryClient.prefetchQuery({
-    queryKey: ['habits', 'list', 'DESC'],
-    queryFn: async () => {
-      const result = await getHabitList({ sortType: 'DESC' });
-      if (!result.ok) throw new Error(result.message);
-      return result.data;
-    },
-  })
-
-  const dehydratedState = dehydrate(queryClient)
+  await Promise.all((['ASC', 'DESC'] as const).map((sortType) =>
+    queryClient.prefetchQuery({
+      queryKey: ['habits', 'list', sortType, false, []],
+      queryFn: async () => {
+        const result = await getHabitList({ sortType });
+        if (!result.ok) throw new Error(result.message);
+        return result.data;
+      },
+    }),
+  ));
 
   return (
-    <HydrationBoundary state={dehydratedState}>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <HabitClientPage />
     </HydrationBoundary>
   );
-}
+};
 
 export default HabitPage;
