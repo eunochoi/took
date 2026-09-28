@@ -3,6 +3,7 @@
 import { ReactNode, RefObject, useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
+import { BG_TRANSITION_CLASS } from "@/common/constants/transitions";
 import { cn } from "@/common/utils/cn";
 import { BottomSafe } from "../ui/BottomSafe";
 import { ScrollContainer } from "../ui/ScrollContainer";
@@ -18,7 +19,7 @@ interface Props {
   bottomSafeClassName?: string;
 }
 
-export const TOP_SECTION_WRAPPER_CLASS = "transition-colors duration-400 ease-in-out w-full px-[5dvw] pt-[5dvw] tablet:px-9 tablet:pt-6 desktop:px-14 bg-theme-accent-light bg-[linear-gradient(to_bottom,rgb(var(--theme-accent-light))_0%,transparent_20%),linear-gradient(to_top_right,rgb(var(--theme-accent)/0.15)_0%,rgb(var(--theme-accent-light))_100%)]";
+export const TOP_SECTION_WRAPPER_CLASS = "w-full px-[5dvw] pt-[5dvw] bg-theme-accent-light tablet:px-9 tablet:pt-6 desktop:px-14";
 
 const AppPageLayout = ({ topSection, mainSection, pageRef, showScrollToTop = false, toolbar, bottomSectionClass, bottomSafeClassName }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
@@ -50,11 +51,12 @@ const AppPageLayout = ({ topSection, mainSection, pageRef, showScrollToTop = fal
         showScrollToTop={showScrollToTop}
       >
         {/* top section */}
-        {hasTopSection && <div className={TOP_SECTION_WRAPPER_CLASS}>{topSection}</div>}
+        {hasTopSection && <div className={twMerge(TOP_SECTION_WRAPPER_CLASS,
+          BG_TRANSITION_CLASS)}>{topSection}</div>}
         {/* bottom section : toolbar + main */}
-        <div className={twMerge(
+        <div className={twMerge(BG_TRANSITION_CLASS,
           "w-full h-auto flex flex-col",
-          "transition-colors duration-400 ease-in-out flex-1 bg-theme-surface px-[5dvw] py-2 pb-0 tablet:px-9 tablet:py-4 desktop:px-14 desktop:pt-6 desktop:pb-24 ",
+          "flex-1 bg-theme-surface px-[5dvw] py-2 pb-0 tablet:px-9 tablet:py-4 desktop:px-14 desktop:pt-6 desktop:pb-24 ",
           bottomSectionClass)} >
           {/* bottom section container for max width */}
           <div className="flex flex-col w-full tablet:max-w-[500px] desktop:max-w-[900px] mx-auto">

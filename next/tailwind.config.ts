@@ -3,13 +3,13 @@ import plugin from "tailwindcss/plugin";
 import { CALENDAR_BADGE_SCALE } from "./src/common/constants/calendar";
 
 const scrollFadeStops = [
-  "rgb(var(--theme-accent-light) / 1) 0%",
-  "rgb(var(--theme-accent-light) / 0.97) 10%",
-  "rgb(var(--theme-accent-light) / 0.84) 25%",
-  "rgb(var(--theme-accent-light) / 0.5) 50%",
-  "rgb(var(--theme-accent-light) / 0.16) 75%",
-  "rgb(var(--theme-accent-light) / 0.03) 90%",
-  "rgb(var(--theme-accent-light) / 0) 100%",
+  "rgb(0 0 0 / 1) 0%",
+  "rgb(0 0 0 / 0.97) 10%",
+  "rgb(0 0 0 / 0.84) 25%",
+  "rgb(0 0 0 / 0.5) 50%",
+  "rgb(0 0 0 / 0.16) 75%",
+  "rgb(0 0 0 / 0.03) 90%",
+  "rgb(0 0 0 / 0) 100%",
 ].join(", ");
 
 const config: Config = {
@@ -51,10 +51,6 @@ const config: Config = {
         "brand-naver": "#02c73c",
         "brand-kakao": "#fae100",
         "brand-kakao-text": "#39181d",
-      },
-      backgroundImage: {
-        "scroll-fade-top": `linear-gradient(in oklch to bottom, ${scrollFadeStops})`,
-        "scroll-fade-bottom": `linear-gradient(in oklch to top, ${scrollFadeStops})`,
       },
       fontFamily: {
         paperozi: ["Paperozi", "sans-serif"],
@@ -117,8 +113,12 @@ const config: Config = {
     },
   },
   plugins: [
-    plugin(({ addVariant }) => {
+    plugin(({ addVariant, addUtilities }) => {
       addVariant("landscape-short", "@media (orientation: landscape) and (max-height: 600px)");
+      addUtilities({
+        ".mask-scroll-fade-top": { maskImage: `linear-gradient(in oklch to bottom, ${scrollFadeStops})` },
+        ".mask-scroll-fade-bottom": { maskImage: `linear-gradient(in oklch to top, ${scrollFadeStops})` },
+      });
     }),
   ],
 };

@@ -1,5 +1,6 @@
 'use client';
 
+import { BG_TRANSITION_CLASS } from "@/common/constants/transitions";
 import { useNavItems } from "@/common/hooks/useNavItems";
 import { cn } from "@/common/utils/cn";
 import { useRouter } from "next/navigation";
@@ -10,8 +11,8 @@ const BottomNav = () => {
   const mainItems = items.slice(0, -1);
   const lastItem = items.at(-1)!;
 
-  const navItemsWrapperClass = 'border-[1px] border-theme-accent-light pointer-events-auto flex items-center gap-1.5 rounded-full bg-theme-surface/75 shadow-theme-floating backdrop-blur-2xl';
-  const navItemClass = 'flex cursor-pointer items-center justify-center rounded-full text-xl';
+  const navItemsWrapperClass = cn('border-[1px] border-theme-accent-light pointer-events-auto flex items-center gap-1.5 rounded-full bg-theme-surface/75 shadow-theme-floating backdrop-blur-2xl', BG_TRANSITION_CLASS);
+  const navItemClass = cn('flex cursor-pointer items-center justify-center rounded-full text-xl', BG_TRANSITION_CLASS);
   const activeNavItemClass = 'bg-theme-accent text-theme-text-on-accent';
   const inactiveNavItemClass = "bg-transparent text-theme-text-tertiary";
 
