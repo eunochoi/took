@@ -87,9 +87,9 @@ export default function RootLayout({
 
         <meta name="mobile-web-app-capable" content="yes" />
 
-        <meta property="og:title" content="Took" />
+        <meta property="og:title" content="took - 감정일기 · 습관관리 · 할일" />
         <meta property="og:description" content="감정도 툭! 습관도 툭! 조금 더 나은 나로 To OK. 습관과 감정을 기록하고 나만의 속도로 하루를 쌓아가요." />
-        <meta property="og:image" content="https://github.com/user-attachments/assets/d61f5735-e61e-44b5-be25-f98151163b8d" />
+        <meta property="og:image" content="https://i.postimg.cc/s2FJnK4M/took-share-image.png" />
       </head>
 
       <body>
