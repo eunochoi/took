@@ -32,7 +32,7 @@ export const EnterMotion = forwardRef<
         y: 0
       }}
       transition={{
-        duration: 0.5,
+        duration: 0.4,
         ease: 'easeOut',
       }}
       {...props}
