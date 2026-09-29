@@ -5,11 +5,11 @@ import HabitPageSkeleton from "./_components/HabitPageSkeleton";
 import HabitPageToolbar from "./_components/HabitPageToolbar";
 import HabitPageTopSection from "./_components/HabitPageTopSection";
 
-import { getHabitList } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
+import { habitQueries } from "@/common/queries/habitQueries";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { showNotice } from '@/common/components/ui/Notice/notice';
@@ -29,12 +29,7 @@ const HabitClientPage = () => {
   }, [sortValue, priorityFirst]);
 
   const { data: habits, isError: isHabitsError, refetch: refetchHabits } = useQuery({
-    queryKey: ['habits', 'list', sortValue, priorityFirst, sortValue === 'CUSTOM' ? customHabitOrder : []],
-    queryFn: () => authAction(() => getHabitList({
-      sortType: sortValue,
-      priorityFirst,
-      customHabitOrder: sortValue === 'CUSTOM' ? customHabitOrder : [],
-    })),
+    ...habitQueries.list({ sortType: sortValue, priorityFirst, customHabitOrder }, authAction),
     enabled: isStorageReady,
     placeholderData: keepPreviousData,
   });

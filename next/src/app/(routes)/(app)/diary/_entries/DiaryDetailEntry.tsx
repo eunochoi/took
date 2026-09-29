@@ -1,18 +1,12 @@
-import { getDiaryById } from '@/common/actions/diary';
 import DiaryDetailClientPage from '@/common/components/features/DiaryDetail/DiaryDetailClientPage';
+import { diaryQueries } from '@/common/queries/diaryQueries';
+import { unwrapQueryAction } from '@/common/queries/queryAction';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 const DiaryDetailEntry = async ({ diaryId }: { diaryId: string }) => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ['diary', 'id', diaryId],
-    queryFn: async () => {
-      const result = await getDiaryById({ id: diaryId });
-      if (!result.ok) throw new Error(result.message);
-      return result.data;
-    },
-  });
+  await queryClient.prefetchQuery(diaryQueries.byId(diaryId, unwrapQueryAction));
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

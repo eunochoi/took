@@ -1,7 +1,7 @@
 'use client';
 
-import { getDiaryStats } from '@/common/actions/stats';
 import { authAction } from '@/common/auth/authAction';
+import { statsQueries } from '@/common/queries/statsQueries';
 import MonthlyBarChart from '@/common/components/features/HabitDetail/MonthlyBarChart';
 import { YearRecordHeader } from '@/common/components/ui/YearRecordHeader';
 import { cn } from '@/common/utils/cn';
@@ -15,8 +15,7 @@ interface Props {
 
 const DiaryStatsPanel = ({ year, onChangeYear, className }: Props) => {
   const { data, isPending, isError, refetch } = useQuery({
-    queryKey: ['stats', 'diary', year],
-    queryFn: () => authAction(() => getDiaryStats({ year })),
+    ...statsQueries.diary(year, authAction),
   });
 
   return (

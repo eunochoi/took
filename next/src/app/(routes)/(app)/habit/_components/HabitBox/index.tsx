@@ -1,7 +1,8 @@
 'use client';
 
-import { checkHabit as checkHabitAction, getHabitRecentStatus, uncheckHabit as uncheckHabitAction } from "@/common/actions/habit";
+import { checkHabit as checkHabitAction, uncheckHabit as uncheckHabitAction } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
+import { habitQueries } from "@/common/queries/habitQueries";
 import { showNotice } from '@/common/components/ui/Notice/notice';
 import { getTodayString } from "@/common/functions/getTodayString";
 import { cn } from "@/common/utils/cn";
@@ -29,8 +30,7 @@ const HabitBox = ({ name, id, priority, iconKey }: Props) => {
   const todayString = getTodayString();
 
   const { data: recentDateStatus, isError, refetch } = useQuery({
-    queryKey: ['habit', id, 'recent', todayString],
-    queryFn: () => authAction(() => getHabitRecentStatus({ id, date: todayString })),
+    ...habitQueries.recentStatus(id, todayString, authAction),
   });
   const todayCompleted = !!recentDateStatus?.[0];
 

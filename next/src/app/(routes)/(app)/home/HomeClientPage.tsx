@@ -7,10 +7,10 @@ import { useQuery } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
-import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
+import { statsQueries } from "@/common/queries/statsQueries";
 import { AnimatePresence } from 'framer-motion';
 import HomePageYearPicker from './_components/HomePageYearPicker';
 import HomePageTopSection from './_components/HomePageTopSection';
@@ -37,21 +37,15 @@ const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
   };
 
   const { data: availableYears, isPending: isYearsPending, isError: isYearsError, refetch: refetchYears } = useQuery({
-    queryKey: ['stats', 'years'],
-    queryFn: () => authAction(getAvailableYears),
-    staleTime: 5 * 60 * 1000,
+    ...statsQueries.years(authAction),
   });
 
   const { data: diaryStats, isError: isDiaryStatsError, refetch: refetchDiaryStats } = useQuery({
-    queryKey: ['stats', 'diary', selectedYear],
-    queryFn: () => authAction(() => getDiaryStats({ year: selectedYear })),
-    staleTime: 60 * 1000,
+    ...statsQueries.diary(selectedYear, authAction),
   });
 
   const { data: habitStats, isError: isHabitStatsError, refetch: refetchHabitStats } = useQuery({
-    queryKey: ['stats', 'habit', selectedYear],
-    queryFn: () => authAction(() => getHabitStats({ year: selectedYear })),
-    staleTime: 60 * 1000,
+    ...statsQueries.habit(selectedYear, authAction),
   });
   const isStatsPending = diaryStats === undefined || habitStats === undefined;
   const isStatsError = (isDiaryStatsError && diaryStats === undefined) || (isHabitStatsError && habitStats === undefined);

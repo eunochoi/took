@@ -1,7 +1,7 @@
 'use client';
 
-import { getHabitById } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
+import { habitQueries } from '@/common/queries/habitQueries';
 import { showNotice } from '@/common/components/ui/Notice/notice';
 import {
   HABIT_NAME_MAX_LENGTH
@@ -38,8 +38,7 @@ const HabitFormClientPage = ({ isEdit, habitId }: HabitFormClientPageProps) => {
     isError,
     isPending,
   } = useQuery({
-    queryKey: ['habit', 'id', habitId],
-    queryFn: () => authAction(() => getHabitById({ id: habitId })),
+    ...habitQueries.byId(habitId, authAction),
     enabled: isEdit && Boolean(habitId),
   });
   const {

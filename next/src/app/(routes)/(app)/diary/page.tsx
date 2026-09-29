@@ -1,6 +1,6 @@
-import { getDiaryList } from "@/common/actions/diary";
-import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
 import { EMOTION_UNSELECTED, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
+import { diaryQueries } from "@/common/queries/diaryQueries";
+import { unwrapQueryAction } from "@/common/queries/queryAction";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import DiaryClientPage from "./DiaryClientPage";
 
@@ -22,22 +22,7 @@ const DiaryListPage = async ({ searchParams }: Props) => {
     ? Number(searchParams.emotion) : EMOTION_UNSELECTED;
 
   await Promise.all((['ASC', 'DESC'] as const).map((sortType) =>
-    queryClient.prefetchInfiniteQuery({
-      queryKey: ['diary', 'diaryList', 'emotion', emotionToggle, 'sort', sortType, 'year', selectedYear, 'month', selectedMonth],
-      queryFn: async ({ pageParam }) => {
-        const result = await getDiaryList({
-          sortType,
-          search: emotionToggle,
-          pageParam,
-          limit: DIARY_LIST_PAGE_SIZE,
-          selectedYear,
-          selectedMonth,
-        });
-        if (!result.ok) throw new Error(result.message);
-        return result.data;
-      },
-      initialPageParam: 0,
-    }),
+    queryClient.prefetchInfiniteQuery(diaryQueries.list({ sortType, search: emotionToggle, selectedYear, selectedMonth }, unwrapQueryAction)),
   ));
 
   return (

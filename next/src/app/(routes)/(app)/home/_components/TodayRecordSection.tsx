@@ -4,9 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { MdCheckBox, MdChevronRight, MdMenuBook } from 'react-icons/md';
 
-import { getDiaryByDate } from '@/common/actions/diary';
-import { getTodayHabitStat } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
+import { diaryQueries } from '@/common/queries/diaryQueries';
+import { habitQueries } from '@/common/queries/habitQueries';
 import { AppSection, AppSectionHeader, AppSectionTitle } from '@/common/components/ui/AppSection';
 import { AppSurfaceCard } from '@/common/components/ui/AppSurfaceCard';
 import { getTodayString } from '@/common/functions/getTodayString';
@@ -34,14 +34,10 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
   }, []);
 
   const diaryQuery = useQuery({
-    queryKey: ['diary', 'date', today],
-    queryFn: () => authAction(() => getDiaryByDate({ date: today })),
-    staleTime: 60_000,
+    ...diaryQueries.byDate(today, authAction),
   });
   const habitQuery = useQuery({
-    queryKey: ['habit', 'today-stat'],
-    queryFn: () => authAction(getTodayHabitStat),
-    staleTime: 60_000,
+    ...habitQueries.todayStat(authAction),
   });
   const completedCount = habitQuery.data?.todayDoneHabits ?? 0;
   const totalHabitCount = habitQuery.data?.createdHabits ?? 0;

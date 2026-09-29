@@ -1,10 +1,9 @@
 "use client";
 
-import { getDiaryById } from '@/common/actions/diary';
 import { authAction } from '@/common/auth/authAction';
+import { diaryQueries } from '@/common/queries/diaryQueries';
 import { showNotice } from '@/common/components/ui/Notice/notice';
 import { DIARY_TEXT_MAX_LENGTH } from '@/common/constants/diary';
-import type { DiaryData } from '@/common/types/diary';
 import { isValidLocalDateString } from '@/common/utils/date/isValidLocalDateString';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
 import { arrayMove } from '@dnd-kit/sortable';
@@ -43,9 +42,8 @@ const DiaryFormClientPage = ({ isEdit, diaryId }: DiaryFormClientPageProps) => {
     data: diaryData,
     isError,
     isPending,
-  } = useQuery<DiaryData | null>({
-    queryKey: ['diary', 'id', diaryId],
-    queryFn: () => authAction(() => getDiaryById({ id: diaryId })),
+  } = useQuery({
+    ...diaryQueries.byId(diaryId, authAction),
     enabled: isEdit && Boolean(diaryId),
   });
   const {

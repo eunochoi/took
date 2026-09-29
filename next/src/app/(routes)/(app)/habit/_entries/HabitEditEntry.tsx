@@ -1,18 +1,12 @@
-import { getHabitById } from '@/common/actions/habit';
+import { habitQueries } from '@/common/queries/habitQueries';
+import { unwrapQueryAction } from '@/common/queries/queryAction';
 import HabitFormClientPage from '@/common/components/features/HabitForm/HabitFormClientPage';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 const HabitEditEntry = async ({ habitId }: { habitId: string }) => {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ['habit', 'id', habitId],
-    queryFn: async () => {
-      const result = await getHabitById({ id: habitId });
-      if (!result.ok) throw new Error(result.message);
-      return result.data;
-    },
-  });
+  await queryClient.prefetchQuery(habitQueries.byId(habitId, unwrapQueryAction));
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

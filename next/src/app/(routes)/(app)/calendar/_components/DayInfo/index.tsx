@@ -3,10 +3,10 @@
 import type { DiaryData } from '@/common/actions/diary';
 import {
   checkHabit,
-  getHabitsByDate,
   uncheckHabit,
 } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
+import { habitQueries } from '@/common/queries/habitQueries';
 import { EMOTIONS } from '@/common/constants/emotions';
 import {
   keepPreviousData,
@@ -49,9 +49,7 @@ const DayInfo = ({
     isError: isHabitError,
     refetch: refetchHabits,
   } = useQuery({
-    queryKey: ['habit', 'date', date],
-    queryFn: () => authAction(() => getHabitsByDate({ date })),
-    staleTime: 60_000,
+    ...habitQueries.byDate(date, authAction),
     placeholderData: keepPreviousData,
   });
 

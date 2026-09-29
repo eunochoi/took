@@ -1,7 +1,7 @@
 'use client';
 
-import { getHabitById } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
+import { habitQueries } from "@/common/queries/habitQueries";
 import HabitMenus from "@/common/components/ui/Habit/HabitMenus";
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
@@ -28,8 +28,7 @@ const HabitDetailClientPage = ({ habitId, today }: Props) => {
   const [chartDate, setChartDate] = useState<Date>(new Date());
 
   const { data: habitDataById, isError } = useQuery({
-    queryKey: ['habit', 'id', habitId],
-    queryFn: () => authAction(() => getHabitById({ id: habitId })),
+    ...habitQueries.byId(habitId, authAction),
     enabled: habitId !== null,
   });
 

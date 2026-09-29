@@ -1,5 +1,5 @@
-import { getHabitYearlyStatus } from "@/common/actions/habit";
 import { authAction } from "@/common/auth/authAction";
+import { habitQueries } from "@/common/queries/habitQueries";
 import { AppSection } from "@/common/components/ui/AppSection";
 import { YearRecordHeader } from "@/common/components/ui/YearRecordHeader";
 import { useQuery } from "@tanstack/react-query";
@@ -15,8 +15,7 @@ interface Props {
 
 const YearInfo = ({ setDisplayDate, displayDate, habitId }: Props) => {
   const { data } = useQuery({
-    queryKey: ['habit', 'id', habitId, 'year', format(displayDate, 'yyyy')],
-    queryFn: () => authAction(() => getHabitYearlyStatus({ id: habitId, year: format(displayDate, 'yyyy') })),
+    ...habitQueries.year(habitId, format(displayDate, 'yyyy'), authAction),
   });
   const year = format(displayDate, 'yyyy');
   const count = data?.reduce((acc: number, cur: number) => (acc + cur), 0);

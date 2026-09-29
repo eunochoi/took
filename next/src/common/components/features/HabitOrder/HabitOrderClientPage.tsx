@@ -1,7 +1,7 @@
 'use client';
 
-import { getHabitList } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
+import { habitQueries } from '@/common/queries/habitQueries';
 import { useQuery } from '@tanstack/react-query';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -25,8 +25,7 @@ export const HabitOrderClientPage = () => {
   const { customHabitOrder, setCustomHabitOrder, isStorageReady } = useHabitSortPreferences();
 
   const { data: customHabits, isPending, isError, refetch } = useQuery({
-    queryKey: ['habits', 'list', 'CUSTOM', customHabitOrder],
-    queryFn: () => authAction(() => getHabitList({ sortType: 'CUSTOM', customHabitOrder })),
+    ...habitQueries.list({ sortType: 'CUSTOM', customHabitOrder }, authAction),
     enabled: isStorageReady,
   });
 

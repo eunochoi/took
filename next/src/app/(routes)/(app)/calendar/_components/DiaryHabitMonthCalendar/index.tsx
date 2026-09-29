@@ -6,8 +6,9 @@ import { addMonths, format } from 'date-fns';
 import type { CSSProperties } from 'react';
 import { useEffect } from 'react';
 
-import { getDiaryHabitMonthData } from '@/common/actions/diary/getDiaryHabitMonthData';
 import { authAction } from '@/common/auth/authAction';
+import { diaryQueries } from '@/common/queries/diaryQueries';
+import { unwrapQueryAction } from '@/common/queries/queryAction';
 import { CalendarDay } from '@/common/components/ui/Calendar/CalendarDay';
 import { CalendarGrid } from '@/common/components/ui/Calendar/CalendarGrid';
 import { CalendarDayModel, useMonthCalendar } from '@/common/components/ui/Calendar/useMonthCalendar';
@@ -29,9 +30,7 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
   const queryClient = useQueryClient();
   const calendar = useMonthCalendar(selectedDate);
   const monthQuery = useQuery({
-    queryKey: ['diary-habit', 'month', calendar.visibleMonth],
-    queryFn: () => authAction(() => getDiaryHabitMonthData({ month: calendar.visibleMonth })),
-    staleTime: 60_000,
+    ...diaryQueries.habitMonth(calendar.visibleMonth, authAction),
   });
   const diaryHabitMonthData = monthQuery.data;
   const swipeProps = useMonthSwipe(calendar.goPreviousMonth, calendar.goNextMonth);
@@ -42,14 +41,8 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
     for (const offset of [-1, 1]) {
       const month = format(addMonths(monthStart, offset), 'yyyy-MM');
       void queryClient.prefetchQuery({
-        queryKey: ['diary-habit', 'month', month],
-        staleTime: 60_000,
+        ...diaryQueries.habitMonth(month, unwrapQueryAction),
         retry: false,
-        queryFn: async () => {
-          const result = await getDiaryHabitMonthData({ month });
-          if (!result.ok) throw new Error(result.message);
-          return result.data;
-        },
       });
     }
   }, [calendar.visibleMonth, queryClient]);

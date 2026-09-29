@@ -15,15 +15,14 @@ import { useInView } from "react-intersection-observer";
 
 import DiaryListPageEmotionPicker from "@/app/(routes)/(app)/diary/_components/DiaryListPageEmotionPicker";
 import DiaryListPagePeriodPicker from "@/app/(routes)/(app)/diary/_components/DiaryListPagePeriodPicker";
-import { getDiaryList } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
-import { DIARY_LIST_PAGE_SIZE } from "@/common/constants/diary";
 import { EMOTIONS } from "@/common/constants/emotions";
 import { EMOTION_UNSELECTED, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { useCurrentUser } from "@/common/hooks/useCurrentUser";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { useSortToggle } from "@/common/hooks/useSortToggle";
+import { diaryQueries } from "@/common/queries/diaryQueries";
 import type { DiaryData } from "@/common/types/diary";
 import { useDiaryListFilter } from "./_hooks/useDiaryListFilter";
 
@@ -87,21 +86,9 @@ const DiaryClientPage = () => {
   };
 
   const { data: flatDiaries, fetchNextPage, isFetching, isPlaceholderData, hasNextPage, isError, refetch } = useInfiniteQuery({
-    queryKey: ['diary', 'diaryList', 'emotion', emotionToggle, 'sort', sortValue, 'year', selectedYear, 'month', selectedMonth],
-    queryFn: ({ pageParam }) => authAction(() => {
-      return getDiaryList({
-        sortType: sortValue,
-        search: emotionToggle,
-        pageParam,
-        limit: DIARY_LIST_PAGE_SIZE,
-        selectedYear: selectedYear,
-        selectedMonth: selectedMonth
-      });
-    }),
-    initialPageParam: 0,
+    ...diaryQueries.list({ sortType: sortValue, search: emotionToggle, selectedYear, selectedMonth }, authAction),
     placeholderData: keepPreviousData,
     select: (data) => data.pages.flat() as DiaryData[],
-    getNextPageParam: (lastPage, allPages) => (lastPage?.length === 0 ? undefined : allPages?.length),
   });
   const isDiaryListEmpty = flatDiaries !== undefined && flatDiaries.length === 0;
   const hasAppliedFilter = isEmotionSelected || isPeriodSelected;

@@ -3,8 +3,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 
-import { getHabitMonthData } from '@/common/actions/habit/getHabitMonthData';
 import { authAction } from '@/common/auth/authAction';
+import { habitQueries } from '@/common/queries/habitQueries';
 import { AppSection, AppSectionHeader, AppSectionMeta, AppSectionTitle } from '@/common/components/ui/AppSection';
 import { useMonthCalendar } from '@/common/components/ui/Calendar/useMonthCalendar';
 
@@ -18,9 +18,7 @@ interface Props {
 const MonthInfo = ({ habitId, today }: Props) => {
   const calendar = useMonthCalendar(today);
   const monthQuery = useQuery({
-    queryKey: ['habit', 'id', habitId, 'month', calendar.visibleMonth],
-    queryFn: () => authAction(() => getHabitMonthData({ id: habitId, month: calendar.visibleMonth })),
-    staleTime: 60_000,
+    ...habitQueries.month(habitId, calendar.visibleMonth, authAction),
   });
   const habitMonthData = monthQuery.data;
   const summary = habitMonthData?.summary;

@@ -1,8 +1,9 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
-import { getAvailableYears, getDiaryStats, getHabitStats } from "@/common/actions/stats";
-import { getDiaryByDate } from "@/common/actions/diary";
-import { getTodayHabitStat } from "@/common/actions/habit";
+import { statsQueries } from "@/common/queries/statsQueries";
+import { diaryQueries } from "@/common/queries/diaryQueries";
+import { habitQueries } from "@/common/queries/habitQueries";
+import { unwrapQueryAction } from "@/common/queries/queryAction";
 import { getTodayStringInUserTimezone } from "@/common/utils/date/userTimezone";
 import HomeClientPage from "./HomeClientPage";
 
@@ -20,48 +21,11 @@ const HomePage = async ({ searchParams }: Props) => {
   const selectedYear = Number.isInteger(parsedYear) && parsedYear >= 1900 && parsedYear <= 2100 ? parsedYear : currentYear;
 
   await Promise.all([
-    queryClient.prefetchQuery({
-      queryKey: ['stats', 'years'],
-      queryFn: async () => {
-        const result = await getAvailableYears();
-        if (!result.ok) throw new Error(result.message);
-        return result.data;
-      },
-    }),
-    queryClient.prefetchQuery({
-      queryKey: ['stats', 'diary', selectedYear],
-      queryFn: async () => {
-        const result = await getDiaryStats({ year: selectedYear });
-        if (!result.ok) throw new Error(result.message);
-        return result.data;
-      },
-    }),
-    queryClient.prefetchQuery({
-      queryKey: ['stats', 'habit', selectedYear],
-      queryFn: async () => {
-        const result = await getHabitStats({ year: selectedYear });
-        if (!result.ok) throw new Error(result.message);
-        return result.data;
-      },
-    }),
-    queryClient.prefetchQuery({
-      queryKey: ['diary', 'date', initialDate],
-      staleTime: 60_000,
-      queryFn: async () => {
-        const result = await getDiaryByDate({ date: initialDate });
-        if (!result.ok) throw new Error(result.message);
-        return result.data;
-      },
-    }),
-    queryClient.prefetchQuery({
-      queryKey: ['habit', 'today-stat'],
-      staleTime: 60_000,
-      queryFn: async () => {
-        const result = await getTodayHabitStat();
-        if (!result.ok) throw new Error(result.message);
-        return result.data;
-      },
-    }),
+    queryClient.prefetchQuery(statsQueries.years(unwrapQueryAction)),
+    queryClient.prefetchQuery(statsQueries.diary(selectedYear, unwrapQueryAction)),
+    queryClient.prefetchQuery(statsQueries.habit(selectedYear, unwrapQueryAction)),
+    queryClient.prefetchQuery(diaryQueries.byDate(initialDate, unwrapQueryAction)),
+    queryClient.prefetchQuery(habitQueries.todayStat(unwrapQueryAction)),
   ]);
 
   const dehydratedState = dehydrate(queryClient);

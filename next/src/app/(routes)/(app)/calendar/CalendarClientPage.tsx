@@ -9,10 +9,9 @@ import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { getDiaryByDate } from '@/common/actions/diary';
-import { getDiaryHabitMonthData } from '@/common/actions/diary/getDiaryHabitMonthData';
-import { getHabitsByDate } from '@/common/actions/habit';
 import { authAction } from '@/common/auth/authAction';
+import { diaryQueries } from '@/common/queries/diaryQueries';
+import { habitQueries } from '@/common/queries/habitQueries';
 import AppPageLayout from '@/common/components/layout/AppPageLayout';
 import { usePrefetchPage } from '@/common/hooks/usePrefetchPage';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
@@ -30,20 +29,14 @@ const CalendarClientPage = ({ initialDate }: Props) => {
   const [selectedDate, setSelectedDate] = useState(initialDate);
 
   const selectedDiaryQuery = useQuery({
-    queryKey: ['diary', 'date', selectedDate],
-    queryFn: () => authAction(() => getDiaryByDate({ date: selectedDate })),
-    staleTime: 60_000,
+    ...diaryQueries.byDate(selectedDate, authAction),
     placeholderData: keepPreviousData,
   });
   const monthQuery = useQuery({
-    queryKey: ['diary-habit', 'month', month],
-    queryFn: () => authAction(() => getDiaryHabitMonthData({ month })),
-    staleTime: 60_000,
+    ...diaryQueries.habitMonth(month, authAction),
   });
   const todayHabitsQuery = useQuery({
-    queryKey: ['habit', 'date', today],
-    queryFn: () => authAction(() => getHabitsByDate({ date: today })),
-    staleTime: 60_000,
+    ...habitQueries.byDate(today, authAction),
   });
   const isInitialError = [selectedDiaryQuery, monthQuery, todayHabitsQuery]
     .some((query) => query.isError && query.data === undefined);

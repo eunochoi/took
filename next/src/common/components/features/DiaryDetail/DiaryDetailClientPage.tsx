@@ -1,7 +1,7 @@
 'use client';
 
-import { getDiaryById } from "@/common/actions/diary";
 import { authAction } from "@/common/auth/authAction";
+import { diaryQueries } from "@/common/queries/diaryQueries";
 import DiaryMenus from "@/common/components/ui/Diary/DiaryMenus";
 import { PanelDialog } from "@/common/components/ui/Dialog/PanelDialog";
 import { PanelBody } from "@/common/components/ui/Dialog/PanelDialog/PanelBody";
@@ -26,8 +26,7 @@ const DiaryDetailClientPage = ({ diaryId }: DiaryDetailClientPageProps) => {
   const [isDialogMounted, setIsDialogMounted] = useState(true);
   const [isMenuOpen, setMenuOpen] = useState(false);
   const { data: diaryData, isError } = useQuery({
-    queryKey: ['diary', 'id', diaryId],
-    queryFn: () => authAction(() => getDiaryById({ id: diaryId })),
+    ...diaryQueries.byId(diaryId, authAction),
     enabled: diaryId !== null,
   });
 

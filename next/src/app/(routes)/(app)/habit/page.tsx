@@ -1,4 +1,5 @@
-import { getHabitList } from "@/common/actions/habit";
+import { habitQueries } from "@/common/queries/habitQueries";
+import { unwrapQueryAction } from "@/common/queries/queryAction";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import HabitClientPage from "./HabitClientPage";
 
@@ -6,14 +7,7 @@ const HabitPage = async () => {
   const queryClient = new QueryClient();
 
   await Promise.all((['ASC', 'DESC'] as const).map((sortType) =>
-    queryClient.prefetchQuery({
-      queryKey: ['habits', 'list', sortType, false, []],
-      queryFn: async () => {
-        const result = await getHabitList({ sortType });
-        if (!result.ok) throw new Error(result.message);
-        return result.data;
-      },
-    }),
+    queryClient.prefetchQuery(habitQueries.list({ sortType }, unwrapQueryAction)),
   ));
 
   return (
