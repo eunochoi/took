@@ -5,7 +5,7 @@ import { ko } from 'date-fns/locale';
 import Image from 'next/image';
 import { MdCheckBox, MdChevronRight, MdMenuBook } from 'react-icons/md';
 
-import hidingCat from '/public/img/hiding-cat.png';
+import hidingCat from '/public/img/hiding-cat/hiding-cat.png';
 
 import { AppSurfaceCard } from '@/common/components/ui/AppSurfaceCard';
 import EmotionImage from '@/common/components/ui/EmotionImage';

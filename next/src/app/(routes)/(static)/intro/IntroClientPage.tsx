@@ -10,7 +10,7 @@ import IntroHero from './_components/IntroHero';
 import IntroInfoCard from './_components/IntroInfoCard';
 import IntroSection from './_components/IntroSection';
 import { INTRO_IMAGES } from './_constants/images';
-import hidingCat from '/public/img/hiding-cat.png';
+import hidingCat from '/public/img/hiding-cat/hiding-cat.png';
 
 
 const HOME_IMAGES = [INTRO_IMAGES.habitinfo1, INTRO_IMAGES.habitinfo2, INTRO_IMAGES.calendar];

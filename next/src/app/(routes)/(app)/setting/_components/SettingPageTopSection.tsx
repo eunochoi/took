@@ -4,7 +4,7 @@ import AppPageTitle from "@/common/components/layout/AppPageTitle";
 import { TopSectionCatClass, TopSectionCatSize } from "@/common/constants/TopSectionCat";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import hidingCat from "/public/img/hiding-cat-tail.png";
+import hidingCat from "/public/img/hiding-cat/hiding-cat-tail.png";
 
 const SettingPageTopSection = () => {
   return (

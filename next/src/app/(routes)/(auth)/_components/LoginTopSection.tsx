@@ -1,7 +1,7 @@
 import { TOP_SECTION_WRAPPER_CLASS } from '@/common/components/layout/AppPageLayout';
 import Wordmark from '@/common/components/ui/Wordmark';
 import Image from 'next/image';
-import hidingCat from '/public/img/hiding-cat.png';
+import hidingCat from '/public/img/hiding-cat/hiding-cat.png';
 
 const LoginTopSection = () => (
   <section

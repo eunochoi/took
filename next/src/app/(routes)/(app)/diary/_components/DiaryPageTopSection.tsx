@@ -1,7 +1,7 @@
 import AppPageTitle from '@/common/components/layout/AppPageTitle';
 import { TopSectionCatClass, TopSectionCatSize } from '@/common/constants/TopSectionCat';
 import Image from 'next/image';
-import diaryCat from '/public/img/hiding-cat-diary.png';
+import diaryCat from '/public/img/hiding-cat/hiding-cat-diary.png';
 
 const DiaryPageTopSection = () => {
   return (

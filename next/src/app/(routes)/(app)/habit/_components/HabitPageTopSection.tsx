@@ -1,7 +1,7 @@
 import AppPageTitle from '@/common/components/layout/AppPageTitle';
 import { TopSectionCatClass, TopSectionCatSize } from '@/common/constants/TopSectionCat';
 import Image from 'next/image';
-import habitCat from '/public/img/hiding-cat-habit.png';
+import habitCat from '/public/img/hiding-cat/hiding-cat-habit.png';
 
 const HabitPageTopSection = () => {
   return (

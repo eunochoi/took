@@ -89,7 +89,7 @@ export default function RootLayout({
 
         <meta property="og:title" content="took - 감정일기 · 습관관리 · 할일" />
         <meta property="og:description" content="감정도 툭! 습관도 툭! 조금 더 나은 나로 To OK. 습관과 감정을 기록하고 나만의 속도로 하루를 쌓아가요." />
-        <meta property="og:image" content="https://i.postimg.cc/s2FJnK4M/took-share-image.png" />
+        <meta property="og:image" content={process.env.OG_IMAGE_URL} />
       </head>
 
       <body>

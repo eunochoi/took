@@ -1,7 +1,7 @@
 import AppPageTitle from '@/common/components/layout/AppPageTitle';
 import { TopSectionCatClass, TopSectionCatSize } from '@/common/constants/TopSectionCat';
 import Image from 'next/image';
-import calendarCat from '/public/img/hiding-cat-calendar.png';
+import calendarCat from '/public/img/hiding-cat/hiding-cat-calendar.png';
 
 const CalendarPageTopSection = () => {
   return (

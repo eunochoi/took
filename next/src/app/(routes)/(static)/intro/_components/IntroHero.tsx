@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import Wordmark from '@/common/components/ui/Wordmark';
 import IntroActionButtons from './IntroActionButtons';
-import hidingCat from '/public/img/hiding-cat.png';
+import hidingCat from '/public/img/hiding-cat/hiding-cat.png';
 
 const heroSectionClass = "flex min-h-[80dvh] w-full flex-col overflow-hidden bg-theme-surface px-5 pt-12 desktop:flex-row desktop:gap-8 desktop:px-[min(6vw,96px)]";
 const heroContentClass = "flex flex-col items-start justify-between gap-12 px-1 py-6 text-start desktop:w-auto desktop:items-start desktop:gap-16 desktop:px-6 desktop:py-16 desktop:text-left";

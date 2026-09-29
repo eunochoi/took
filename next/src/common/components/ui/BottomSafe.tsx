@@ -1,7 +1,7 @@
 import { cn } from '@/common/utils/cn';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import hidingCatTail from '/public/img/hiding-cat-tail-no-pawprints.png';
+import hidingCatTail from '/public/img/hiding-cat/hiding-cat-tail-no-pawprints.png';
 
 const CONTAINER_CLASS =
   'w-[180px] self-center mt-16 desktop:mt-24 mb-24 flex flex-col';
