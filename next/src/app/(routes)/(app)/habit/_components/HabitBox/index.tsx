@@ -48,7 +48,6 @@ const HabitBox = ({ name, id, priority, iconKey }: Props) => {
       }
 
       void Promise.all([
-        queryClient.invalidateQueries({ queryKey: ['habit', 'today', 'stat'], exact: true }),
         queryClient.invalidateQueries({ queryKey: ['habit', 'today-stat'], exact: true }),
         queryClient.invalidateQueries({ queryKey: ['habit', 'date'] }),
         queryClient.invalidateQueries({ queryKey: ['habit', 'id', String(id)] }),

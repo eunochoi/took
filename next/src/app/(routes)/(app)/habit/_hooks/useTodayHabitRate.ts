@@ -4,8 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useTodayHabitRate = () => {
   const { data: todayHabit } = useQuery({
-    queryKey: ['habit', 'today', 'stat'],
+    queryKey: ['habit', 'today-stat'],
     queryFn: () => authAction(getTodayHabitStat),
+    staleTime: 60_000,
   })
   const todayDoneHabitCount = todayHabit?.todayDoneHabits ?? 0;
   const createdHabitCount = todayHabit?.createdHabits ?? 0;
