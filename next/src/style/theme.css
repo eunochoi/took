@@ -33,19 +33,19 @@
 }
 
 html[data-theme-accent="green"] .theme-filtered-img {
-  filter: grayscale(0) sepia(0.8) hue-rotate(110deg) saturate(1.35) brightness(0.88) contrast(1.02);
+  filter: grayscale(0) sepia(0.8) hue-rotate(110deg) saturate(1.2) brightness(0.95) contrast(1.02);
 }
 
 html[data-theme-accent="pink"] .theme-filtered-img {
-  filter: grayscale(0) sepia(1) hue-rotate(-60deg) saturate(1.14) brightness(0.88) contrast(1.1);
+  filter: grayscale(0) sepia(0.95) hue-rotate(-60deg) saturate(1.12) brightness(0.88) contrast(1.1);
 }
 
 html[data-theme-accent="purple"] .theme-filtered-img {
-  filter: grayscale(0) sepia(0.81) hue-rotate(-168deg) saturate(1.60) brightness(0.82) contrast(1.07);
+  filter: grayscale(0) sepia(0.81) hue-rotate(-168deg) saturate(1.60) brightness(0.87) contrast(1.07);
 }
 
 html[data-theme-accent="yellow"] .theme-filtered-img {
-  filter: grayscale(0) sepia(0.9) hue-rotate(4deg) saturate(2.8) brightness(0.95) contrast(1.06);
+  filter: grayscale(0) sepia(0.9) hue-rotate(2deg) saturate(2.2) brightness(1) contrast(1.06);
 }
 
 html[data-theme-accent="grey"] .theme-filtered-img {

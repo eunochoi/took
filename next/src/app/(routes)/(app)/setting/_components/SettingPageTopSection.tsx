@@ -10,7 +10,9 @@ const SettingPageTopSection = () => {
   return (
     <section>
       <AppPageTitle title="앱 설정" description="나에게 편안한 기록 공간을 만들어요" />
-      <Image priority src={hidingCat} alt="" sizes={TopSectionCatSize} className={twMerge(TopSectionCatClass, "w-3/5")} />
+      <div>
+        <Image priority src={hidingCat} alt="" sizes={TopSectionCatSize} className={twMerge(TopSectionCatClass, "-mr-6 w-1/2")} />
+      </div>
     </section>
   );
 };
