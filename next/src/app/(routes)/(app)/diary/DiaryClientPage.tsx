@@ -1,6 +1,7 @@
 'use client';
 
 import DiaryPageContent from "./_components/DiaryPageContent";
+import DiaryPageSkeleton from "./_components/DiaryPageSkeleton";
 import DiaryPageToolbar from "./_components/DiaryPageToolbar";
 import DiaryPageTopSection from "./_components/DiaryPageTopSection";
 
@@ -85,7 +86,7 @@ const DiaryClientPage = () => {
     }, 200);
   };
 
-  const { data: flatDiaries, fetchNextPage, isFetching, isPlaceholderData, hasNextPage } = useInfiniteQuery({
+  const { data: flatDiaries, fetchNextPage, isFetching, isPlaceholderData, hasNextPage, isError, refetch } = useInfiniteQuery({
     queryKey: ['diary', 'diaryList', 'emotion', emotionToggle, 'sort', sortValue, 'year', selectedYear, 'month', selectedMonth],
     queryFn: ({ pageParam }) => authAction(() => {
       return getDiaryList({
@@ -132,7 +133,14 @@ const DiaryClientPage = () => {
             selectedEmotionLabel={selectedEmotionLabel}
           />
         }
-        mainSection={
+        mainSection={flatDiaries === undefined && !isError ? (
+          <DiaryPageSkeleton />
+        ) : flatDiaries === undefined ? (
+          <div className="flex min-h-64 w-full flex-col items-center justify-center gap-3 text-center text-theme-text-secondary">
+            <span>일기 목록을 불러오지 못했어요.</span>
+            <button type="button" className="text-theme-accent" onClick={() => { void refetch(); }}>다시 시도</button>
+          </div>
+        ) : (
           <DiaryPageContent
             flatDiaries={flatDiaries}
             isDiaryListEmpty={isDiaryListEmpty}
@@ -141,7 +149,7 @@ const DiaryClientPage = () => {
             statsYear={statsYear}
             setStatsYear={setStatsYear}
           />
-        }
+        )}
       />
       <AnimatePresence>
         {isEmotionPickerOpen && (

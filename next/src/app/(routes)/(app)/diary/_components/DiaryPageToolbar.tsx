@@ -14,14 +14,16 @@ interface Props {
   openEmotionFilter: () => void;
   isEmotionSelected: boolean;
   selectedEmotionLabel: string;
+  disabled?: boolean;
 }
 
-const DiaryPageToolbar = ({ openPeriodFilter, isPeriodSelected, selectedPeriodLabel, onToggle, sortValue, openEmotionFilter, isEmotionSelected, selectedEmotionLabel }: Props) => {
+const DiaryPageToolbar = ({ openPeriodFilter, isPeriodSelected, selectedPeriodLabel, onToggle, sortValue, openEmotionFilter, isEmotionSelected, selectedEmotionLabel, disabled = false }: Props) => {
   return (
     <div className='w-full flex justify-between'>
       <div className='flex gap-2'>
         <ToolbarButton
           onClick={onToggle}
+          disabled={disabled}
         >
           <MdSort size={18} className="shrink-0" aria-hidden="true" />
           {sortValue === 'DESC' ? '최신순' : '과거순'}
@@ -31,6 +33,7 @@ const DiaryPageToolbar = ({ openPeriodFilter, isPeriodSelected, selectedPeriodLa
         <ToolbarButton
           aria-label="기간 필터"
           onClick={openPeriodFilter}
+          disabled={disabled}
         >
           <MdCalendarMonth size={18} className="shrink-0" aria-hidden="true" />
           {isPeriodSelected && selectedPeriodLabel}
@@ -39,6 +42,7 @@ const DiaryPageToolbar = ({ openPeriodFilter, isPeriodSelected, selectedPeriodLa
         <ToolbarButton
           aria-label="감정 필터"
           onClick={openEmotionFilter}
+          disabled={disabled}
         >
           <MdEmojiEmotions size={18} className="shrink-0" aria-hidden="true" />
           {isEmotionSelected && selectedEmotionLabel}
