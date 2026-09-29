@@ -12,11 +12,6 @@ export type HabitListParams = {
   customHabitOrder?: number[];
 };
 
-export type HabitDateParams = {
-  id: number;
-  date: string;
-};
-
 export type HabitsByDateParams = {
   date: string;
 };
@@ -48,6 +43,8 @@ export type HabitData = Omit<Habit, 'userId' | 'createdAt' | 'updatedAt' | 'icon
   createdAt: string;
   updatedAt: string;
 };
+
+export type HabitPageData = HabitData & { recentDateStatus: boolean[] };
 
 export type TodayHabitStat = {
   createdHabits: number;

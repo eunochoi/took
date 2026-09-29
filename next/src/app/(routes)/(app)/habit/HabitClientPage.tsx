@@ -8,30 +8,39 @@ import HabitPageTopSection from "./_components/HabitPageTopSection";
 import { authAction } from "@/common/auth/authAction";
 import AppPageLayout from "@/common/components/layout/AppPageLayout";
 import { MAX_HABIT_COUNT } from "@/common/constants/habit";
+import { getTodayString } from "@/common/functions/getTodayString";
 import { usePrefetchPage } from "@/common/hooks/usePrefetchPage";
 import { habitQueries } from "@/common/queries/habitQueries";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { showNotice } from '@/common/components/ui/Notice/notice';
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHabitSortPreferences } from "./_hooks/useHabitSortPreferences";
 import { useTodayHabitRate } from "./_hooks/useTodayHabitRate";
 
-const HabitClientPage = () => {
+const HabitClientPage = ({ todayString }: { todayString: string }) => {
   usePrefetchPage();
+  const [activeDate, setActiveDate] = useState(todayString);
   const router = useRouter();
   const pageRef = useRef<HTMLDivElement | null>(null);
   const { todayDoneHabitCount, todayDoneHabitRate } = useTodayHabitRate();
   const { sortValue, priorityFirst, onToggleSort, onTogglePriorityFirst, customHabitOrder, isStorageReady } = useHabitSortPreferences();
 
   useEffect(() => {
+    const updateDate = () => setActiveDate(getTodayString());
+    updateDate();
+    const interval = window.setInterval(updateDate, 60_000);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     pageRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   }, [sortValue, priorityFirst]);
 
   const { data: habits, isError: isHabitsError, refetch: refetchHabits } = useQuery({
-    ...habitQueries.list({ sortType: sortValue, priorityFirst, customHabitOrder }, authAction),
+    ...habitQueries.page({ sortType: sortValue, priorityFirst, customHabitOrder }, activeDate, authAction),
     enabled: isStorageReady,
-    placeholderData: keepPreviousData,
+    placeholderData: (previousData, previousQuery) => previousQuery?.queryKey[2] === activeDate ? previousData : undefined,
   });
 
   const totalHabitCount = habits?.length ? habits?.length : 0;
@@ -71,6 +80,7 @@ const HabitClientPage = () => {
       ) : (
         <HabitPageContent
           habits={habits}
+          todayString={activeDate}
           totalHabitCount={totalHabitCount}
           todayDoneHabitCount={todayDoneHabitCount}
           todayDoneHabitRate={todayDoneHabitRate}

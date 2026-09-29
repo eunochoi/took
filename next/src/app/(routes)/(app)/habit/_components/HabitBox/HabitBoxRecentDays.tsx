@@ -1,24 +1,24 @@
 import { cn } from "@/common/utils/cn";
-import { format, subDays } from "date-fns";
+import { format, parseISO, subDays } from "date-fns";
 import { ko } from "date-fns/locale";
 import { MdCheck } from 'react-icons/md';
 
 interface Props {
   name: string;
-  recentDateStatus: boolean[] | undefined;
+  recentDateStatus: boolean[];
+  todayString: string;
   controlsDisabled: boolean;
   onToggleHabit: (checked: boolean, dateString: string) => Promise<void>;
 }
 
-const HabitBoxRecentDays = ({ name, recentDateStatus, controlsDisabled, onToggleHabit }: Props) => {
-  const currentDate = new Date();
-  let recentDateArray = new Array(4).fill(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
-  recentDateArray = recentDateArray.map((e, i) => subDays(e, i));
+const HabitBoxRecentDays = ({ name, recentDateStatus, todayString, controlsDisabled, onToggleHabit }: Props) => {
+  const today = parseISO(todayString);
+  const recentDateArray = Array.from({ length: 4 }, (_, index) => subDays(today, index));
 
   return (
     <div className="grid grid-cols-[repeat(4,max-content)] justify-around">
       {recentDateArray.map((date, i) => {
-        const checked = !!recentDateStatus?.[i];
+        const checked = recentDateStatus[i];
         const dateString = format(date, 'yyyy-MM-dd');
         return (
           <label key={dateString} className="flex cursor-pointer flex-col items-center gap-1 text-sm text-theme-text-secondary">

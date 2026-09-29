@@ -1,6 +1,6 @@
 'use client';
 
-import type { HabitData } from "@/common/actions/habit/types";
+import type { HabitPageData } from "@/common/actions/habit/types";
 import EmptyStateCard from "@/common/components/ui/EmptyStateCard";
 import { cn } from "@/common/utils/cn";
 import { MdChecklist } from 'react-icons/md';
@@ -8,13 +8,14 @@ import HabitBox from "./HabitBox";
 import HabitTodayProgressBar from "./HabitTodayProgressBar";
 
 interface Props {
-  habits?: HabitData[];
+  habits?: HabitPageData[];
+  todayString: string;
   totalHabitCount: number;
   todayDoneHabitCount: number;
   todayDoneHabitRate: number | string;
 }
 
-const HabitPageContent = ({ habits, totalHabitCount, todayDoneHabitCount, todayDoneHabitRate }: Props) => {
+const HabitPageContent = ({ habits, todayString, totalHabitCount, todayDoneHabitCount, todayDoneHabitRate }: Props) => {
   return (
     <section className="w-full desktop:grid desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8">
       {totalHabitCount > 0 && (
@@ -38,7 +39,7 @@ const HabitPageContent = ({ habits, totalHabitCount, todayDoneHabitCount, todayD
             />
           ) : habits?.map((habit) => (
             <div key={habit.id} className="min-w-0 bg-theme-surface">
-              <HabitBox id={habit.id} name={habit.name} priority={habit.priority} iconKey={habit.iconKey} />
+              <HabitBox id={habit.id} name={habit.name} priority={habit.priority} iconKey={habit.iconKey} recentDateStatus={habit.recentDateStatus} todayString={todayString} />
             </div>
           ))}
           {!!habits?.length && habits.length % 2 === 1 && <div className="bg-theme-surface" aria-hidden="true" />}
