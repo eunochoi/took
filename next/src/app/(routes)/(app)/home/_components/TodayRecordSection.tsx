@@ -47,11 +47,7 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
   const hasDiary = diaryQuery.data?.visible === true;
 
   const openTodayDiary = () => {
-    if (diaryQuery.isPending) return;
-    if (diaryQuery.isError) {
-      void diaryQuery.refetch();
-      return;
-    }
+    if (diaryQuery.isPending || diaryQuery.isError) return;
 
     const diary = diaryQuery.data;
     router.push(diary?.visible ? `/diary/${diary.id}` : `/diary/new?date=${today}`, { scroll: false });
@@ -72,7 +68,9 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
           <MdMenuBook className="shrink-0 text-xl text-theme-accent" />
           <span className="flex-1 font-base">오늘의 감정 일기</span>
           <span className={recordStatusClass} aria-live="polite">
-            {diaryQuery.isError ? '다시 시도' : diaryQuery.isPending ? '확인 중…' : hasDiary ? '일기 확인하기' : '일기 작성하기'}
+            {diaryQuery.isPending
+              ? <span className="block h-4 w-20 rounded-lg bg-theme-border/70 animate-pulse motion-reduce:animate-none" role="status" aria-label="일기 확인 중" />
+              : diaryQuery.isError ? '조회 실패' : hasDiary ? '일기 확인하기' : '일기 작성하기'}
           </span>
           <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" />
         </AppSurfaceCard>
@@ -84,7 +82,9 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
           <MdCheckBox className="shrink-0 text-xl text-theme-accent" />
           <span className="flex-1 font-base">오늘의 습관</span>
           <span className={recordStatusClass} aria-live="polite">
-            {habitQuery.isError ? '조회 실패' : habitQuery.isPending ? '확인 중…' : `${completedCount} / ${totalHabitCount} 완료`}
+            {habitQuery.isPending
+              ? <span className="block h-4 w-20 rounded-lg bg-theme-border/70 animate-pulse motion-reduce:animate-none" role="status" aria-label="습관 확인 중" />
+              : habitQuery.isError ? '조회 실패' : `${completedCount} / ${totalHabitCount} 완료`}
           </span>
           <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" />
         </AppSurfaceCard>

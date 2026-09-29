@@ -3,14 +3,15 @@
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import Image from 'next/image';
+import { MdCheckBox, MdChevronRight, MdMenuBook } from 'react-icons/md';
 
 import hidingCat from '/public/img/hiding-cat.png';
 
+import { AppSurfaceCard } from '@/common/components/ui/AppSurfaceCard';
 import EmotionImage from '@/common/components/ui/EmotionImage';
 import Wordmark from '@/common/components/ui/Wordmark';
 import { EMOTIONS } from '@/common/constants/emotions';
 import { TopSectionCatClass, TopSectionCatSize } from '@/common/constants/TopSectionCat';
-import { useSettingsContext } from '@/common/settings/useSettingsContext';
 import { cn } from '@/common/utils/cn';
 import TodayRecordSection from './TodayRecordSection';
 
@@ -19,8 +20,7 @@ const GREETING_TEXT = {
   sub: ['감정도 툭, 습관도 툭!', '조금 더 나은 나로 To OK.'],
 };
 
-const HomePageTopSection = ({ initialDate }: { initialDate: string }) => {
-  const { emotionIcon } = useSettingsContext();
+const HomePageTopSection = ({ initialDate, loading = false }: { initialDate: string; loading?: boolean }) => {
   const today = format(new Date(initialDate), 'M월 d일 EEEE', { locale: ko });
 
   return (
@@ -43,7 +43,24 @@ const HomePageTopSection = ({ initialDate }: { initialDate: string }) => {
         </div>
       </div>
       <div className="desktop:hidden p-1">
-        <TodayRecordSection initialDate={initialDate} />
+        {loading ? (
+          <div className="flex flex-col gap-3 animate-pulse motion-reduce:animate-none" role="status" aria-label="오늘의 기록 불러오는 중">
+            <AppSurfaceCard className="flex min-h-12 items-center gap-3 !py-2 text-left text-sm shadow-none">
+              <MdMenuBook className="shrink-0 text-xl text-theme-accent" aria-hidden="true" />
+              <span className="flex-1">오늘의 감정 일기</span>
+              <span className="h-4 w-20 rounded-lg bg-theme-border/70" aria-hidden="true" />
+              <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" aria-hidden="true" />
+            </AppSurfaceCard>
+            <AppSurfaceCard className="flex min-h-12 items-center gap-3 !py-2 text-left text-sm shadow-none">
+              <MdCheckBox className="shrink-0 text-xl text-theme-accent" aria-hidden="true" />
+              <span className="flex-1">오늘의 습관</span>
+              <span className="h-4 w-20 rounded-lg bg-theme-border/70" aria-hidden="true" />
+              <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" aria-hidden="true" />
+            </AppSurfaceCard>
+          </div>
+        ) : (
+          <TodayRecordSection initialDate={initialDate} />
+        )}
       </div>
       <Image priority src={hidingCat} alt="hiding-cat" sizes={TopSectionCatSize} className={TopSectionCatClass} />
     </section>

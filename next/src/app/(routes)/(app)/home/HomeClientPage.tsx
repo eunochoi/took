@@ -1,6 +1,7 @@
 'use client';
 
 import HomePageContent from "./_components/HomePageContent";
+import HomePageSkeleton from "./_components/HomePageSkeleton";
 
 import { useQuery } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -52,6 +53,8 @@ const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
     queryFn: () => authAction(() => getHabitStats({ year: selectedYear })),
     staleTime: 60 * 1000,
   });
+  const isStatsPending = diaryStats === undefined || habitStats === undefined;
+  const isStatsError = (isDiaryStatsError && diaryStats === undefined) || (isHabitStatsError && habitStats === undefined);
 
   const years = useMemo(() => {
     if (!availableYears || availableYears.length === 0) {
@@ -65,7 +68,17 @@ const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
     <>
       <AppPageLayout
         topSection={<HomePageTopSection initialDate={initialDate} />}
-        mainSection={
+        mainSection={isStatsError ? (
+          <div className="flex min-h-64 w-full flex-col items-center justify-center gap-3 text-center text-theme-text-secondary">
+            <span>홈 기록을 불러오지 못했어요.</span>
+            <button type="button" className="text-theme-accent" onClick={() => {
+              if (isDiaryStatsError) void refetchDiaryStats();
+              if (isHabitStatsError) void refetchHabitStats();
+            }}>다시 시도</button>
+          </div>
+        ) : isStatsPending ? (
+          <HomePageSkeleton />
+        ) : (
           <HomePageContent
             initialDate={initialDate}
             selectedYear={selectedYear}
@@ -77,7 +90,7 @@ const HomeClientPage = ({ initialDate }: { initialDate: string }) => {
             onRetryHabitStats={() => { void refetchHabitStats(); }}
             onOpenYearPicker={() => setIsYearPickerOpen(true)}
           />
-        }
+        )}
       />
       <AnimatePresence>
         {isYearPickerOpen && (
