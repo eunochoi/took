@@ -50,7 +50,7 @@ const HabitAnalysis = ({ stats, year }: Props) => {
               <button
                 type="button"
                 onClick={() => handleHabitClick(habit.id)}
-                className="flex w-full min-w-0 items-center gap-6 rounded-lg text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-theme-accent tablet:gap-4"
+                className="flex w-full min-w-0 items-center gap-6 rounded-lg text-left tablet:gap-4"
               >
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-transparent">
                   <HabitIcon iconKey={habit.iconKey} className="text-4xl" />

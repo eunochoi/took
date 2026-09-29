@@ -33,7 +33,7 @@ export const DiaryDetailContent = ({ diaryData }: DiaryDetailContentProps) => {
             <button
               type="button"
               key={habit.id}
-              className="inline-flex max-w-full items-center gap-1 text-left text-sm text-theme-text-secondary focus-visible:ring-2 focus-visible:ring-theme-accent"
+              className="inline-flex max-w-full items-center gap-1 text-left text-sm text-theme-text-secondary"
             >
               <MdCheck className="shrink-0 text-theme-accent" aria-hidden="true" />
               <span className="truncate">{habit.name}</span>

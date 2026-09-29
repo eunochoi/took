@@ -75,7 +75,7 @@ const AccountDeletionSection = () => {
           <input
             aria-label="회원 탈퇴 확인 문구"
             autoComplete="off"
-            className="h-11 w-full max-w-[520px] border-b border-theme-border bg-transparent px-4 text-center text-base outline-none focus-visible:border-theme-accent placeholder:text-theme-text-tertiary"
+            className="h-11 w-full max-w-[520px] border-b border-theme-border bg-transparent px-4 text-center text-base placeholder:text-theme-text-tertiary"
             disabled={isProcessing}
             onChange={(event) => {
               setConfirmText(event.target.value);

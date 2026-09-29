@@ -27,7 +27,7 @@ const HabitFormIconSection = ({ iconKey, setIconKey }: HabitFormIconSectionProps
           aria-pressed={iconKey === key}
           onClick={() => setIconKey(key)}
           className={cn(
-            'flex min-w-0 aspect-square items-center justify-center rounded-2xl border p-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent disabled:cursor-not-allowed disabled:opacity-50',
+            'flex min-w-0 aspect-square items-center justify-center rounded-2xl border p-2 transition-colors disabled:cursor-not-allowed disabled:opacity-50',
             iconKey === key
               ? 'border-theme-accent bg-theme-accent/10'
               : 'border-transparent bg-transparent',

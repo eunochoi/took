@@ -14,7 +14,7 @@ const MONTHS = Array.from({ length: 12 }, (_, index) => index + 1);
 
 const PeriodSelector = ({ selectedYear, setSelectedYear, selectedMonth, setSelectedMonth }: Props) => {
   const [displayYear, setDisplayYear] = useState(selectedYear ?? getDefaultYear());
-  const optionClass = "min-h-12 rounded-xl px-2 text-sm text-theme-text-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent";
+  const optionClass = "min-h-12 rounded-xl px-2 text-sm text-theme-text-primary transition-colors";
 
   const selectYear = (year: number) => {
     setDisplayYear(year);

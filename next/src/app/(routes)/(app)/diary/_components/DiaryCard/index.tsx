@@ -38,7 +38,7 @@ const DiaryCard = ({ diaryData, priorityImage = false }: Props) => {
                   type="button"
                   onClick={navigateToZoom}
                   aria-label={`${diaryData.date} 일기 사진 ${index + 1} 상세 보기`}
-                  className="h-full w-full focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-theme-accent"
+                  className="h-full w-full"
                 >
                   <Image
                     priority={priorityImage && index === 0}
@@ -58,7 +58,7 @@ const DiaryCard = ({ diaryData, priorityImage = false }: Props) => {
             type="button"
             onClick={navigateToZoom}
             aria-label={`${diaryData.date} 일기 자세히 보기`}
-            className="min-w-0 w-full text-left focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-theme-accent"
+            className="min-w-0 w-full text-left"
           >
             <span
               className="overflow-hidden text-base leading-[1.8] text-theme-text-secondary whitespace-pre-wrap break-words [display:-webkit-box] [-webkit-box-orient:vertical]"
@@ -75,7 +75,7 @@ const DiaryCard = ({ diaryData, priorityImage = false }: Props) => {
                 type="button"
                 key={habit.id}
                 onClick={() => handleHabitClick(habit.id)}
-                className="inline-flex max-w-full items-center gap-1 text-left text-sm text-theme-text-secondary focus-visible:ring-2 focus-visible:ring-theme-accent"
+                className="inline-flex max-w-full items-center gap-1 text-left text-sm text-theme-text-secondary"
               >
                 <MdCheck className="shrink-0 text-theme-accent" aria-hidden="true" />
                 <span className="truncate">{habit.name}</span>

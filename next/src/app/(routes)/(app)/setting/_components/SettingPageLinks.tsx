@@ -16,7 +16,7 @@ const SettingPageLinks = () => {
       <button
         type="button"
         onClick={onOpenStore}
-        className="flex w-full items-center justify-between gap-2 text-left text-base text-theme-text-secondary focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-theme-accent"
+        className="flex w-full items-center justify-between gap-2 text-left text-base text-theme-text-secondary"
       >
         <span>PlayStore</span>
         <FaGooglePlay className="shrink-0 text-xl text-theme-accent" aria-hidden="true" />
@@ -24,7 +24,7 @@ const SettingPageLinks = () => {
       <button
         type="button"
         onClick={onOpenPrivacy}
-        className="flex w-full items-center justify-between gap-2 text-left text-base text-theme-text-secondary focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-theme-accent"
+        className="flex w-full items-center justify-between gap-2 text-left text-base text-theme-text-secondary"
       >
         <span>개인정보 처리방침</span>
         <MdPrivacyTip className="shrink-0 text-xl text-theme-accent" aria-hidden="true" />

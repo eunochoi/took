@@ -16,7 +16,7 @@ const DiaryFormTextarea = ({ text, setText }: DiaryFormTextareaProps) => {
         aria-label="일기 내용"
         aria-describedby="diary-text-count"
         aria-invalid={isOverLimit}
-        className="min-h-[170px] w-full resize-none border-none bg-transparent text-base leading-8 text-theme-text-primary outline-none placeholder:text-theme-text-tertiary"
+        className="min-h-[170px] w-full resize-none border-none bg-transparent text-base leading-8 text-theme-text-primary placeholder:text-theme-text-tertiary"
         onChange={(event) => setText(event.target.value)}
         value={text}
         maxLength={DIARY_TEXT_MAX_LENGTH}

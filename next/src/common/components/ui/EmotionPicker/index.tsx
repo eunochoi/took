@@ -22,7 +22,7 @@ export const EmotionPicker = ({ value, onChange, allowDeselect = false }: Emotio
           aria-pressed={value === item.id}
           onClick={() => onChange(allowDeselect && value === item.id ? EMOTION_UNSELECTED : item.id)}
           className={cn(
-            'relative flex min-w-0 flex-col items-center gap-2 rounded-2xl border px-1 py-3 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent',
+            'relative flex min-w-0 flex-col items-center gap-2 rounded-2xl border px-1 py-3 transition-colors',
             value === item.id ? 'border-theme-accent bg-theme-accent/10' : 'border-transparent',
           )}
         >

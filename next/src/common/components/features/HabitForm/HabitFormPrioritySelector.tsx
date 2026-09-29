@@ -24,7 +24,7 @@ const HabitFormPrioritySelector = ({
           value={value}
         />
         <span className={cn(
-          'flex min-h-20 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border px-2 py-3 transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-theme-accent peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
+          'flex min-h-20 cursor-pointer flex-col items-center justify-center gap-1.5 rounded-xl border px-2 py-3 transition-colors peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
           value === priority
             ? 'border-theme-accent bg-theme-accent/10 text-theme-accent'
             : 'border-transparent text-theme-text-secondary',

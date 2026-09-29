@@ -56,7 +56,7 @@ const HomePageYearPicker = ({ onClose, years, isPending, isError, onRetry, selec
                   <button
                     key={year}
                     className={cn(
-                      "min-h-14 rounded-2xl border px-2 py-3 text-base text-theme-text-primary transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-theme-accent",
+                      "min-h-14 rounded-2xl border px-2 py-3 text-base text-theme-text-primary transition-colors",
                       selected ? "border-theme-accent bg-theme-accent/10" : "border-transparent",
                     )}
                     aria-pressed={selected}
