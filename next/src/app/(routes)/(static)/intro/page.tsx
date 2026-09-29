@@ -1,7 +1,7 @@
 import IntroClientPage from "./IntroClientPage";
 
-const Page = () => {
+const IntroServerPage = () => {
   return <IntroClientPage />
 }
 
-export default Page;
+export default IntroServerPage;

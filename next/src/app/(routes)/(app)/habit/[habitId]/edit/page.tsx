@@ -4,6 +4,6 @@ interface Props {
   params: { habitId: string };
 }
 
-const Page = ({ params }: Props) => <HabitEditEntry habitId={params.habitId} />;
+const HabitEditServerPage = ({ params }: Props) => <HabitEditEntry habitId={params.habitId} />;
 
-export default Page;
+export default HabitEditServerPage;

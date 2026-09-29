@@ -1,5 +1,5 @@
 import SettingClientPage from './SettingClientPage';
 
-const SettingPage = () => <SettingClientPage />;
+const SettingServerPage = () => <SettingClientPage />;
 
-export default SettingPage;
+export default SettingServerPage;

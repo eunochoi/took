@@ -1,5 +1,5 @@
 import DiaryCreateEntry from '@/app/(routes)/(app)/diary/_entries/DiaryCreateEntry';
 
-const Page = () => <DiaryCreateEntry />;
+const DiaryCreateServerPage = () => <DiaryCreateEntry />;
 
-export default Page;
+export default DiaryCreateServerPage;

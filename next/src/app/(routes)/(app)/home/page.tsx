@@ -13,7 +13,7 @@ interface Props {
   };
 }
 
-const HomePage = async ({ searchParams }: Props) => {
+const HomeServerPage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();
   const initialDate = await getTodayStringInUserTimezone();
   const currentYear = Number(initialDate.slice(0, 4));
@@ -37,4 +37,4 @@ const HomePage = async ({ searchParams }: Props) => {
   );
 };
 
-export default HomePage;
+export default HomeServerPage;

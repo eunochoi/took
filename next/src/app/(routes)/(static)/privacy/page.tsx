@@ -1,5 +1,5 @@
 import PrivacyClientPage from './PrivacyClientPage';
 
-const PrivacyPage = () => <PrivacyClientPage />;
+const PrivacyServerPage = () => <PrivacyClientPage />;
 
-export default PrivacyPage;
+export default PrivacyServerPage;

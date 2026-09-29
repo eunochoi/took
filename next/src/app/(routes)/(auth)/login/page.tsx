@@ -1,5 +1,5 @@
 import LoginClientPage from '../LoginClientPage';
 
-const LoginPage = () => <LoginClientPage />;
+const LoginServerPage = () => <LoginClientPage />;
 
-export default LoginPage;
+export default LoginServerPage;

@@ -1,5 +1,5 @@
 import HabitCreateEntry from '@/app/(routes)/(app)/habit/_entries/HabitCreateEntry';
 
-const Page = () => <HabitCreateEntry />;
+const HabitCreateServerPage = () => <HabitCreateEntry />;
 
-export default Page;
+export default HabitCreateServerPage;

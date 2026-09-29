@@ -12,7 +12,7 @@ interface Props {
   };
 }
 
-const DiaryListPage = async ({ searchParams }: Props) => {
+const DiaryServerPage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();
   const selectedYear = searchParams?.year && /^\d{4}$/.test(searchParams.year)
     ? Number(searchParams.year) : null;
@@ -32,4 +32,4 @@ const DiaryListPage = async ({ searchParams }: Props) => {
   );
 };
 
-export default DiaryListPage;
+export default DiaryServerPage;

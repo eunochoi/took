@@ -3,7 +3,7 @@ import { unwrapQueryAction } from "@/common/queries/queryAction";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import HabitClientPage from "./HabitClientPage";
 
-const HabitPage = async () => {
+const HabitServerPage = async () => {
   const queryClient = new QueryClient();
 
   await Promise.all((['ASC', 'DESC'] as const).map((sortType) =>
@@ -17,4 +17,4 @@ const HabitPage = async () => {
   );
 };
 
-export default HabitPage;
+export default HabitServerPage;

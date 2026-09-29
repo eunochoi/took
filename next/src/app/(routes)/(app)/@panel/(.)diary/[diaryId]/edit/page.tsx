@@ -4,6 +4,6 @@ interface Props {
   params: { diaryId: string };
 }
 
-const Page = ({ params }: Props) => <DiaryEditEntry diaryId={params.diaryId} />;
+const DiaryEditServerPage = ({ params }: Props) => <DiaryEditEntry diaryId={params.diaryId} />;
 
-export default Page;
+export default DiaryEditServerPage;

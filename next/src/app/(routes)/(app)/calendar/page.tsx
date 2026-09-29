@@ -6,7 +6,7 @@ import { unwrapQueryAction } from '@/common/queries/queryAction';
 import { getTodayStringInUserTimezone } from '@/common/utils/date/userTimezone';
 import CalendarClientPage from './CalendarClientPage';
 
-const CalendarPage = async () => {
+const CalendarServerPage = async () => {
   const initialDate = await getTodayStringInUserTimezone();
   const month = initialDate.slice(0, 7);
   // 요청별 캐시를 사용해 사용자 간 데이터가 공유되지 않도록 한다.
@@ -26,4 +26,4 @@ const CalendarPage = async () => {
   );
 };
 
-export default CalendarPage;
+export default CalendarServerPage;

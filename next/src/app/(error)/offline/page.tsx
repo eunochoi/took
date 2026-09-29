@@ -1,5 +1,5 @@
 import OfflineClientPage from './OfflineClientPage';
 
-const OfflinePage = () => <OfflineClientPage />;
+const OfflineServerPage = () => <OfflineClientPage />;
 
-export default OfflinePage;
+export default OfflineServerPage;

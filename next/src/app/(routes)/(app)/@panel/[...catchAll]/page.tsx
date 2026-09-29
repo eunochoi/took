@@ -1,3 +1,3 @@
-const EmptyPanel = () => null;
+const EmptyPanelServerPage = () => null;
 
-export default EmptyPanel;
+export default EmptyPanelServerPage;

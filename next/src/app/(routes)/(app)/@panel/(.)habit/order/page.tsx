@@ -1,5 +1,5 @@
 import HabitOrderEntry from '@/app/(routes)/(app)/habit/_entries/HabitOrderEntry';
 
-const Page = () => <HabitOrderEntry />;
+const HabitOrderServerPage = () => <HabitOrderEntry />;
 
-export default Page;
+export default HabitOrderServerPage;
