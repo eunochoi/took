@@ -44,13 +44,13 @@ const HabitAnalysis = ({ stats, year }: Props) => {
       />
 
       {habits && habits.length > 0 ?
-        <ol className="m-0 list-none divide-y divide-theme-border/60 p-2">
+        <ol className="flex flex-col gap-6 m-0 list-none p-2">
           {habits.slice(0, 3).map((habit) => (
             <li key={habit.id}>
               <button
                 type="button"
                 onClick={() => handleHabitClick(habit.id)}
-                className="flex w-full min-w-0 items-center gap-6 rounded-lg py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-theme-accent tablet:gap-4"
+                className="flex w-full min-w-0 items-center gap-6 rounded-lg text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-theme-accent tablet:gap-4"
               >
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-transparent">
                   <HabitIcon iconKey={habit.iconKey} className="text-4xl" />
