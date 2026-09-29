@@ -24,8 +24,4 @@ export const ERROR_PAGE_PRESETS = {
     title: "인증 실패",
     description: "인증에 실패했습니다. 다시 로그인해주세요.",
   },
-  offline: {
-    title: "오프라인",
-    description: "인터넷 연결 상태를 확인해주세요.",
-  },
 } satisfies Record<string, ErrorPagePreset>;

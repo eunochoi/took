@@ -15,14 +15,7 @@ const withPWA = nextPWA({
   buildExcludes: [
     /app-build-manifest\.json$/,
   ],
-  fallbacks: {
-    document: '/offline',
-  },
   additionalManifestEntries: [
-    {
-      url: '/offline',
-      revision: '1',
-    },
     {
       url: '/img/emotion/basic/sad.png',
       revision: '4',
@@ -31,8 +24,7 @@ const withPWA = nextPWA({
   runtimeCaching: [
     {
       // Page navigations may contain account-specific HTML. Always ask the
-      // server for the current response; next-pwa supplies /offline only when
-      // the network request fails and the browser is offline.
+      // server for the current response.
       urlPattern: ({ request }) => request.mode === 'navigate',
       handler: 'NetworkOnly',
       options: {},

@@ -3,7 +3,7 @@
 ```text
 next/src/app/
 ├── (api)/api/auth/
-├── (error)/offline/, unauthorized/
+├── (error)/unauthorized/
 └── (routes)/
     ├── (auth)/                # / and /login share LoginClientPage
     ├── (static)/              # /intro, /privacy, /account-deletion

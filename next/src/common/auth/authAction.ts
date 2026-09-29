@@ -9,12 +9,17 @@ interface AuthActionOptions {
   redirectOnAuthError?: boolean;
 }
 
+export class AuthRequiredError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'AuthRequiredError';
+  }
+}
+
 let accessTokenRefreshPromise: Promise<boolean> | null = null;
 
 // 로그인 화면으로 이동
 const goToLogin = () => {
-  if (!navigator.onLine) return;
-
   if (window.location.pathname !== '/login') {
     window.location.replace('/login');
   }
@@ -22,14 +27,15 @@ const goToLogin = () => {
 
 // refreshToken으로 accessToken 재발급 요청
 const requestAccessTokenRefresh = async () => {
-  if (!navigator.onLine) return false;
-
   const response = await fetch('/api/auth/refresh', {
     method: 'POST',
     credentials: 'include',
   });
 
-  return response.ok;
+  if (response.ok) return true;
+  if (response.status === 401) return false;
+
+  throw new Error('로그인 상태를 확인하지 못했습니다. 다시 시도해주세요.');
 };
 
 // 같은 브라우저 탭에서 동시에 발생한 refresh 요청을 하나로 합침
@@ -79,6 +85,10 @@ export const authAction = async <T,>(
         }
       }
 
+      if (retryNeedLogin || retryAccessTokenExpired) {
+        throw new AuthRequiredError(retryResult.message);
+      }
+
       throw new Error(retryResult.message);
     }
   }
@@ -88,6 +98,7 @@ export const authAction = async <T,>(
     if (redirectOnAuthError) {
       goToLogin();
     }
+    throw new AuthRequiredError(result.message);
   }
 
   throw new Error(result.message);

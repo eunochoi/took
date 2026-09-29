@@ -30,10 +30,8 @@ export const POST = async () => {
   } catch (error) {
     console.error("refresh error:", error);
 
-    // 4. refresh 실패 시 브라우저의 두 인증 쿠키를 제거한다.
-    await clearAccessRefreshToken();
-
     if (error instanceof RefreshTokenError && error.code === 'EXPIRED') {
+      await clearAccessRefreshToken();
       return NextResponse.json({ error: "리프레시 토큰이 만료되었습니다." }, { status: 401 });
     }
 
@@ -41,6 +39,7 @@ export const POST = async () => {
       error instanceof RefreshTokenError ||
       (error instanceof Error && (error.name === 'TokenExpiredError' || error.name === 'JsonWebTokenError'))
     ) {
+      await clearAccessRefreshToken();
       return NextResponse.json({ error: "유효하지 않은 리프레시 토큰입니다." }, { status: 401 });
     }
 
