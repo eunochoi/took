@@ -6,8 +6,6 @@ import { getHabitsByDate } from '@/common/actions/habit';
 import { getTodayStringInUserTimezone } from '@/common/utils/date/userTimezone';
 import CalendarClientPage from './CalendarClientPage';
 
-export const dynamic = 'force-dynamic';
-
 const CalendarPage = async () => {
   const initialDate = await getTodayStringInUserTimezone();
   const month = initialDate.slice(0, 7);

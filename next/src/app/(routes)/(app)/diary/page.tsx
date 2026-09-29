@@ -4,8 +4,6 @@ import { EMOTION_UNSELECTED, MONTH_UNSELECTED } from "@/common/constants/filterD
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import DiaryClientPage from "./DiaryClientPage";
 
-export const dynamic = 'force-dynamic';
-
 interface Props {
   searchParams?: {
     year?: string;

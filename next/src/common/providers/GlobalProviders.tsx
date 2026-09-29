@@ -1,6 +1,5 @@
 'use client';
 
-import { DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import OfflineScreen from "../components/ui/OfflineScreen";
@@ -11,7 +10,6 @@ import RQProvider from "./reactQuery/ReactQueryProvider";
 
 interface Props {
   children: ReactNode;
-  dehydratedState?: DehydratedState | null;
 }
 
 /**
@@ -19,20 +17,17 @@ interface Props {
  * - SessionProvider: 인증 (next-auth)
  * - RQProvider: React Query 상태 관리
  * - NoticeHost: 한 번에 하나의 알림 표시
- * - HydrationBoundary: 서버 데이터 hydration
  * - OfflineScreen: 오프라인 상태 화면
  */
-export const GlobalProviders = ({ children, dehydratedState }: Props) => {
+export const GlobalProviders = ({ children }: Props) => {
   return (
     <SessionProvider>
       <RQProvider>
         <NoticeHost />
-        <HydrationBoundary state={dehydratedState}>
-          <ServiceWorkerRegister />
-          <SystemBars />
-          <OfflineScreen />
-          {children}
-        </HydrationBoundary>
+        <ServiceWorkerRegister />
+        <SystemBars />
+        <OfflineScreen />
+        {children}
       </RQProvider>
     </SessionProvider>
   );

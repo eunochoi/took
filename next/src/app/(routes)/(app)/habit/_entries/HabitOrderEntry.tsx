@@ -1,14 +1,7 @@
 import { HabitOrderClientPage } from '@/common/components/features/HabitOrder/HabitOrderClientPage';
-import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 const HabitOrderEntry = () => {
-  const queryClient = new QueryClient();
-
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <HabitOrderClientPage />
-    </HydrationBoundary>
-  );
+  return <HabitOrderClientPage />;
 };
 
 export default HabitOrderEntry;

@@ -2,8 +2,6 @@ import { getHabitList } from "@/common/actions/habit";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import HabitClientPage from "./HabitClientPage";
 
-export const dynamic = 'force-dynamic';
-
 const HabitPage = async () => {
   const queryClient = new QueryClient();
 

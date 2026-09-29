@@ -3,8 +3,6 @@ import "./globals.css";
 
 import { GlobalProviders } from "@/common/providers/GlobalProviders";
 import { THEME_BG_DARK_MODE, THEME_LOCAL_STORAGE_KEY, THEME_VALUE } from "@/common/types/theme";
-import { dehydrate, QueryClient } from "@tanstack/react-query";
-import { headers } from 'next/headers';
 
 
 export const metadata: Metadata = {
@@ -18,27 +16,16 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   initialScale: 1,
-  maximumScale: 1,
   width: 'device-width',
-  userScalable: false,
-  // interactiveWidget: 'resizes-visual',
   interactiveWidget: 'resizes-content'
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
 
-  const { get } = headers()
-  let userAgent = get('user-agent')
-  userAgent = userAgent ? userAgent.toLowerCase() : '';
-  const isIosDevice = userAgent?.includes('iphone') || userAgent?.includes('macintosh');
-
-  const queryClient = new QueryClient();
-
-  const dehydratedState = dehydrate(queryClient)
   const localThemeInitScript = `
     (function () {
       try {
@@ -80,14 +67,12 @@ export default async function RootLayout({
   `;
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning>
       <head>
         <meta id="theme-color" name="theme-color" content="#F0F7FF" />
         <link rel="preload" href="/fonts/Fredoka[wdth,wght].ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
         <script dangerouslySetInnerHTML={{ __html: localThemeInitScript }} />
         <meta name="google-site-verification" content="MSSWdnca2PMfsNV3MPmssa5cjQqycFJmdrj04DFx5fU" />
-        {/* <link rel="manifest" href="/manifest.json" /> */}
-
         {/* iOS 스플래시 이미지 (portrait only) */}
         <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" href="/splash_screens/iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_portrait.png" />
         <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" href="/splash_screens/iPhone_15_Pro__iPhone_15__iPhone_14_Pro_portrait.png" />
@@ -100,7 +85,6 @@ export default async function RootLayout({
         <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/splash_screens/iPhone_8__iPhone_7__iPhone_6s__iPhone_6__4.7__iPhone_SE_portrait.png" />
         <link rel="apple-touch-startup-image" media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/splash_screens/4__iPhone_SE__iPod_touch_5th_generation_and_later_portrait.png" />
 
-        {isIosDevice && <meta name="apple-mobile-web-app-capable" content="yes" />}
         <meta name="mobile-web-app-capable" content="yes" />
 
         <meta property="og:title" content="Took" />
@@ -109,7 +93,7 @@ export default async function RootLayout({
       </head>
 
       <body>
-        <GlobalProviders dehydratedState={dehydratedState}>
+        <GlobalProviders>
           {children}
         </GlobalProviders>
       </body>

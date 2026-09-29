@@ -6,8 +6,6 @@ import { getTodayHabitStat } from "@/common/actions/habit";
 import { getTodayStringInUserTimezone } from "@/common/utils/date/userTimezone";
 import HomeClientPage from "./HomeClientPage";
 
-export const dynamic = 'force-dynamic';
-
 interface Props {
   searchParams?: {
     year?: string;
