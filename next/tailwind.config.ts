@@ -42,6 +42,7 @@ const config: Config = {
         "theme-text-on-accent": "rgb(var(--theme-text-on-accent) / <alpha-value>)",
         "theme-border": "rgb(var(--theme-border) / <alpha-value>)",
         "theme-border-muted": "rgb(var(--theme-border-muted) / <alpha-value>)",
+        "theme-skeleton": "rgb(var(--theme-skeleton) / <alpha-value>)",
         "theme-danger": "rgb(var(--theme-danger) / <alpha-value>)",
         "theme-warning": "rgb(var(--theme-warning) / <alpha-value>)",
         "theme-success": "rgb(var(--theme-success) / <alpha-value>)",

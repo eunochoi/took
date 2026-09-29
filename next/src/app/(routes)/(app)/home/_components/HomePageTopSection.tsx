@@ -48,13 +48,13 @@ const HomePageTopSection = ({ initialDate, loading = false }: { initialDate: str
             <AppSurfaceCard className="flex min-h-12 items-center gap-3 !py-2 text-left text-sm shadow-none">
               <MdMenuBook className="shrink-0 text-xl text-theme-accent" aria-hidden="true" />
               <span className="flex-1">오늘의 감정 일기</span>
-              <span className="h-4 w-20 rounded-lg bg-theme-border/70" aria-hidden="true" />
+              <span className="h-4 w-20 rounded-lg bg-theme-skeleton" aria-hidden="true" />
               <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" aria-hidden="true" />
             </AppSurfaceCard>
             <AppSurfaceCard className="flex min-h-12 items-center gap-3 !py-2 text-left text-sm shadow-none">
               <MdCheckBox className="shrink-0 text-xl text-theme-accent" aria-hidden="true" />
               <span className="flex-1">오늘의 습관</span>
-              <span className="h-4 w-20 rounded-lg bg-theme-border/70" aria-hidden="true" />
+              <span className="h-4 w-20 rounded-lg bg-theme-skeleton" aria-hidden="true" />
               <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" aria-hidden="true" />
             </AppSurfaceCard>
           </div>

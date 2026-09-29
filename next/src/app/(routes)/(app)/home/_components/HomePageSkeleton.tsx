@@ -5,13 +5,13 @@ const HomePageSkeleton = () => (
     aria-label="홈 기록 불러오는 중"
   >
     <div className="flex min-w-0 flex-col gap-14 desktop:gap-20">
-      <div className="h-64 rounded-xl bg-theme-border/70" aria-hidden="true" />
-      <div className="h-64 rounded-xl bg-theme-border/70" aria-hidden="true" />
-      <div className="h-48 rounded-xl bg-theme-border/70" aria-hidden="true" />
+      <div className="h-64 rounded-xl bg-theme-skeleton" aria-hidden="true" />
+      <div className="h-64 rounded-xl bg-theme-skeleton" aria-hidden="true" />
+      <div className="h-48 rounded-xl bg-theme-skeleton" aria-hidden="true" />
     </div>
-    <div className="hidden min-w-0 flex-col gap-12 desktop:flex" aria-hidden="true">
-      <div className="h-36 rounded-xl bg-theme-border/70" />
-      <div className="h-32 rounded-xl bg-theme-border/70" />
+    <div className="hidden min-w-0 flex-col gap-12 desktop:sticky desktop:top-[max(112px,calc(var(--page-toolbar-height,0px)+24px))] desktop:flex desktop:self-start desktop:border-l desktop:border-theme-border/60 desktop:pl-8" aria-hidden="true">
+      <div className="h-36 rounded-xl bg-theme-skeleton" />
+      <div className="h-32 rounded-xl bg-theme-skeleton" />
     </div>
   </section>
 );
