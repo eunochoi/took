@@ -1,6 +1,7 @@
 'use client';
 
 import HabitPageContent from "./_components/HabitPageContent";
+import HabitPageSkeleton from "./_components/HabitPageSkeleton";
 import HabitPageToolbar from "./_components/HabitPageToolbar";
 import HabitPageTopSection from "./_components/HabitPageTopSection";
 
@@ -27,7 +28,7 @@ const HabitClientPage = () => {
     pageRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   }, [sortValue, priorityFirst]);
 
-  const { data: habits } = useQuery({
+  const { data: habits, isError: isHabitsError, refetch: refetchHabits } = useQuery({
     queryKey: ['habits', 'list', sortValue, priorityFirst, sortValue === 'CUSTOM' ? customHabitOrder : []],
     queryFn: () => authAction(() => getHabitList({
       sortType: sortValue,
@@ -62,16 +63,24 @@ const HabitClientPage = () => {
           onAddHabit={onAddHabit}
           sortValue={sortValue}
           priorityFirst={priorityFirst}
+          disabledAdd={!habits}
         />
       }
-      mainSection={
+      mainSection={habits === undefined && !isHabitsError ? (
+        <HabitPageSkeleton />
+      ) : habits === undefined ? (
+        <div className="flex min-h-64 w-full flex-col items-center justify-center gap-3 text-center text-theme-text-secondary">
+          <span>습관 목록을 불러오지 못했어요.</span>
+          <button type="button" className="text-theme-accent" onClick={() => { void refetchHabits(); }}>다시 시도</button>
+        </div>
+      ) : (
         <HabitPageContent
           habits={habits}
           totalHabitCount={totalHabitCount}
           todayDoneHabitCount={todayDoneHabitCount}
           todayDoneHabitRate={todayDoneHabitRate}
         />
-      }
+      )}
     />
   );
 }

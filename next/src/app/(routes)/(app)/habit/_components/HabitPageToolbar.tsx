@@ -20,9 +20,10 @@ interface Props {
   onAddHabit: () => void;
   sortValue: HabitSort;
   priorityFirst: boolean;
+  disabledAdd?: boolean;
 }
 
-const HabitPageToolbar = ({ onToggle, onTogglePriorityFirst, onAddHabit, sortValue, priorityFirst }: Props) => {
+const HabitPageToolbar = ({ onToggle, onTogglePriorityFirst, onAddHabit, sortValue, priorityFirst, disabledAdd = false }: Props) => {
   return (
     <div className='w-full flex justify-between'>
       <div className='flex gap-2'>
@@ -40,7 +41,7 @@ const HabitPageToolbar = ({ onToggle, onTogglePriorityFirst, onAddHabit, sortVal
         </ToolbarButton>
       </div>
       <div className='flex gap-2'>
-        <ToolbarButton aria-label="습관 추가" onClick={onAddHabit} title="습관 추가">
+        <ToolbarButton aria-label="습관 추가" onClick={onAddHabit} title="습관 추가" disabled={disabledAdd}>
           <FaPlus size={18} aria-hidden="true" />
         </ToolbarButton>
       </div>
