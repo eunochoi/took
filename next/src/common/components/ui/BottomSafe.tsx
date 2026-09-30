@@ -22,6 +22,7 @@ export const BottomSafe = ({ className, animation = true }: BottomSafeProps) => 
     return (
       <div className={cn(CONTAINER_CLASS, className)}>
         <Image
+          priority
           className={TAIL_IMAGE_CLASS}
           src={hidingCatTail}
           alt="hiding-cat-tail"
@@ -40,6 +41,7 @@ export const BottomSafe = ({ className, animation = true }: BottomSafeProps) => 
       transition={{ delay: 2, duration: 0.3, ease: "easeOut" }}
       className={cn(CONTAINER_CLASS, className)}>
       <Image
+        priority
         className={TAIL_IMAGE_CLASS}
         src={hidingCatTail}
         alt="hiding-cat-tail"
