@@ -35,7 +35,7 @@ export const CalendarDay = ({
       {isToday && !day.isOutsideMonth && (
         <span
           aria-hidden="true"
-          className="absolute -bottom-[3px] h-1.5 w-1.5 rounded-full bg-theme-accent"
+          className="absolute -bottom-[3px] h-1.5 w-4 rounded-full bg-theme-accent"
         />
       )}
     </>
