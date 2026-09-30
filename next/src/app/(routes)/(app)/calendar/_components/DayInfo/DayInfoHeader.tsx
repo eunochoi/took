@@ -12,9 +12,8 @@ const DayInfoHeader = ({ date, emotion }: Props) => {
   const formattedDate = format(parseLocalDate(date), 'M월 d일 EEEE', { locale: ko });
 
   return (
-    <header className="py-2  flex items-stretch justify-between gap-4">
+    <header className="py-2 flex items-stretch">
       <h2 className="text-xl font-semibold text-theme-text-primary">{formattedDate}</h2>
-      {emotion && <span className='text-sm text-white rounded-full bg-theme-accent px-3 tracking-widest flex items-center'>{emotion?.nameKr}</span>}
     </header>
   );
 };
