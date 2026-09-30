@@ -3,12 +3,13 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { authAction } from '@/common/auth/authAction';
+import type { AuthActionError } from '@/common/auth/types';
 import { getCurrentUser, type CurrentUser } from '@/common/actions/user';
 
 type CurrentUserQueryOptions = {
   staleTime?: number;
   gcTime?: number;
-  retry?: number | false | ((failureCount: number, error: Error) => boolean);
+  retry?: number | false | ((failureCount: number, error: AuthActionError) => boolean);
   refetchOnWindowFocus?: boolean | 'always';
   redirectOnAuthError?: boolean;
 };
@@ -23,7 +24,7 @@ export const useCurrentUser = (options: CurrentUserQueryOptions = {}) => {
     ...queryOptionsOverride,
   };
 
-  const currentUserQuery = useQuery<CurrentUser, Error>(queryOptions);
+  const currentUserQuery = useQuery<CurrentUser, AuthActionError>(queryOptions);
 
   return currentUserQuery;
 };

@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useState } from "react";
 
-import { AuthRequiredError } from "@/common/auth/authAction";
+import { AUTH_ERROR_CODE } from "@/common/auth/types";
 import ResponsiveAppLayout from "@/common/components/layout/ResponsiveAppLayout";
 import LoadingScreen from "@/common/components/ui/LoadingScreen";
 import { useAuthRoute } from "@/common/hooks/useAuthRoute";
@@ -28,7 +28,7 @@ const AppLayout = ({ children, panel }: Props) => {
   if (isLoading || isMinimumLoading) {
     return <LoadingScreen />;
   }
-  if (isError && !user && !(error instanceof AuthRequiredError)) {
+  if (isError && !user && error?.code !== AUTH_ERROR_CODE.needLogin) {
     return (
       <div className="flex min-h-[100dvh] items-center justify-center bg-theme-bg p-5 text-theme-text-primary">
         <div className="rounded-theme bg-theme-surface px-6 py-8 text-center shadow-theme-floating">

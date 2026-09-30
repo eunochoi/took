@@ -4,3 +4,7 @@ export const AUTH_ERROR_CODE = {
 } as const;
 
 export type AuthErrorCode = typeof AUTH_ERROR_CODE[keyof typeof AUTH_ERROR_CODE];
+
+export type AuthActionError = Error & {
+  code?: AuthErrorCode;
+};

@@ -3,17 +3,10 @@
 import { signOut } from 'next-auth/react';
 
 import type { ActionResult } from '../actions/types';
-import { AUTH_ERROR_CODE } from './types';
+import { AUTH_ERROR_CODE, type AuthActionError } from './types';
 
 interface AuthActionOptions {
   redirectOnAuthError?: boolean;
-}
-
-export class AuthRequiredError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'AuthRequiredError';
-  }
 }
 
 let accessTokenRefreshPromise: Promise<boolean> | null = null;
@@ -86,7 +79,9 @@ export const authAction = async <T,>(
       }
 
       if (retryNeedLogin || retryAccessTokenExpired) {
-        throw new AuthRequiredError(retryResult.message);
+        const error: AuthActionError = new Error(retryResult.message);
+        error.code = AUTH_ERROR_CODE.needLogin;
+        throw error;
       }
 
       throw new Error(retryResult.message);
@@ -98,7 +93,9 @@ export const authAction = async <T,>(
     if (redirectOnAuthError) {
       goToLogin();
     }
-    throw new AuthRequiredError(result.message);
+    const error: AuthActionError = new Error(result.message);
+    error.code = AUTH_ERROR_CODE.needLogin;
+    throw error;
   }
 
   throw new Error(result.message);
