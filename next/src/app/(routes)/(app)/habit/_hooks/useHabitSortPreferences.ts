@@ -37,11 +37,11 @@ export const useHabitSortPreferences = () => {
 
   const onTogglePriorityFirst = useCallback(() => {
     setSortPreferences((previousPreferences) => {
-      const isCustomSort = previousPreferences.habit === 'CUSTOM';
-      const nextPriorityFirst = isCustomSort ? true : !previousPreferences.habitPriorityFirst;
+      if (previousPreferences.habit === 'CUSTOM') return previousPreferences;
+      const nextPriorityFirst = !previousPreferences.habitPriorityFirst;
       return {
         ...previousPreferences,
-        habit: isCustomSort ? 'DESC' : previousPreferences.habit,
+        habit: previousPreferences.habit,
         habitPriorityFirst: nextPriorityFirst,
       };
     });
