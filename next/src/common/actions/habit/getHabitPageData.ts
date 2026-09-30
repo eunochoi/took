@@ -4,11 +4,11 @@ import { prisma } from '../../../../lib/prisma';
 import { getAuth } from '../../auth/getAuth';
 import { addDaysToDateString } from '../../utils/date/userTimezone';
 import type { ActionResult } from '../types';
-import type { HabitListParams, HabitPageData } from './types';
+import type { HabitPageData } from './types';
 import { createAuthErrorResult, createServerErrorResult, formatHabitData, validateDateFormat } from './utils';
 import { getSortedHabits } from './utils/getSortedHabits';
 
-export const getHabitPageData = async (params: HabitListParams & { date: string }): Promise<ActionResult<HabitPageData[]>> => {
+export const getHabitPageData = async (params: { date: string }): Promise<ActionResult<HabitPageData[]>> => {
   try {
     const auth = await getAuth();
     if (!auth.ok) return createAuthErrorResult(auth);
@@ -16,7 +16,7 @@ export const getHabitPageData = async (params: HabitListParams & { date: string 
       return { ok: false, code: 'INVALID_DATE', message: '날짜 형식이 올바르지 않습니다. (yyyy-MM-dd)' };
     }
 
-    const habits = await getSortedHabits(params, auth.email);
+    const habits = await getSortedHabits(auth.email);
     if (habits.length === 0) return { ok: true, data: [] };
 
     const recentDates = Array.from({ length: 4 }, (_, index) => addDaysToDateString(params.date, -index));

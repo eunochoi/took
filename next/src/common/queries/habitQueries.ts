@@ -1,25 +1,18 @@
 import { getHabitById, getHabitList, getHabitMonthData, getHabitPageData, getHabitYearlyStatus, getHabitsByDate, getTodayHabitStat } from '@/common/actions/habit';
-import type { HabitListParams } from '@/common/actions/habit/types';
 import type { QueryActionRunner } from '@/common/queries/queryAction';
 import { queryOptions } from '@tanstack/react-query';
 
 export const habitQueries = {
-  page: ({ sortType, priorityFirst = false, customHabitOrder = [] }: HabitListParams, date: string, runAction: QueryActionRunner) => {
-    const params = { sortType, priorityFirst, customHabitOrder: sortType === 'CUSTOM' ? customHabitOrder : [], date };
-    return queryOptions({
-      queryKey: ['habits', 'page', date, params.sortType, params.priorityFirst, params.customHabitOrder],
-      queryFn: () => runAction(() => getHabitPageData(params)),
-      staleTime: 60_000,
-    });
-  },
-  list: ({ sortType, priorityFirst = false, customHabitOrder = [] }: HabitListParams, runAction: QueryActionRunner) => {
-    const params = { sortType, priorityFirst, customHabitOrder: sortType === 'CUSTOM' ? customHabitOrder : [] };
-    return queryOptions({
-      queryKey: ['habits', 'list', params.sortType, params.priorityFirst, params.customHabitOrder],
-      queryFn: () => runAction(() => getHabitList(params)),
-      staleTime: 60_000,
-    });
-  },
+  page: (date: string, runAction: QueryActionRunner) => queryOptions({
+    queryKey: ['habits', 'page', date],
+    queryFn: () => runAction(() => getHabitPageData({ date })),
+    staleTime: 60_000,
+  }),
+  list: (runAction: QueryActionRunner) => queryOptions({
+    queryKey: ['habits', 'list'],
+    queryFn: () => runAction(getHabitList),
+    staleTime: 60_000,
+  }),
   byId: (id: string | null | undefined, runAction: QueryActionRunner) => queryOptions({
     queryKey: ['habit', 'id', id],
     queryFn: () => runAction(() => getHabitById({ id })),

@@ -1,5 +1,7 @@
 'use client';
 
+import { sortHabits } from '@/common/functions/sortHabits';
+
 import HabitPageContent from "./_components/HabitPageContent";
 import HabitPageSkeleton from "./_components/HabitPageSkeleton";
 import HabitPageToolbar from "./_components/HabitPageToolbar";
@@ -38,8 +40,9 @@ const HabitClientPage = ({ todayString }: { todayString: string }) => {
   }, [sortValue, priorityFirst]);
 
   const { data: habits, isError: isHabitsError, refetch: refetchHabits } = useQuery({
-    ...habitQueries.page({ sortType: sortValue, priorityFirst, customHabitOrder }, activeDate, authAction),
+    ...habitQueries.page(activeDate, authAction),
     enabled: isStorageReady,
+    select: (data) => sortHabits(data, { sortType: sortValue, priorityFirst, customHabitOrder }),
     placeholderData: (previousData, previousQuery) => previousQuery?.queryKey[2] === activeDate ? previousData : undefined,
   });
 

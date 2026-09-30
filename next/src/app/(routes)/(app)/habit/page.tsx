@@ -8,9 +8,7 @@ const HabitServerPage = async () => {
   const queryClient = new QueryClient();
   const todayString = await getTodayStringInUserTimezone();
 
-  await Promise.all((['ASC', 'DESC'] as const).map((sortType) =>
-    queryClient.prefetchQuery(habitQueries.page({ sortType }, todayString, unwrapQueryAction)),
-  ));
+  await queryClient.prefetchQuery(habitQueries.page(todayString, unwrapQueryAction));
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
