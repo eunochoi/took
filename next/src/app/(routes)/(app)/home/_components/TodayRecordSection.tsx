@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react';
 import { MdCheckBox, MdChevronRight, MdMenuBook } from 'react-icons/md';
 
 import { authAction } from '@/common/auth/authAction';
-import { diaryQueries } from '@/common/queries/diaryQueries';
-import { habitQueries } from '@/common/queries/habitQueries';
 import { AppSection, AppSectionHeader, AppSectionTitle } from '@/common/components/ui/AppSection';
 import { AppSurfaceCard } from '@/common/components/ui/AppSurfaceCard';
 import { getTodayString } from '@/common/functions/getTodayString';
+import { diaryQueries } from '@/common/queries/diaryQueries';
+import { habitQueries } from '@/common/queries/habitQueries';
 import { useRouter } from 'next/navigation';
 
 const recordStatusClass = 'text-sm text-theme-accent desktop:text-sm';
@@ -67,7 +67,7 @@ const TodayRecordSection = ({ initialDate }: { initialDate: string }) => {
           <span className={recordStatusClass} aria-live="polite">
             {diaryQuery.isPending
               ? <span className={loadingClass} role="status" aria-label="일기 확인 중" />
-              : diaryQuery.isError ? '조회 실패' : hasDiary ? '일기 확인하기' : '일기 작성하기'}
+              : diaryQuery.isError ? '조회 실패' : hasDiary ? '확인하기' : '작성하기'}
           </span>
           <MdChevronRight className="shrink-0 text-xl text-theme-text-tertiary" />
         </AppSurfaceCard>
