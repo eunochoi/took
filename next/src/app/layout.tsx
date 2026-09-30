@@ -10,7 +10,12 @@ export const metadata: Metadata = {
   description: "감정 일기를 적고 목표 습관을 실천하세요! 당신의 변화와 성장을 응원합니다. :)",
   manifest: "/manifest.json",
   icons: {
-    icon: '/favicon.png', // 32x32 PNG
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48', type: 'image/x-icon' },
+      { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icon/icon-48x48.png', sizes: '48x48', type: 'image/png' },
+    ],
+    apple: { url: '/icon/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
   },
 };
 
@@ -89,7 +94,7 @@ export default function RootLayout({
 
         <meta property="og:title" content="took - 감정일기 · 습관관리 · 할일" />
         <meta property="og:description" content="감정도 툭! 습관도 툭! 조금 더 나은 나로 To OK. 습관과 감정을 기록하고 나만의 속도로 하루를 쌓아가요." />
-        <meta property="og:image" content={process.env.OG_IMAGE_URL} />
+        <meta property="og:image" content={process.env.OG_IMAGE_URL || 'https://to-ok.me/img/share/og-image.png'} />
       </head>
 
       <body>

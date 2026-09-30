@@ -1,7 +1,6 @@
 'use client';
 
-import EmotionImage from '@/common/components/ui/EmotionImage';
-import { EMOTIONS } from '@/common/constants/emotions';
+import Image from 'next/image';
 import { cn } from '@/common/utils/cn';
 
 interface LogoProps {
@@ -15,7 +14,7 @@ const Logo = ({ withText = false, rootClassName, logoClassName, textClassName }:
   return (
     <div className={cn("flex flex-col items-center justify-center gap-2", rootClassName)}>
       <div className="flex items-center justify-center">
-        <EmotionImage emotion={EMOTIONS[6]} className={logoClassName} alt="TOOK Logo" priority />
+        <Image src="/icon/icon.png" width={64} height={64} sizes="64px" className={cn('h-auto max-w-full', logoClassName)} alt="TOOK Logo" priority />
       </div>
       {withText && <span
         className={cn('uppercase  leading-[1.2] text-theme-text-primary', textClassName)}
