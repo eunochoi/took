@@ -10,7 +10,7 @@
   --theme-accent: 140 173 226;
   --theme-accent-light: 240 247 255;
   --theme-accent-deep: 124 155 206;
-  --theme-accent-text: color-mix(in srgb, rgb(var(--theme-accent)) 53%, #000);
+  --theme-accent-text: color-mix(in srgb, rgb(var(--theme-accent)) 70%, #000);
   --theme-bg-light: 246 248 250;
   --theme-bg: var(--theme-bg-light);
   --theme-surface: 255 255 255;
@@ -113,7 +113,7 @@ html[data-theme-mode='밝게'] {
 
 html[data-theme-mode='어둡게'] {
   --theme-accent-light: 38 38 38;
-  --theme-accent-text: color-mix(in srgb, rgb(var(--theme-accent)) 55%, #fff);
+  --theme-accent-text: color-mix(in srgb, rgb(var(--theme-accent)) 70%, #fff);
   --theme-bg: 38 38 38;
   --theme-surface: 60 60 60;
   --theme-surface-muted: 80 80 80;
