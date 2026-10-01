@@ -60,6 +60,7 @@ dialog::backdrop {
 }
 
 * {
+  touch-action: pan-x pan-y;
   scrollbar-width: none;
   -ms-overflow-style: none;
 
