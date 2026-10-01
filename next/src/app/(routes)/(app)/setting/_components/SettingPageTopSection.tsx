@@ -1,19 +1,19 @@
 'use client';
 
 import AppPageTitle from "@/common/components/layout/AppPageTitle";
-import { TopSectionCatClass, TopSectionCatSize } from "@/common/constants/TopSectionCat";
+import { TopSectionCatSize, TopSectionIconCatClass } from "@/common/constants/TopSectionCat";
 import Image from "next/image";
-import { twMerge } from "tailwind-merge";
-import hidingCat from "/public/img/hiding-cat/hiding-cat.png";
+import cat from '/public/img/hiding-cat/hiding-cat-icon.png';
+
 
 const SettingPageTopSection = () => {
   return (
-    <section>
-      <AppPageTitle title="앱 설정" description="나에게 편안한 기록 공간을 만들어요" />
-      <div>
-        <Image priority src={hidingCat} alt="" sizes={TopSectionCatSize} className={twMerge(TopSectionCatClass)} />
-      </div>
-    </section>
+    <>
+      <section className="px-[5dvw] pt-[5dvw] tablet:px-9 tablet:pt-6 desktop:px-14">
+        <AppPageTitle title="앱 설정" description="나에게 편안한 기록 공간을 만들어요" />
+      </section>
+      <Image priority src={cat} alt="hiding-cat" sizes={TopSectionCatSize} className={TopSectionIconCatClass} />
+    </>
   );
 };
 

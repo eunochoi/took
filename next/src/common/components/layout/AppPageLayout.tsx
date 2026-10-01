@@ -19,7 +19,7 @@ interface Props {
   bottomSafeClassName?: string;
 }
 
-export const TOP_SECTION_WRAPPER_CLASS = "w-full px-[5dvw] pt-[5dvw] bg-theme-accent-light tablet:px-9 tablet:pt-6 desktop:px-14";
+export const TOP_SECTION_WRAPPER_CLASS = "w-full bg-theme-accent-light";
 
 const AppPageLayout = ({ topSection, mainSection, pageRef, showScrollToTop = false, toolbar, bottomSectionClass, bottomSafeClassName }: Props) => {
   const layoutRef = useRef<HTMLDivElement>(null);
