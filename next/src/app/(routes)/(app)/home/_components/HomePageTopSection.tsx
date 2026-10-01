@@ -5,14 +5,14 @@ import { ko } from 'date-fns/locale';
 import Image from 'next/image';
 import { MdCheckBox, MdChevronRight, MdMenuBook } from 'react-icons/md';
 
-import cat from '/public/img/hiding-cat/hiding-cat-icon.png';
+import cat from '/public/img/hiding-cat/hiding-cat-home.png';
 
 
 import { AppSurfaceCard } from '@/common/components/ui/AppSurfaceCard';
 import EmotionImage from '@/common/components/ui/EmotionImage';
 import Wordmark from '@/common/components/ui/Wordmark';
 import { EMOTIONS } from '@/common/constants/emotions';
-import { TopSectionCatSize, TopSectionIconCatClass } from '@/common/constants/TopSectionCat';
+import { HomeTopSectionCatClass, TopSectionCatSize } from '@/common/constants/TopSectionCat';
 import { cn } from '@/common/utils/cn';
 import TodayRecordSection from './TodayRecordSection';
 
@@ -65,7 +65,7 @@ const HomePageTopSection = ({ initialDate, loading = false }: { initialDate: str
           )}
         </div>
       </section>
-      <Image priority src={cat} alt="hiding-cat" sizes={TopSectionCatSize} className={TopSectionIconCatClass} />
+      <Image priority src={cat} alt="hiding-cat" sizes={TopSectionCatSize} className={HomeTopSectionCatClass} />
     </>
 
   );
