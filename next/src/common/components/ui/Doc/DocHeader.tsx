@@ -35,7 +35,7 @@ const DocHeader = ({ description, subtitle, title }: Props) => {
           <p className="m-0 text-base font-bold text-theme-accent">{subtitle}</p>
         </div>
         {description ? (
-          <p className="m-0 max-w-[520px] text-balance break-keep text-sm leading-relaxed text-theme-text-secondary tablet:text-base">{description}</p>
+          <p className="m-0 max-w-[520px] break-keep text-sm leading-relaxed text-theme-text-secondary tablet:text-base">{description}</p>
         ) : null}
         <Image src={hidingCat} alt="" sizes="(min-width: 784px) 360px, (min-width: 480px) calc(50vw - 32px), calc(100vw - 40px)" className="ml-auto block w-full tablet:w-1/2" />
       </div>
