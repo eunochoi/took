@@ -1,5 +1,5 @@
 const HabitPageSkeleton = () => (
-  <section className="pb-4 grid w-full gap-6 p-2 animate-pulse motion-reduce:animate-none desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8" role="status" aria-label="습관 목록 불러오는 중">
+  <section className="pt-4 grid w-full gap-6 p-2 animate-pulse motion-reduce:animate-none desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8" role="status" aria-label="습관 목록 불러오는 중">
     <div className="flex min-w-0 flex-col gap-6" aria-hidden="true">
       <div className="h-24 w-full rounded-xl bg-theme-skeleton desktop:hidden" />
       <div className="grid w-full grid-cols-2 gap-3">

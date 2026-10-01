@@ -1,5 +1,5 @@
 const DiaryPageSkeleton = () => (
-  <section className="pb-4 grid w-full gap-6 p-2 animate-pulse motion-reduce:animate-none desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8" role="status" aria-label="일기 목록 불러오는 중">
+  <section className="pt-4 grid w-full gap-6 p-2 animate-pulse motion-reduce:animate-none desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:items-start desktop:gap-x-8" role="status" aria-label="일기 목록 불러오는 중">
     <div className="flex min-w-0 flex-col gap-4" aria-hidden="true">
       {Array.from({ length: 3 }, (_, index) => (
         <div key={index} className="h-40 w-full rounded-xl bg-theme-skeleton" />

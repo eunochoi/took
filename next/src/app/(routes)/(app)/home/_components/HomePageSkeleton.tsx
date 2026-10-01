@@ -1,6 +1,6 @@
 const HomePageSkeleton = () => (
   <section
-    className="pb-4 grid w-full min-w-0 flex-1 grid-cols-1 items-start gap-14 pt-3 animate-pulse motion-reduce:animate-none desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8"
+    className="pt-4 grid w-full min-w-0 flex-1 grid-cols-1 items-start gap-14 animate-pulse motion-reduce:animate-none desktop:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] desktop:gap-x-8"
     role="status"
     aria-label="홈 기록 불러오는 중"
   >
