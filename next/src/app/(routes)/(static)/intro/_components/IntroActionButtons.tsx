@@ -1,59 +1,44 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { FaGooglePlay } from 'react-icons/fa';
-import { MdInstallMobile, MdLanguage } from 'react-icons/md';
+import { MdArrowForward, MdInstallMobile } from 'react-icons/md';
 
 import { cn } from '@/common/utils/cn';
 import { usePwaInstall } from '../_hooks/usePwaInstall';
+import { introActionClass, introIconClass } from '../_styles/classes';
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.everstamp&pcampaignid=web_share';
+const secondaryActionClass = cn(introActionClass, 'px-2 text-sm text-theme-text-secondary hover:bg-theme-accent-light hover:text-theme-accent-text');
 
 interface IntroActionButtonsProps {
-  tone?: 'light' | 'dark';
   className?: string;
 }
 
-const buttonLayoutClass = "inline-flex min-h-[46px] items-center justify-center gap-2 whitespace-nowrap px-4 max-[420px]:flex-[1_1_100%]";
-const buttonThemeClass = "rounded-theme  text-base font-medium leading-none text-theme-text-primary shadow-card border border-theme-accent/30";
-const buttonMotionClass = "transition-[transform,background-color] duration-[180ms] active:translate-y-px";
-const buttonClass = cn(buttonLayoutClass, buttonThemeClass, buttonMotionClass);
-const iconClass = "h-5 w-5 shrink-0";
-
-const IntroActionButtons = ({ tone = 'light', className }: IntroActionButtonsProps) => {
-  const router = useRouter();
+const IntroActionButtons = ({ className }: IntroActionButtonsProps) => {
   const { installPwa } = usePwaInstall();
 
-  const startInWeb = () => {
-    router.push('/login');
-  };
-
   return (
-    <div className={cn("flex w-auto flex-wrap justify-start gap-3", className)}>
-      <button
-        className={cn(buttonClass, tone === 'dark' ? 'bg-theme-surface/78' : 'bg-theme-bg')}
-        type="button"
-        onClick={startInWeb}
+    <div className={cn('flex flex-col items-center gap-2', className)}>
+      <Link
+        href="/login"
+        className={cn(introActionClass,
+          'bg-theme-surface w-full max-w-[280px]  px-7 font-bold text-theme-accent-text ring-1 ring-inset ring-theme-accent/40 hover:bg-theme-accent/30',
+        )}
       >
-        <MdLanguage className={cn(iconClass, 'text-theme-accent')} aria-hidden="true" />
-        웹에서 실행
-      </button>
-      <button
-        className={cn(buttonClass, tone === 'dark' ? 'bg-theme-surface/78' : 'bg-theme-bg')}
-        type="button"
-        onClick={installPwa}
-      >
-        <MdInstallMobile className={cn(iconClass, 'text-theme-accent')} aria-hidden="true" />
-        PWA 설치
-      </button>
-      <button
-        className={cn(buttonClass, tone === 'dark' ? 'bg-theme-surface/78' : 'bg-theme-bg')}
-        type="button"
-        onClick={() => router.push(PLAY_STORE_URL)}
-      >
-        <FaGooglePlay className={cn(iconClass, 'text-theme-accent')} aria-hidden="true" />
-        Play Store
-      </button>
+        웹에서 시작하기
+        <MdArrowForward className={introIconClass} aria-hidden="true" />
+      </Link>
+      <div className="flex flex-wrap items-center justify-center gap-x-3">
+        <a href={PLAY_STORE_URL} className={secondaryActionClass}>
+          <FaGooglePlay className={introIconClass} aria-hidden="true" />
+          Play Store
+        </a>
+        <button type="button" onClick={installPwa} className={secondaryActionClass}>
+          <MdInstallMobile className={introIconClass} aria-hidden="true" />
+          홈 화면에 설치
+        </button>
+      </div>
     </div>
   );
 };

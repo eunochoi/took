@@ -1,41 +1,43 @@
-import Image from 'next/image';
 
 import Wordmark from '@/common/components/ui/Wordmark';
+import { cn } from '@/common/utils/cn';
+import Image from 'next/image';
+import { introContainerClass, introContentClass, introDescriptionClass, introSectionClass } from '../_styles/classes';
 import IntroActionButtons from './IntroActionButtons';
-import hidingCat from '/public/img/hiding-cat/hiding-cat.png';
+import IntroVisual from './IntroVisual';
+import cat from '/public/img/hiding-cat/hiding-cat-no-item.png';
+import introHeroPic from '/public/img/intro/intro-hero.png';
 
-const heroSectionClass = "flex min-h-[80dvh] w-full flex-col overflow-hidden bg-theme-surface px-5 pt-12 desktop:flex-row desktop:gap-8 desktop:px-[min(6vw,96px)]";
-const heroContentClass = "flex flex-col items-start justify-between gap-12 px-1 py-6 text-start desktop:w-auto desktop:items-start desktop:gap-16 desktop:px-6 desktop:py-16 desktop:text-left";
-const heroImageClass = "mt-auto flex items-end justify-center tablet:justify-center desktop:flex-1 desktop:shrink-0";
 
-const IntroHero = () => {
-  return (
-    <section className={heroSectionClass}>
-      <div className={heroContentClass}>
-        <div className="flex flex-col w-full items-start gap-2">
-          <Wordmark className="mb-3 text-7xl desktop:8xl" />
-          <span className="rounded-full bg-theme-bg px-3 py-1 border border-theme-accent/30 text-xs font-semibold tracking-[0.08em] text-theme-accent">
-            EMOTION DIARY & HABIT TRACKER
-          </span>
-        </div>
-
-        <div className="flex flex-col gap-6 w-full p-2">
-          <h1 className="flex flex-col gap-2 m-0 break-keep text-2xl font-bold tracking-tight leading-[1.2] text-theme-text-primary desktop:text-5xl desktop:leading-[1.12]">
-            <span>감정도 툭! 습관도 툭!</span>
-            <span>조금 더 나은 나로 To OK</span>
-          </h1>
-          <p className="m-0 flex flex-col gap-1 break-keep text-lg text-theme-text-secondary desktop:text-xl">
-            <span>습관과 감정을 기록하고</span>
-            <span>나만의 속도로 하루를 쌓아가요.</span>
-          </p>
-        </div>
-        <IntroActionButtons className="p-0 desktop:justify-start" />
+const IntroHero = () => (
+  <section className={cn(introSectionClass, '!bg-theme-accent-light relative')}>
+    <div className={cn(introContainerClass, 'grid items-center gap-10 desktop:min-h-[560px] desktop:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] desktop:gap-16')}>
+      <div className={cn(introContentClass, '!gap-10')}>
+        <Wordmark className="text-6xl desktop:text-7xl" />
+        <h1 className="m-0 break-keep text-4xl font-bold leading-tight tracking-tight text-theme-text-primary desktop:text-6xl">
+          오늘을, <span className="text-theme-accent-text">툭!</span>
+        </h1>
+        <p className={introDescriptionClass}>
+          {'감정과 습관을 가볍게 남기고\n쌓여가는 나의 하루를 돌아보세요.'}
+        </p>
+        <IntroActionButtons className="mt-2 desktop:items-start" />
       </div>
-      <div className={heroImageClass}>
-        <Image priority src={hidingCat} alt="hiding-cat" sizes="(min-width: 1024px) 40vw, (min-width: 480px) 66vw, calc(100vw - 40px)" className="tablet:w-2/3 desktop:w-full" />
+      <div className="relative">
+        <IntroVisual
+          priority
+          src={introHeroPic}
+          alt="hero-image"
+        />
       </div>
-    </section>
-  );
-};
+    </div>
+    <Image
+      priority
+      src={cat}
+      alt="화면 아래에서 고개를 내민 블루 고양이"
+      // sizes="(min-width: 1024px) 900px, 65vw"
+      className="absolute bottom-0 right-0 w-1/2 max-w-[300px]"
+    />
+  </section>
+);
 
 export default IntroHero;
