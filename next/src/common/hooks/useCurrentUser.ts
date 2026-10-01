@@ -19,6 +19,8 @@ export const useCurrentUser = (options: CurrentUserQueryOptions = {}) => {
   const { redirectOnAuthError = true, ...queryOptionsOverride } = options;
 
   const queryOptions = {
+    // 인증 실패 시 이동 여부는 조회 데이터를 바꾸지 않으므로 사용자 캐시를 공유
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: ['user'],
     queryFn: () => authAction(getCurrentUser, { redirectOnAuthError }),
     ...queryOptionsOverride,
