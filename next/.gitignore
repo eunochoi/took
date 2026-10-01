@@ -1,20 +1,8 @@
-# PWA 관련 파일 (깃허브에 올리지 마!)
-public/sw.js
-public/sw.js.map
-public/workbox-*.js
-public/workbox-*.js.map
-public/fallback-*.js
-public/fallback-*.js.map
-public/worker-*.js
-
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-
-sw.js
-workbox
 
 .env
 .env.local

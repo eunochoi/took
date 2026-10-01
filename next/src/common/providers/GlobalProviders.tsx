@@ -4,7 +4,6 @@ import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
 import { NoticeHost } from "../components/ui/Notice/NoticeHost";
 import { SystemBars } from '../components/layout/SystemBars';
-import { ServiceWorkerRegister } from "../utils/ServiceWorker/ServiceWorkerRegister";
 import RQProvider from "./reactQuery/ReactQueryProvider";
 
 interface Props {
@@ -22,7 +21,6 @@ export const GlobalProviders = ({ children }: Props) => {
     <SessionProvider>
       <RQProvider>
         <NoticeHost />
-        <ServiceWorkerRegister />
         <SystemBars />
         {children}
       </RQProvider>
