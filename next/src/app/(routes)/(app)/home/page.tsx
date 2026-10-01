@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
 import { statsQueries } from "@/common/queries/statsQueries";
@@ -12,6 +14,11 @@ interface Props {
     year?: string;
   };
 }
+
+export const metadata: Metadata = {
+  title: '홈',
+  description: '선택한 연도의 감정과 습관 기록을 살펴보고 오늘의 기록을 시작해요.',
+};
 
 const HomeServerPage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();

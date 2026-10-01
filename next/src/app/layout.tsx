@@ -6,7 +6,10 @@ import { THEME_BG_DARK_MODE, THEME_LOCAL_STORAGE_KEY, THEME_VALUE } from "@/comm
 
 
 export const metadata: Metadata = {
-  title: "took",
+  title: {
+    default: 'took',
+    template: '%s - took',
+  },
   description: "감정도 툭! 습관도 툭! 조금 더 나은 나로 To OK. 습관과 감정을 기록하고 나만의 속도로 하루를 쌓아가요.",
   manifest: "/manifest.json",
   icons: {

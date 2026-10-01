@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+
 import { EMOTION_UNSELECTED, MONTH_UNSELECTED } from "@/common/constants/filterDefaults";
 import { diaryQueries } from "@/common/queries/diaryQueries";
 import { unwrapQueryAction } from "@/common/queries/queryAction";
@@ -11,6 +13,11 @@ interface Props {
     emotion?: string;
   };
 }
+
+export const metadata: Metadata = {
+  title: '일기 목록',
+  description: '작성한 감정 일기를 모아 보고 기간과 감정으로 찾아보세요.',
+};
 
 const DiaryServerPage = async ({ searchParams }: Props) => {
   const queryClient = new QueryClient();

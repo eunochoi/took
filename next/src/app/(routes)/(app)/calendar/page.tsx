@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
 
 import { diaryQueries } from '@/common/queries/diaryQueries';
@@ -5,6 +7,11 @@ import { habitQueries } from '@/common/queries/habitQueries';
 import { unwrapQueryAction } from '@/common/queries/queryAction';
 import { getTodayStringInUserTimezone } from '@/common/utils/date/userTimezone';
 import CalendarClientPage from './CalendarClientPage';
+
+export const metadata: Metadata = {
+  title: '월간 기록',
+  description: '달력에서 날짜별 감정과 일기, 습관 기록을 확인해요.',
+};
 
 const CalendarServerPage = async () => {
   const initialDate = await getTodayStringInUserTimezone();
