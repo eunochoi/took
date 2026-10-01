@@ -7,14 +7,14 @@ import type { CSSProperties } from 'react';
 import { useEffect } from 'react';
 
 import { authAction } from '@/common/auth/authAction';
-import { diaryQueries } from '@/common/queries/diaryQueries';
-import { unwrapQueryAction } from '@/common/queries/queryAction';
 import { CalendarDay } from '@/common/components/ui/Calendar/CalendarDay';
 import { CalendarGrid } from '@/common/components/ui/Calendar/CalendarGrid';
 import { CalendarDayModel, useMonthCalendar } from '@/common/components/ui/Calendar/useMonthCalendar';
 import { useMonthSwipe } from '@/common/components/ui/Calendar/useMonthSwipe';
 import { CALENDAR_BADGE_SCALE } from '@/common/constants/calendar';
 import { Emotion, EMOTIONS } from '@/common/constants/emotions';
+import { diaryQueries } from '@/common/queries/diaryQueries';
+import { unwrapQueryAction } from '@/common/queries/queryAction';
 import type { DateKey, DiaryHabitDayData } from '@/common/types/calendar';
 import { cn } from '@/common/utils/cn';
 import { parseLocalDate } from '@/common/utils/date/parseLocalDate';
@@ -107,8 +107,8 @@ const DiaryHabitMonthCalendar = ({ today, selectedDate, onSelectDate }: Props) =
                   )}
                   {habitCount > 0 && (
                     <span className={cn(
-                      "flex items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent-deep h-7 w-7 text-sm font-semibold text-theme-text-on-accent",
-                      emotion ? "absolute -top-1 -right-2" : "[--calendar-badge-scale:1.3] scale-[var(--calendar-badge-scale)]",
+                      "flex items-center justify-center rounded-[50%_45%_55%_50%/60%_50%_50%_55%] bg-theme-accent-deep h-6 w-6 text-xs font-semibold text-theme-text-on-accent",
+                      emotion ? "absolute -top-1 -right-2" : "[--calendar-badge-scale:1.2] scale-[var(--calendar-badge-scale)]",
                       isSelected && (emotion
                         ? 'motion-safe:animate-calendar-selected-bounce'
                         : 'motion-safe:animate-calendar-selected-badge-bounce'),
