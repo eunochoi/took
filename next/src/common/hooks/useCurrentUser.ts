@@ -2,9 +2,9 @@
 
 import { useQuery } from '@tanstack/react-query';
 
+import { getCurrentUser, type CurrentUser } from '@/common/actions/user';
 import { authAction } from '@/common/auth/authAction';
 import type { AuthActionError } from '@/common/auth/types';
-import { getCurrentUser, type CurrentUser } from '@/common/actions/user';
 
 type CurrentUserQueryOptions = {
   staleTime?: number;
