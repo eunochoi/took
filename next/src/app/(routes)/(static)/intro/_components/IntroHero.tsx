@@ -33,8 +33,8 @@ const IntroHero = () => (
     <Image
       priority
       src={cat}
-      alt="화면 아래에서 고개를 내민 블루 고양이"
-      // sizes="(min-width: 1024px) 900px, 65vw"
+      alt="hiding-cat"
+      sizes="(min-width: 1024px) 900px, 65vw"
       className="absolute bottom-0 right-0 w-1/2 max-w-[300px]"
     />
   </section>
