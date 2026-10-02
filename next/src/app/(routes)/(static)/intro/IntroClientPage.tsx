@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { MdLockOutline, MdLogin, MdPalette } from 'react-icons/md';
 
 import { ScrollContainer } from '@/common/components/ui/ScrollContainer';
@@ -67,6 +68,17 @@ const IntroClientPage = () => (
         <IntroActionButtons className="mt-2" />
       </div>
     </section>
+    <footer className="bg-theme-accent-light flex flex-col items-center gap-4 px-6 py-8 text-sm text-theme-text-secondary">
+      <nav aria-label="서비스 정책" className="flex flex-wrap justify-center gap-x-6 gap-y-3">
+        <Link href="/privacy" className="hover:underline focus-visible:outline-2 focus-visible:outline-theme-accent">
+          개인정보처리방침
+        </Link>
+        <Link href="/account-deletion" className="hover:underline focus-visible:outline-2 focus-visible:outline-theme-accent">
+          계정 삭제
+        </Link>
+      </nav>
+      <p>eooooostudio</p>
+    </footer>
     <div className='w-full bg-theme-accent-light'>
       <Image
         src={cat}
