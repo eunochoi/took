@@ -63,7 +63,7 @@ const IntroClientPage = () => (
       <div className={cn(introContainerClass, 'flex flex-col items-center gap-10 text-center')}>
         <Wordmark className="text-5xl desktop:text-6xl" />
         <h2 className={introTitleClass}>툭, 남기다 보면<br />조금씩 괜찮아질 거예요.</h2>
-        <p className={introDescriptionClass}>Took — 하루를 툭, To OK.</p>
+        <p className={introDescriptionClass}>took — 하루를 툭, To OK.</p>
         <IntroActionButtons className="mt-2" />
       </div>
     </section>

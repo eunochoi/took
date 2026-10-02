@@ -22,12 +22,12 @@ const AccountDeletionClientPage = () => {
       <DocHeader
         title="계정 삭제"
         subtitle="Account deletion"
-        description="'툭 - 감정 · 일기 · 습관 관리' 앱의 계정 및 관련 데이터 삭제 안내입니다. 앱을 설치하지 않아도 이 페이지에서 본인 확인 후 회원 탈퇴를 완료할 수 있습니다."
+        description="'툭 took - 감정 일기 · 습관 관리' 앱의 계정 및 관련 데이터 삭제 안내입니다. 앱을 설치하지 않아도 이 페이지에서 본인 확인 후 회원 탈퇴를 완료할 수 있습니다."
       />
       <DocContent
         title="계정 삭제 방법"
         paragraphs={[
-          '앱 이름: 툭 - 감정 · 일기 · 습관 관리',
+          '앱 이름: 툭 took - 감정 일기 · 습관 관리',
           '개발자: eooooostudio',
           '가입에 사용한 Google 계정으로 아래에서 로그인한 후, 확인 문구 ‘회원탈퇴’를 입력하고 ‘회원 탈퇴’ 버튼을 선택해주세요.',
           '회원 탈퇴가 완료되면 계정과 아래 데이터가 삭제되며 복구할 수 없습니다. Google 계정 자체가 삭제되는 것은 아닙니다.',
